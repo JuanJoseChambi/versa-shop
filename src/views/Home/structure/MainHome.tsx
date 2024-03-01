@@ -1,7 +1,7 @@
 
 function MainHome() {
   return (
-    <main>main</main>
+    <main className="w-full h-screen flex justify-center items-center">main</main>
   )
 }
 
