@@ -1,7 +1,6 @@
-// import FooterHome from "./structure/FooterHome";
 import Nav from "../../components/Nav/Nav";
 import HeaderHome from "./structure/HeaderHome";
-// import MainHome from "./structure/MainHome";
+import MainHome from "./structure/MainHome";
 
 function Home() {
   return (
@@ -9,10 +8,10 @@ function Home() {
         <Nav/>
         <HeaderHome/>
 
-        {/* <MainHome/> */}
+        <MainHome/>
 
         {/* <FooterHome/> */}
-        
+
     </>
   )
 }
