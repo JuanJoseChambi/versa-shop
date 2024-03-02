@@ -7,7 +7,7 @@ function Nav() {
 
   return (
     <nav className="w-[95%] mx-auto flex justify-between items-center py-4 fixed left-0 right-0 z-[100]">
-        <h2 className="font-bold text-2xl">Versa</h2>
+        <h2 className="font-bold text-2xl font-noto">Versa</h2>
 
         <section className="space-x-5">
             <Button 

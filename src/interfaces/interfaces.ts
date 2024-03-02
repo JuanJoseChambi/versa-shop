@@ -1,3 +1,4 @@
+// --------------- Component Button --------------------
 export interface ButtonProp {
     icon?:string;
     text?:string;
@@ -10,6 +11,7 @@ export interface ApiResponse<T> {
     error?:Error | null;
     loading?:boolean;
 }
+// -----------------------------------------------------
 interface Product {
     _id:string;
     name: string
@@ -27,11 +29,11 @@ interface Product {
 }
 export interface AllProducts {
     TotalResults: number;
-    results:Product[]
+    results:Product[];
 }
 
 export interface ResponseAllProducts {
-    data: AllProducts | null;
+    data: AllProducts | undefined;
     error:Error | null;
     loading:boolean;
 }
