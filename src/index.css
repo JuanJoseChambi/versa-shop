@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Onest:wght@100..900&display=swap');
-
+/* @import url('https://fonts.googleapis.com/css2?family=Onest:wght@100..900&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Display:ital,wght@0,100..900;1,100..900&family=Onest:wght@100..900&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -8,6 +8,12 @@
     .area {
         @apply max-w-screen-xl w-[95%] mx-auto overflow-hidden
     }
+}
+.bgRadial{
+    background: radial-gradient(circle at top, #d2d1d1cc 0%, #686868cc 25%, #3a3737 50%,#1C1818 100%);
+}
+body{
+    background-color: #FDFDFD;
 }
 
 .font-onest {
