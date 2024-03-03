@@ -1,7 +1,9 @@
 
 function FooterHome() {
   return (
-    <footer>footer</footer>
+    <footer>
+      
+    </footer>
   )
 }
 
