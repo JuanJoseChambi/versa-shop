@@ -9,6 +9,9 @@
         @apply max-w-screen-xl w-[95%] mx-auto overflow-hidden
     }
 }
+.bgRadial{
+    background: radial-gradient(circle at top, #d2d1d1cc 0%, #686868cc 25%, #3a3737 50%,#1C1818 100%);
+}
 body{
     background-color: #FDFDFD;
 }

@@ -1,5 +1,5 @@
 import Nav from "../../components/Nav/Nav";
-// import FooterHome from "./structure/FooterHome";
+import FooterHome from "./structure/FooterHome";
 import HeaderHome from "./structure/HeaderHome";
 import MainHome from "./structure/MainHome";
 
@@ -11,7 +11,7 @@ function Home() {
 
         <MainHome/>
 
-        {/* <FooterHome/> */}
+        <FooterHome/>
 
     </>
   )

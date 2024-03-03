@@ -86,7 +86,7 @@ function MainHome() {
             <p className="area w-[70%] z-0 text-center text-white font-noto tracking-widest">Sumérgete en la experiencia de Versa, donde tus elecciones de moda y tecnología se entrelazan con tu historia personal. Cada compra es un paso más hacia la expresión auténtica de tu estilo de vida.</p>
       </section>
 
-      <article className="area h-[300px] flex flex-col justify-center items-center space-y-5">
+      <article className="area flex flex-col justify-center items-center space-y-5 py-28">
           <h2 className="text-4xl font-noto font-light tracking-widest">Únete a nuestra comunidad</h2>
           <p className="text-sm font-light">Recibe actualizaciones, ofertas y contenido exclusivo directamente en tu bandeja de entrada. No te pierdas nada.</p>
 
