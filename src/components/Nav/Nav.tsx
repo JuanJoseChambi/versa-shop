@@ -1,18 +1,24 @@
 import { useState } from "react"
 import Button from "../Button/Button"
+import Cart from "../Cart/Cart"
 
-function Nav() {
+interface styleProp {
+    style?:string
+}
 
+function Nav({style}:styleProp) {
+    const [cartVisible, setCartVisible] = useState<boolean>(false)
     const [hover, setHover] = useState<string | null>()
 
   return (
-    <nav className="w-[95%] mx-auto flex justify-between items-center py-4 fixed left-0 right-0 z-[100]">
+    <nav className={`w-[95%] mx-auto flex justify-between items-center py-4 fixed left-0 right-0 z-[100] ${style}`}>
         <h2 className="font-bold text-2xl font-noto">Versa</h2>
 
         <section className="space-x-5">
             <Button 
                 style="text-xs font-semibold tracking-widest" 
-                text="PRODUCTOS"/>
+                text="TIENDA"
+                dir="/shop"/>
             <Button 
                     style="text-xs font-semibold tracking-widest" 
                     text="NOSOTROS"/>
@@ -28,10 +34,11 @@ function Nav() {
                 <Button icon="bx bx-search" style="pl-2 py-1"/>
             </div>
 
-            <Button icon="bx bx-cart" style="text-lg"/>
-            <Button icon="bx bx-user" style="text-lg"/>                
+            <Button icon="bx bx-cart" style="text-lg" onClick={() => setCartVisible(!cartVisible)}/>
+            <Button icon="bx bx-user" style="text-lg" dir="/signup"/>                
             
         </div>
+        <Cart visible={cartVisible} onClose={() => setCartVisible(!cartVisible)}/>
     </nav>
   )
 }

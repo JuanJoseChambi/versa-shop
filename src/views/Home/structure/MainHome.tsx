@@ -7,7 +7,7 @@ import flowerWhite from "../../../assets/asHome/FlowerWhite.png"
 function MainHome() {
   const [dataProducts,setDataProducts] = useState<AllProducts | undefined>(undefined)
   
-  const { data, error, loading } = useApi("https://product-api-backend-production.up.railway.app/api/v1/product/filter/?category=busos&type=tecnologia");
+  const { data } = useApi("https://product-api-backend-production.up.railway.app/api/v1/product/filter/?category=busos&type=tecnologia");
   // const { data, error, loading } = useApi("https://product-api-backend-production.up.railway.app/api/v1/product/filter/?category=busos");
   
 
