@@ -37,3 +37,13 @@ export interface ResponseAllProducts {
     error:Error | null;
     loading:boolean;
 }
+
+// Register User ----------------------------------------
+export interface UserProp {
+    name:string | undefined;
+    lastname:string | undefined;
+}
+export interface DataUser {
+    user_id?:string;
+    error?:string;
+}

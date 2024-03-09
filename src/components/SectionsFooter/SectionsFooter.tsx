@@ -6,20 +6,20 @@ interface Options {
 
 interface SectionFooterProp {
     styleUl?:string;
-    styleLi?:string;
+    styleA?:string;
     styleTitle?:string
     widthUl?:string;
     heightUl?:string;
     options:Options[];
 }
 
-function SectionsFooter({styleUl, styleLi, styleTitle, widthUl = "180px", heightUl = "200px", options }:SectionFooterProp) {
+function SectionsFooter({styleUl, styleA, styleTitle, widthUl = "180px", heightUl = "200px", options }:SectionFooterProp) {
   return (
     <ul className={`${styleUl} w-[${widthUl}] h-[${heightUl}]`}>
         {options.map(option => (
-            <li className={styleLi}>
+            <li>
                 {option.url != null 
-                ? (<a href={option.url}>{option.text}</a>) 
+                ? (<a href={option.url}  className={styleA}>{option.text}</a>) 
                 : (<span className={styleTitle}>{option.text}</span>)}
             </li>
         ))}

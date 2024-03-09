@@ -29,7 +29,7 @@ function Nav() {
             </div>
 
             <Button icon="bx bx-cart" style="text-lg"/>
-            <Button icon="bx bx-user" style="text-lg"/>                
+            <Button icon="bx bx-user" style="text-lg" dir="/signup"/>                
             
         </div>
     </nav>

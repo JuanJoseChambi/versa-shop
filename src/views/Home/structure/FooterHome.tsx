@@ -6,14 +6,14 @@ function FooterHome() {
       <section className="py-10 flex justify-center items-center">
         <h2 className="font-noto font-light text-7xl text-white">Versa</h2>
       </section>
-      <section className=" flex justify-center items-start py-10">
+      <section className="flex justify-center bg-blued-500 items-start py-10">
         
-        <nav className="w-[70%] bg-redd-500 flex justify-center items-center space-x-3">
+        <nav className="w-[50%] bg-redd-500 flex justify-evenly items-start space-x-3">
 
           <SectionsFooter 
-          styleUl="space-y-2"
-          styleLi="text-xs tracking-widest font-semibold text-[#777474] "
-          styleTitle="text-lg font-black tracking-widest"
+          styleUl="space-y-2 bg-greend-500"
+          styleA="text-xs tracking-widest font-semibold text-[#777474] hover:text-white transition-color duration-500"
+          styleTitle="text-sm font-black tracking-widest text-[#777474]"
           options={[
             {text:"SECCIONES", url:null},
             {text:"INICIO", url:"#"},
@@ -22,9 +22,9 @@ function FooterHome() {
             {text:"POLITICAS", url:"#"}
           ]}/>
           <SectionsFooter 
-          styleUl="space-y-2"
-          styleLi="text-xs tracking-widest font-semibold text-[#777474]"
-          styleTitle="text-lg font-black tracking-widest"
+          styleUl="space-y-2 bg-greend-500"
+          styleA="text-xs tracking-widest font-semibold text-[#777474] hover:text-white transition-color duration-500"
+          styleTitle="text-sm font-black tracking-widest text-[#777474]"
           options={[
             {text:"CATEGORIAS", url:null},
             {text:"ROPA", url:"#"},
@@ -36,8 +36,8 @@ function FooterHome() {
           ]}/>
           <SectionsFooter 
           styleUl="space-y-2"
-          styleLi="text-xs tracking-widest font-semibold text-[#777474]"
-          styleTitle="text-lg font-black tracking-widest"
+          styleA="text-xs tracking-widest font-semibold text-[#777474] hover:text-white transition-color duration-500"
+          styleTitle="text-sm font-black tracking-widest text-[#777474]"
           options={[
             {text:"REDES", url:null},
             {text:"INSTAGRAM", url:"#"},
@@ -47,7 +47,7 @@ function FooterHome() {
 
         </nav>
         
-        <article className="w-[30%] flex flex-col justify-center items-start">
+        {/* <article className="w-[20%] bg-blued-500 flex flex-col justify-center items-start">
           <h2 className="text-lg font-black tracking-widest text-[#777474]">CONTACTANOS</h2>
           <form className="flex justify-center items-start flex-col space-y-3">
 
@@ -64,7 +64,7 @@ function FooterHome() {
             </div>
 
           </form>
-        </article>
+        </article> */}
       
       </section>
 
@@ -77,29 +77,3 @@ function FooterHome() {
 }
 
 export default FooterHome
-
-
-// <ul className="w-[180px] h-[200px] bg-blue-500">
-//             <li>SECCIONES</li>
-//             <li>Inicio</li>
-//             <li>Tienda</li>
-//             <li>Nosotros</li>
-//             <li>Politicas</li>
-//           </ul>
-
-//           <ul className="w-[180px] h-[200px] bg-blue-500">
-//             <li>CATEGORIAS</li>
-//             <li>Ropa</li>
-//             <li>Tecnologia</li>
-//             <li>Electronica</li>
-//             <li>Accesorios</li>
-//             <li>Decoracion</li>
-//             <li>Muebles</li>
-//           </ul>
-
-//           <ul className="w-[180px] h-[200px] bg-blue-500">
-//             <li>REDES</li>
-//             <li>Instagram</li>
-//             <li>Twitter</li>
-//             <li>Gmail</li>
-//           </ul>
