@@ -3,7 +3,8 @@ export interface ButtonProp {
     icon?:string;
     text?:string;
     dir?:string | undefined
-    style?:string
+    style?:string;
+    onClick?: () => void;
 }
 // --------------- Hooks useApi ------------------------
 export interface ApiResponse<T> {
@@ -46,4 +47,16 @@ export interface UserProp {
 export interface DataUser {
     user_id?:string;
     error?:string;
+}
+// ProductDB --------------------------------------------
+export interface DataProduct {
+    product_id: string;
+    name:string;
+    image:string;
+    description:string;
+    price:number;
+    updatedAt:string;
+    createdAt:string;
+    TypeProduct:number | null;
+    CategoryProduct:number | null;
 }
