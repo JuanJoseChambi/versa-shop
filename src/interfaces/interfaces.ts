@@ -60,3 +60,12 @@ export interface DataProduct {
     TypeProduct:number | null;
     CategoryProduct:number | null;
 }
+// Redux Interfaces -------------------------------------
+export interface productsInCart {
+    id:string;
+    name:string;
+    image:string;
+    cantidad:number;
+    size:string;
+    price:number;
+}
