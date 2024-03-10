@@ -1,6 +1,8 @@
 import { useState } from "react"
 import Button from "../Button/Button"
 import Cart from "../Cart/Cart"
+import { useSelector } from "react-redux"
+import { RootState } from "../../redux/store"
 
 interface styleProp {
     style?:string
@@ -9,6 +11,9 @@ interface styleProp {
 function Nav({style}:styleProp) {
     const [cartVisible, setCartVisible] = useState<boolean>(false)
     const [hover, setHover] = useState<string | null>()
+
+    const { cart } = useSelector((state:RootState) => state.cart)
+
 
   return (
     <nav className={`w-[95%] mx-auto flex justify-between items-center py-4 fixed left-0 right-0 z-[100] ${style}`}>
@@ -34,7 +39,10 @@ function Nav({style}:styleProp) {
                 <Button icon="bx bx-search" style="pl-2 py-1"/>
             </div>
 
-            <Button icon="bx bx-cart" style="text-lg" onClick={() => setCartVisible(!cartVisible)}/>
+            <div className="relative flex justify-center items-center">
+            <Button icon="bx bx-cart" style="text-lg z-10" onClick={() => setCartVisible(!cartVisible)}/>
+            <div className="absolute -top-2 -right-2 text-[10px] px-1 bg-neutral-500 text-white rounded-full">{cart.length}</div>
+            </div>
             <Button icon="bx bx-user" style="text-lg" dir="/signup"/>                
             
         </div>
