@@ -1,17 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { productsInCart } from "../../interfaces/interfaces";
+import { ProductsInCart } from "../../interfaces/interfaces";
 
-
-
-
-interface cartState {
-    cart:productsInCart[]
+interface CartState {
+    cart:ProductsInCart[]
 }
 
 const cartLocal = localStorage.getItem("cart")
 
 
-const initialState:cartState = {
+const initialState:CartState = {
     cart: cartLocal ? JSON.parse(cartLocal) : []
 }
 
@@ -20,7 +17,7 @@ const cartSlice = createSlice ({
     name:"cart",
     initialState:initialState,
     reducers:{
-        addToCart: (state, action: PayloadAction<productsInCart>) => {
+        addToCart: (state, action: PayloadAction<ProductsInCart>) => {
             const product = action.payload;
             const productExist = state.cart.find(productCart => productCart.id === product.id)
             if (productExist) {
@@ -30,7 +27,7 @@ const cartSlice = createSlice ({
             }
             localStorage.setItem("cart",JSON.stringify(state.cart))
         },
-        removeToCart: (state, action:PayloadAction<productsInCart>) => {
+        removeToCart: (state, action:PayloadAction<ProductsInCart>) => {
             const product = action.payload;
             const productInCart = state.cart.find(productsInCart => productsInCart.id === product.id);
             if (productInCart && productInCart.cantidad >= 1) productInCart.cantidad -=1;
@@ -39,7 +36,7 @@ const cartSlice = createSlice ({
             }
             localStorage.setItem("cart",JSON.stringify(state.cart))
         },
-        deleteToCart: (state, action:PayloadAction<productsInCart>) => {
+        deleteToCart: (state, action:PayloadAction<ProductsInCart>) => {
             const product = action.payload;
             state.cart = state.cart.filter(products => products.id !== product.id)
             localStorage.setItem("cart",JSON.stringify(state.cart))

@@ -9,7 +9,34 @@ export interface ButtonProp {
 // --------------- Hooks useApi ------------------------
 export interface ApiResponse<T> {
     data?: T | null;
-    error?:Error | null;
+    error?: string | null;
+    loading?:boolean;
+}
+
+export interface CategoryData {
+    id:number;
+    category:string;
+}
+export interface TypeData {
+    id:number;
+    type:string;
+}
+export interface ColorData {
+    color_id:number;
+    color:string;
+}
+export interface SizeData {
+    size_id:number;
+    size:string;
+}
+
+
+export interface UseFilterResponse {
+    categories:CategoryData[] | undefined;
+    types: TypeData[] | undefined;
+    colors: ColorData[] | undefined;
+    sizes: SizeData[] | undefined;
+    error?:string | null;
     loading?:boolean;
 }
 // -----------------------------------------------------
@@ -61,7 +88,7 @@ export interface DataProduct {
     CategoryProduct:number | null;
 }
 // Redux Interfaces -------------------------------------
-export interface productsInCart {
+export interface ProductsInCart {
     id:string;
     name:string;
     image:string;
@@ -69,3 +96,4 @@ export interface productsInCart {
     size:string;
     price:number;
 }
+// Result Function Api Return -------------------------------------

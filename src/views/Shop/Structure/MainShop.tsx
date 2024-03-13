@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react"
 import useApi from "../../../hooks/useApi"
 import { DataProduct } from "../../../interfaces/interfaces"
-import { useDispatch, useSelector } from "react-redux"
-import { AppDispatch, RootState } from "../../../redux/store"
+import { useDispatch } from "react-redux"
+import { AppDispatch } from "../../../redux/store"
 import { addToCart } from "../../../redux/slice/cartSlice"
+import { useFilter } from "../../../hooks/useFilter"
 
 function MainShop() {
 
-    const counter = useSelector((state:RootState) => state.cart.cart);
     const dispatch:AppDispatch = useDispatch()
 
 
@@ -17,10 +17,10 @@ function MainShop() {
     useEffect(() => {
         
         setData(data as DataProduct[])
-
-        // console.log(counter);
         
-    },[data, counter])
+    },[data, ])
+
+    const {categories, types, colors, sizes} = useFilter()
 
 
   return (
@@ -29,25 +29,25 @@ function MainShop() {
             <h3 className="py-2 text-sm tracking-widest"><i className='bx bx-filter-alt'></i> Filtros</h3>
             <hr className="bg-neutral-400 h-[2px]"></hr>
             <section className="flex justify-center items-center flex-col gap-y-8 bg-redd-500 py-5">
-                <select name="" id="" className="w-[80%]">
-                    <option value="">Colores</option>
-                    <option value="">Gris</option>
-                    <option value="">Azul</option>
+                <select className="w-[80%]">
+                    {categories?.map((category) => (
+                        <option key={category.id} value={category.category}>{category.category}</option>
+                    ))}
                 </select>
-                <select name="" id="" className="w-[80%]">
-                    <option value="">Talles</option>
-                    <option value="">Gris</option>
-                    <option value="">Azul</option>
+                <select className="w-[80%]">
+                    {types?.map((type) => (
+                        <option key={type.id} value={type.type}>{type.type}</option>
+                    ))}
                 </select>
-                <select name="" id="" className="w-[80%]">
-                    <option value="">Categoria</option>
-                    <option value="">Gris</option>
-                    <option value="">Azul</option>
+                <select className="w-[80%]">
+                    {sizes?.map((size) => (
+                        <option key={size.size_id} value={size.size}>{size.size}</option>
+                    ))}
                 </select>
-                <select name="" id="" className="w-[80%]">
-                    <option value="">Tipo</option>
-                    <option value="">Gris</option>
-                    <option value="">Azul</option>
+                <select className="w-[80%]">
+                    {colors?.map((color) => (
+                        <option key={color.color_id} value={color.color}>{color.color}</option>
+                    ))}
                 </select>
                 <button className="w-full rounded-full py-3 text-sm text-white bg-neutral-800">Apilcar Filtro</button>
             </section>
