@@ -77,23 +77,47 @@ export interface DataUser {
 }
 // ProductDB --------------------------------------------
 export interface DataProduct {
-    product_id: string;
-    name:string;
-    image:string;
-    description:string;
-    price:number;
-    updatedAt:string;
-    createdAt:string;
-    TypeProduct:number | null;
-    CategoryProduct:number | null;
+    product_id:      string;
+    name:            string;
+    image:           string;
+    description:     string;
+    price:           number;
+    unit:            number;
+    Category:        Category;
+    Type:            Type;
+    Stocks:          Stock[];
 }
-// Redux Interfaces -------------------------------------
+
+export interface Category {
+    category: string;
+}
+
+export interface Stock {
+    unit:  number;
+    Size:  Size;
+    Color: Color;
+}
+
+export interface Color {
+    color: string;
+    hxacolor:string;
+}
+
+export interface Size {
+    size: string;
+}
+
+export interface Type {
+    type: string;
+}
+// Redux Interfaces : CART -------------------------------------
 export interface ProductsInCart {
     id:string;
     name:string;
     image:string;
+    price:number;
     cantidad:number;
     size:string;
-    price:number;
+    color:string
 }
 // Result Function Api Return -------------------------------------

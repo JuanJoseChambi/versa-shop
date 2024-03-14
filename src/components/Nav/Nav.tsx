@@ -3,6 +3,7 @@ import Button from "../Button/Button"
 import Cart from "../Cart/Cart"
 import { useSelector } from "react-redux"
 import { RootState } from "../../redux/store"
+import { Link } from "react-router-dom"
 
 interface styleProp {
     style?:string
@@ -17,7 +18,9 @@ function Nav({style}:styleProp) {
 
   return (
     <nav className={`w-[95%] mx-auto flex justify-between items-center py-4 fixed left-0 right-0 z-[100] ${style}`}>
-        <h2 className="font-bold text-2xl font-noto">Versa</h2>
+        <Link to={"/"}>
+            <h2 className="font-bold text-2xl font-noto">Versa</h2>
+        </Link>
 
         <section className="space-x-5">
             <Button 

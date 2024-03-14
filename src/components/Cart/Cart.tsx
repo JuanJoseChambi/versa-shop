@@ -26,8 +26,8 @@ function Cart({visible, onClose}:CartProp) {
         <section className=" w-full h-[20%] overflow-auto my-5 gap-y-3 flex flex-col justify-start items-center scroll bg-redd-500">
           {cart?.map((products) => (
             <article key={products.id} className="text-black w-full min-h-[100px] pr-3 flex justify-between items-center flex-row bg-blued-500">
-              <picture className="w-[80px] flex justify-center items-center">
-                <img src={products.image} alt="" />
+              <picture className="w-[80px] min-h-[80px] max-h-[80px] overflow-hidden bg-redd-500 flex justify-center items-center">
+                <img src={products.image} alt="" className="w-[90%]" />
               </picture>
 
               <article className=" w-[70%] min-h-[70px] bg-greend-500">
