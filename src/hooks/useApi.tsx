@@ -5,7 +5,7 @@ function useApi<T>(url: string, body?:T, method?: string): ApiResponse<T> {
     
   const [data, setData] = useState<T | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<Error | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   const fetchData = async () => {
     try {
@@ -28,7 +28,7 @@ function useApi<T>(url: string, body?:T, method?: string): ApiResponse<T> {
         setData(result);
     } catch (error) {
         console.error("Error fetching data:", error);
-        setError(error as Error);
+        setError(error as string);
     } finally {
         setLoading(false);
     }

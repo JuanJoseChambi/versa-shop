@@ -1,7 +1,5 @@
-interface ApiResponse<T> {
-  data: T | null;
-  error: string | null;
-}
+import { ApiResponse } from "../interfaces/interfaces";
+
 
 // Tipo genérico para el body
 type RequestBody<T> = T;
