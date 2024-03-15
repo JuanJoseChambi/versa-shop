@@ -6,6 +6,11 @@ export interface ButtonProp {
     style?:string;
     onClick?: () => void;
 }
+
+export interface TooltipProp {
+    text:string;
+    children:React.ReactNode
+}
 // --------------- Hooks useApi ------------------------
 export interface ApiResponse<T> {
     data?: T | null;
