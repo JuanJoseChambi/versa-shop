@@ -1,6 +1,9 @@
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../redux/store";
-import { addToCart, deleteToCart, removeToCart } from "../../redux/slice/cartSlice";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
+import CartCard from "../CartCard/CartCard";
+import Input from "../Input/Input";
+import Textarea from "../Textarea/Textarea";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
 
 
 interface CartProp {
@@ -12,55 +15,63 @@ function Cart({visible, onClose}:CartProp) {
     if (!visible) return;
 
   const {cart} = useSelector((state:RootState) => state.cart)
-  const dispatch: AppDispatch= useDispatch();
 
-  const valueTotal = Array.isArray(cart) ? cart.map(product => product.price * product.cantidad).reduce((accumulator, current) => accumulator + current, 0) : null;
+  const valueTotalFloat = Array.isArray(cart) ? cart.map(product => product.price * product.cantidad).reduce((accumulator, current) => accumulator + current, 0) : null;
 
+  const valueTotal = typeof valueTotalFloat === 'number' ? parseFloat(valueTotalFloat.toFixed(2)) : null;
+
+
+  const { getIDLocalStorage, getCartLocalStorage } = useLocalStorage()
+
+  const id = getIDLocalStorage()
+  const cartLocal = getCartLocalStorage()
+
+  console.log(id);
+  console.log(cartLocal);
+  
+  
 
   return (
-    <aside className="fixed right-0 top-0 py-5 px-4 w-[350px] h-screen bg-gradient-to-r from-[#EAEAEA] to-[#E5E5E5] z-20">
-        <button className="absolute top-3 right-8 text-2xl text-black" onClick={onClose}>x</button>
+    <aside className="fixed right-0 top-0 py-4 px-4 w-[350px] h-screen bg-gradient-to-r from-[#EAEAEA] to-[#E5E5E5] z-20">
+        <button className="absolute top-3 right-8 text-2xl text-black z-10" onClick={onClose}>x</button>
         <h3 className="text-black text-sm font-semibold tracking-widest py-2">MI COMPRA</h3>
         <hr className="bg-neutral-400 h-[2px]"></hr>
 
-        <section className=" w-full h-[20%] overflow-auto my-5 gap-y-3 flex flex-col justify-start items-center scroll bg-redd-500">
-          {cart?.map((products) => (
-            <article key={products.id} className="text-black w-full min-h-[100px] pr-3 flex justify-between items-center flex-row bg-blued-500">
-              <picture className="w-[80px] min-h-[80px] max-h-[80px] overflow-hidden bg-redd-500 flex justify-center items-center">
-                <img src={products.image} alt="" className="w-[90%]" />
-              </picture>
-
-              <article className=" w-[70%] min-h-[70px] bg-greend-500">
-                <div className="flex justify-between items-center gap-x-2">
-                  <h3 className="text-sm font-semibold">{products.name} | Talle {products.size}</h3>
-                  <button className="text-lg" onClick={() => dispatch(deleteToCart(products))}><i className='bx bx-trash-alt'></i></button>
-                </div>
-                <div className="flex justify-between items-center">
-                  <div className="flex justify-center items-center gap-x-3">
-                    <button onClick={() => dispatch(addToCart(products))}>+</button>
-                    <p>{products.cantidad}</p>
-                    <button onClick={() => dispatch(removeToCart(products))}>-</button>
-                  </div>
-                  <p>$ {products.price}</p>
-                </div>
-              </article>
-
-
-            </article>
-          ))}
+        <section className=" w-full h-[17%] 2xl:max-h-[35%] 2xl:h-auto overflow-auto my-5 gap-y-3 flex flex-col justify-start items-center scroll bg-redd-500">
+          {cart.length > 0 
+          ? cart?.map((products) => (
+            <CartCard products={products} key={products.id}/>
+          ))
+          : <div className="absolute top-0 left-0 w-full h-full flex justify-center items-center flex-col text-black gap-y-5 bg-gradient-to-r from-[#EAEAEA] to-[#E5E5E5]">
+            <h3 className="text-xl tracking-widest border-b border-neutral-700 font-semibold">Carrito vacio</h3>
+            <i className="text-3xl bx bx-basket"></i>
+            </div> 
+          }
         </section>
         <hr className="bg-neutral-400 h-[2px]"></hr>
 
-        <div className="flex justify-start items-center gap-x-3 pt-3">
-          <label className="text-black text-xs flex justify-start items-center gap-x-1 bg-redd-500">
-            <input type="checkbox" value={"hola"} className="text-black" />
-            Mi Ubicacion
-          </label>
-          <label className="text-black text-xs flex justify-start items-center gap-x-1 bg-redd-500">
-            <input type="checkbox" value={"hola"} className="text-black" />
-            Agregar una Ubicacion
-          </label>
-        </div>
+        <section className="flex justify-center items-start flex-col">
+          
+          <div className="flex justify-start items-center gap-x-3 py-3">
+            <label className="text-black text-xs flex justify-start items-center gap-x-1 bg-redd-500">
+              <input type="checkbox" value={"hola"} className="text-black" />
+              Mi Ubicacion
+            </label>
+            <label className="text-black text-xs flex justify-start items-center gap-x-1 bg-redd-500">
+              <input type="checkbox" value={"hola"} className="text-black" />
+              Agregar una Ubicacion
+            </label>
+          </div>
+
+            <form className="w-full h-[200px] scroll overflow-y-auto flex justify-start items-start text-black flex-col gap-y-2">
+              <Input placeholder="Nombre Completo" icon="bx bx-user"/>
+              <Input placeholder="Ciudad" icon="bx bx-buildings"/>
+              <Input placeholder="Direccion de envio" icon="bx bx-directions"/>
+              <Input placeholder="Codigo Postal" icon="bx bx-dialpad-alt"/>
+              <Input placeholder="Telefono de Contacto" icon="bx bx-phone"/>
+              <Textarea placeholder="Comentarios Adiccionales"/>
+          </form>
+        </section>
 
         <div className="py-4">
           <div className="flex justify-between items-center text-black text-sm">

@@ -10,6 +10,12 @@
     }
     .scroll {
         scrollbar-width: thin;
+        /* background-color: red; */
+        scrollbar-color: #000;
+    }
+    .scroll ::-webkit-scrollbar-thumb {
+        background-color: red; /* Cambiar el color de la barra de avance */
+        border-radius: 10px; /* Ajustar el radio de la esquina */
     }
 }
 .bgRadial{
@@ -23,6 +29,7 @@ body{
     /* font-family: "Onest Variable", system-ui, sans-serif; */
     font-family: "Onest", sans-serif;
 }
+
 
 
 

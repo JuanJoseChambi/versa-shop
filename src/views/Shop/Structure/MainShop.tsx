@@ -3,7 +3,6 @@ import useApi from "../../../hooks/useApi"
 import { DataProduct } from "../../../interfaces/interfaces"
 import { useFilter } from "../../../hooks/useFilter"
 import CardProduct from "../../../components/CardProduct/CardProduct"
-import { Link } from "react-router-dom"
 
 function MainShop() {
 
@@ -56,9 +55,7 @@ function MainShop() {
         </section>
         <section className="w-[80%] gap-10 flex flex-wrap justify-center items-center py-10 bg-blued-500">
             {dataProduct?.map(product => (
-                <Link to={`/detail/${product.product_id}`}>
                     <CardProduct key={product.product_id} product={product}/>
-                </Link>
             ))}
         </section>
     </main>
