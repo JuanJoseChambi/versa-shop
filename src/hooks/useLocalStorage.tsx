@@ -2,7 +2,8 @@
 export function useLocalStorage () {
     
     function getIDLocalStorage () {
-        return localStorage.getItem("ID")
+        const id = localStorage.getItem("ID") as string
+        return JSON.parse(id)
     }
 
     function getCartLocalStorage() {

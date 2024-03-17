@@ -12,9 +12,9 @@ export async function fetchPOST<T>(url: string, body: RequestBody<T>): Promise<A
       body: JSON.stringify(body),
     });
 
-    if (!response.ok) {
-      throw new Error(`Error: ${response.status}`);
-    }
+    // if (!response.ok) {
+      // throw new Error(`Error: ${response.status} ${response}`);
+    // }
 
     const result: T = await response.json();
 
