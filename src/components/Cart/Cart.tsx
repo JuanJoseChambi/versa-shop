@@ -4,6 +4,7 @@ import CartCard from "../CartCard/CartCard";
 import Input from "../Input/Input";
 import Textarea from "../Textarea/Textarea";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
+import { fetchPOST } from "../../utils/fetchPOST";
 
 
 interface CartProp {
@@ -23,13 +24,21 @@ function Cart({visible, onClose}:CartProp) {
 
   const { getIDLocalStorage, getCartLocalStorage } = useLocalStorage()
 
-  const id = getIDLocalStorage()
-  const cartLocal = getCartLocalStorage()
+  
+ 
+  
+  async function handlerPurchase () {
+    
+    const id = getIDLocalStorage()
+    const cartLocal = getCartLocalStorage()
+    
+    console.log(id);
+    console.log(cartLocal);
+    const {data} = await fetchPOST("http://localhost:3001/purchase/create", {direction:"Casa", userID: id, products: cartLocal})
 
-  console.log(id);
-  console.log(cartLocal);
-  
-  
+    console.log(data);
+    
+  }
 
   return (
     <aside className="fixed right-0 top-0 py-4 px-4 w-[350px] h-screen bg-gradient-to-r from-[#EAEAEA] to-[#E5E5E5] z-20">
@@ -40,7 +49,7 @@ function Cart({visible, onClose}:CartProp) {
         <section className=" w-full h-[17%] 2xl:max-h-[35%] 2xl:h-auto overflow-auto my-5 gap-y-3 flex flex-col justify-start items-center scroll bg-redd-500">
           {cart.length > 0 
           ? cart?.map((products) => (
-            <CartCard products={products} key={products.id}/>
+            <CartCard products={products} key={products.id && products.size && products.color}/>
           ))
           : <div className="absolute top-0 left-0 w-full h-full flex justify-center items-center flex-col text-black gap-y-5 bg-gradient-to-r from-[#EAEAEA] to-[#E5E5E5]">
             <h3 className="text-xl tracking-widest border-b border-neutral-700 font-semibold">Carrito vacio</h3>
@@ -91,7 +100,7 @@ function Cart({visible, onClose}:CartProp) {
           <h3 className="text-xl">$ {valueTotal}</h3>
         </div>
 
-        <button className="w-full rounded-full py-3 text-sm text-white bg-neutral-800">Iniciar Compra</button>
+        <button className="w-full rounded-full py-3 text-sm text-white bg-neutral-800" onClick={handlerPurchase}>Iniciar Compra</button>
 
     </aside>
   )

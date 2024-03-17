@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { addToCart, deleteToCart, removeToCart } from "../../redux/slice/cartSlice"
+import { addToCart, deleteFromCart, removeToCart } from "../../redux/slice/cartSlice"
 import { AppDispatch } from "../../redux/store";
 import { ProductsInCart } from "../../interfaces/interfaces";
 
@@ -21,7 +21,7 @@ function CartCard({products}:CartCard) {
               <article className=" w-[70%] min-h-[70px] bg-greend-500">
                 <div className="flex justify-between items-center gap-x-2">
                   <h3 className="text-sm font-semibold">{products.name} | <b className="text-xs font-normal">Talle {products.size} | Color {products.color}</b></h3>
-                  <button className="text-lg" onClick={() => dispatch(deleteToCart(products))}><i className='bx bx-trash-alt'></i></button>
+                  <button className="text-lg" onClick={() => dispatch(deleteFromCart(products))}><i className='bx bx-trash-alt'></i></button>
                 </div>
                 <div className="flex justify-between items-center">
                   <div className="flex justify-center items-center gap-x-3">
