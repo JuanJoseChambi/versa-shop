@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux"
 import { DataProduct } from "../../interfaces/interfaces"
 import { AppDispatch } from "../../redux/store"
-import { addToCart } from "../../redux/slice/cartSlice"
+// import { addToCart } from "../../redux/slice/cartSlice"
 import { Link } from "react-router-dom"
 // import { useState } from "react"
 // import { ColorsData } from "../../utils/ColorsData/ColorsData"
@@ -24,9 +24,10 @@ function CardProduct({product}:CardProductProp) {
 
   return (
     <article key={product.product_id} className="max-w-[276px] min-h-[335px] relative flex justify-between items-start flex-col border border-neutral-300 p-3">
-                <button 
+                {/* <button 
                     className="text-2xl absolute top-3 right-5 " 
-                    onClick={() => dispatch(addToCart({id:product.product_id,name:product.name, image:product.image, cantidad:1, size:"Xl", price:product.price, color:uniqueColors[0]}))}><i className='bx bx-cart-add'></i></button>
+                    onClick={() => dispatch(addToCart({id:product.product_id,name:product.name, image:product.image, cantidad:1, size:"Xl", price:product.price, color:uniqueColors[0]}))}
+                    ><i className='bx bx-cart-add'></i></button> */}
                 <Link to={`/detail/${product.product_id}`}>
                     <picture className="w-[250px] min-h-[220px] max-h-[220px] flex justify-center items-center overflow-hidden bg-blued-500 ">
                         <img src={product.image} alt={product.name} className="w-[80%]"/>

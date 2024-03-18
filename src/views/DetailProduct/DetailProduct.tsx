@@ -5,9 +5,11 @@ import Loader from "../../components/Loader/Loader"
 import Nav from "../../components/Nav/Nav"
 import { useState } from "react"
 import Tooltip from "../../components/Tooltip/Tooltip"
-import { AppDispatch } from "../../redux/store"
-import { useDispatch } from "react-redux"
+import { AppDispatch, RootState } from "../../redux/store"
+import { useDispatch, useSelector } from "react-redux"
 import { addToCart } from "../../redux/slice/cartSlice"
+import { info } from "../../utils/alert"
+
 
 
 interface StockGroupColors {
@@ -21,15 +23,17 @@ interface StockGroupColors {
 
 
 function DetailProduct() {
-    const { id } = useParams()
+    const { id } = useParams();
+
+    const { data, loading} = useApi(`http://localhost:3001/product/detail/${id}`) as { data:DataProduct, loading:boolean }
 
     const [size, setSize] = useState<StockGroupColors>()
     const [color, setColor] = useState<string>("")
 
     const dispatch:AppDispatch = useDispatch()
 
-    const { data, loading} = useApi(`http://localhost:3001/product/detail/${id}`) as { data:DataProduct, loading:boolean }
-
+    const { cart } = useSelector((state:RootState) => state.cart)
+    
 
     const colorsAvalible: Color[] = []
     data?.Stocks.forEach((stock:Stock) => {
@@ -58,9 +62,6 @@ function DetailProduct() {
         
     });
 
-    // console.log(avalibleSizeColors);
-
-
     const infoProduct = {
         id:data?.product_id,
         name:data?.name, 
@@ -72,9 +73,10 @@ function DetailProduct() {
     }
     
 
-  return (
-    <main className="bg-gradient-to-r from-[#EAEAEA] to-[#E5E5E5] h-screen pb-10">
+    const existInCart = cart.find(product => product.size !== size?.size || product.color !== color)
 
+return (
+    <main className="bg-gradient-to-r from-[#EAEAEA] to-[#E5E5E5] h-screen pb-10">
         <Nav style="sticky"/>
         <Loader active={loading}/>
         <section className="w-[90%] mx-auto min-h-[80%] mt-[2%] border border-neutral-400 rounded-xl flex-col lg:flex-row flex justify-center items-center  lg:gap-x-[10%] bg-white">
@@ -127,8 +129,7 @@ function DetailProduct() {
                 
                 <button 
                 className={`w-[90%] mx-auto rounded-full py-3 text-sm text-white ${!size || !color ? "bg-neutral-400 pointer-events-none select-none" : "bg-neutral-800"}`}
-                onClick={() => dispatch(addToCart(infoProduct))}
-                >
+                onClick={() => {existInCart ? info("No se puede agregar otros articulos de este producto") : dispatch(addToCart(infoProduct))}} >
                     Añadir a carrito
                 </button>
 
