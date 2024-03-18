@@ -1,10 +1,11 @@
-import { useSelector } from "react-redux";
-import { RootState } from "../../redux/store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../redux/store";
 import CartCard from "../CartCard/CartCard";
 import Input from "../Input/Input";
 import Textarea from "../Textarea/Textarea";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 import { fetchPOST } from "../../utils/fetchPOST";
+// import { deleteAllCart } from "../../redux/slice/cartSlice";
 
 
 interface CartProp {
@@ -16,6 +17,7 @@ function Cart({visible, onClose}:CartProp) {
     if (!visible) return;
 
   const {cart} = useSelector((state:RootState) => state.cart)
+  // const dispatch: AppDispatch = useDispatch();
 
   const valueTotalFloat = Array.isArray(cart) ? cart.map(product => product.price * product.cantidad).reduce((accumulator, current) => accumulator + current, 0) : null;
 
@@ -32,14 +34,16 @@ function Cart({visible, onClose}:CartProp) {
     const id = getIDLocalStorage()
     const cartLocal = getCartLocalStorage()
     
-    console.log(id);
-    console.log(cartLocal);
+    // console.log(id);
+    // console.log(cartLocal);
     const {data} = await fetchPOST("http://localhost:3001/purchase/create", {direction:"Casa", userID: id, products: cartLocal})
 
-    console.log(data);
+    // console.log(data);
+    // dispatch(deleteAllCart())
     
   }
 
+{/* <Toaster/> */}
   return (
     <aside className="fixed right-0 top-0 py-4 px-4 w-[350px] h-screen bg-gradient-to-r from-[#EAEAEA] to-[#E5E5E5] z-20">
         <button className="absolute top-3 right-8 text-2xl text-black z-10" onClick={onClose}>x</button>
