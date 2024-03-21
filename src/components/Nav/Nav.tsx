@@ -46,7 +46,7 @@ function Nav({style}:styleProp) {
             <Button icon="bx bx-cart" style="text-lg z-10" onClick={() => setCartVisible(!cartVisible)}/>
             <div className="absolute -top-2 -right-2 text-[10px] px-1 bg-neutral-500 text-white rounded-full">{cart.length}</div>
             </div>
-            <Button icon="bx bx-user" style="text-lg" dir="/signup"/>                
+            <Button icon="bx bx-user" style="text-lg" dir="/access"/>                
             
         </div>
         <Cart visible={cartVisible} onClose={() => setCartVisible(!cartVisible)}/>
