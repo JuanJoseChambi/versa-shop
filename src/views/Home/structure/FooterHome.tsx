@@ -21,6 +21,7 @@ function FooterHome() {
             {text:"NOSOTROS", url:"#"},
             {text:"POLITICAS", url:"#"}
           ]}/>
+          
           <SectionsFooter 
           styleUl="space-y-2 bg-greend-500"
           styleA="text-xs tracking-widest font-semibold text-[#777474] hover:text-white transition-color duration-500"
@@ -46,25 +47,6 @@ function FooterHome() {
           ]}/>
 
         </nav>
-        
-        {/* <article className="w-[20%] bg-blued-500 flex flex-col justify-center items-start">
-          <h2 className="text-lg font-black tracking-widest text-[#777474]">CONTACTANOS</h2>
-          <form className="flex justify-center items-start flex-col space-y-3">
-
-            <div className="flex justify-center items-center flex-col">
-            <input type="text" className="w-[250px] px-2 py-1 text-sm border border-neutral-500 rounded-[3px]" placeholder="Email"/>
-            </div>
-
-            <div className="flex justify-center items-center flex-col">
-            <input type="text" className="w-[250px] px-2 py-1 text-sm border border-neutral-500 rounded-[3px]" placeholder="Asunto"/>
-            </div>
-
-            <div className="flex justify-center items-center flex-col">
-            <textarea  className="resize-none w-[300px] h-[100px] px-2 py-1 text-sm border border-neutral-500 rounded-[3px]" placeholder="Mensaje"/>
-            </div>
-
-          </form>
-        </article> */}
       
       </section>
 

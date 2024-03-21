@@ -5,6 +5,7 @@ import Input from "../Input/Input";
 import Textarea from "../Textarea/Textarea";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 import { fetchPOST } from "../../utils/fetchPOST";
+import { deleteAllCart } from "../../redux/slice/cartSlice";
 // import { deleteAllCart } from "../../redux/slice/cartSlice";
 
 
@@ -17,7 +18,7 @@ function Cart({visible, onClose}:CartProp) {
     if (!visible) return;
 
   const {cart} = useSelector((state:RootState) => state.cart)
-  // const dispatch: AppDispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
 
   const valueTotalFloat = Array.isArray(cart) ? cart.map(product => product.price * product.cantidad).reduce((accumulator, current) => accumulator + current, 0) : null;
 
@@ -38,8 +39,8 @@ function Cart({visible, onClose}:CartProp) {
     // console.log(cartLocal);
     const {data} = await fetchPOST("http://localhost:3001/purchase/create", {direction:"Casa", userID: id, products: cartLocal})
 
-    // console.log(data);
-    // dispatch(deleteAllCart())
+    console.log(data);
+    dispatch(deleteAllCart())
     
   }
 
