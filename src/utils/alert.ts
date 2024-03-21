@@ -20,3 +20,20 @@ export function description (title:string, description:string) {
         description: description,
     })
 }
+
+// export function promise(promise:Promise<any>) {
+//     toast.promise(promise, {
+//         loading: 'Loading...',
+//         success: (data:any) => {
+//             // console.log(data.data);
+            
+            
+//             }else {
+//                 return `${data.data.message}`
+//             }
+            
+//         },
+//         error: 'Error',
+//     }
+//     )
+// }

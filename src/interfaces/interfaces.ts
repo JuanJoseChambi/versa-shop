@@ -13,7 +13,7 @@ export interface TooltipProp {
 }
 // --------------- Hooks useApi ------------------------
 export interface ApiResponse<T> {
-    data?: T | null;
+    data?: T | null | ResponseData;
     error?: string | null;
     loading?:boolean;
 }
@@ -72,13 +72,23 @@ export interface ResponseAllProducts {
 }
 
 // Register User ----------------------------------------
+
+export interface ResponseData {
+    message:string;
+    error:boolean
+}
+
 export interface UserProp {
     name:string | undefined;
     lastname:string | undefined;
+    nickname:string | undefined;
+    email:string | undefined;
+    password:string | undefined;
+    repeatPassword:string | undefined
 }
 export interface DataUser {
     user_id?:string;
-    error?:string;
+    error?:string; 
 }
 // ProductDB --------------------------------------------
 export interface DataProduct {

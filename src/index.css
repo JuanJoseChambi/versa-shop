@@ -30,6 +30,20 @@ body{
     font-family: "Onest", sans-serif;
 }
 
+input[type="password"]::-ms-reveal {
+    display: none;
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
 

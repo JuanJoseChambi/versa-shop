@@ -1,7 +1,6 @@
 import { ApiResponse } from "../interfaces/interfaces";
 
 
-// Tipo genérico para el body
 type RequestBody<T> = T;
 
 export async function fetchPOST<T>(url: string, body: RequestBody<T>): Promise<ApiResponse<T>> {
