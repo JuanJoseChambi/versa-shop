@@ -4,6 +4,11 @@ import Cart from "../Cart/Cart"
 import { useSelector } from "react-redux"
 import { RootState } from "../../redux/store"
 import { Link } from "react-router-dom"
+import { useDecode } from "../../hooks/useDecode"
+import Cookies from "js-cookie"
+import flower from "../../assets/asHome/FlowerWhite.png"
+import OptionsAcordeon from "../OptionsAcordeon/OptionsAcordeon"
+// const { VITE_R_SA, VITE_R_U } = import.meta.env
 
 interface styleProp {
     style?:string
@@ -11,9 +16,14 @@ interface styleProp {
 
 function Nav({style}:styleProp) {
     const [cartVisible, setCartVisible] = useState<boolean>(false)
-    const [hover, setHover] = useState<string | null>()
+    const [hover, setHover] = useState<string | null>();
+    const [acorden,setAcordeon] = useState(false)
 
     const { cart } = useSelector((state:RootState) => state.cart)
+
+    const { role } = useDecode("User")
+
+
 
 
   return (
@@ -23,16 +33,9 @@ function Nav({style}:styleProp) {
         </Link>
 
         <section className="space-x-5">
-            <Button 
-                style="text-xs font-semibold tracking-widest" 
-                text="TIENDA"
-                dir="/shop"/>
-            <Button 
-                    style="text-xs font-semibold tracking-widest" 
-                    text="NOSOTROS"/>
-            <Button 
-                    style="text-xs font-semibold tracking-widest" 
-                    text="CATEGORIAS"/>
+            <Button style="text-xs font-semibold tracking-widest" text="TIENDA" dir="/shop"/>
+            <Button style="text-xs font-semibold tracking-widest" text="NOSOTROS"/>
+            <Button style="text-xs font-semibold tracking-widest" text="CATEGORIAS"/>
         </section>
 
         <div className="flex justify-center items-center space-x-5">
@@ -43,11 +46,22 @@ function Nav({style}:styleProp) {
             </div>
 
             <div className="relative flex justify-center items-center">
-            <Button icon="bx bx-cart" style="text-lg z-10" onClick={() => setCartVisible(!cartVisible)}/>
-            <div className="absolute -top-2 -right-2 text-[10px] px-1 bg-neutral-500 text-white rounded-full">{cart.length}</div>
+                <Button icon="bx bx-cart" style="text-lg z-10" onClick={() => setCartVisible(!cartVisible)}/>
+                <div className="absolute -top-2 -right-2 text-[10px] px-1 bg-neutral-500 text-white rounded-full">{cart.length}</div>
             </div>
-            <Button icon="bx bx-user" style="text-lg" dir="/signup"/>                
-            
+
+            {role === null && <Button icon="bx bx-user" style="text-lg" dir="/access"/>}
+            {role !== null && <Button img={flower} onClick={() => setAcordeon(!acorden)}/>}
+            <OptionsAcordeon 
+                visible={acorden} 
+                options={[
+                    {text:"Mi Perfil", iconLeft:"bx bx-user-circle"},
+                    {text:"Ajustes", iconLeft:"bx bx-cog"},
+                    {text:"Mis Compras", iconLeft:"bx bx-shopping-bag"},
+                    {text:"Ayuda", iconLeft:"bx bx-help-circle"},
+                    {text:"Cerrar Sesion", iconLeft:"bx bx-log-out" ,onClick: () => {window.location.reload(), Cookies.remove("User")}},
+                    ]}/>
+
         </div>
         <Cart visible={cartVisible} onClose={() => setCartVisible(!cartVisible)}/>
     </nav>

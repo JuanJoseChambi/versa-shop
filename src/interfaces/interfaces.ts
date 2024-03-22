@@ -1,16 +1,4 @@
-// --------------- Component Button --------------------
-export interface ButtonProp {
-    icon?:string;
-    text?:string;
-    dir?:string | undefined
-    style?:string;
-    onClick?: () => void;
-}
 
-export interface TooltipProp {
-    text:string;
-    children:React.ReactNode
-}
 // --------------- Hooks useApi ------------------------
 export interface ApiResponse<T> {
     data?: T | null | ResponseData;
@@ -44,6 +32,15 @@ export interface UseFilterResponse {
     error?:string | null;
     loading?:boolean;
 }
+// Hook useDecode ----------------------------------
+export interface DecodeToken {
+    email: string,
+    lastname: string,
+    name: string,
+    nickname: string,
+    role: string,
+    user_id: string
+}
 // -----------------------------------------------------
 interface Product {
     _id:string;
@@ -75,7 +72,8 @@ export interface ResponseAllProducts {
 
 export interface ResponseData {
     message:string;
-    error:boolean
+    error:boolean;
+    token?:string;
 }
 
 export interface UserProp {
