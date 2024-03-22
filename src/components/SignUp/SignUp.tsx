@@ -36,10 +36,9 @@ function SignUp({visible}: SignUpProp) {
         }
 
     }
-    // 
-  return (
-            <form className="w-[80%] min-h-[300px] max-h-[500px] flex flex-col justify-evenly items-center gap-y-5 bg-blued-500" onSubmit={handlerSendSignUpData}>
-                <div className="w-full flex justify-center items-start flex-col gap-y-7 bg-redd-500">
+
+    return (
+            <form className="w-[80%] min-h-[300px] max-h-[500px] flex flex-col justify-evenly items-center gap-y-6 bg-blued-500" onSubmit={handlerSendSignUpData}>
                     <div className="w-full flex justify-center items-center gap-x-5">
                         <Input 
                             placeholder="Lucas" 
@@ -75,8 +74,7 @@ function SignUp({visible}: SignUpProp) {
                             name="Repita Contraseña"
                             onChange={(e) => setSignUpData({...signUpData, repeatPassword:e.target.value})}/>
                     </div>
-                </div>
-                <button type="submit" className="w-full rounded-full py-3 text-sm text-white bg-neutral-800">Enviar</button>
+                <button type="submit" className="w-full rounded-full mt-auto py-3 text-sm text-white bg-neutral-800">Enviar</button>
             </form>
         
   )

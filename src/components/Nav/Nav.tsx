@@ -4,6 +4,9 @@ import Cart from "../Cart/Cart"
 import { useSelector } from "react-redux"
 import { RootState } from "../../redux/store"
 import { Link } from "react-router-dom"
+import { useDecode } from "../../hooks/useDecode"
+import flower from "../../assets/asHome/FlowerWhite.png"
+const { VITE_R_SA, VITE_R_U } = import.meta.env
 
 interface styleProp {
     style?:string
@@ -15,6 +18,7 @@ function Nav({style}:styleProp) {
 
     const { cart } = useSelector((state:RootState) => state.cart)
 
+    const { role } = useDecode("User")
 
   return (
     <nav className={`w-[95%] mx-auto flex justify-between items-center py-4 fixed left-0 right-0 z-[100] ${style}`}>
@@ -23,16 +27,9 @@ function Nav({style}:styleProp) {
         </Link>
 
         <section className="space-x-5">
-            <Button 
-                style="text-xs font-semibold tracking-widest" 
-                text="TIENDA"
-                dir="/shop"/>
-            <Button 
-                    style="text-xs font-semibold tracking-widest" 
-                    text="NOSOTROS"/>
-            <Button 
-                    style="text-xs font-semibold tracking-widest" 
-                    text="CATEGORIAS"/>
+            <Button style="text-xs font-semibold tracking-widest" text="TIENDA" dir="/shop"/>
+            <Button style="text-xs font-semibold tracking-widest" text="NOSOTROS"/>
+            <Button style="text-xs font-semibold tracking-widest" text="CATEGORIAS"/>
         </section>
 
         <div className="flex justify-center items-center space-x-5">
@@ -43,10 +40,13 @@ function Nav({style}:styleProp) {
             </div>
 
             <div className="relative flex justify-center items-center">
-            <Button icon="bx bx-cart" style="text-lg z-10" onClick={() => setCartVisible(!cartVisible)}/>
-            <div className="absolute -top-2 -right-2 text-[10px] px-1 bg-neutral-500 text-white rounded-full">{cart.length}</div>
+                <Button icon="bx bx-cart" style="text-lg z-10" onClick={() => setCartVisible(!cartVisible)}/>
+                <div className="absolute -top-2 -right-2 text-[10px] px-1 bg-neutral-500 text-white rounded-full">{cart.length}</div>
             </div>
-            <Button icon="bx bx-user" style="text-lg" dir="/access"/>                
+
+            {role === null && <Button icon="bx bx-user" style="text-lg" dir="/access"/>}
+            {role === VITE_R_U && <Button img={flower}/>}
+            {role === VITE_R_SA && <Button img={flower}/>}
             
         </div>
         <Cart visible={cartVisible} onClose={() => setCartVisible(!cartVisible)}/>

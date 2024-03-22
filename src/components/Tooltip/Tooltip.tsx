@@ -1,4 +1,4 @@
-import { TooltipProp } from "../../interfaces/interfaces";
+import { TooltipProp } from "../../interfaces/components";
 
 
 export default function Tooltip({ text, children }:TooltipProp) {

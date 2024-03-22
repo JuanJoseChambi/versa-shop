@@ -47,7 +47,7 @@ function Cart({visible, onClose}:CartProp) {
 {/* <Toaster/> */}
   return (
     <aside className="fixed right-0 top-0 py-4 px-4 w-[350px] h-screen bg-gradient-to-r from-[#EAEAEA] to-[#E5E5E5] z-20">
-        <button className="absolute top-3 right-8 text-2xl text-black z-10" onClick={onClose}>x</button>
+        <button className="absolute top-3 right-8 text-2xl text-black z-50" onClick={onClose}>x</button>
         <h3 className="text-black text-sm font-semibold tracking-widest py-2">MI COMPRA</h3>
         <hr className="bg-neutral-400 h-[2px]"></hr>
 
@@ -56,7 +56,7 @@ function Cart({visible, onClose}:CartProp) {
           ? cart?.map((products) => (
             <CartCard products={products} key={products.id && products.size && products.color}/>
           ))
-          : <div className="absolute top-0 left-0 w-full h-full flex justify-center items-center flex-col text-black gap-y-5 bg-gradient-to-r from-[#EAEAEA] to-[#E5E5E5]">
+          : <div className="absolute top-0 z-20 left-0 w-full h-full flex justify-center items-center flex-col text-black gap-y-5 bg-gradient-to-r from-[#EAEAEA] to-[#E5E5E5]">
             <h3 className="text-xl tracking-widest border-b border-neutral-700 font-semibold">Carrito vacio</h3>
             <i className="text-3xl bx bx-basket"></i>
             </div> 
