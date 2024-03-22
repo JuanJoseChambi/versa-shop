@@ -5,8 +5,10 @@ import { useSelector } from "react-redux"
 import { RootState } from "../../redux/store"
 import { Link } from "react-router-dom"
 import { useDecode } from "../../hooks/useDecode"
+import Cookies from "js-cookie"
 import flower from "../../assets/asHome/FlowerWhite.png"
-const { VITE_R_SA, VITE_R_U } = import.meta.env
+import OptionsAcordeon from "../OptionsAcordeon/OptionsAcordeon"
+// const { VITE_R_SA, VITE_R_U } = import.meta.env
 
 interface styleProp {
     style?:string
@@ -14,11 +16,15 @@ interface styleProp {
 
 function Nav({style}:styleProp) {
     const [cartVisible, setCartVisible] = useState<boolean>(false)
-    const [hover, setHover] = useState<string | null>()
+    const [hover, setHover] = useState<string | null>();
+    const [acorden,setAcordeon] = useState(false)
 
     const { cart } = useSelector((state:RootState) => state.cart)
 
     const { role } = useDecode("User")
+
+
+
 
   return (
     <nav className={`w-[95%] mx-auto flex justify-between items-center py-4 fixed left-0 right-0 z-[100] ${style}`}>
@@ -45,9 +51,17 @@ function Nav({style}:styleProp) {
             </div>
 
             {role === null && <Button icon="bx bx-user" style="text-lg" dir="/access"/>}
-            {role === VITE_R_U && <Button img={flower}/>}
-            {role === VITE_R_SA && <Button img={flower}/>}
-            
+            {role !== null && <Button img={flower} onClick={() => setAcordeon(!acorden)}/>}
+            <OptionsAcordeon 
+                visible={acorden} 
+                options={[
+                    {text:"Mi Perfil", iconLeft:"bx bx-user-circle"},
+                    {text:"Ajustes", iconLeft:"bx bx-cog"},
+                    {text:"Mis Compras", iconLeft:"bx bx-shopping-bag"},
+                    {text:"Ayuda", iconLeft:"bx bx-help-circle"},
+                    {text:"Cerrar Sesion", iconLeft:"bx bx-log-out" ,onClick: () => {window.location.reload(), Cookies.remove("User")}},
+                    ]}/>
+
         </div>
         <Cart visible={cartVisible} onClose={() => setCartVisible(!cartVisible)}/>
     </nav>

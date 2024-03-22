@@ -17,7 +17,7 @@ function SectionsFooter({styleUl, styleA, styleTitle, widthUl = "180px", heightU
   return (
     <ul className={`${styleUl} w-[${widthUl}] h-[${heightUl}]`}>
         {options.map(option => (
-            <li>
+            <li key={option.text}>
                 {option.url != null 
                 ? (<a href={option.url}  className={styleA}>{option.text}</a>) 
                 : (<span className={styleTitle}>{option.text}</span>)}
