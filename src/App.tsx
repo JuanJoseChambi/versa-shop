@@ -5,6 +5,7 @@ import Shop from "./views/Shop/Shop"
 import Admin from "./views/Admin/Admin"
 import DetailProduct from "./views/DetailProduct/DetailProduct"
 import Access from "./views/Access/Access"
+import Profile from "./views/Profile/Profile"
 function App() {
 
   return (
@@ -14,6 +15,7 @@ function App() {
       <Route path="/shop" element={<Shop/>}/>
       <Route path="/admin" element={<Admin/>}/>
       <Route path="/detail/:id" element={<DetailProduct/>}/>
+      <Route path="/profile/:id" element={<Profile/>}/>
     </Routes>
   )
 }

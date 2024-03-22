@@ -133,4 +133,20 @@ export interface ProductsInCart {
     size:string;
     color:string
 }
-// Result Function Api Return -------------------------------------
+
+// REQUEST GET -----------------------------------------------
+
+// Profile User ----------------------
+export interface ProfileUser {
+    user_id:   string;
+    image:     null;
+    nickname:  string;
+    name:      string;
+    lastname:  string;
+    email:     string;
+    password:  string;
+    role:      string;
+    createdAt: Date;
+    updatedAt: Date;
+    Purchases: any[];
+}
