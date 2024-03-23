@@ -3,16 +3,12 @@ import { AppDispatch, RootState } from "../../redux/store";
 import CartCard from "../CartCard/CartCard";
 import Input from "../Input/Input";
 import Textarea from "../Textarea/Textarea";
-import { useLocalStorage } from "../../hooks/useLocalStorage";
+// import { useLocalStorage } from "../../hooks/useLocalStorage";
 import { fetchPOST } from "../../utils/fetchPOST";
 import { deleteAllCart } from "../../redux/slice/cartSlice";
-// import { deleteAllCart } from "../../redux/slice/cartSlice";
-
-
-interface CartProp {
-    visible:boolean;
-    onClose:() =>  void
-}
+import { CartProp } from "../../interfaces/components";
+import { useDecode } from "../../hooks/useDecode";
+const { VITE_C_RE_SU } = import.meta.env
 
 function Cart({visible, onClose}:CartProp) {
     if (!visible) return;
@@ -25,21 +21,16 @@ function Cart({visible, onClose}:CartProp) {
   const valueTotal = typeof valueTotalFloat === 'number' ? parseFloat(valueTotalFloat.toFixed(2)) : null;
 
 
-  const { getIDLocalStorage, getCartLocalStorage } = useLocalStorage()
+  // const { getIDLocalStorage, getCartLocalStorage } = useLocalStorage()
 
-  
+  const { id } = useDecode(VITE_C_RE_SU)
  
   
   async function handlerPurchase () {
     
-    const id = getIDLocalStorage()
-    const cartLocal = getCartLocalStorage()
-    
-    // console.log(id);
-    // console.log(cartLocal);
-    const {data} = await fetchPOST("http://localhost:3001/purchase/create", {direction:"Casa", userID: id, products: cartLocal})
+    // const {data} = await fetchPOST("http://localhost:3001/purchase/create", {direction:"Casa", userID: id, products: cartLocal})
 
-    console.log(data);
+    // console.log(data);
     dispatch(deleteAllCart())
     
   }
