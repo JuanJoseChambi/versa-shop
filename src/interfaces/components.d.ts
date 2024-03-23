@@ -12,6 +12,11 @@ export interface TooltipProp {
     text:string;
     children:React.ReactNode
 }
+// Cart ---------------------------------------
+export interface CartProp {
+    visible:boolean;
+    onClose:() =>  void
+}
 // Access -------------------------------------
 
 export interface SignUpProp {
