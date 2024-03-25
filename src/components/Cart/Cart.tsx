@@ -1,14 +1,14 @@
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store";
 import CartCard from "../CartCard/CartCard";
-import Input from "../Input/Input";
-import Textarea from "../Textarea/Textarea";
-// import { useLocalStorage } from "../../hooks/useLocalStorage";
+// import Input from "../Input/Input";
+// import Textarea from "../Textarea/Textarea";
 import { fetchPOST } from "../../utils/fetchPOST";
 import { deleteAllCart } from "../../redux/slice/cartSlice";
 import { CartProp } from "../../interfaces/components";
 import { useDecode } from "../../hooks/useDecode";
-const { VITE_C_RE_SU } = import.meta.env
+import { useEncode } from "../../hooks/useEncode";
+const { VITE_C_USER, VITE_C_CART } = import.meta.env
 
 function Cart({visible, onClose}:CartProp) {
     if (!visible) return;
@@ -21,19 +21,20 @@ function Cart({visible, onClose}:CartProp) {
   const valueTotal = typeof valueTotalFloat === 'number' ? parseFloat(valueTotalFloat.toFixed(2)) : null;
 
 
-  // const { getIDLocalStorage, getCartLocalStorage } = useLocalStorage()
+  const { id } = useDecode(VITE_C_USER)
+  const { decode } = useEncode()
+  const cartProducts = decode(VITE_C_CART)
 
-  const { id } = useDecode(VITE_C_RE_SU)
- 
   
   async function handlerPurchase () {
     
-    // const {data} = await fetchPOST("http://localhost:3001/purchase/create", {direction:"Casa", userID: id, products: cartLocal})
-
-    // console.log(data);
+    const {data} = await fetchPOST("http://localhost:3001/purchase/create", {direction:"Casa", userID: id, products:cartProducts })
+    // Ver si El ERROR es True o false----------------------------------------------------------------
     dispatch(deleteAllCart())
     
   }
+
+
 
 {/* <Toaster/> */}
   return (
@@ -57,7 +58,7 @@ function Cart({visible, onClose}:CartProp) {
 
         <section className="flex justify-center items-start flex-col">
           
-          <div className="flex justify-start items-center gap-x-3 py-3">
+          {/* <div className="flex justify-start items-center gap-x-3 py-3">
             <label className="text-black text-xs flex justify-start items-center gap-x-1 bg-redd-500">
               <input type="checkbox" value={"hola"} className="text-black" />
               Mi Ubicacion
@@ -66,16 +67,16 @@ function Cart({visible, onClose}:CartProp) {
               <input type="checkbox" value={"hola"} className="text-black" />
               Agregar una Ubicacion
             </label>
-          </div>
+          </div> */}
 
-            <form className="w-full h-[200px] scroll overflow-y-auto flex justify-start items-start text-black flex-col gap-y-2">
+            {/* <form className="w-full h-[200px] scroll overflow-y-auto flex justify-start items-start text-black flex-col gap-y-2">
               <Input placeholder="Nombre Completo" icon="bx bx-user"/>
               <Input placeholder="Ciudad" icon="bx bx-buildings"/>
               <Input placeholder="Direccion de envio" icon="bx bx-directions"/>
               <Input placeholder="Codigo Postal" icon="bx bx-dialpad-alt"/>
               <Input placeholder="Telefono de Contacto" icon="bx bx-phone"/>
               <Textarea placeholder="Comentarios Adiccionales"/>
-          </form>
+          </form> */}
         </section>
 
         <div className="py-4">

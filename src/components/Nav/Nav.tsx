@@ -8,7 +8,7 @@ import { useDecode } from "../../hooks/useDecode"
 import Cookies from "js-cookie"
 import flower from "../../assets/asHome/FlowerWhite.png"
 import OptionsAcordeon from "../OptionsAcordeon/OptionsAcordeon"
-const { VITE_C_RE_SU } = import.meta.env
+const { VITE_C_USER } = import.meta.env
 
 interface styleProp {
     style?:string
@@ -21,7 +21,7 @@ function Nav({style}:styleProp) {
 
     const { cart } = useSelector((state:RootState) => state.cart)
 
-    const { role, id } = useDecode(VITE_C_RE_SU)
+    const { role, id } = useDecode(VITE_C_USER)
 
 
 
@@ -59,7 +59,7 @@ function Nav({style}:styleProp) {
                     {text:"Ajustes", iconLeft:"bx bx-cog"},
                     {text:"Mis Compras", iconLeft:"bx bx-shopping-bag"},
                     {text:"Ayuda", iconLeft:"bx bx-help-circle"},
-                    {text:"Cerrar Sesion", iconLeft:"bx bx-log-out", onClick: () => { Cookies.remove(VITE_C_RE_SU), window.location.reload() }},
+                    {text:"Cerrar Sesion", iconLeft:"bx bx-log-out", onClick: () => { Cookies.remove(VITE_C_USER), window.location.reload() }},
                     ]}/>
 
         </div>
