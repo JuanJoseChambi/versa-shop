@@ -1,15 +1,18 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ProductsInCart } from "../../interfaces/interfaces";
+import { useEncode } from "../../hooks/useEncode";
+const { VITE_C_CART } = import.meta.env
 
 interface CartState {
     cart:ProductsInCart[]
 }
 
-const cartLocal = localStorage.getItem("cart")
+const {encode, decode} = useEncode()
 
+const cart = decode(VITE_C_CART)
 
 const initialState:CartState = {
-    cart: cartLocal ? JSON.parse(cartLocal) : []
+    cart: cart ? cart : []
 }
 
 
@@ -25,7 +28,8 @@ const cartSlice = createSlice ({
             }else {
                 state.cart = [...state.cart, product]
             }
-            localStorage.setItem("cart",JSON.stringify(state.cart))
+            
+            encode(VITE_C_CART, state.cart)
         },
         removeToCart: (state, action:PayloadAction<ProductsInCart>) => {
             const product = action.payload;
@@ -34,18 +38,18 @@ const cartSlice = createSlice ({
             if(productInCart && productInCart.cantidad <= 0) {
                 state.cart = state.cart.filter(products => products.id !== productInCart.id)
             }
-            localStorage.setItem("cart",JSON.stringify(state.cart))
+            encode(VITE_C_CART, state.cart)
         },
         deleteFromCart: (state, action:PayloadAction<ProductsInCart>) => {
             const product = action.payload;
             state.cart = state.cart.filter(productsInCart => !(productsInCart.id === product.id));
-            localStorage.setItem("cart",JSON.stringify(state.cart))
+
+            encode(VITE_C_CART, state.cart)
         },
         deleteAllCart: (state) => {
             state.cart = []
-            localStorage.setItem("cart",JSON.stringify(state.cart))
+            encode(VITE_C_CART, state.cart)
         } 
-       
     }
 })
 

@@ -6,7 +6,7 @@ import { fetchPOST } from "../../utils/fetchPOST";
 import { ResponseData } from "../../interfaces/interfaces";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie" 
-const { VITE_C_RE_SU } = import.meta.env
+const { VITE_C_USER } = import.meta.env
 
 
 function Login({visible}:LogInProp) {
@@ -16,7 +16,9 @@ function Login({visible}:LogInProp) {
         email:"",
         password:""
     })
+    
     const navigate = useNavigate()
+
 
     async function handlerLogin (e:React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
@@ -26,12 +28,11 @@ function Login({visible}:LogInProp) {
         
         if (data.error) return error(data.message)
         if (!data.error && data.token) {
-            Cookies.set(VITE_C_RE_SU, data.token, { expires: 7 })
+
+            Cookies.set(VITE_C_USER, data.token, { expires: 7 })
             return navigate("/shop")
         }
     }
-
-
 
   return (
     <form className="w-[80%] min-h-[300px] max-h-[500px] flex flex-col justify-evenly items-center gap-y-7 bg-blued-500" onSubmit={handlerLogin}>

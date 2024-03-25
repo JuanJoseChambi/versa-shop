@@ -73,7 +73,7 @@ function DetailProduct() {
     }
     
 
-    const existInCart = cart.find(product => product.size !== size?.size || product.color !== color)
+    const existInCart = cart.find(product => product.id === data?.product_id && product.size !== size?.size && product.color !== color)
 
 return (
     <main className="bg-gradient-to-r from-[#EAEAEA] to-[#E5E5E5] h-screen pb-10">
@@ -129,7 +129,7 @@ return (
                 
                 <button 
                 className={`w-[90%] mx-auto rounded-full py-3 text-sm text-white ${!size || !color ? "bg-neutral-400 pointer-events-none select-none" : "bg-neutral-800"}`}
-                onClick={() => {existInCart ? info("No se puede agregar otros articulos de este producto") : dispatch(addToCart(infoProduct))}} >
+                onClick={() => {existInCart ? info("No se puede agregar mas variaciones de este articulo") : dispatch(addToCart(infoProduct))}} >
                     Añadir a carrito
                 </button>
 
