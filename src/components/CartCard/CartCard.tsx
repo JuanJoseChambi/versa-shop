@@ -15,7 +15,7 @@ function CartCard({products}:CartCard) {
   return (
     <article key={products.id} className="text-black w-full min-h-[100px] pr-3 flex justify-between items-center flex-row bg-blued-500">
               <picture className="w-[80px] min-h-[80px] max-h-[80px] overflow-hidden bg-redd-500 flex justify-center items-center">
-                <img src={products.image} alt="" className="w-[90%]" />
+                <img src={products.image} alt={products.name} className="w-[90%]" />
               </picture>
 
               <article className=" w-[70%] min-h-[70px] bg-greend-500">

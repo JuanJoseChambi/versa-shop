@@ -28,8 +28,9 @@ function Login({visible}:LogInProp) {
         
         if (data.error) return error(data.message)
         if (!data.error && data.token) {
-
-            Cookies.set(VITE_C_USER, data.token, { expires: 7 })
+            let tokenString = typeof data.token === 'string' ? data.token : JSON.stringify(data.token);
+            const tokenEncode = window.btoa(tokenString)
+            Cookies.set(VITE_C_USER, tokenEncode, { expires: 7 })
             return navigate("/shop")
         }
     }

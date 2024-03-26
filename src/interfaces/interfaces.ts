@@ -39,7 +39,8 @@ export interface DecodeToken {
     name: string,
     nickname: string,
     role: string,
-    user_id: string
+    user_id: string,
+    token:string
 }
 // -----------------------------------------------------
 interface Product {

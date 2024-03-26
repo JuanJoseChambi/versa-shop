@@ -98,7 +98,7 @@ return (
                 <div className="flex justify-center items-center gap-x-3 my-5">
                     {avalibleSizeColors.map(stock => (
                         <button 
-                            key={stock.size} 
+                            key={data.product_id+=1} 
                             className={`border border-neutral-400 
                             ${stock.size === size?.size? "bg-neutral-800 text-white" : null} py-1 px-3 rounded-xl transition-colors duration-500`} 
                             onClick={() => (setColor(""), setSize(stock))}>{stock.size}</button>
@@ -109,7 +109,7 @@ return (
                     
                     {size 
                     ?   size.colors.map((colors) => (
-                        <Tooltip text={colors.color} key={colors.hxacolor}>
+                        <Tooltip text={colors.color} key={data.product_id+=1}>
                             <button style={{backgroundColor:colors.hxacolor}} 
                                     className={`w-[30px] h-[30px] rounded-full ${colors.color === color? "outline outline-neutral-800" : null}`}
                                     onClick={() => setColor(colors.color)}></button> 
@@ -117,7 +117,7 @@ return (
                     )) 
 
                     : colorsAvalible.map(colors => (
-                        <Tooltip text={colors.color} key={colors.hxacolor}>
+                        <Tooltip text={colors.color} key={data.product_id+=1}>
                             <div  style={{backgroundColor:colors.hxacolor}} 
                             className="w-[30px] h-[30px] rounded-full"></div>
                         </Tooltip>

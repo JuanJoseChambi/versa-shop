@@ -1,19 +1,17 @@
 import { useParams } from "react-router-dom"
 import useApi from "../../hooks/useApi"
 import { ProfileUser } from "../../interfaces/interfaces"
-import Cookies from "js-cookie"
 import Nav from "../../components/Nav/Nav"
+import { useDecode } from "../../hooks/useDecode"
+const { VITE_C_USER } = import.meta.env
+
 
 function Profile() {
     const { id } = useParams()
-    const token  = Cookies.get("_Re_sU")
-    // console.log(token);
+    const { token } = useDecode(VITE_C_USER)
     
-    const { data } = useApi(`http://localhost:3001/user/info/${id}`, token) as { data:ProfileUser }
+    const { data } = useApi(`http://localhost:3001/user/info/${id}`, token) as { data: ProfileUser }
 
-    // console.log(data);
-    // console.log(id);
-    
   return (
     <header>
         <Nav style="text-white"/>
