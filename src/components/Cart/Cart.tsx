@@ -41,7 +41,7 @@ function Cart({visible, onClose}:CartProp) {
 
 
   return (
-    <aside className="fixed right-0 top-0 py-4 px-4 w-[350px] h-screen bg-gradient-to-r from-[#EAEAEA] to-[#E5E5E5] z-20">
+    <aside className="fixed right-0 top-0 py-4 px-4 w-[350px] h-screen bg-[#f3f1f1] z-20">
         <button className="absolute top-3 right-8 text-2xl text-black z-50" onClick={onClose}>x</button>
         <h3 className="text-black text-sm font-semibold tracking-widest py-2">MI COMPRA</h3>
         <hr className="bg-neutral-400 h-[2px]"></hr>

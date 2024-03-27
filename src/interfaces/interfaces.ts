@@ -124,16 +124,7 @@ export interface Size {
 export interface Type {
     type: string;
 }
-// Redux Interfaces : CART -------------------------------------
-export interface ProductsInCart {
-    id:string;
-    name:string;
-    image:string;
-    price:number;
-    cantidad:number;
-    size:string;
-    color:string
-}
+
 
 // REQUEST GET -----------------------------------------------
 

@@ -59,22 +59,16 @@ function DetailProduct() {
         
     });
 
-    // console.log(size);
-    // console.log(colorsAvalible);
-    
-
     const infoProduct = {
         id:data?.product_id,
         name:data?.name, 
         image:data?.image, 
         cantidad:1, 
         size:size?.size || "", 
+        unit:size?.unit || 0,
         price:data?.price, 
         color:color
     }
-    
-
-    // const existInCart = cart.find(product => product.id === data?.product_id && product.size !== size?.size && product.color !== color)
 
 return (
     <main className="bg-gradient-to-r from-[#EAEAEA] to-[#E5E5E5] h-screen pb-10">
@@ -125,13 +119,15 @@ return (
                     )) }
 
                 </div>
-                <div className="my-3 flex justify-center items-center text-green-500 text-sm">{size ?<p> Unidades disponibles: {size?.unit}</p> : <p>ㅤ</p>}</div>
+                <div className={`my-3 flex justify-center items-center ${size?.unit === 0 ? "text-rose-500" :"text-green-500"} text-sm`}>{size ?<p> Unidades disponibles: {size?.unit}</p> : <p>ㅤ</p>}</div>
                 <p className="mt-auto mb-5 text-xl">$ {data?.price}</p>
                 
                 <button 
-                className={`w-[90%] mx-auto rounded-full py-3 text-sm text-white ${!size || !color ? "bg-neutral-400 pointer-events-none select-none" : "bg-neutral-800"}`}
+
+                className={`w-[90%] mx-auto rounded-full py-3 text-sm text-white 
+                ${!size || !color || !size.unit ? "bg-neutral-400 pointer-events-none select-none" : "bg-neutral-800"}`}
+
                 onClick={() => dispatch(addToCart(infoProduct))} >
-                {/* onClick={() => {existInCart ? info("No se puede agregar mas variaciones de este articulo") : dispatch(addToCart(infoProduct))}} > */}
                     Añadir a carrito
                 </button>
 
