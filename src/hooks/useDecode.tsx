@@ -9,9 +9,10 @@ export function useDecode (name:string) {
         function decodeToken () {
             const token = Cookies.get(name);
             if (!token) return false
-
-            const tokenJwt:string = window.atob(token)
-            const tokenPayload:DecodeToken = JSON.parse(window.atob(tokenJwt.split('.')[1])).usuario;
+            
+            const tokenJwt:string = atob(token)
+            const tokenPayload:DecodeToken = JSON.parse(atob(tokenJwt.split('.')[1])).usuario;
+            
             if (tokenPayload) {
                 const infoToken = {
                     email: tokenPayload?.email,
@@ -20,7 +21,7 @@ export function useDecode (name:string) {
                     nickname: tokenPayload?.nickname,
                     role: tokenPayload?.role,
                     user_id: tokenPayload?.user_id,
-                    token:token
+                    token:tokenJwt
                 }
                 setDecode(infoToken)
             }
@@ -28,5 +29,12 @@ export function useDecode (name:string) {
         decodeToken()
     },[])
     
-    return { role:decode?.role ? decode.role : null, id:decode?.user_id, token:decode?.token}
+    return { 
+        name: decode?.name, 
+        lastname: decode?.lastname,
+        nickname:decode?.nickname,
+        role:decode?.role || null, 
+        id:decode?.user_id, 
+        token:decode?.token
+    }
 }

@@ -59,7 +59,7 @@ function Nav({style}:styleProp) {
                     {text:"Ajustes", iconLeft:"bx bx-cog"},
                     {text:"Mis Compras", iconLeft:"bx bx-shopping-bag"},
                     {text:"Ayuda", iconLeft:"bx bx-help-circle"},
-                    {text:"Cerrar Sesion", iconLeft:"bx bx-log-out", onClick: () => { Cookies.remove(VITE_C_USER), window.location.reload() }},
+                    {text:"Cerrar Sesion", iconLeft:"bx bx-log-out", onClick: () => { Cookies.remove(VITE_C_USER) }, dir:"/access"},
                     ]}/>
 
         </div>

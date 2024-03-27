@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ProductsInCart } from "../../interfaces/interfaces";
 import { useEncode } from "../../hooks/useEncode";
+import { info } from "../../utils/alert";
 const { VITE_C_CART } = import.meta.env
 
 interface CartState {
@@ -22,14 +23,22 @@ const cartSlice = createSlice ({
     reducers:{
         addToCart: (state, action: PayloadAction<ProductsInCart>) => {
             const product = action.payload;
-            const productExist = state.cart.find(productsInCart => productsInCart.id === product.id )
-            if (productExist) {
-                productExist.cantidad +=1
-            }else {
-                state.cart = [...state.cart, product]
+            const productRepeat = state.cart.find(productsInCart => productsInCart.id === product.id && productsInCart.color !== product.color && productsInCart.size !== product.size)
+            if (productRepeat) {
+
+                return info("No se puede agregar mas variaciones de este articulo")
+
+            } else {
+
+                const productExist = state.cart.find(productsInCart => productsInCart.id === product.id )
+                if (productExist) {
+                    productExist.cantidad +=1
+                }else {
+                    state.cart = [...state.cart, product]
+                }
+                
+                encode(VITE_C_CART, state.cart)
             }
-            
-            encode(VITE_C_CART, state.cart)
         },
         removeToCart: (state, action:PayloadAction<ProductsInCart>) => {
             const product = action.payload;
