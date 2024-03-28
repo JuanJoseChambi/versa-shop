@@ -14,8 +14,8 @@ function Cart({visible, onClose}:CartProp) {
   
   const dispatch: AppDispatch = useDispatch();
   const {cart} = useSelector((state:RootState) => state.cart);
-  const { id } = useDecode(VITE_C_USER);
   const { decode } = useEncode()
+  const { id } = useDecode(VITE_C_USER);
   
   if (!visible) return null; // Se usa la condicion de vsibile despues de inicializar los Hooks, por que sino da error de Static Flag
   
@@ -26,21 +26,22 @@ function Cart({visible, onClose}:CartProp) {
   
   const cartProducts = decode(VITE_C_CART)
 
-  
   async function handlerPurchase () {
     
     const {data} = await fetchPOST("http://localhost:3001/purchase/create", {direction:"Casa", userID: id, products:cartProducts }) as {data:ResponseData}
 
     if (data.error) return error(data.message);
-    if (!data.error) return success(data.message)
+    if (!data.error) {
+      dispatch(deleteAllCart())
+      return success(data.message)
+    }
     
-    dispatch(deleteAllCart())
+    
   }
 
 
-
   return (
-    <aside className="fixed right-0 top-0 py-4 px-4 w-[350px] h-screen bg-gradient-to-r from-[#EAEAEA] to-[#E5E5E5] z-20">
+    <aside className="fixed right-0 top-0 py-4 px-4 w-[350px] h-screen bg-[#f3f1f1] z-20">
         <button className="absolute top-3 right-8 text-2xl text-black z-50" onClick={onClose}>x</button>
         <h3 className="text-black text-sm font-semibold tracking-widest py-2">MI COMPRA</h3>
         <hr className="bg-neutral-400 h-[2px]"></hr>
@@ -57,10 +58,6 @@ function Cart({visible, onClose}:CartProp) {
           }
         </section>
         <hr className="bg-neutral-400 h-[2px]"></hr>
-
-        <section className="flex justify-center items-start flex-col">
-          
-        </section>
 
         <div className="py-4">
           <div className="flex justify-between items-center text-black text-sm">

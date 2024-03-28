@@ -29,7 +29,7 @@ function Login({visible}:LogInProp) {
         if (data.error) return error(data.message)
         if (!data.error && data.token) {
             let tokenString = typeof data.token === 'string' ? data.token : JSON.stringify(data.token);
-            const tokenEncode = window.btoa(tokenString)
+            const tokenEncode = btoa(tokenString)
             Cookies.set(VITE_C_USER, tokenEncode, { expires: 7 })
             return navigate("/shop")
         }

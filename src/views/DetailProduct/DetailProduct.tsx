@@ -5,10 +5,9 @@ import Loader from "../../components/Loader/Loader"
 import Nav from "../../components/Nav/Nav"
 import { useState } from "react"
 import Tooltip from "../../components/Tooltip/Tooltip"
-import { AppDispatch, RootState } from "../../redux/store"
-import { useDispatch, useSelector } from "react-redux"
+import { AppDispatch } from "../../redux/store"
+import { useDispatch } from "react-redux"
 import { addToCart } from "../../redux/slice/cartSlice"
-import { info } from "../../utils/alert"
 
 
 
@@ -32,8 +31,6 @@ function DetailProduct() {
 
     const dispatch:AppDispatch = useDispatch()
 
-    const { cart } = useSelector((state:RootState) => state.cart)
-    
 
     const colorsAvalible: Color[] = []
     data?.Stocks.forEach((stock:Stock) => {
@@ -68,12 +65,10 @@ function DetailProduct() {
         image:data?.image, 
         cantidad:1, 
         size:size?.size || "", 
+        unit:size?.unit || 0,
         price:data?.price, 
         color:color
     }
-    
-
-    const existInCart = cart.find(product => product.id === data?.product_id && product.size !== size?.size && product.color !== color)
 
 return (
     <main className="bg-gradient-to-r from-[#EAEAEA] to-[#E5E5E5] h-screen pb-10">
@@ -98,7 +93,7 @@ return (
                 <div className="flex justify-center items-center gap-x-3 my-5">
                     {avalibleSizeColors.map(stock => (
                         <button 
-                            key={data.product_id+=1} 
+                            key={stock.size} 
                             className={`border border-neutral-400 
                             ${stock.size === size?.size? "bg-neutral-800 text-white" : null} py-1 px-3 rounded-xl transition-colors duration-500`} 
                             onClick={() => (setColor(""), setSize(stock))}>{stock.size}</button>
@@ -109,7 +104,7 @@ return (
                     
                     {size 
                     ?   size.colors.map((colors) => (
-                        <Tooltip text={colors.color} key={data.product_id+=1}>
+                        <Tooltip text={colors.color} key={size.size}>
                             <button style={{backgroundColor:colors.hxacolor}} 
                                     className={`w-[30px] h-[30px] rounded-full ${colors.color === color? "outline outline-neutral-800" : null}`}
                                     onClick={() => setColor(colors.color)}></button> 
@@ -117,19 +112,22 @@ return (
                     )) 
 
                     : colorsAvalible.map(colors => (
-                        <Tooltip text={colors.color} key={data.product_id+=1}>
+                        <Tooltip text={colors.color} key={colors.hxacolor}>
                             <div  style={{backgroundColor:colors.hxacolor}} 
                             className="w-[30px] h-[30px] rounded-full"></div>
                         </Tooltip>
                     )) }
 
                 </div>
-                <div className="my-3 flex justify-center items-center text-green-500 text-sm">{size ?<p> Unidades disponibles: {size?.unit}</p> : <p>ㅤ</p>}</div>
+                <div className={`my-3 flex justify-center items-center ${size?.unit === 0 ? "text-rose-500" :"text-green-500"} text-sm`}>{size ?<p> Unidades disponibles: {size?.unit}</p> : <p>ㅤ</p>}</div>
                 <p className="mt-auto mb-5 text-xl">$ {data?.price}</p>
                 
                 <button 
-                className={`w-[90%] mx-auto rounded-full py-3 text-sm text-white ${!size || !color ? "bg-neutral-400 pointer-events-none select-none" : "bg-neutral-800"}`}
-                onClick={() => {existInCart ? info("No se puede agregar mas variaciones de este articulo") : dispatch(addToCart(infoProduct))}} >
+
+                className={`w-[90%] mx-auto rounded-full py-3 text-sm text-white 
+                ${!size || !color || !size.unit ? "bg-neutral-400 pointer-events-none select-none" : "bg-neutral-800"}`}
+
+                onClick={() => dispatch(addToCart(infoProduct))} >
                     Añadir a carrito
                 </button>
 

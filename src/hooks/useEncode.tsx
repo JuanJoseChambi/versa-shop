@@ -7,8 +7,8 @@ export function useEncode () {
 
 
     function encode (name:string, object:any) {
-        if (!object || !name) return null;
-        const encoded = window.btoa(JSON.stringify(object))
+        // if (!object || !name) return null;
+        const encoded = btoa(JSON.stringify(object))
         setLocalStorage(name, encoded)
         // return encoded
     }
@@ -19,7 +19,7 @@ export function useEncode () {
         const obejectEncode = getLocalStorage(name)
         if (!obejectEncode) return null;
 
-        const decoded = JSON.parse(window.atob(obejectEncode))
+        const decoded = JSON.parse(atob(obejectEncode))
         return decoded
     }
 

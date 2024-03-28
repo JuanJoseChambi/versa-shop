@@ -7,17 +7,17 @@ function useApi<T>(url: string, token?:string): ApiResponse<T> {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchData = async () => {
+  async function fetchData () {
     try {
         const requestOptions: RequestInit = {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': token ? `Bearer ${token}` : '' // Agregar el encabezado solo si hay un token
+                'Authorization': `Bearer ${token}` || ""
             },
         };
-
-        const response = await fetch(url, requestOptions)
+        
+        const response = await fetch(url,requestOptions)
 
         const result: T = await response.json();
         setData(result);
@@ -27,11 +27,13 @@ function useApi<T>(url: string, token?:string): ApiResponse<T> {
     } finally {
         setLoading(false);
     }
-    };
+}
 
     useEffect(() => {
-    fetchData();
-    }, []);
+        
+        fetchData()
+    },[ url, token ])
+
 
   return { data, error, loading };
 }
