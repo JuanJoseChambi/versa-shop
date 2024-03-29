@@ -1,6 +1,7 @@
 // Button -------------------------------------
 export interface ButtonProp {
-    icon?:string;
+    iconLeft?:string;
+    iconRight?:string;
     text?:string;
     dir?:string | undefined
     style?:string;

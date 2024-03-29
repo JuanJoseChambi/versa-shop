@@ -42,15 +42,15 @@ function Nav({style}:styleProp) {
 
             <div className={`${hover === "searchNav" ? "border" : null} border-neutral-500  flex justify-center items-center px-3 rounded-lg`} onMouseDown={() => setHover("searchNav")} onMouseLeave={() => setHover(null)}>
                 <input type="text" className={`${hover === "searchNav" ? "w-[120px]" : "w-0" } transition-[width] duration-500  outline-none text-xs bg-transparent`}/>
-                <Button icon="bx bx-search" style="pl-2 py-1"/>
+                <Button iconLeft="bx bx-search" style="pl-2 py-1"/>
             </div>
 
             <div className="relative flex justify-center items-center">
-                <Button icon="bx bx-cart" style="text-lg z-10" onClick={() => setCartVisible(!cartVisible)}/>
+                <Button iconLeft="bx bx-cart" style="text-lg z-10" onClick={() => setCartVisible(!cartVisible)}/>
                 <div className="absolute -top-2 -right-2 text-[10px] px-1 bg-neutral-500 text-white rounded-full">{cart.length}</div>
             </div>
 
-            {role === null && <Button icon="bx bx-user" style="text-lg" dir="/access"/>}
+            {role === null && <Button iconLeft="bx bx-user" style="text-lg" dir="/access"/>}
             {role !== null && <Button img={flower} onClick={() => setAcordeon(!acorden)}/>}
             <OptionsAcordeon 
                 visible={acorden} 
