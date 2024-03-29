@@ -8,6 +8,7 @@ import Tooltip from "../../components/Tooltip/Tooltip"
 import { AppDispatch } from "../../redux/store"
 import { useDispatch } from "react-redux"
 import { addToCart } from "../../redux/slice/cartSlice"
+import Button from "../../components/Button/Button"
 
 
 
@@ -71,16 +72,16 @@ function DetailProduct() {
     }
 
 return (
-    <main className="bg-gradient-to-r from-[#EAEAEA] to-[#E5E5E5] h-screen pb-10">
+    <main className="h-screen pb-10 ">
         <Nav style="sticky"/>
         <Loader active={loading}/>
-        <section className="w-[90%] mx-auto min-h-[80%] mt-[2%] border border-neutral-400 rounded-xl flex-col lg:flex-row flex justify-center items-center  lg:gap-x-[10%] bg-white">
+        <section className="w-[95%] lg:w-[90%] min-h-[90%] md:h-[90%]  mx-auto flex justify-center items-center flex-col md:flex-row bg-redd-500">
             
-            <picture className="w-[70%] lg:w-[25%] min-h-[350px] max-h-[350px] lg:min-h-[500px] lg:max-h-[500px] overflow-hidden flex justify-center items-center bg-greend-500">
-                <img src={data?.image} alt={data?.name} />
+            <picture className="max-w-[300px] max-h-[350px] min-h-[350px] md:w-[550px] md:max-h-[75%] md:min-h-[75%] lg:max-w-[25%] overflow-hidden mt-10 mb-5 flex justify-center items-center bg-greend-500 p-5 border border-neutral-500 rounded-sm">
+                <img src={data?.image} alt={data?.name} className="object-cover"/>
             </picture>
 
-            <article className="w-[95%] lg:w-[50%] min-h-[85%] py-5 px-10 flex justify-between items-start flex-col bg-blued-500">
+            <article className="w-[100%] lg:w-[70%] min-h-[75%] py-5 px-5 lg:px-16 flex justify-between items-start flex-col bg-blude-500">
                 <h2 className="text-4xl tracking-widest font-semibold">{data?.name}</h2>
 
                 <div className="flex justify-center items-center gap-x-2 text-sm font-light tracking-widest">
@@ -122,14 +123,11 @@ return (
                 <div className={`my-3 flex justify-center items-center ${size?.unit === 0 ? "text-rose-500" :"text-green-500"} text-sm`}>{size ?<p> Unidades disponibles: {size?.unit}</p> : <p>ㅤ</p>}</div>
                 <p className="mt-auto mb-5 text-xl">$ {data?.price}</p>
                 
-                <button 
-
-                className={`w-[90%] mx-auto rounded-full py-3 text-sm text-white 
-                ${!size || !color || !size.unit ? "bg-neutral-400 pointer-events-none select-none" : "bg-neutral-800"}`}
-
-                onClick={() => dispatch(addToCart(infoProduct))} >
-                    Añadir a carrito
-                </button>
+                <Button 
+                    style={`w-[90%] mx-auto rounded-full py-3 text-sm text-white ${!size || !color || !size.unit ? "bg-neutral-400 pointer-events-none select-none" : "bg-neutral-800"}`}
+                    text="Añadir a Carrito" 
+                    iconLeft="bx bx-cart-add"
+                    onClick={() => dispatch(addToCart(infoProduct))}/>
 
             </article>
 

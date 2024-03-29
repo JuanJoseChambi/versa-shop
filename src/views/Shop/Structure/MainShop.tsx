@@ -1,15 +1,11 @@
 import useApi from "../../../hooks/useApi"
 import { DataProduct } from "../../../interfaces/interfaces"
-// import { useFilter } from "../../../hooks/useFilter"
 import CardProduct from "../../../components/CardProduct/CardProduct"
 import SelectOption from "../../../components/SelectOption/SelectOption"
 
 function MainShop() {
 
     const { data } = useApi("http://localhost:3001/product/all") as { data: DataProduct[] }
-
-    // const {categories, types, colors, sizes} = useFilter()
-    // console.log(data);
 
     let categories =  new Set(data?.map(product => product.Category.category))
     let types = new Set(data?.map(product => product.Type.type));
@@ -23,20 +19,13 @@ function MainShop() {
         })
     })
 
-    
     const categoriesArray = [...categories] as string[];
     const typesArray = [...types] as string[];
     const sizesArray = [...sizes] as string[];
     const colorsArray = [...colors] as string[];
     
-    // console.log(categoriesArray);
-    // console.log(typesArray);
-    // console.log(sizesArray);
-    // console.log(colorsArray);
-
-    
   return (
-    <main className="max-w-[1320px] mx-auto flex justify-between items-start">
+    <main className="w-[95%] mx-auto flex justify-between items-start">
         <section className="sticky top-10 w-[250px] bg-redd-500 py-3">
             <h3 className="py-2 text-sm tracking-widest"><i className='bx bx-filter-alt'></i> Filtros</h3>
             <hr className="bg-neutral-400 h-[2px]"></hr>

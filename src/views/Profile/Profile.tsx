@@ -69,7 +69,7 @@ function Profile() {
             
             {Array.isArray(data) ? data?.map(purchase => (
                 <div key={purchase.purchase_id} className="min-w-[150px] h-[200px] relative px-4 gap-y-2 flex justify-center items-center flex-col border border-neutral-400">
-                    <div className="bg-blued-500 flex justify-center items-center flex-col gap-y-2">
+                    <div className="bg-blued-500 flex justify-start items-center flex-col gap-y-2 overflow-y-auto pt-3">
 
                         {purchase.Products?.map(product => (
                         <div key={product.PurchaseProduct.ProductProductId} className="w-full relative flex justify-start items-center ">
@@ -78,9 +78,9 @@ function Profile() {
                             </picture>
                             <div>
                                 <p className="text-sm">{product.name}</p>
-                                <p className="text-sm">{product.price}</p>
+                                <p className="text-sm">$ {product.price}</p>
                             </div>
-                            <p className="absolute -top-2 left-10 text-xs text-neutral-500 ">{product.unit}</p>
+                            <p className="absolute -top-2 left-10 text-xs text-neutral-500 ">{product.PurchaseProduct.cantidad}</p>
 
                             {/* <p className="text-xs">{product.description}</p> */}
                         </div>
