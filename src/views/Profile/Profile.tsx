@@ -45,30 +45,34 @@ function Profile() {
     const { id } = useParams()
     const { name, lastname, nickname, token } = useDecode(VITE_C_USER)
     
-    // const { data, error:InfoUser, loading } = useApi(`http://localhost:3001/user/info/${id}`, token) as { data: ProfileUser, error: string, loading: boolean }
-    // if (InfoUser) return error(InfoUser)
-    // console.log(token);
-    
     const { data, loading } = useApi(`http://localhost:3001/user/${id}/purchases`, token) as {data:UserPurchases[] , loading:boolean}
-    // console.log(data);
     
   return (
-    <header>
-        <Loader active={loading}/>
+    <header className="bg-[#ededed]">
+        {/* <Loader active={loading}/> */}
         <Nav style="text-white"/>
-        <section className="w-full h-[250px] flex justify-evenly items-center bg-gradient-to-r from-neutral-950 to-neutral-800">
-            <article className="pt-10 bg-redd-500">
+        <section className="w-full h-[350px] flex justify-start items-start bg-gradient-to-r from-neutral-950 to-neutral-800">
+            
+            
+            {/* <article className="pt-10 bg-redd-500">
                 <h3 className="text-white text-6xl font-semibold">{name} {lastname}</h3>
                 <p className="text-sm text-neutral-400"># {nickname}</p>
-            </article>
-            <picture className="w-[250px] h-[250px] flex justify-center items-center bg-neutral-200 rounded-full overflow-hidden translate-y-24">
-                <img src="https://www.timburnslaw.com/wp-content/uploads/2017/12/no-user.png" alt="Profile Image" />
-            </picture>
+            </article> */}
         </section>
-        <section className="area flex justify-center items-center flex-wrap gap-5 py-10">
+        <section className="w-[90%] mx-auto flex justify-start items-start gap-5 ">
             
+            <section className="w-[270px] h-[500px] sticky top-0 -translate-y-40 bg-white flex justify-start items-center flex-col rounded-xl">
+                    <picture className="w-[200px] h-[200px] flex justify-center items-center bg-neutral-200 rounded-full overflow-hidden mt-8 mb-3">
+                        <img src="https://www.timburnslaw.com/wp-content/uploads/2017/12/no-user.png" alt="Profile Image" />
+                    </picture>
+                    <div>
+                        <h2 className="text-3xl h font-semibold">{name} {lastname}</h2>
+                        <h3 className="text-sm text-neutral-500"># {nickname}</h3>
+                    </div>
+            </section>
+            <section className="w-full min-h-[250px] bg-blued-500 flex justify-center items-center flex-wrap gap-3 py-5">
             {Array.isArray(data) ? data?.map(purchase => (
-                <div key={purchase.purchase_id} className="min-w-[150px] h-[200px] relative px-4 gap-y-2 flex justify-center items-center flex-col border border-neutral-400">
+                <div key={purchase.purchase_id} className="min-w-[150px] max-h-[200px] min-h-[200px] relative px-4 gap-y-2 flex justify-center items-center flex-col border border-neutral-400 ">
                     <div className="bg-blued-500 flex justify-start items-center flex-col gap-y-2 overflow-y-auto pt-3">
 
                         {purchase.Products?.map(product => (
@@ -81,7 +85,7 @@ function Profile() {
                                 <p className="text-sm">$ {product.price}</p>
                             </div>
                             <p className="absolute -top-2 left-10 text-xs text-neutral-500 ">{product.PurchaseProduct.cantidad}</p>
-
+                        
                             {/* <p className="text-xs">{product.description}</p> */}
                         </div>
                         ))}
@@ -96,6 +100,8 @@ function Profile() {
                     </div>
                 </div>
             )): ""}
+            </section>
+
         </section>
 
 
@@ -105,3 +111,6 @@ function Profile() {
 }
 
 export default Profile
+
+
+
