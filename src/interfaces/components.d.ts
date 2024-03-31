@@ -2,6 +2,7 @@
 export interface ButtonProp {
     iconLeft?:string;
     iconRight?:string;
+    styleIcon?:string;
     text?:string;
     dir?:string | undefined
     style?:string;
