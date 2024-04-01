@@ -5,6 +5,9 @@ import { useDecode } from "../../hooks/useDecode"
 import Loader from "../../components/Loader/Loader"
 import Button from "../../components/Button/Button"
 import Nubes from "../../assets/NubeTormenta.webp"
+// import Dashboard from "../../components/Dashboard/Dashboard"
+// import TitleDashboard from "../../components/TitleDashboard/TitleDashboard"
+import Input from "../../components/Input/Input"
 const { VITE_C_USER } = import.meta.env
 
 export interface UserPurchases {
@@ -53,14 +56,14 @@ function Profile() {
     <header className="">
         <Loader active={loading}/>
         <Nav style="text-white"/>
-        <section className="w-full h-[350px] flex justify-center items-end bg-cover bg-fixed bg-center"
+        <section className="w-full h-[350px] flex justify-center items-center bg-cover bg-fixed bg-center"
         style={{backgroundImage:`url(${Nubes})`}}>
-            <h2 className="bg-redd-500 w-[45%] text-5xl text-white tracking-widest">MI PERFIL</h2>
+            <h2 className="text-8xl text-white font-noto backdrop-blur-sm">MI PERFIL</h2>
         </section>
 
-        <section className="w-[95%] mx-auto flex justify-start items-start gap-5 bg-redd-500">
+        <section className="w-[95%] mx-auto flex justify-start items-start gap-5 bg-blued-500 py-5">
             
-            <section className="w-[350px] min-h-[500px] sticky -top-10 -translate-y-40 bg-white shadow-xl shadow-neutral-600 flex justify-start items-center flex-col rounded-xl gap-y-4 py-6 px-6">
+            <section className="w-[320px] min-h-[500px] sticky -top-10 -translate-y-40 bg-white shadow-xl shadow-neutral-600 flex justify-start items-center flex-col rounded-xl gap-y-4 py-6 px-6">
                     <picture className="w-[200px] h-[200px] flex justify-center items-center bg-neutral-200 rounded-full overflow-hidden ">
                         <img src="https://www.timburnslaw.com/wp-content/uploads/2017/12/no-user.png" alt="Profile Image" />
                     </picture>
@@ -70,7 +73,7 @@ function Profile() {
                     </div>
                     <div className="w-full flex justify-center items-start flex-col gap-y-4">
                         <h4 className="text-sm tracking-wider text-neutral-800">Compras Realizadas: {totalPurchases}</h4>
-                        <h4 className="text-sm tracking-wider text-neutral-800">Compras Pendientes: 2</h4>
+                        <h4 className="text-sm tracking-wider text-neutral-800 ">Compras Pendientes: 2</h4>
                     </div>
                     <div className="w-full flex justify-center items-start flex-col gap-y-2 bg-redd-500">
                         <Button text="Gmail" iconLeft="bx bxl-gmail" style="text-sm text-neutral-700 hover:text-rose-400 transition-color duration-500"/>
@@ -80,11 +83,23 @@ function Profile() {
                     </div>
             </section>
 
+            <section className="w-[70%] min-h-[100px] mx-auto flex justify-start items-center gap-x-5 p-3 bg-redd-500">
 
-            <section className="w-[70%] mx-auto min-h-[250px] bg-blued-500 flex justify-start items-start py-10 flex-col bg-greend-500">
-
-
-               
+                <div className="w-[100%] rounded-lg p-4 flex justify-start items-start flex-col gap-y-10 bg-neutral-100 shadow-md shadow-neutral-600">
+                    <div className="w-full flex justify-between items-center">
+                        <div className="w-full">
+                            <Input name="Nombre" placeholder={`${name}`} />
+                        </div>
+                        <div className="w-full">
+                            <Input name="Apellido" placeholder={`${lastname}`}/>
+                        </div>
+                    </div>
+                    <div className="flex justify-center items-center">
+                        <div>
+                        <Input name="Nickname" placeholder={`${nickname}`}/>
+                        </div>
+                    </div>
+                </div>
 
             </section>
 

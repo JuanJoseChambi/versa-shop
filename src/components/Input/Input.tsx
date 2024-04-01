@@ -15,7 +15,7 @@ interface InputProp {
 }
 
 
-const styleDefault:string = "w-full py-1 px-2 relative flex justify-between items-center gap-x-2 text-sm rounded-lg border border-neutral-400 outline-none bg-white "
+const styleDefault:string = "w-full py-1 px-2 relative flex justify-between items-center gap-x-2 border border-neutral-400 outline-none bg-white "
 
 function Input({ placeholder, name, type = "text",  icon,  iconLeft = true, iconRight, styleIcon = "text-lg", style = styleDefault, styleDimensions, onChange}: InputProp) {
 
