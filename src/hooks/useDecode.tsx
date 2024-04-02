@@ -30,6 +30,7 @@ export function useDecode (name:string) {
     },[])
     
     return { 
+        email:decode?.email,
         name: decode?.name, 
         lastname: decode?.lastname,
         nickname:decode?.nickname,
