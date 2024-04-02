@@ -32,7 +32,7 @@ function Nav({style}:styleProp) {
             <h2 className="font-bold text-2xl font-noto">Versa</h2>
         </Link>
 
-        <section className="space-x-5">
+        <section className="space-x-5 flex justify-center items-center">
             <Button style="text-xs font-semibold tracking-widest" text="TIENDA" dir="/shop"/>
             <Button style="text-xs font-semibold tracking-widest" text="NOSOTROS"/>
             <Button style="text-xs font-semibold tracking-widest" text="CATEGORIAS"/>
@@ -56,7 +56,7 @@ function Nav({style}:styleProp) {
                 visible={acorden} 
                 options={[
                     {text:"Mi Perfil", iconLeft:"bx bx-user-circle", dir:`/profile/${id}`},
-                    {text:"Ajustes", iconLeft:"bx bx-cog"},
+                    // {text:"Ajustes", iconLeft:"bx bx-cog"},
                     {text:"Mis Compras", iconLeft:"bx bx-shopping-bag"},
                     {text:"Ayuda", iconLeft:"bx bx-help-circle"},
                     {text:"Cerrar Sesion", iconLeft:"bx bx-log-out", onClick: () => { Cookies.remove(VITE_C_USER) }, dir:"/access"},
