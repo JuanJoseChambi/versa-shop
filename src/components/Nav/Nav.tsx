@@ -21,7 +21,7 @@ function Nav({style}:styleProp) {
 
     const { cart } = useSelector((state:RootState) => state.cart)
 
-    const { role, id } = useDecode(VITE_C_USER)
+    const { role, id, name, nickname } = useDecode(VITE_C_USER)
 
 
 
@@ -55,8 +55,20 @@ function Nav({style}:styleProp) {
             <OptionsAcordeon 
                 visible={acorden} 
                 options={[
+                    {node:
+                    <div className="w-full flex justify-evenly items-start pb-1 pt-1">
+                        <section className="relative">
+                            <picture className="relative flex w-[50px] h-[50px] overflow-hidden bg-neutral-500 rounded-full">
+                                <img src={flower} alt="" className="object-cover "/>
+                            </picture>
+                            <div className="absolute bottom-1 right-0 w-[13px] h-[13px] bg-green-500 rounded-full"></div>
+                        </section>
+                        <section className="py-2 mx-auto">
+                            <h2 className="break-words leading-3 font-semibold">{name}</h2>
+                            <h3 className="text-xs text-neutral-500"># {nickname}</h3>
+                        </section>
+                    </div>},
                     {text:"Mi Perfil", iconLeft:"bx bx-user-circle", dir:`/profile/${id}`},
-                    // {text:"Ajustes", iconLeft:"bx bx-cog"},
                     {text:"Mis Compras", iconLeft:"bx bx-shopping-bag"},
                     {text:"Ayuda", iconLeft:"bx bx-help-circle"},
                     {text:"Cerrar Sesion", iconLeft:"bx bx-log-out", onClick: () => { Cookies.remove(VITE_C_USER) }, dir:"/access"},
