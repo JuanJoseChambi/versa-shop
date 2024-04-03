@@ -10,6 +10,10 @@ import { error, success } from "../../utils/alert";
 import { ResponseData } from "../../interfaces/interfaces";
 const { VITE_C_USER, VITE_C_CART } = import.meta.env
 
+
+
+
+
 function Cart({visible, onClose}:CartProp) {
   
   const dispatch: AppDispatch = useDispatch();
@@ -17,8 +21,8 @@ function Cart({visible, onClose}:CartProp) {
   const { decode } = useEncode()
   const { id } = useDecode(VITE_C_USER);
   
-  if (!visible) return null; // Se usa la condicion de vsibile despues de inicializar los Hooks, por que sino da error de Static Flag
-  
+  if (!visible) return null;
+
   const valueTotalFloat = Array.isArray(cart) ? cart.map(product => product.price * product.cantidad).reduce((accumulator, current) => accumulator + current, 0) : null;
   
   const valueTotal = typeof valueTotalFloat === 'number' ? parseFloat(valueTotalFloat.toFixed(2)) : null;
@@ -35,8 +39,6 @@ function Cart({visible, onClose}:CartProp) {
       dispatch(deleteAllCart())
       return success(data.message)
     }
-    
-    
   }
 
 

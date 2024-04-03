@@ -7,9 +7,6 @@ import Button from "../../components/Button/Button"
 import Nubes from "../../assets/NubeTormenta.webp"
 import { useState } from "react"
 import InfoEdit from "../../components/InfoEdit/InfoEdit"
-// import Dashboard from "../../components/Dashboard/Dashboard"
-// import TitleDashboard from "../../components/TitleDashboard/TitleDashboard"
-// import Input from "../../components/Input/Input"
 const { VITE_C_USER } = import.meta.env
 
 export interface UserPurchases {
@@ -49,7 +46,7 @@ export interface PurchaseState {
 
 function Profile() {
     const { id } = useParams()
-    const { name, lastname, email, nickname,token } = useDecode(VITE_C_USER)
+    const { name, lastname, email, nickname, token } = useDecode(VITE_C_USER)
     
     const { data, loading } = useApi(`http://localhost:3001/user/${id}/purchases`, token) as {data:UserPurchases[] , loading:boolean}
 
@@ -72,7 +69,6 @@ function Profile() {
         <Nav style="text-white"/>
         <section className="w-full h-[350px] flex justify-center items-center bg-cover bg-fixed bg-center"
         style={{backgroundImage:`url(${Nubes})`}}>
-            <h2 className="text-8xl text-white font-noto backdrop-blur-sm">MI PERFIL</h2>
         </section>
 
         <section className="w-[95%] h-[430px] mx-auto flex justify-start items-start gap-5 bg-blued-500 bg-redd-500">
@@ -136,34 +132,7 @@ export default Profile
 
 
 
-// {Array.isArray(data) ? data?.map(purchase => (
-//     <div key={purchase.purchase_id} className="min-w-[150px] max-h-[200px] min-h-[200px] relative px-4 gap-y-2 flex justify-center items-center flex-col border border-neutral-400 ">
-//         <div className="bg-blued-500 flex justify-start items-center flex-col gap-y-2 overflow-y-auto pt-3">
 
-//             {purchase.Products?.map(product => (
-//             <div key={product.PurchaseProduct.ProductProductId} className="w-full relative flex justify-start items-center ">
-//                 <picture className="flex justify-center items-center w-[50px] h-[50px] overflow-hidden bg-redd-500">
-//                     <img src={product.image} alt="" className=""/>
-//                 </picture>
-//                 <div>
-//                     <p className="text-sm">{product.name}</p>
-//                     <p className="text-sm">$ {product.price}</p>
-//                 </div>
-//                 <p className="absolute -top-2 left-10 text-xs text-neutral-400 ">{product.PurchaseProduct.cantidad}</p>
-            
-//             </div>
-//             ))}
-
-//         </div>
-//         <div className="w-full">
-//             <p>Direction: {purchase.direction}</p>
-//             <div className="w-full h-[1px] bg-neutral-400"></div>
-//             <p className="text-sm">Price Total: ${purchase.priceTotal}</p>
-//             {/* <p>{purchase.}</p> */}
-//             <p className="text-xs text-neutral-400 absolute bottom-3 right-3">{purchase.PurchaseState.state}</p>
-//         </div>
-//     </div>
-// )): ""}
 
 
 
