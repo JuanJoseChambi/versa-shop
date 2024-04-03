@@ -6,6 +6,7 @@ import Admin from "./views/Admin/Admin"
 import DetailProduct from "./views/DetailProduct/DetailProduct"
 import Access from "./views/Access/Access"
 import Profile from "./views/Profile/Profile"
+import Purchases from "./views/MyPurchase/MyPurchase"
 function App() {
 
   return (
@@ -16,6 +17,7 @@ function App() {
       <Route path="/admin" element={<Admin/>}/>
       <Route path="/detail/:id" element={<DetailProduct/>}/>
       <Route path="/profile/:id" element={<Profile/>}/>
+      <Route path="/mypurchase/:id" element={<Purchases/>}/>
     </Routes>
   )
 }

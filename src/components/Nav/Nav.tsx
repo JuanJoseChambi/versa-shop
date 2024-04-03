@@ -23,9 +23,6 @@ function Nav({style}:styleProp) {
 
     const { role, id, name, nickname } = useDecode(VITE_C_USER)
 
-
-
-
   return (
     <nav className={`w-[95%] mx-auto flex justify-between items-center py-4 fixed left-0 right-0 z-[100] ${style}`}>
         <Link to={"/"}>
@@ -58,18 +55,22 @@ function Nav({style}:styleProp) {
                     {node:
                     <div className="w-full flex justify-evenly items-start pb-1 pt-1">
                         <section className="relative">
-                            <picture className="relative flex w-[50px] h-[50px] overflow-hidden bg-neutral-500 rounded-full">
-                                <img src={flower} alt="" className="object-cover "/>
-                            </picture>
+                            <Link to={`/profile/${id}`}>
+                                <picture className="relative flex w-[50px] h-[50px] overflow-hidden bg-neutral-500 rounded-full">
+                                    <img src={flower} alt="" className="object-cover "/>
+                                </picture>
+                            </Link>
                             <div className="absolute bottom-1 right-0 w-[13px] h-[13px] bg-green-500 rounded-full"></div>
                         </section>
                         <section className="py-2 mx-auto">
-                            <h2 className="break-words leading-3 font-semibold">{name}</h2>
-                            <h3 className="text-xs text-neutral-500"># {nickname}</h3>
+                            <Link to={`/profile/${id}`}>
+                                <h2 className="break-words leading-3 font-semibold">{name}</h2>
+                                <h3 className="text-xs text-neutral-500"># {nickname}</h3>
+                            </Link>
                         </section>
                     </div>},
-                    {text:"Mi Perfil", iconLeft:"bx bx-user-circle", dir:`/profile/${id}`},
-                    {text:"Mis Compras", iconLeft:"bx bx-shopping-bag"},
+                    // {text:"Mi Perfil", iconLeft:"bx bx-user-circle", dir:`/profile/${id}`},
+                    {text:"Mis Compras", iconLeft:"bx bx-shopping-bag", dir:`/mypurchase/${id}`},
                     {text:"Ayuda", iconLeft:"bx bx-help-circle"},
                     {text:"Cerrar Sesion", iconLeft:"bx bx-log-out", onClick: () => { Cookies.remove(VITE_C_USER) }, dir:"/access"},
                     ]}/>
