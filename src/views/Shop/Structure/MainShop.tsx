@@ -1,46 +1,59 @@
 import useApi from "../../../hooks/useApi"
 import { DataProduct } from "../../../interfaces/interfaces"
 import CardProduct from "../../../components/CardProduct/CardProduct"
-import SelectOption from "../../../components/SelectOption/SelectOption"
+import Filters from "../../../components/Filters/Filters"
+import { useState } from "react"
 
 function MainShop() {
+
+    const [filters, setFilters] = useState<boolean>(false)
 
     const { data } = useApi("http://localhost:3001/product/all") as { data: DataProduct[] }
 
     let categories =  new Set(data?.map(product => product.Category.category))
     let types = new Set(data?.map(product => product.Type.type));
 
-    let sizes = new Set()
-    let colors = new Set()
+    let sizes = new Set(); 
+    let colorshxa = new Set<string>();
     data?.forEach((product) => {
         product.Stocks.forEach((stock) => {
             sizes.add(stock.Size.size)
-            colors.add(stock.Color.color)
+            let colorshxaItem = { color: stock.Color.color, hxacolor: stock.Color.hxacolor };
+            let colorshxaString = JSON.stringify(colorshxaItem);
+            if (!colorshxa.has(colorshxaString)) {
+                colorshxa.add(colorshxaString ) ;
+            }
+            
         })
     })
+
+    const colorsArray = Array.from(colorshxa).map(color => { return JSON.parse(color) as {color:string, hxacolor:string} });
 
     const categoriesArray = [...categories] as string[];
     const typesArray = [...types] as string[];
     const sizesArray = [...sizes] as string[];
-    const colorsArray = [...colors] as string[];
     
   return (
-    <main className="w-[95%] mx-auto flex justify-between items-start">
-        <section className="sticky top-10 w-[250px] bg-redd-500 py-3">
-            <h3 className="py-2 text-sm tracking-widest"><i className='bx bx-filter-alt'></i> Filtros</h3>
-            <hr className="bg-neutral-400 h-[2px]"></hr>
-            <section className="flex justify-center items-center flex-col gap-y-8 bg-redd-500 py-5">
-                
-                <SelectOption options={categoriesArray} titleOption="Categorias"/>
-                <SelectOption options={typesArray} titleOption="Tipos"/>
-                <SelectOption options={sizesArray} titleOption="Tamaños"/>
-                <SelectOption options={colorsArray} titleOption="Colores"/>
-                
-                <button className="w-full rounded-full py-3 text-sm text-white bg-neutral-800">Apilcar Filtro</button>
-            </section>
-
+    <main className="w-[95%] mx-auto flex justify-between items-start flex-col">
+        <section className="w-full h-auto my-2 flex justify-center items-center py-10">
+            <h2>PRODUCTOS DESTACADOS</h2>
         </section>
-        <section className="w-[80%] gap-10 flex flex-wrap justify-center items-center py-10 bg-blued-500">
+
+        <section className="w-full min-h-[0px] bg-greend-500 flex justify-center items-start flex-col gap-y-5">
+            <button className="outline-none font-thin gap-x-1 flex justify-center items-center border border-neutral-800 px-2 py-1 rounded-md" onClick={() => setFilters(!filters)}>
+                <i className="scale-125 bx bx-filter"></i>Filtros
+            </button>
+            <aside className={`w-full ${filters ? "min-h-[0px] max-h-[50px]" : "max-h-0 min-h-0 opacity-0"} transition-[min-height_max-height] duration-700 flex justify-evenly items-start divide-x divide-neutral-500 bg-redd-500`}>
+
+                <Filters filter={categoriesArray} title="CATEGORIAS"/>
+                <Filters filter={typesArray} title="TIPOS"/>
+                <Filters filter={sizesArray} title="TAMAÑOS"/>
+                <Filters filter={colorsArray} title="COLORES"/>
+
+            </aside>
+        </section>
+
+        <section className="w-full gap-10 flex flex-wrap justify-center items-center py-5 bg-blued-500">
             {data?.map(product => (
                     <CardProduct key={product.product_id} product={product}/>
             ))}
