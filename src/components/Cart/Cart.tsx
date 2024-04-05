@@ -1,14 +1,16 @@
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../redux/store";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
 import CartCard from "../CartCard/CartCard";
-import { fetchPOST } from "../../utils/fetchPOST";
-import { deleteAllCart } from "../../redux/slice/cartSlice";
+// import { fetchPOST } from "../../utils/fetchPOST";
+// import { deleteAllCart } from "../../redux/slice/cartSlice";
 import { CartProp } from "../../interfaces/components";
-import { useDecode } from "../../hooks/useDecode";
-import { useEncode } from "../../hooks/useEncode";
-import { error, success } from "../../utils/alert";
-import { ResponseData } from "../../interfaces/interfaces";
-const { VITE_C_USER, VITE_C_CART } = import.meta.env
+// import { useDecode } from "../../hooks/useDecode";
+// import { useEncode } from "../../hooks/useEncode";
+// import { error, success } from "../../utils/alert";
+// import { ResponseData } from "../../interfaces/interfaces";
+// import { Link } from "react-router-dom";
+import Button from "../Button/Button";
+// const { VITE_C_USER, VITE_C_CART } = import.meta.env
 
 
 
@@ -16,10 +18,10 @@ const { VITE_C_USER, VITE_C_CART } = import.meta.env
 
 function Cart({visible, onClose}:CartProp) {
   
-  const dispatch: AppDispatch = useDispatch();
+  // const dispatch: AppDispatch = useDispatch();
   const {cart} = useSelector((state:RootState) => state.cart);
-  const { decode } = useEncode()
-  const { id } = useDecode(VITE_C_USER);
+  // const { decode } = useEncode()
+  // const { id } = useDecode(VITE_C_USER);
   
   if (!visible) return null;
 
@@ -28,18 +30,19 @@ function Cart({visible, onClose}:CartProp) {
   const valueTotal = typeof valueTotalFloat === 'number' ? parseFloat(valueTotalFloat.toFixed(2)) : null;
   
   
-  const cartProducts = decode(VITE_C_CART)
+  // const cartProducts = decode(VITE_C_CART)
 
-  async function handlerPurchase () {
+  // async function handlerPurchase () {
     
-    const {data} = await fetchPOST("http://localhost:3001/purchase/create", {direction:"Casa", userID: id, products:cartProducts }) as {data:ResponseData}
+  //   const {data} = await fetchPOST("http://localhost:3001/purchase/create", {direction:"Casa", userID: id, products:cartProducts }) as {data:ResponseData}
 
-    if (data.error) return error(data.message);
-    if (!data.error) {
-      dispatch(deleteAllCart())
-      return success(data.message)
-    }
-  }
+  //   if (data.error) return error(data.message);
+  //   if (!data.error) {
+  //     dispatch(deleteAllCart())
+  //     return success(data.message)
+  //   }
+  // }
+  // onClick={handlerPurchase}
 
 
   return (
@@ -48,7 +51,7 @@ function Cart({visible, onClose}:CartProp) {
         <h3 className="text-black text-sm font-semibold tracking-widest py-2">MI COMPRA</h3>
         <hr className="bg-neutral-400 h-[2px]"></hr>
 
-        <section className=" w-full h-[17%] 2xl:max-h-[35%] 2xl:h-auto overflow-auto my-5 gap-y-3 flex flex-col justify-start items-center scroll bg-redd-500">
+        <section className=" w-full min-h-[17%] 2xl:max-h-[35%] 2xl:h-auto overflow-auto my-5 gap-y-3 flex flex-col justify-start items-center scroll bg-redd-500">
           {cart.length > 0 
           ? cart?.map((products) => (
             <CartCard products={products} key={`${products.id} ${products.size} ${products.color}`}/>
@@ -79,8 +82,10 @@ function Cart({visible, onClose}:CartProp) {
           <h3 className="text-xl">$ {valueTotal}</h3>
         </div>
 
-        <button className="w-full rounded-full py-3 text-sm text-white bg-neutral-800" onClick={handlerPurchase}>Iniciar Compra</button>
-
+          <section className="flex justify-center items-center flex-col gap-y-3">
+            <Button style="w-full text-white py-2 rounded-full text-sm bg-black " text="Iniciar Compra" dir="/checkout"/>
+            <Button style="w-full text-black py-2 rounded-full text-sm border border-black " text="Seguir Comprando" onClick={onClose}/>
+          </section>
     </aside>
   )
 }

@@ -14,7 +14,7 @@ function CardProduct({product}:CardProductProp) {
   return (
     <article key={product.product_id} className="max-w-[276px] min-h-[335px] relative flex justify-start items-start flex-col bg-redd-500 p-3 outline-none hover:outline-1 hover:outline hover:outline-neutral-300 transition-[outline] duration-500 ">
                 <Link to={`/detail/${product.product_id}`}>
-                    <picture className="w-[250px] min-h-[220px] max-h-[220px] flex justify-center items-center overflow-hidden bg-blued-500 ">
+                    <picture className="w-[250px] min-h-[220px] max-h-[220px] flex justify-center items-center overflow-hidden bg-blued-500">
                         <img src={product.image} alt={product.name} className="w-[80%]"/>
                     </picture>
                 </Link>
