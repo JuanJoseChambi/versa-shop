@@ -7,6 +7,7 @@ import DetailProduct from "./views/DetailProduct/DetailProduct"
 import Access from "./views/Access/Access"
 import Profile from "./views/Profile/Profile"
 import Purchases from "./views/MyPurchase/MyPurchase"
+import Checkout from "./views/Checkout/Checkout"
 function App() {
 
   return (
@@ -14,6 +15,7 @@ function App() {
       <Route path="/" element={<Home/>}/>
       <Route path="/access" element={<Access/>}/>
       <Route path="/shop" element={<Shop/>}/>
+      <Route path="/checkout" element={<Checkout/>}/>
       <Route path="/admin" element={<Admin/>}/>
       <Route path="/detail/:id" element={<DetailProduct/>}/>
       <Route path="/profile/:id" element={<Profile/>}/>

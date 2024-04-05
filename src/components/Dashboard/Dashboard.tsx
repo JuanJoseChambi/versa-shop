@@ -1,20 +1,22 @@
+import { ReactNode } from "react";
 
 interface DashboardProp {
     values:ValuesDashboard[];
+    divide?: boolean;
 }
 
 
 interface ValuesDashboard {
     value?:string;
-    value2?:string;
-    value3?:string;
-    value4?:string;
-    value5?:string;
-    value6?:string;
-    value7?:string;
-    value8?:string;
-    value9?:string;
-    value10?:string;
+    value2?:string | ReactNode;
+    value3?:string | ReactNode;
+    value4?:string | ReactNode;
+    value5?:string | ReactNode;
+    value6?:string | ReactNode;
+    value7?:string | ReactNode;
+    value8?:string | ReactNode;
+    value9?:string | ReactNode;
+    value10?:string | ReactNode;
     width?:string;
     width2?:string;
     width3?:string;
@@ -28,10 +30,10 @@ interface ValuesDashboard {
     type?:string
 }
 
-function Dashboard({ values }:DashboardProp) {
+function Dashboard({ values, divide = true }:DashboardProp) {
   return (
         
-        <section className="w-full min-h-[60px] max-h-[60px] flex justify-between items-center text-center text-sm divide-x divide-neutral-400 bg-blued-500">
+        <section className={`w-full min-h-[60px] max-h-[60px] flex justify-between items-center text-center text-sm ${divide ? "divide-x divide-neutral-400" : null} bg-blued-500`}>
             {values.map(value => (
                 <>
                     {value.type === "image" && value.value && 
