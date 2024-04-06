@@ -5,12 +5,50 @@ import TitleDashboard from "../../components/TitleDashboard/TitleDashboard"
 import Dashboard from "../../components/Dashboard/Dashboard"
 import { addToCart, deleteFromCart, removeToCart } from "../../redux/slice/cartSlice"
 import Button from "../../components/Button/Button"
+import { useState } from "react"
+import { Wallet, initMercadoPago } from "@mercadopago/sdk-react"
 
 function Checkout() {
+    initMercadoPago('TEST-8c97ff92-f23a-406c-84b3-a074d4765515', { locale: 'es-AR' });
 
     const { cart } = useSelector((state:RootState) => state.cart)
     const dispatch: AppDispatch = useDispatch();
     const subtotal = cart.map(product => product.price * product.cantidad).reduce((accumulator, current) => accumulator + current, 0)
+
+    const [preferenceId, setPreferenceId] = useState<string>("")
+    
+    async function payment () {
+      const body = {
+        title:"Buso Nike",
+        quantity:3,
+        price:10
+      };
+
+      const response = await fetch("http://localhost:3001/create_preference", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      });
+      
+      const preference = await response.json();
+      
+      setPreferenceId(preference.id)
+    }
+
+    const renderCheckoutButton = (preferenceId:string) => {
+      if (!preferenceId) return null;
+  
+      return (
+        <Wallet 
+          initialization={{ preferenceId: preferenceId }}
+          />
+        )
+    }
+
+    console.log(preferenceId);
+    
   return (
     <main>
         <Nav style="sticky"/>
@@ -25,7 +63,7 @@ function Checkout() {
               ]
               }/>
               {cart.map((product) => (
-                  <Dashboard divide={false} values={[
+                  <Dashboard key={product.id} divide={false} values={[
                     {value:product.image, type:"image", width:"w-[60px] min-h-[45px] max-h-[45px] overflow-hidden",
                     value2:
                     <>
@@ -67,7 +105,8 @@ function Checkout() {
                 <h3 className="text-xl font-semibold">$ {subtotal}</h3>
               </div>
               <div className="w-full flex justify-center items-center flex-col gap-y-3">
-                <Button style="w-[80%] py-2 rounded-full bg-black text-white" text="Comprar"/>
+                <Button style="w-[80%] py-2 rounded-full bg-black text-white" text="Comprar" onClick={() => payment()}/>
+                {renderCheckoutButton(preferenceId)}
                 <Button style="w-[80%] py-2 rounded-full border border-neutral-700" text="Seguir comprando" dir="/shop"/>
               </div>
             </section>
