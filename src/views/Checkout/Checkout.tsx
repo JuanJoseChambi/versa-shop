@@ -31,10 +31,9 @@ function Checkout() {
         },
         body: JSON.stringify(body),
       });
-
-      
       
       const preference = await response.json();
+      
       setPreferenceId(preference.id)
     }
 
