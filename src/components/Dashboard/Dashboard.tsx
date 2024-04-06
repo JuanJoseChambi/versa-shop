@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import React, { ReactNode } from "react";
 
 interface DashboardProp {
     values:ValuesDashboard[];
@@ -35,7 +35,7 @@ function Dashboard({ values, divide = true }:DashboardProp) {
         
         <section className={`w-full min-h-[60px] max-h-[60px] flex justify-between items-center text-center text-sm ${divide ? "divide-x divide-neutral-400" : null} bg-blued-500`}>
             {values.map(value => (
-                <>
+                <React.Fragment key={value.value}>
                     {value.type === "image" && value.value && 
                     <picture className={`${value.width} overflow-hidden flex justify-center items-center`}>
                         <img src={value.value} alt="Image Not Found" className=""/>
@@ -49,7 +49,7 @@ function Dashboard({ values, divide = true }:DashboardProp) {
                     {value.value8 && <h3 className={value.width8}>{value.value8}</h3> }
                     {value.value9 && <h3 className={value.width9}>{value.value9}</h3> }
                     {value.value10 && <h3 className={value.width10}>{value.value10}</h3> }
-                </>
+                </React.Fragment>
             ))}
         </section>
         
