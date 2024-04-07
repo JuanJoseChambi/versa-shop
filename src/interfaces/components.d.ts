@@ -8,7 +8,8 @@ export interface ButtonProp {
     style?:string;
     onClick?: () => void;
     img?: string;
-    hover?:boolean
+    hover?:boolean;
+    disable?:boolean
 }
 // Tooltip ------------------------------------
 export interface TooltipProp {

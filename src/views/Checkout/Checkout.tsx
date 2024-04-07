@@ -16,10 +16,12 @@ function Checkout() {
     const subtotal = cart.map(product => product.price * product.cantidad).reduce((accumulator, current) => accumulator + current, 0)
 
     const [preferenceId, setPreferenceId] = useState<string>("")
+    const [oneClick, setOneClick] = useState<boolean>(false)
     
     initMercadoPago(VITE_MP_P_KEY, { locale: 'es-AR' })
 
     async function payment () {
+      
       const body = {
         title:"Buso Nike",
         quantity:5,
@@ -39,8 +41,6 @@ function Checkout() {
       setPreferenceId(preference.id)
     }
 
-    // console.log(preferenceId);
-    
   return (
     <main>
         <Nav style="sticky"/>
@@ -97,8 +97,12 @@ function Checkout() {
                 <h3 className="text-xl font-semibold">$ {subtotal}</h3>
               </div>
               <div className="w-full flex justify-center items-center flex-col gap-y-3">
-                <Button style="w-[80%] py-2 rounded-full bg-black text-white" text="Comprar" onClick={() => payment()}/>
-                {preferenceId && <Wallet initialization={{ preferenceId: preferenceId }} customization={{ texts:{ valueProp: 'smart_option'}, visual:{ buttonBackground: 'black' }}} />}
+                <Button 
+                  style="w-[80%] py-2 rounded-full bg-black text-white" 
+                  text="Comprar" 
+                  onClick={() => {!oneClick && payment(), setOneClick(true)}} 
+                  disable={oneClick}/>
+                {preferenceId && oneClick && <Wallet initialization={{ preferenceId: preferenceId }} customization={{ texts:{ valueProp: 'smart_option'}, visual:{ buttonBackground: 'black' }}} />}
                 <Button style="w-[80%] py-2 rounded-full border border-neutral-700" text="Seguir comprando" dir="/shop"/>
               </div>
             </section>
