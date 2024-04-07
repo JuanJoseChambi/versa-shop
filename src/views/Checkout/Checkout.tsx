@@ -7,6 +7,7 @@ import { addToCart, deleteFromCart, removeToCart } from "../../redux/slice/cartS
 import Button from "../../components/Button/Button"
 import { useState } from "react"
 import { Wallet, initMercadoPago } from "@mercadopago/sdk-react"
+const {VITE_MP_P_KEY} = import.meta.env
 
 function Checkout() {
   
@@ -16,8 +17,7 @@ function Checkout() {
 
     const [preferenceId, setPreferenceId] = useState<string>("")
     
-    // initMercadoPago('TEST-8c97ff92-f23a-406c-84b3-a074d4765515', {locale:"es-AR"});
-    initMercadoPago('TEST-8c97ff92-f23a-406c-84b3-a074d4765515', { locale: 'es-AR' })
+    initMercadoPago(VITE_MP_P_KEY, { locale: 'es-AR' })
 
     async function payment () {
       const body = {
@@ -39,7 +39,7 @@ function Checkout() {
       setPreferenceId(preference.id)
     }
 
-    console.log(preferenceId);
+    // console.log(preferenceId);
     
   return (
     <main>
