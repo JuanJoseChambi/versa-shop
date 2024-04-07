@@ -9,18 +9,20 @@ import { useState } from "react"
 import { Wallet, initMercadoPago } from "@mercadopago/sdk-react"
 
 function Checkout() {
-    initMercadoPago('TEST-8c97ff92-f23a-406c-84b3-a074d4765515', { locale: 'es-AR' });
-
+  
     const { cart } = useSelector((state:RootState) => state.cart)
     const dispatch: AppDispatch = useDispatch();
     const subtotal = cart.map(product => product.price * product.cantidad).reduce((accumulator, current) => accumulator + current, 0)
 
     const [preferenceId, setPreferenceId] = useState<string>("")
     
+    // initMercadoPago('TEST-8c97ff92-f23a-406c-84b3-a074d4765515', {locale:"es-AR"});
+    initMercadoPago('TEST-8c97ff92-f23a-406c-84b3-a074d4765515', { locale: 'es-AR' })
+
     async function payment () {
       const body = {
         title:"Buso Nike",
-        quantity:3,
+        quantity:5,
         price:10
       };
 
@@ -35,16 +37,6 @@ function Checkout() {
       const preference = await response.json();
       
       setPreferenceId(preference.id)
-    }
-
-    const renderCheckoutButton = (preferenceId:string) => {
-      if (!preferenceId) return null;
-  
-      return (
-        <Wallet 
-          initialization={{ preferenceId: preferenceId }}
-          />
-        )
     }
 
     console.log(preferenceId);
@@ -67,8 +59,8 @@ function Checkout() {
                     {value:product.image, type:"image", width:"w-[60px] min-h-[45px] max-h-[45px] overflow-hidden",
                     value2:
                     <>
-                      <h2 className="text-sm tracking-wider">{product.name}</h2>
-                      <h3 className="text-xs">Talle: {product.size} | Color: {product.color}</h3>
+                      <div className="text-sm tracking-wider">{product.name}</div>
+                      <div className="text-xs">Talle: {product.size} | Color: {product.color}</div>
                     </>, width2:"w-[50%] bg-greend-500 text-start",
 
                     value3:
@@ -106,7 +98,7 @@ function Checkout() {
               </div>
               <div className="w-full flex justify-center items-center flex-col gap-y-3">
                 <Button style="w-[80%] py-2 rounded-full bg-black text-white" text="Comprar" onClick={() => payment()}/>
-                {renderCheckoutButton(preferenceId)}
+                {preferenceId && <Wallet initialization={{ preferenceId: preferenceId }} customization={{ texts:{ valueProp: 'smart_option'}, visual:{ buttonBackground: 'black' }}} />}
                 <Button style="w-[80%] py-2 rounded-full border border-neutral-700" text="Seguir comprando" dir="/shop"/>
               </div>
             </section>

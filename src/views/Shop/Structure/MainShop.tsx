@@ -3,6 +3,7 @@ import { DataProduct } from "../../../interfaces/interfaces"
 import CardProduct from "../../../components/CardProduct/CardProduct"
 import Filters from "../../../components/Filters/Filters"
 import { useState } from "react"
+import React from "react"
 
 function MainShop() {
 
@@ -75,9 +76,9 @@ function MainShop() {
 
         <section className="w-full gap-10 flex flex-wrap justify-center items-center py-5 bg-blued-500">
             {data?.map(product => (
-                   <>
+                   <React.Fragment key={product.product_id}>
                    {product.unit > 0 && <CardProduct key={product.product_id} product={product}/>}
-                   </>
+                   </React.Fragment>
             ))}
         </section>
     </main>
