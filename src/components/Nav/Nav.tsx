@@ -3,7 +3,7 @@ import Button from "../Button/Button"
 import Cart from "../Cart/Cart"
 import { useSelector } from "react-redux"
 import { RootState } from "../../redux/store"
-import { Link } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 import { useDecode } from "../../hooks/useDecode"
 import Cookies from "js-cookie"
 import flower from "../../assets/asHome/FlowerWhite.png"
@@ -22,6 +22,10 @@ function Nav({style}:styleProp) {
     const { cart } = useSelector((state:RootState) => state.cart)
 
     const { role, id, name, nickname } = useDecode(VITE_C_USER)
+
+    const { pathname } = useLocation();
+
+    const cartButton = pathname === "/checkout";
 
   return (
     <nav className={`w-[95%] mx-auto flex justify-between items-center py-4 fixed left-0 right-0 z-[100] ${style}`}>
@@ -42,10 +46,10 @@ function Nav({style}:styleProp) {
                 <Button iconLeft="bx bx-search" style="pl-2 py-1"/>
             </div>
 
-            <div className="relative flex justify-center items-center">
-                <Button iconLeft="bx bx-cart" style="text-lg z-10" onClick={() => setCartVisible(!cartVisible)}/>
+            {!cartButton && <div className="relative flex justify-center items-center">
+                 <Button iconLeft="bx bx-cart" style="text-lg z-10" onClick={() => setCartVisible(!cartVisible)}/>
                 <div className="absolute -top-2 -right-2 text-[10px] px-1 bg-neutral-500 text-white rounded-full">{cart.length}</div>
-            </div>
+            </div>}
 
             {role === null && <Button iconLeft="bx bx-user" style="text-lg" dir="/access"/>}
             {role !== null && <Button img={flower} onClick={() => setAcordeon(!acorden)}/>}

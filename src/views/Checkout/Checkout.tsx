@@ -80,9 +80,10 @@ function Checkout() {
                   ]}/>
               ))}
           </section>
-          <section className="w-[30%] py-5 rounded-lg flex justify-center items-center flex-col bg-neutral-200 border border-neutral-300">
+
+          <section className="w-[30%] py-5 rounded-lg flex justify-center items-center gap-y-3 flex-col bg-neutral-300">
             <h3 className="tracking-wider font-semibold">Resumen de Compra</h3>
-            <section className="w-[90%] flex justify-between items-center gap-y-3 flex-col">
+            <section className="w-[90%] flex justify-between items-center gap-y-3 flex-col text-sm">
               <div className="w-full flex justify-between items-center">
                 <h3>Subtotal</h3>
                 <h3>$ {subtotal}</h3>
@@ -98,12 +99,12 @@ function Checkout() {
               </div>
               <div className="w-full flex justify-center items-center flex-col gap-y-3">
                 <Button 
-                  style="w-[80%] py-2 rounded-full bg-black text-white" 
-                  text="Comprar" 
+                  style="w-[80%] py-2 rounded-full bg-black text-white text-sm" 
+                  text="Iniciar pago" 
                   onClick={() => {!oneClick && payment(), setOneClick(true)}} 
                   disable={oneClick}/>
                 {preferenceId && oneClick && <Wallet initialization={{ preferenceId: preferenceId }} customization={{ texts:{ valueProp: 'smart_option'}, visual:{ buttonBackground: 'black' }}} />}
-                <Button style="w-[80%] py-2 rounded-full border border-neutral-700" text="Seguir comprando" dir="/shop"/>
+                <Button style="text-sm py-2" text="Seguir comprando" dir="/shop"/>
               </div>
             </section>
           </section>
