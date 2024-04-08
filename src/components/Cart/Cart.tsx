@@ -84,7 +84,7 @@ function Cart({visible, onClose}:CartProp) {
 
           <section className="flex justify-center items-center flex-col gap-y-3">
             <Button style="w-full text-white py-2 rounded-full text-sm bg-black " text="Iniciar Compra" dir="/checkout"/>
-            <Button style="w-full text-black py-2 rounded-full text-sm border border-black " text="Seguir Comprando" onClick={onClose}/>
+            <Button style="w-auto mx-auto text-black py-2 rounded-full text-sm" text="Seguir Comprando" onClick={onClose}/>
           </section>
     </aside>
   )
