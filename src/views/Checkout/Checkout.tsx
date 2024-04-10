@@ -1,116 +1,98 @@
 import { useDispatch, useSelector } from "react-redux"
 import Nav from "../../components/Nav/Nav"
 import { AppDispatch, RootState } from "../../redux/store"
-import TitleDashboard from "../../components/TitleDashboard/TitleDashboard"
-import Dashboard from "../../components/Dashboard/Dashboard"
-import { addToCart, deleteFromCart, removeToCart } from "../../redux/slice/cartSlice"
 import Button from "../../components/Button/Button"
-import { useState } from "react"
-import { Wallet, initMercadoPago } from "@mercadopago/sdk-react"
-const {VITE_MP_P_KEY} = import.meta.env
+import { useEffect, useState } from "react"
+// import { Wallet, initMercadoPago } from "@mercadopago/sdk-react"
+import CheckoutProfile from "../../components/CheckoutProfile/CheckoutProfile"
+import CheckoutCart from "../../components/CheckoutCart/CheckoutCart"
+import SummaryCart from "../../components/SummaryCart/SummaryCart"
+import SummaryProfile from "../../components/SummaryProfile/SummaryProfile"
+import { deleteAllCart } from "../../redux/slice/cartSlice"
+import { error, success } from "../../utils/alert"
+import { fetchPOST } from "../../utils/fetchPOST"
+import { ResponseData } from "../../interfaces/interfaces"
+import { useEncode } from "../../hooks/useEncode"
+import { useDecode } from "../../hooks/useDecode"
+import { Link } from "react-router-dom"
+const { VITE_C_USER, VITE_C_CART} = import.meta.env
 
 function Checkout() {
   
     const { cart } = useSelector((state:RootState) => state.cart)
-    const dispatch: AppDispatch = useDispatch();
     const subtotal = cart.map(product => product.price * product.cantidad).reduce((accumulator, current) => accumulator + current, 0)
 
-    const [preferenceId, setPreferenceId] = useState<string>("")
-    const [oneClick, setOneClick] = useState<boolean>(false)
+    const [checkoutProfile, setCheckoutProfile] = useState(false);
+  const dispatch: AppDispatch = useDispatch();
+  const { decode } = useEncode()
+  const { id } = useDecode(VITE_C_USER);
+
+  const cartProducts = decode(VITE_C_CART)
     
-    initMercadoPago(VITE_MP_P_KEY, { locale: 'es-AR' })
+  async function handlerPurchase () {
+    // console.log(cartProducts);
+    // console.log(id);
+    // console.log(cart);
+    
 
-    async function payment () {
-      
-      const body = {
-        title:"Buso Nike",
-        quantity:5,
-        price:10
-      };
+    
+    
+    const {data} = await fetchPOST("http://localhost:3001/purchase/create", {direction:"Casa", userID: id, products:cartProducts }) as {data:ResponseData}
 
-      const response = await fetch("http://localhost:3001/create_preference", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(body),
-      });
-      
-      const preference = await response.json();
-      
-      setPreferenceId(preference.id)
+    if (data.error) return error(data.message);
+    if (!data.error) {
+      dispatch(deleteAllCart())
+      return success(data.message)
     }
+  }
+
+  useEffect(() => {
+    // console.log(id);
+    const urlParams = new URLSearchParams(window.location.search);
+    const params: any = {};
+    for (const [key, value] of urlParams) {
+      params[key] = value;
+    }
+    // console.log(params);
+
+    if (params["status"] === "approved" && cartProducts.length > 0) {
+      handlerPurchase()
+    } 
+    
+  },[])
 
   return (
     <main>
         <Nav style="sticky"/>
-        <section className="w-[95%] mx-auto h-auto flex justify-evenly items-start py-10 bg-blued-500"> 
-          <section className="w-[60%] px-3 bg-redd-500">
-            <TitleDashboard titles={
-              [
-                {text:"Producto", width:"w-[60%]"},
-                {text:"Talla",width:"w-[15%]"},
-                {text:"Precio",width:"w-[15%]"},
-                {text:"Subtotal",width:"w-[15%]"}
-              ]
-              }/>
-              {cart.map((product) => (
-                  <Dashboard key={product.id} divide={false} values={[
-                    {value:product.image, type:"image", width:"w-[60px] min-h-[45px] max-h-[45px] overflow-hidden",
-                    value2:
-                    <>
-                      <div className="text-sm tracking-wider">{product.name}</div>
-                      <div className="text-xs">Talle: {product.size} | Color: {product.color}</div>
-                    </>, width2:"w-[50%] bg-greend-500 text-start",
+        {!cartProducts
+          ? 
+            <section className="w-[95%] mx-auto h-auto flex justify-evenly items-start py-10 bg-blued-500"> 
+              <section className="w-[60%] h-[450px] px-3 bg-redd-500">
 
-                    value3:
-                    <div className="flex justify-center items-center gap-x-3">
-                      <button className="bg-neutral-300 w-[20px] h-[20px] text-center rounded-full" onClick={() => dispatch(removeToCart(product))}>-</button>
-                      <p>{product.cantidad}</p>
-                      <button className="bg-neutral-300 w-[20px] h-[20px] text-center rounded-full" onClick={() => dispatch(addToCart(product))}>+</button>
-                    </div>, width3:"w-[15%]",
+                { !checkoutProfile ? <CheckoutCart/> : <CheckoutProfile/>}
 
-                    value4:`$ ${product.price}`, width4:"w-[15%]",
+              </section>
 
-                    value5:
-                    <div className="relative flex justify-center items-center">
-                      <b>$ {product.price * product.cantidad}</b>
-                      <button className="text-lg absolute right-0" onClick={() => dispatch(deleteFromCart(product))}><i className='bx bx-trash-alt'></i></button>
-                    </div>, width5:"w-[15%]"}
-                  ]}/>
-              ))}
-          </section>
+              <section className="w-[30%] py-5 rounded-lg flex justify-center items-center gap-y-3 flex-col px-5 bg-neutral-200">
+                <h3 className="tracking-wider font-semibold">Resumen de Compra</h3>
 
-          <section className="w-[30%] py-5 rounded-lg flex justify-center items-center gap-y-3 flex-col bg-neutral-300">
-            <h3 className="tracking-wider font-semibold">Resumen de Compra</h3>
-            <section className="w-[90%] flex justify-between items-center gap-y-3 flex-col text-sm">
-              <div className="w-full flex justify-between items-center">
-                <h3>Subtotal</h3>
-                <h3>$ {subtotal}</h3>
-              </div>
-              <div className="w-full flex justify-between items-center">
-                <h3>Envio</h3>
-                <h3>Gratis</h3>
-              </div>
-              <div className="w-full h-[1px] bg-neutral-400"></div>
-              <div className="w-full flex justify-between items-center">
-                <h3 className="text-xl font-semibold tracking-widest">Total</h3>
-                <h3 className="text-xl font-semibold">$ {subtotal}</h3>
-              </div>
-              <div className="w-full flex justify-center items-center flex-col gap-y-3">
-                <Button 
-                  style="w-[80%] py-2 rounded-full bg-black text-white text-sm" 
-                  text="Iniciar pago" 
-                  onClick={() => {!oneClick && payment(), setOneClick(true)}} 
-                  disable={oneClick}/>
-                {preferenceId && oneClick && <Wallet initialization={{ preferenceId: preferenceId }} customization={{ texts:{ valueProp: 'smart_option'}, visual:{ buttonBackground: 'black' }}} />}
-                <Button style="text-sm py-2" text="Seguir comprando" dir="/shop"/>
-              </div>
+                {!checkoutProfile ? <SummaryCart subtotal={subtotal} setCheckoutProfile={() => setCheckoutProfile(true)}/> : <SummaryProfile/>}
+
+                <Button style="text-sm" text="Seguir comprando" dir="/shop"/>
+
+              </section>
             </section>
-          </section>
-        </section>
+          : 
+            <section className="w-[95%] h-[200px] mx-auto flex justify-center items-center flex-col py-10 bg-neutral-200 rounded-md">
+              <h2 className="text-sm font-semibold text-neutral-800 tracking-widest">No hay productos en el carrito</h2>
+              <Link to={"/shop"}>
+                <h3 className="text-xs ">Seguir comprando</h3>
+              </Link>
+            </section>
+        }
     </main>
   )
 }
 
 export default Checkout
+
