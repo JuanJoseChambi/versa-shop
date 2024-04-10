@@ -14,7 +14,7 @@ function Purchases() {
   
   const { id } = useParams()
 
-  const { token, name, lastname ,nickname } = useDecode(VITE_C_USER)
+  const { token, name, lastname, nickname } = useDecode(VITE_C_USER)
 
 
   const { data } = useApi(`http://localhost:3001/user/${id}/purchases`, token) as {data:UserPurchases[] , loading:boolean}
