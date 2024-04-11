@@ -1,49 +1,17 @@
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import CartCard from "../CartCard/CartCard";
-// import { fetchPOST } from "../../utils/fetchPOST";
-// import { deleteAllCart } from "../../redux/slice/cartSlice";
 import { CartProp } from "../../interfaces/components";
-// import { useDecode } from "../../hooks/useDecode";
-// import { useEncode } from "../../hooks/useEncode";
-// import { error, success } from "../../utils/alert";
-// import { ResponseData } from "../../interfaces/interfaces";
-// import { Link } from "react-router-dom";
 import Button from "../Button/Button";
-// const { VITE_C_USER, VITE_C_CART } = import.meta.env
-
-
-
-
 
 function Cart({visible, onClose}:CartProp) {
   
-  // const dispatch: AppDispatch = useDispatch();
   const {cart} = useSelector((state:RootState) => state.cart);
-  // const { decode } = useEncode()
-  // const { id } = useDecode(VITE_C_USER);
-  
   if (!visible) return null;
 
   const valueTotalFloat = Array.isArray(cart) ? cart.map(product => product.price * product.cantidad).reduce((accumulator, current) => accumulator + current, 0) : null;
   
   const valueTotal = typeof valueTotalFloat === 'number' ? parseFloat(valueTotalFloat.toFixed(2)) : null;
-  
-  
-  // const cartProducts = decode(VITE_C_CART)
-
-  // async function handlerPurchase () {
-    
-  //   const {data} = await fetchPOST("http://localhost:3001/purchase/create", {direction:"Casa", userID: id, products:cartProducts }) as {data:ResponseData}
-
-  //   if (data.error) return error(data.message);
-  //   if (!data.error) {
-  //     dispatch(deleteAllCart())
-  //     return success(data.message)
-  //   }
-  // }
-  // onClick={handlerPurchase}
-
 
   return (
     <aside className="fixed right-0 top-0 py-4 px-4 w-[350px] h-screen bg-[#f3f1f1] z-20">
