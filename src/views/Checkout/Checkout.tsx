@@ -15,6 +15,7 @@ import { ResponseData } from "../../interfaces/interfaces"
 import { useEncode } from "../../hooks/useEncode"
 import { useDecode } from "../../hooks/useDecode"
 import { Link } from "react-router-dom"
+import shop from "../../assets/checkout/shop.svg"
 const { VITE_C_USER, VITE_C_CART} = import.meta.env
 
 function Checkout() {
@@ -30,12 +31,9 @@ function Checkout() {
   const cartProducts = decode(VITE_C_CART)
     
   async function handlerPurchase () {
-    // console.log(cartProducts);
-    // console.log(id);
-    // console.log(cart);
-    
-
-    
+    console.log(cartProducts);
+    console.log(id);
+    console.log(cart);
     
     const {data} = await fetchPOST("http://localhost:3001/purchase/create", {direction:"Casa", userID: id, products:cartProducts }) as {data:ResponseData}
 
@@ -47,7 +45,7 @@ function Checkout() {
   }
 
   useEffect(() => {
-    // console.log(id);
+    console.log(id)
     const urlParams = new URLSearchParams(window.location.search);
     const params: any = {};
     for (const [key, value] of urlParams) {
@@ -64,7 +62,7 @@ function Checkout() {
   return (
     <main>
         <Nav style="sticky"/>
-        {!cartProducts
+        {cartProducts.length > 0
           ? 
             <section className="w-[95%] mx-auto h-auto flex justify-evenly items-start py-10 bg-blued-500"> 
               <section className="w-[60%] h-[450px] px-3 bg-redd-500">
@@ -83,10 +81,11 @@ function Checkout() {
               </section>
             </section>
           : 
-            <section className="w-[95%] h-[200px] mx-auto flex justify-center items-center flex-col py-10 bg-neutral-200 rounded-md">
+            <section className="w-[95%] min-h-[200px] mx-auto flex justify-center items-center flex-col py-10 bg-neutral-200 rounded-md">
+              <img src={shop} alt="" className="w-[200px] bg-redd-500"/>
               <h2 className="text-sm font-semibold text-neutral-800 tracking-widest">No hay productos en el carrito</h2>
               <Link to={"/shop"}>
-                <h3 className="text-xs ">Seguir comprando</h3>
+                <h3 className="text-xs pt-5">Seguir comprando</h3>
               </Link>
             </section>
         }

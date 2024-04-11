@@ -172,7 +172,7 @@ function CheckoutProfile() {
 
 
             </section>
-                {preferenceId && <Wallet 
+                {preferenceId && oneClick && <Wallet 
                     initialization={{ preferenceId: preferenceId, redirectMode:"modal"}} 
                     customization={
                         { 
