@@ -7,7 +7,6 @@ import Button from "../../components/Button/Button"
 import Nubes from "../../assets/NubeTormenta.webp"
 import { useState } from "react"
 import InfoEdit from "../../components/InfoEdit/InfoEdit"
-const { VITE_C_USER } = import.meta.env
 
 export interface UserPurchases {
     purchase_id:    string;
@@ -46,7 +45,7 @@ export interface PurchaseState {
 
 function Profile() {
     const { id } = useParams()
-    const { name, lastname, email, nickname, token } = useDecode(VITE_C_USER)
+    const { name, lastname, email, nickname, token } = useDecode()
     
     const { data, loading } = useApi(`http://localhost:3001/user/${id}/purchases`, token) as {data:UserPurchases[] , loading:boolean}
 

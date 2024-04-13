@@ -1,13 +1,15 @@
 import Cookies from "js-cookie"
 import { DecodeToken } from "../interfaces/interfaces";
 import { useEffect, useState } from "react";
+const { VITE_C_USER } = import.meta.env
 
-export function useDecode (name:string) {
+
+export function useDecode () {
     const [decode, setDecode] = useState<DecodeToken>()
 
     useEffect(() => {
         function decodeToken () {
-            const token = Cookies.get(name);
+            const token = Cookies.get(VITE_C_USER);
             if (!token) return false
             
             const tokenJwt:string = atob(token)

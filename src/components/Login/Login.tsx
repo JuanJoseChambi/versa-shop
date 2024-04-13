@@ -31,6 +31,7 @@ function Login({visible}:LogInProp) {
             let tokenString = typeof data.token === 'string' ? data.token : JSON.stringify(data.token);
             const tokenEncode = btoa(tokenString)
             Cookies.set(VITE_C_USER, tokenEncode, { expires: 7 })
+            window.location.reload();
             return navigate("/shop")
         }
     }

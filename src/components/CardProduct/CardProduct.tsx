@@ -5,7 +5,6 @@ interface CardProductProp {
     product: DataProduct
 }
 
-
 function CardProduct({product}:CardProductProp) {
 
     const colorsAvailable = new Set(product.Stocks.map(stock => stock.Color.color));

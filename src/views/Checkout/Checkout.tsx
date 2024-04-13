@@ -16,7 +16,7 @@ import { useEncode } from "../../hooks/useEncode"
 import { useDecode } from "../../hooks/useDecode"
 import { Link } from "react-router-dom"
 import shop from "../../assets/checkout/shop.svg"
-const { VITE_C_USER, VITE_C_CART} = import.meta.env
+const { VITE_C_CART} = import.meta.env
 
 function Checkout() {
   
@@ -26,7 +26,7 @@ function Checkout() {
     const [checkoutProfile, setCheckoutProfile] = useState(false);
   const dispatch: AppDispatch = useDispatch();
   const { decode } = useEncode()
-  const { id } = useDecode(VITE_C_USER);
+  const { id } = useDecode();
 
   const cartProducts = decode(VITE_C_CART)
     
