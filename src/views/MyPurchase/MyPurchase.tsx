@@ -8,13 +8,12 @@ import { UserPurchases } from "../Profile/Profile"
 // import TitleDashboard from "../../components/TitleDashboard/TitleDashboard"
 import Nubes from "../../assets/NubeTormenta.webp"
 import { useParams } from "react-router-dom"
-const { VITE_C_USER } = import.meta.env
 
 function Purchases() {
   
   const { id } = useParams()
 
-  const { token, name, lastname, nickname } = useDecode(VITE_C_USER)
+  const { token, name, lastname, nickname } = useDecode()
 
 
   const { data } = useApi(`http://localhost:3001/user/${id}/purchases`, token) as {data:UserPurchases[] , loading:boolean}

@@ -5,12 +5,9 @@ const {setLocalStorage, getLocalStorage} = useLocalStorage()
 
 export function useEncode () {
 
-
     function encode (name:string, object:any) {
-        // if (!object || !name) return null;
         const encoded = btoa(JSON.stringify(object))
         setLocalStorage(name, encoded)
-        // return encoded
     }
 
     function decode (name:string) {

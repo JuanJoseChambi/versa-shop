@@ -21,7 +21,7 @@ function Nav({style}:styleProp) {
 
     const { cart } = useSelector((state:RootState) => state.cart)
 
-    const { role, id, name, nickname } = useDecode(VITE_C_USER)
+    const { role, id, name, nickname } = useDecode()
 
     const { pathname } = useLocation();
 
@@ -47,7 +47,7 @@ function Nav({style}:styleProp) {
             </div>
 
             {!cartButton && <div className="relative flex justify-center items-center">
-                 <Button iconLeft="bx bx-cart" style="text-lg z-10" onClick={() => setCartVisible(!cartVisible)}/>
+                <Button iconLeft="bx bx-cart" style="text-lg z-10" onClick={() => setCartVisible(!cartVisible)}/>
                 <div className="absolute -top-2 -right-2 text-[10px] px-1 bg-neutral-500 text-white rounded-full">{cart.length}</div>
             </div>}
 
@@ -76,7 +76,7 @@ function Nav({style}:styleProp) {
                     // {text:"Mi Perfil", iconLeft:"bx bx-user-circle", dir:`/profile/${id}`},
                     {text:"Mis Compras", iconLeft:"bx bx-shopping-bag", dir:`/mypurchase/${id}`},
                     {text:"Ayuda", iconLeft:"bx bx-help-circle"},
-                    {text:"Cerrar Sesion", iconLeft:"bx bx-log-out", onClick: () => { Cookies.remove(VITE_C_USER) }, dir:"/access"},
+                    {text:"Cerrar Sesion", iconLeft:"bx bx-log-out", onClick: () => { Cookies.remove(VITE_C_USER), window.location.reload() }},
                     ]}/>
 
         </div>
