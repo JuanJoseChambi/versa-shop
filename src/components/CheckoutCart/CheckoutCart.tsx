@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, deleteFromCart, removeToCart } from "../../redux/slice/cartSlice"
-import Dashboard from "../Dashboard/Dashboard"
-import TitleDashboard from "../TitleDashboard/TitleDashboard"
+import Dashboard from "../../withoutUse/components/Dashboard/Dashboard"
+import TitleDashboard from "../../withoutUse/components/TitleDashboard/TitleDashboard"
 import { AppDispatch, RootState } from "../../redux/store";
 
 function CheckoutCart() {

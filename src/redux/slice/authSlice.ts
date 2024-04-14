@@ -18,7 +18,6 @@ interface UserTypes {
     token: string | undefined;   
 }
 
-// const infoUser = useDecode()
 let initialState:AuthSlice = {
 
     user: {
@@ -35,7 +34,6 @@ const userInfoCookie = Cookies.get(VITE_C_USER)
 if (userInfoCookie) {
     const token = atob(userInfoCookie)
     const infoUser:UserTypes = JSON.parse(atob(token.split('.')[1])).usuario
-    // console.log(infoUser);
     
     initialState.user = {
         email: infoUser?.email,
