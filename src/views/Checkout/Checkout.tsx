@@ -3,7 +3,6 @@ import Nav from "../../components/Nav/Nav"
 import { AppDispatch, RootState } from "../../redux/store"
 import Button from "../../components/Button/Button"
 import { useEffect, useState } from "react"
-// import { Wallet, initMercadoPago } from "@mercadopago/sdk-react"
 import CheckoutProfile from "../../components/CheckoutProfile/CheckoutProfile"
 import CheckoutCart from "../../components/CheckoutCart/CheckoutCart"
 import SummaryCart from "../../components/SummaryCart/SummaryCart"
@@ -13,29 +12,25 @@ import { error, success } from "../../utils/alert"
 import { fetchPOST } from "../../utils/fetchPOST"
 import { ResponseData } from "../../interfaces/interfaces"
 import { useEncode } from "../../hooks/useEncode"
-import { useDecode } from "../../hooks/useDecode"
 import { Link } from "react-router-dom"
 import shop from "../../assets/checkout/shop.svg"
 const { VITE_C_CART} = import.meta.env
 
 function Checkout() {
   
-    const { cart } = useSelector((state:RootState) => state.cart)
-    const subtotal = cart.map(product => product.price * product.cantidad).reduce((accumulator, current) => accumulator + current, 0)
+  const { cart } = useSelector((state:RootState) => state.cart)
+  const { profilePurchase } = useSelector((state:RootState) => state.preferenceProfile)
+  const subtotal = cart.map(product => product.price * product.cantidad).reduce((accumulator, current) => accumulator + current, 0)
 
-    const [checkoutProfile, setCheckoutProfile] = useState(false);
+  const [checkoutProfile, setCheckoutProfile] = useState(false);
   const dispatch: AppDispatch = useDispatch();
   const { decode } = useEncode()
-  const { id } = useDecode();
 
   const cartProducts = decode(VITE_C_CART)
     
-  async function handlerPurchase () {
-    console.log(cartProducts);
-    console.log(id);
-    console.log(cart);
-    
-    const {data} = await fetchPOST("http://localhost:3001/purchase/create", {direction:"Casa", userID: id, products:cartProducts }) as {data:ResponseData}
+  async function handlerPurchase (payment_id:string) {
+    // console.log(purchaseInfo.email);
+    const {data} = await fetchPOST("http://localhost:3001/purchase/create", { direction:"Casa", userEmail: profilePurchase.email, payment_id: payment_id, products:cartProducts }) as {data:ResponseData}
 
     if (data.error) return error(data.message);
     if (!data.error) {
@@ -45,16 +40,13 @@ function Checkout() {
   }
 
   useEffect(() => {
-    console.log(id)
     const urlParams = new URLSearchParams(window.location.search);
     const params: any = {};
     for (const [key, value] of urlParams) {
       params[key] = value;
     }
-    // console.log(params);
-
     if (params["status"] === "approved" && cartProducts.length > 0) {
-      handlerPurchase()
+      handlerPurchase(params["payment_id"])
     } 
     
   },[])

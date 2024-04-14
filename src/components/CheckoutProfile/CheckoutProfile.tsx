@@ -5,7 +5,12 @@ import credit from "../../assets/paymentMethod/Credito.png"
 import debit from "../../assets/paymentMethod/Debito.png"
 import mp from "../../assets/paymentMethod/mercadopago.png"
 import { Wallet, initMercadoPago } from "@mercadopago/sdk-react"
+import { ProfilePurchase } from "../../interfaces/components"
+import { useDispatch, useSelector } from "react-redux"
+import { updateProfileProperty } from "../../redux/slice/preferenceProfileSlice"
+import { RootState } from "../../redux/store"
 const {VITE_MP_P_KEY} = import.meta.env
+
 
 function CheckoutProfile() {
     const CREDIT = "CREDITO"
@@ -16,25 +21,14 @@ function CheckoutProfile() {
     const [paymentMethod, setPaymentMethod] = useState<boolean>(false)
     const [selectMethod, setSelectMethod] = useState<string>(CREDIT)
 
-    const [purchaseInfo, setPurchaseInfo] = useState({
-        email: "",
-        name: "",
-        lastname:"",
-        phone: "",
-        gender: "",
-        street: "",
-        number:"",
-        houseApartament: "",
-        neighborhood:"",
-        city:"",
-        receives:""
 
-    })
+  const { profilePurchase } = useSelector((state:RootState) => state.preferenceProfile)
+    
     initMercadoPago(VITE_MP_P_KEY, { locale: 'es-AR' })
 
     const [preferenceId, setPreferenceId] = useState<string>("")
     const [oneClick, setOneClick] = useState<boolean>(false)
-    
+    const dispatch = useDispatch()
 
     async function payment () {                             //Usar Redux para pasar la preferencia al SummaryProfile al precionar mercado pago
         const body = {
@@ -52,10 +46,17 @@ function CheckoutProfile() {
         });
     
         const preference = await response.json();
-        console.log(preference);
         
         setPreferenceId(preference.id)
     }
+
+
+    function changePreferenceProfile (property: keyof ProfilePurchase, value:string) {
+        dispatch(updateProfileProperty({property, value}))
+        console.log(property, value);
+
+    }
+
 
   return (
     <section className="w-full relative flex justify-center items-start flex-col gap-y-5 bg-blued-500">
@@ -71,14 +72,14 @@ function CheckoutProfile() {
 
 
             <div className="w-full">
-                <Input name="Correo Electronico" placeholder="tu@correo.com" onChange={(e) => setPurchaseInfo({...purchaseInfo, email:e.target.value})}/>
+                <Input name="Correo Electronico" placeholder="tu@correo.com" onChange={(e) => changePreferenceProfile("email", e.target.value)}/>
             </div>
             <div className="w-full flex justify-center items-center gap-x-5">
-                <Input name="Nombre *" placeholder="Jose" onChange={(e) => setPurchaseInfo({...purchaseInfo, name:e.target.value})}/>
-                <Input name="Apellido *" placeholder="Luque" onChange={(e) => setPurchaseInfo({...purchaseInfo, lastname:e.target.value})}/>
+                <Input name="Nombre *" placeholder="Jose" onChange={(e) => changePreferenceProfile("name", e.target.value)}/>
+                <Input name="Apellido *" placeholder="Luque" onChange={(e) => changePreferenceProfile("lastname", e.target.value)}/>
             </div>
             <div className="w-full flex justify-center items-center gap-x-5">
-                <Input name="Telefono *" onChange={(e) => setPurchaseInfo({...purchaseInfo, phone:e.target.value})}/>
+                <Input name="Telefono *" onChange={(e) => changePreferenceProfile("phone", e.target.value)}/>
                 <div className="w-full relative flex justify-center items-center gap-x-5">
                     <h2 className="absolute left-0 -top-4 text-sm text-neutral-600">Genero *</h2>
                     <div className="flex justify-center items-center flex-col text-sm">
@@ -102,7 +103,7 @@ function CheckoutProfile() {
                     text="Validar" 
                     style="w-[80%] py-2 bg-black text-white rounded-full" 
                     onClick={() => {setPersonalInformation(false), setDelivery(true)}}
-                    disable={!purchaseInfo.email || !purchaseInfo.name || !purchaseInfo.lastname || !purchaseInfo.phone}
+                    disable={!profilePurchase.email || !profilePurchase.name || !profilePurchase.lastname || !profilePurchase.phone}
                     />
             </div>
 
@@ -115,16 +116,16 @@ function CheckoutProfile() {
             {!delivery && !personalInformation && <i className="absolute right-4 top-4 bx bx-edit scale-115" onClick={() => {setPersonalInformation(false), setDelivery(true), setPaymentMethod(false)}}></i>}
 
             <div className="w-full flex justify-center items-center gap-x-5">
-                    <Input name="Calle *" onChange={(e) => setPurchaseInfo({...purchaseInfo, street:e.target.value})}/>
-                    <Input name="Numero *" onChange={(e) => setPurchaseInfo({...purchaseInfo, number:e.target.value})}/>
+                    <Input name="Calle *" onChange={(e) => changePreferenceProfile("street", e.target.value)}/>
+                    <Input name="Numero *" onChange={(e) => changePreferenceProfile("number", e.target.value)}/>
                 </div>
                 <div className="w-full flex justify-center items-center gap-x-5">
-                    <Input name="Casa / Piso / Departamento *" onChange={(e) => setPurchaseInfo({...purchaseInfo, houseApartament:e.target.value})}/>
-                    <Input name="Ciudad *" onChange={(e) => setPurchaseInfo({...purchaseInfo, city:e.target.value})}/>
+                    <Input name="Casa / Piso / Departamento *" onChange={(e) => changePreferenceProfile("houseApartament", e.target.value)}/>
+                    <Input name="Ciudad *" onChange={(e) => changePreferenceProfile("city", e.target.value)}/>
                 </div>
                 <div className="w-full flex justify-center items-center gap-x-5">
-                    <Input name="Barrio *" onChange={(e) => setPurchaseInfo({...purchaseInfo, neighborhood:e.target.value})}/>
-                    <Input name="Quien recibe el pedido? *" onChange={(e) => setPurchaseInfo({...purchaseInfo, receives:e.target.value})}/>
+                    <Input name="Barrio *" onChange={(e) => changePreferenceProfile("neighborhood", e.target.value)}/>
+                    <Input name="Quien recibe el pedido? *" onChange={(e) => changePreferenceProfile("receives", e.target.value)}/>
                 </div>
 
                 <div className="w-full flex justify-center items-center">
@@ -132,7 +133,7 @@ function CheckoutProfile() {
                     text="Validar" 
                     style="w-[80%] py-2 bg-black text-white rounded-full" 
                     onClick={() => {setDelivery(false), setPaymentMethod(true)}}
-                    disable={!purchaseInfo.street || !purchaseInfo.number || !purchaseInfo.houseApartament || !purchaseInfo.neighborhood || !purchaseInfo.city || !purchaseInfo.receives}
+                    disable={!profilePurchase.street || !profilePurchase.number || !profilePurchase.houseApartament || !profilePurchase.neighborhood || !profilePurchase.city || !profilePurchase.receives}
                     
                     />
                 </div>
@@ -172,14 +173,12 @@ function CheckoutProfile() {
 
 
             </section>
-                {preferenceId && oneClick && <Wallet 
+                {preferenceId && oneClick  && <Wallet 
                     initialization={{ preferenceId: preferenceId, redirectMode:"modal"}} 
                     customization={
                         { 
                             texts:{ valueProp: 'smart_option'}, 
-                            visual:{ buttonBackground: 'black'},
-
-                            
+                            visual:{ buttonBackground: 'black'}
                         }
                     } 
                     
