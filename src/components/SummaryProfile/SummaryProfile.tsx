@@ -12,13 +12,13 @@ function SummaryProfile() {
 
   return (
     <section className="bg-redd-500 w-full">
-        <section className="w-full max-h-[200px] py-2 bg-redd-500 flex flex-col justify-start items-center">
+        <section className="w-full max-h-[200px] py-2 bg-blued-500 flex flex-col justify-start items-center">
             {cart.map((product) => (
-                <div key={product.id} className="w-full flex justify-center items-start gap-x-2">
+                <div key={product.id} className="w-full flex justify-start items-start gap-x-2 bg-greend-500">
                     <picture className=" w-[60px] h-[60px] flex justify-center items-center overflow-hidden bg-redd-500">
                         <img src={product.image} alt="" className="object-cover"/>
                     </picture>
-                    <section className="flex flex-col justify-center items-start">
+                    <section className="w-full flex flex-col justify-center items-start bg-redd-500">
                         <article>
                             <h2 className="">{product.name}</h2>
                             <h3 className="text-sm">Talle: {product.size} | Color: {product.color}</h3>

@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { fetchPOST } from "../../utils/fetchPOST"
 import { useFilter } from "../../hooks/useFilter";
-import DashboardProductsEdit from "../../components/DashboardProductsEdit/DashboardProductsEdit";
+import DashboardProductsEdit from "../../withoutUse/components/DashboardProductsEdit/DashboardProductsEdit";
 
 interface DataSend {
     category:undefined | string;

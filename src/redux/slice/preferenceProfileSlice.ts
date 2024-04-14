@@ -11,21 +11,22 @@ const {decode, encode} = useEncode()
 
 const preferenceProfile = decode(VITE_N_PREFERENCE_PROFILE)
 
+const structureDefault = {
+    name: "",
+    email: "",
+    lastname: "",
+    phone: "",
+    gender: "",
+    street: "",
+    number: "",
+    houseApartament: "",
+    neighborhood: "",
+    city: "",
+    receives: ""
+}
 
 const initialState:ProfilePurchaseState = {
-    profilePurchase: preferenceProfile ? preferenceProfile : {
-        name: "",
-        email: "",
-        lastname: "",
-        phone: "",
-        gender: "",
-        street: "",
-        number: "",
-        houseApartament: "",
-        neighborhood: "",
-        city: "",
-        receives: ""
-    }
+    profilePurchase: preferenceProfile ? preferenceProfile : structureDefault
 }
 
 
@@ -37,10 +38,14 @@ const preferenceProfileSlice = createSlice ({
             const { property, value } = action.payload;
             state.profilePurchase[property] = value;
             encode(VITE_N_PREFERENCE_PROFILE, state.profilePurchase)
+        },
+        deletePreferenceProfile: (state) => {
+            state.profilePurchase = structureDefault
+            encode(VITE_N_PREFERENCE_PROFILE, state.profilePurchase)
         }
     }
 })
 
-export const {updateProfileProperty} = preferenceProfileSlice.actions;
+export const {updateProfileProperty, deletePreferenceProfile} = preferenceProfileSlice.actions;
 
 export default preferenceProfileSlice.reducer;

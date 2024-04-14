@@ -14,6 +14,7 @@ import { ResponseData } from "../../interfaces/interfaces"
 import { useEncode } from "../../hooks/useEncode"
 import { Link } from "react-router-dom"
 import shop from "../../assets/checkout/shop.svg"
+import { deletePreferenceProfile } from "../../redux/slice/preferenceProfileSlice"
 const { VITE_C_CART} = import.meta.env
 
 function Checkout() {
@@ -29,9 +30,8 @@ function Checkout() {
   const cartProducts = decode(VITE_C_CART)
     
   async function handlerPurchase (payment_id:string) {
-    // console.log(purchaseInfo.email);
-    const {data} = await fetchPOST("http://localhost:3001/purchase/create", { direction:"Casa", userEmail: profilePurchase.email, payment_id: payment_id, products:cartProducts }) as {data:ResponseData}
-
+    const {data} = await fetchPOST("http://localhost:3001/purchase/create", { direction:profilePurchase.street, userEmail: profilePurchase.email, payment_id: payment_id, products:cartProducts }) as {data:ResponseData}
+    dispatch(deletePreferenceProfile())
     if (data.error) return error(data.message);
     if (!data.error) {
       dispatch(deleteAllCart())
@@ -48,6 +48,7 @@ function Checkout() {
     if (params["status"] === "approved" && cartProducts.length > 0) {
       handlerPurchase(params["payment_id"])
     } 
+    console.log(profilePurchase);
     
   },[])
 
