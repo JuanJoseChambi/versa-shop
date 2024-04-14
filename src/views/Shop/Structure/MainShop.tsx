@@ -35,8 +35,8 @@ function MainShop() {
     const sizesArray = [...sizes] as string[];
 
     const productoDestacado1: string = data && data[0].image;
-    const productoDestacado2: string = data && data[2].image;
-    const productoDestacado3: string = data && data[3].image;
+    const productoDestacado2: string = data && data[1].image;
+    const productoDestacado3: string = data && data[2].image;
     
   return (
     <main className="w-[95%] mx-auto flex justify-between items-start flex-col">

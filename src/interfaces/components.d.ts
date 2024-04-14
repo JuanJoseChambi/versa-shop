@@ -30,3 +30,21 @@ export interface SignUpProp {
 export interface LogInProp {
     visible:string;
 }
+// CheckoutProfile ----------------------------
+export interface CheckoutProfileProp {
+    setPurchaseState:React.Dispatch<React.SetStateAction<ProfilePurchase>>
+    statePurchase:ProfilePurchase
+}
+interface ProfilePurchase {
+        email: string;
+        name: string;
+        lastname: string;
+        phone: string;
+        gender: string;
+        street: string;
+        number: string;
+        houseApartament: string;
+        neighborhood: string;
+        city: string;
+        receives: string;
+}

@@ -49,7 +49,7 @@ if (userInfoCookie) {
 }
 
 
-console.log(initialState.user);
+// console.log(initialState.user);
 const authSlice = createSlice ({
     name:"auth",
     initialState:initialState,
