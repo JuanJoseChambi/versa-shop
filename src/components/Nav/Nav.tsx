@@ -32,7 +32,7 @@ function Nav({style}:styleProp) {
 
         <div className="flex justify-center items-center space-x-5">
 
-            <div className={`${hover === "searchNav" ? "border" : null} border-neutral-500  flex justify-center items-center px-3 rounded-lg`} onMouseDown={() => setHover("searchNav")} onMouseLeave={() => setHover(null)}>
+            <div className={`${hover === "searchNav" ? "border backdrop-blur-sm" : null} border-neutral-500 flex justify-center items-center px-3 rounded-lg`} onMouseDown={() => setHover("searchNav")} onMouseLeave={() => setHover(null)}>
                 <input type="text" className={`${hover === "searchNav" ? "w-[120px]" : "w-0" } transition-[width] duration-500  outline-none text-xs bg-transparent`}/>
                 <Button iconLeft="bx bx-search" style="pl-2 py-1"/>
             </div>

@@ -39,7 +39,7 @@ function MainShop() {
     const productoDestacado3: string = data && data[2].image;
     
   return (
-    <main className="w-[95%] mx-auto flex justify-between items-start flex-col">
+    <main className=" mx-auto flex justify-between items-start flex-col bg-redd-500">
         <section className="w-full h-auto my-2 flex justify-center items-center flex-col py-10">
             <h2 className="tracking-widest font-noto text-2xl">PRODUCTOS DESTACADOS</h2>
             <section className="flex area justify-evenly items-center py-10">
@@ -55,7 +55,7 @@ function MainShop() {
             </section>
         </section>
 
-        <section className="area min-h-[0px] bg-greend-500 flex justify-center items-start flex-col gap-y-5">
+        <section className="w-area min-h-[0px] bg-greend-500 flex justify-center items-start flex-col gap-y-5">
             <section className="w-full flex justify-between items-center">
                 <h2 className="tracking-widest font-noto text-2xl">STOCK DE PRODUCTOS</h2>
                 <button className="outline-none font-light gap-x-1 flex justify-center items-center tracking-widest" onClick={() => setFilters(!filters)}>
