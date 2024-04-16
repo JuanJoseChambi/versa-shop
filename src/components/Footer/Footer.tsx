@@ -4,7 +4,7 @@ function Footer() {
 
     function liOptions (title:string) {
         return (
-            <ul className="text-sm space-y-5 bg-redd-500">
+            <ul className="min-w-[125px] text-center sm:text-start text-sm space-y-5 bg-redd-500">
                 <li className="text-sm tracking-widest font-bold text-white">{title}</li>
                 <li className="tracking-wider cursor-pointer text-neutral hover:text-white font-extralight text-neutral-400">Camperas</li>
                 <li className="tracking-wider cursor-pointer text-neutral hover:text-white font-extralight text-neutral-400">Pantalones</li>
@@ -25,11 +25,11 @@ function Footer() {
                     <h2 className="font-noto text-4xl font-semibold tracking-widest text-white">Versa</h2>
                 </section>
 
-                <section className="w-full lg:w-[50%] flex justify-evenly lg:justify-between items-start flex-wrap bg-blued-500">
-                    {liOptions("CATEGORIAS")}
-                    {liOptions("NOSOTROS")}
-                    {liOptions("SOPORTES")}
-                    {liOptions("TERMINOS")}
+                <section className="w-full lg:w-[50%] flex justify-evenly lg:justify-between gap-y-10 sm:gap-0 items-start flex-wrap bg-blued-500">
+                        {liOptions("CATEGORIAS")}
+                        {liOptions("NOSOTROS")}
+                        {liOptions("SOPORTES")}
+                        {liOptions("TERMINOS")}
                 </section>
 
             </section>

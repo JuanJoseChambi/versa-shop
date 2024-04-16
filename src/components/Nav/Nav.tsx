@@ -24,7 +24,7 @@ function Nav({style}:styleProp) {
             <h2 className="font-bold text-2xl font-noto">Versa</h2>
         </Link>
 
-        <section className="space-x-5 flex justify-center items-center">
+        <section className="hidden sm:flex space-x-5 justify-center items-center">
             <Button style="text-xs font-semibold tracking-widest" text="TIENDA" dir="/shop"/>
             <Button style="text-xs font-semibold tracking-widest" text="NOSOTROS"/>
             <Button style="text-xs font-semibold tracking-widest" text="CATEGORIAS"/>

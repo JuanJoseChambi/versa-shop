@@ -29,9 +29,11 @@ function CartCard({products}:CartCard) {
               </div>
               <div className="flex justify-between items-center">
                 <div className="flex justify-center items-center gap-x-3">
-                  <button onClick={() => dispatch(removeToCart(products))}>-</button>
+
+                  <button className="bg-neutral-200 flex justify-center items-center w-[20px] h-[20px] text-center rounded-full" onClick={() => dispatch(removeToCart(products))}>-</button>
                   <p>{products.cantidad}</p>
-                  <button onClick={() => dispatch(addToCart(products))}>+</button>
+                  <button className="bg-neutral-200 flex justify-center items-center w-[20px] h-[20px] text-center rounded-full" onClick={() => dispatch(addToCart(products))}>+</button>
+
                 </div>
                 <p>$ {products.price}</p>
               </div>
@@ -42,3 +44,9 @@ function CartCard({products}:CartCard) {
 }
 
 export default CartCard
+
+
+
+
+{/* <button onClick={() => dispatch(removeToCart(products))}>-</button> */}
+{/* <button onClick={() => dispatch(addToCart(products))}>+</button> */}

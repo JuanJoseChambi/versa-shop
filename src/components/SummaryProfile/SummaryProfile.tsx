@@ -12,7 +12,7 @@ function SummaryProfile() {
 
   return (
     <section className="bg-redd-500 w-full">
-        <section className="w-full max-h-[200px] py-2 bg-blued-500 flex flex-col justify-start items-center">
+        <section className="w-full max-h-[200px] py-2 bg-blued-500 flex flex-col justify-start items-center overflow-auto scroll">
             {cart.map((product) => (
                 <div key={product.id} className="w-full flex justify-start items-start gap-x-2 bg-greend-500">
                     <picture className=" w-[60px] h-[60px] flex justify-center items-center overflow-hidden bg-redd-500">
