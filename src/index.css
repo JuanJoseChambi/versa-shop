@@ -8,6 +8,12 @@
     .area {
         @apply max-w-screen-xl w-[95%] mx-auto overflow-hidden
     }
+    .w-area {
+        width: 95%;
+        max-width: 1850px;
+        /* max-width: calc(112rem + 46px); */
+        margin: auto;
+    }
     .scroll {
         scrollbar-width: thin;
         /* background-color: red; */
@@ -16,6 +22,13 @@
     .scroll ::-webkit-scrollbar-thumb {
         background-color: red; /* Cambiar el color de la barra de avance */
         border-radius: 10px; /* Ajustar el radio de la esquina */
+    }
+    .texto {
+        overflow: hidden;
+        text-overflow: ellipsis; /* agrega puntos suspensivos */
+        display: -webkit-box;
+        -webkit-line-clamp: 2; /* número de líneas a mostrar */
+        -webkit-box-orient: vertical;
     }
 }
 .bgRadial{

@@ -48,17 +48,17 @@ function Checkout() {
     if (params["status"] === "approved" && cartProducts.length > 0) {
       handlerPurchase(params["payment_id"])
     } 
-    console.log(profilePurchase);
+    // console.log(profilePurchase);
     
   },[])
 
   return (
-    <main>
+    <main className="h-screen">
         <Nav style="sticky"/>
         {cartProducts.length > 0
           ? 
-            <section className="w-[95%] mx-auto h-auto flex justify-evenly items-start py-10 bg-blued-500"> 
-              <section className="w-[60%] h-[450px] px-3 bg-redd-500">
+            <section className="w-area mx-auto h-auto flex justify-evenly items-start py-10 bg-blued-500"> 
+              <section className="w-[65%] h-[500px] px-3 bg-redd-500">
 
                 { !checkoutProfile ? <CheckoutCart/> : <CheckoutProfile/>}
 

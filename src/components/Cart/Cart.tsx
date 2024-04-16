@@ -14,12 +14,12 @@ function Cart({visible, onClose}:CartProp) {
   const valueTotal = typeof valueTotalFloat === 'number' ? parseFloat(valueTotalFloat.toFixed(2)) : null;
 
   return (
-    <aside className="fixed right-0 top-0 py-4 px-4 w-[350px] h-screen bg-[#f3f1f1] z-20">
+    <aside className="fixed right-0 top-0 py-4 px-4 w-[350px] h-screen bg-white z-20">
         <button className="absolute top-3 right-8 text-2xl text-black z-50" onClick={onClose}>x</button>
         <h3 className="text-black text-sm font-semibold tracking-widest py-2">MI COMPRA</h3>
         <hr className="bg-neutral-400 h-[2px]"></hr>
 
-        <section className=" w-full min-h-[17%] 2xl:max-h-[35%] 2xl:h-auto overflow-auto my-5 gap-y-3 flex flex-col justify-start items-center scroll bg-redd-500">
+        <section className=" w-full min-h-[17%] max-h-[47%] 2xl:max-h-[35%] 2xl:h-auto overflow-auto my-5 gap-y-3 flex flex-col justify-start items-center scroll bg-redd-500">
           {cart.length > 0 
           ? cart?.map((products) => (
             <CartCard products={products} key={`${products.id} ${products.size} ${products.color}`}/>
@@ -29,6 +29,7 @@ function Cart({visible, onClose}:CartProp) {
             <i className="text-3xl bx bx-basket"></i>
             </div> 
           }
+    
         </section>
         <hr className="bg-neutral-400 h-[2px]"></hr>
 

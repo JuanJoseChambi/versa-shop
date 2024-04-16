@@ -21,7 +21,10 @@ function CartCard({products}:CartCard) {
 
             <article className=" w-[70%] min-h-[70px] bg-greend-500">
               <div className="flex justify-between items-center gap-x-2">
-                <h3 className="text-sm font-semibold">{products.name} | <b className="text-xs font-normal">Talle {products.size} | Color {products.color}</b></h3>
+                <div className="flex justify-center items-start flex-col">
+                  <h3 className="text-sm font-semibold leading-[5px]">{products.name}</h3>
+                  <h3><b className="text-xs font-normal">Talle {products.size} | Color {products.color}</b></h3>
+                </div>
                 <button className="text-lg" onClick={() => dispatch(deleteFromCart(products))}><i className='bx bx-trash-alt'></i></button>
               </div>
               <div className="flex justify-between items-center">
