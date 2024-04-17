@@ -2,12 +2,13 @@ import { useState } from "react";
 import { Link } from "react-router-dom"
 
 interface ArrowBeforeProp {
-    redirect:string;
+    redirect?:string;
     style?:string;
     styleText?:string;
     text?:string;
     icon?:string
     styleIcon?:string;
+    onClick?:() => void
 }
 
 const iconDefault = "bx bxs-chevron-left"
@@ -16,17 +17,17 @@ const styleTextDefault = "text-black"
 const styleIconDefault = "text-2xl"
 
 
-function ArrowBefore({redirect, styleText = styleTextDefault, style = styleDefault ,text, icon = iconDefault, styleIcon = styleIconDefault} :ArrowBeforeProp) {
+function ArrowBefore({redirect, styleText = styleTextDefault, style = styleDefault ,text, icon = iconDefault, styleIcon = styleIconDefault, onClick} :ArrowBeforeProp) {
     const [hover, setHover] = useState(false)
 
   return (
-    <div className={`${style} ${styleText}`} onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
+    <div className={`${style} ${styleText}`} onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} onClick={onClick}>
         
-            <Link to={redirect}>
+            <Link to={redirect || "#"}>
                 <i className={`${styleIcon} ${icon}`}></i>
             </Link> 
 
-        <Link to={redirect} >
+        <Link to={redirect || "#"} >
             {text}
             <div className={`${hover ? "w-full" : null} w-0 min-h-[1px] bg-neutral-800 transition-[width] duration-500 z-10`}></div>
         </Link>

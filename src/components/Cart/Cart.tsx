@@ -24,7 +24,7 @@ function Cart({visible, onClose}:CartProp) {
           ? cart?.map((products) => (
             <CartCard products={products} key={`${products.id} ${products.size} ${products.color}`}/>
           ))
-          : <div className="absolute top-0 z-20 left-0 w-full h-full flex justify-center items-center flex-col text-black gap-y-5 bg-gradient-to-r from-[#EAEAEA] to-[#E5E5E5]">
+          : <div className="absolute top-0 z-20 left-0 w-full h-full flex justify-center items-center flex-col text-black gap-y-5 bg-white">
             <h3 className="text-xl tracking-widest border-b border-neutral-700 font-semibold">Carrito vacio</h3>
             <i className="text-3xl bx bx-basket"></i>
             </div> 

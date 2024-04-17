@@ -72,7 +72,7 @@ function DetailProduct() {
     }
 
 return (
-    <main className="h-screen pb-10 ">
+    <main className="min-h-screen pb-10 ">
         <Nav style="sticky"/>
         <Loader active={loading}/>
         <section className="w-[95%] lg:w-[90%] min-h-[90%] md:h-[90%]  mx-auto flex justify-center items-center flex-col md:flex-row bg-redd-500">

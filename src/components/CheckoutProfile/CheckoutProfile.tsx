@@ -62,7 +62,7 @@ function CheckoutProfile() {
     <section className="w-full relative flex justify-center items-start flex-col gap-y-5 bg-blued-500">
         <section className={`w-full transition-[height] duration-700
             ${personalInformation? "h-auto" : "min-h-[45px] max-h-[45px] overflow-hidden"} 
-            relative flex justify-start items-center flex-col gap-y-8 px-5 pb-7 bg-neutral-200 `} 
+            relative flex justify-start items-center flex-col gap-y-8 px-5 pb-7 bg-neutral-100 `} 
             >
         
             <h2 className="py-3 text-sm tracking-widest cursor-pointer"> Datos Personales</h2>
@@ -109,7 +109,7 @@ function CheckoutProfile() {
 
         </section>
 
-        <section className={`w-full ${delivery ? "h-auto" : "min-h-[45px] max-h-[45px] overflow-hidden"} relative flex justify-start items-center flex-col gap-y-8 px-5 pb-7 bg-neutral-200`}>
+        <section className={`w-full ${delivery ? "h-auto" : "min-h-[45px] max-h-[45px] overflow-hidden"} relative flex justify-start items-center flex-col gap-y-8 px-5 pb-7 bg-neutral-100`}>
 
             <h2 className="py-3 text-sm tracking-widest cursor-pointer">Entrega</h2>
             <i className="absolute left-[14px] top-[14px] bx bx-package scale-150"></i>
@@ -142,7 +142,7 @@ function CheckoutProfile() {
 
         <section className={`w-full
             ${paymentMethod? `h-auto` : `min-h-[45px] max-h-[45px] overflow-hidden`} 
-            transition-[height_min-height_max-height] duration-700 relative flex justify-start items-center flex-col gap-y-2 px-5 pt-0 pb-7 bg-neutral-200`} >
+            transition-[height_min-height_max-height] duration-700 relative flex justify-start items-center flex-col gap-y-2 px-5 pt-0 pb-7 bg-neutral-100`} >
         
             <h2 className="py-3 text-sm tracking-widest cursor-pointer">Metodo de Pago</h2>
             <i className="absolute left-[14px] top-[14px] bx bx-credit-card scale-150"></i>
