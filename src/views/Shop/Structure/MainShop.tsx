@@ -74,7 +74,7 @@ function MainShop() {
 
         </aside>
 
-        <section className="w-full gap-10 flex flex-wrap justify-center items-center py-5 bg-blued-500">
+        <section className="w-full gap-10 flex flex-wrap justify-center items-center pt-5 pb-16 bg-blued-500">
             {data?.map(product => (
                 <React.Fragment key={product.product_id}>
                     {product.unit > 0 && <CardProduct key={product.product_id} product={product}/>}
