@@ -65,35 +65,35 @@ function CheckoutProfile() {
             relative flex justify-start items-center flex-col gap-y-8 px-5 pb-7 bg-neutral-100 `} 
             >
         
-            <h2 className="py-3 text-sm tracking-widest cursor-pointer"> Datos Personales</h2>
+            <h2 className="py-3 text-sm tracking-widest"> Datos Personales</h2>
             <i className="absolute left-[14px] top-[14px] bx bx-user-circle scale-150"></i>
-            {!personalInformation && delivery && !paymentMethod && <i className="absolute right-4 top-4 bx bx-edit scale-115" onClick={() => {setPersonalInformation(true), setDelivery(false), setPaymentMethod(false)}}></i>}
-            {!personalInformation && !delivery && paymentMethod && <i className="absolute right-4 top-4 bx bx-edit scale-115" onClick={() => {setPersonalInformation(true), setDelivery(false), setPaymentMethod(false)}}></i>}
+            {!personalInformation && delivery && !paymentMethod && <i className="cursor-pointer absolute right-4 top-4 bx bx-edit scale-115" onClick={() => {setPersonalInformation(true), setDelivery(false), setPaymentMethod(false)}}></i>}
+            {!personalInformation && !delivery && paymentMethod && <i className="cursor-pointer absolute right-4 top-4 bx bx-edit scale-115" onClick={() => {setPersonalInformation(true), setDelivery(false), setPaymentMethod(false)}}></i>}
 
 
             <div className="w-full">
                 <Input defaultValue={profilePurchase.email} name="Correo Electronico" placeholder="tu@correo.com" onChange={(e) => changePreferenceProfile("email", e.target.value)}/>
             </div>
-            <div className="w-full flex justify-center items-center gap-x-5">
+            <div className="w-full flex justify-center items-center flex-col sm:flex-row gap-y-7 sm:gap-y-0 sm:gap-x-5">
                 <Input defaultValue={profilePurchase.name} name="Nombre *" placeholder="Jose" onChange={(e) => changePreferenceProfile("name", e.target.value)}/>
                 <Input defaultValue={profilePurchase.lastname} name="Apellido *" placeholder="Luque" onChange={(e) => changePreferenceProfile("lastname", e.target.value)}/>
             </div>
-            <div className="w-full flex justify-center items-center gap-x-5">
+            <div className="w-full flex justify-center items-center flex-col sm:flex-row gap-y-5 sm:gap-y-0 sm:gap-x-5">
                 <Input defaultValue={profilePurchase.phone} name="Telefono *" onChange={(e) => changePreferenceProfile("phone", e.target.value)}/>
-                <div className="w-full relative flex justify-center items-center gap-x-5">
+                <div className="w-full relative flex justify-center items-center pt-3 sm:pt-0 gap-x-5">
                     <h2 className="absolute left-0 -top-4 text-sm text-neutral-600">Genero *</h2>
                     <div className="flex justify-center items-center flex-col text-sm">
-                        <input type="radio" name="option" id="option1" value="option1" />
+                        <input type="radio" name="option" id="option1" value="Masculino" defaultChecked={profilePurchase.gender === "Masculino"} onChange={(e) => changePreferenceProfile("gender", e.target.value)}/>
                         <label htmlFor="option1">Masculino</label>
                     </div>
 
                     <div className="flex justify-center items-center flex-col text-sm">
-                        <input type="radio" name="option" id="option2" value="option2" />
+                        <input type="radio" name="option" id="option2" value="Femenino" defaultChecked={profilePurchase.gender === "Femenino"} onChange={(e) => changePreferenceProfile("gender", e.target.value)}/>
                         <label htmlFor="option1">Femenino</label>
                     </div>
 
                     <div className="flex justify-center items-center flex-col text-sm">
-                        <input type="radio" name="option" id="option3" value="option3" />
+                        <input type="radio" name="option" id="option3" value="Otro" defaultChecked={profilePurchase.gender === "Otro"} onChange={(e) => changePreferenceProfile("gender", e.target.value)}/>
                         <label htmlFor="option1">Otro</label>
                     </div>
                 </div>              
@@ -109,21 +109,24 @@ function CheckoutProfile() {
 
         </section>
 
-        <section className={`w-full ${delivery ? "h-auto" : "min-h-[45px] max-h-[45px] overflow-hidden"} relative flex justify-start items-center flex-col gap-y-8 px-5 pb-7 bg-neutral-100`}>
+        <section className={`w-full ${delivery ? "h-auto" : "min-h-[45px] max-h-[45px] overflow-hidden"} relative flex justify-start items-center flex-col gap-y-7 sm:gap-y-8 px-5 pb-7 bg-neutral-100`}>
 
-            <h2 className="py-3 text-sm tracking-widest cursor-pointer">Entrega</h2>
+            <h2 className="py-3 text-sm tracking-widest">Entrega</h2>
             <i className="absolute left-[14px] top-[14px] bx bx-package scale-150"></i>
-            {!delivery && !personalInformation && <i className="absolute right-4 top-4 bx bx-edit scale-115" onClick={() => {setPersonalInformation(false), setDelivery(true), setPaymentMethod(false)}}></i>}
-
-            <div className="w-full flex justify-center items-center gap-x-5">
+            {!delivery && !personalInformation && <i className="cursor-pointer absolute right-4 top-4 bx bx-edit scale-115" onClick={() => {setPersonalInformation(false), setDelivery(true), setPaymentMethod(false)}}></i>}
+                
+                <div className="w-[100%] flex justify-start items-start flex-col sm:flex-row gap-y-7 sm:gap-y-0 sm:gap-x-5">
+                    <Input defaultValue={profilePurchase.postalCode} type="number" styleDimensions="max-w-[30%]" name="Codigo Postal *" onChange={(e) => changePreferenceProfile("postalCode", e.target.value)}/>
+                </div>
+                <div className="w-full flex justify-center items-center flex-col sm:flex-row gap-y-7 sm:gap-y-0 sm:gap-x-5">
                     <Input defaultValue={profilePurchase.street} name="Calle *" onChange={(e) => changePreferenceProfile("street", e.target.value)}/>
                     <Input defaultValue={profilePurchase.number} name="Numero *" onChange={(e) => changePreferenceProfile("number", e.target.value)}/>
                 </div>
-                <div className="w-full flex justify-center items-center gap-x-5">
+                <div className="w-full flex justify-center items-center flex-col sm:flex-row gap-y-7 sm:gap-y-0 sm:gap-x-5">
                     <Input defaultValue={profilePurchase.houseApartament} name="Casa / Piso / Departamento *" onChange={(e) => changePreferenceProfile("houseApartament", e.target.value)}/>
                     <Input defaultValue={profilePurchase.city} name="Ciudad *" onChange={(e) => changePreferenceProfile("city", e.target.value)}/>
                 </div>
-                <div className="w-full flex justify-center items-center gap-x-5">
+                <div className="w-full flex justify-center items-center flex-col sm:flex-row gap-y-7 sm:gap-y-0 sm:gap-x-5">
                     <Input defaultValue={profilePurchase.neighborhood} name="Barrio *" onChange={(e) => changePreferenceProfile("neighborhood", e.target.value)}/>
                     <Input defaultValue={profilePurchase.receives} name="Quien recibe el pedido? *" onChange={(e) => changePreferenceProfile("receives", e.target.value)}/>
                 </div>
@@ -144,7 +147,7 @@ function CheckoutProfile() {
             ${paymentMethod? `h-auto` : `min-h-[45px] max-h-[45px] overflow-hidden`} 
             transition-[height_min-height_max-height] duration-700 relative flex justify-start items-center flex-col gap-y-2 px-5 pt-0 pb-7 bg-neutral-100`} >
         
-            <h2 className="py-3 text-sm tracking-widest cursor-pointer">Metodo de Pago</h2>
+            <h2 className="py-3 text-sm tracking-widest">Metodo de Pago</h2>
             <i className="absolute left-[14px] top-[14px] bx bx-credit-card scale-150"></i>
 
             <section className="w-full flex justify-center items-start bg-redd-500 divide-x divide-neutral-400">

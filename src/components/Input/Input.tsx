@@ -8,7 +8,8 @@ interface InputProp {
     defaultValue?:string;
     icon?:string;
     style?:string;
-    styleDimensions?:string
+    styleDimensions?:string;
+    styleText?:string;
     styleIcon?:string
     iconLeft?:boolean;
     iconRight?:boolean;
@@ -16,15 +17,27 @@ interface InputProp {
 }
 
 
-const styleDefault:string = "w-full py-1 px-2 relative flex justify-between items-center gap-x-2 border border-neutral-400 outline-none bg-white rounded-md"
+const styleDefault:string = "w-full rounded-md"
 
-function Input({ placeholder, name, defaultValue = "",type = "text",  icon,  iconLeft = true, iconRight, styleIcon = "text-lg", style = styleDefault, styleDimensions, onChange}: InputProp) {
+function Input({ 
+    placeholder, 
+    name, 
+    defaultValue = "",
+    type = "text",  
+    icon,  
+    iconLeft = true, 
+    iconRight, 
+    style = styleDefault, 
+    styleIcon = "text-lg", 
+    styleText = "text-sm",
+    styleDimensions, 
+    onChange}: InputProp) {
 
  
   const [show, setShow] = useState<boolean>(false)
 
   return (
-    <div className={`${style} ${styleDimensions}`}>
+    <div className={`relative outline-none py-1 px-2 gap-x-2 flex justify-between items-center bg-white border border-neutral-400 ${style} ${styleDimensions} ${styleText}`}>
         {iconLeft
           ? <i className={`${styleIcon} ${type === "password" ? (show ? "bx bx-show" : "bx bx-hide") : icon}`} onClick={() => setShow(!show)}></i> 
           : null}

@@ -54,11 +54,11 @@ function Checkout() {
   },[])
 
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen bg-greend-500">
         <Nav style="sticky"/>
         {cartProducts.length > 0
           ? 
-            <section className="w-area mx-auto h-auto flex justify-evenly items-start flex-col gap-y-8 lg:gap-0 lg:flex-row py-10 bg-blued-500"> 
+            <section className="w-area mx-auto h-auto flex justify-evenly items-start flex-col gap-y-8 lg:gap-0 lg:flex-row pt-10 pb-28 bg-blued-500"> 
               <section className="w-full lg:w-[65%] h-auto lg:h-[500px] px-3 bg-re-500">
 
                 { !checkoutProfile ? <CheckoutCart/> : <CheckoutProfile/>}
@@ -67,7 +67,7 @@ function Checkout() {
 
               <section className="relative w-full lg:w-[30%] py-5 rounded-lg flex justify-center items-center gap-y-3 flex-col px-5 bg-neutral-100">
                 <h3 className="tracking-wider font-semibold">Resumen de Compra</h3>
-                {checkoutProfile && <ArrowBefore onClick={() => setCheckoutProfile(false)} styleIcon="text-lg"/>}
+                {checkoutProfile && <ArrowBefore onClick={() => setCheckoutProfile(false)} styleIcon="text-lg" />}
                 {!checkoutProfile ? <SummaryCart subtotal={subtotal} setCheckoutProfile={() => setCheckoutProfile(true)}/> : <SummaryProfile/>}
 
                 <Button style="text-sm" text="Seguir comprando" dir="/shop"/>

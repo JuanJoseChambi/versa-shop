@@ -17,12 +17,13 @@ const structureDefault = {
     lastname: "",
     phone: "",
     gender: "",
+    postalCode:"",
     street: "",
     number: "",
     houseApartament: "",
     neighborhood: "",
     city: "",
-    receives: ""
+    receives: "",
 }
 
 const initialState:ProfilePurchaseState = {

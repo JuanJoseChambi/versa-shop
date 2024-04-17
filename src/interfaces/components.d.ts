@@ -41,6 +41,7 @@ interface ProfilePurchase {
         lastname: string;
         phone: string;
         gender: string;
+        postalCode:string;
         street: string;
         number: string;
         houseApartament: string;
