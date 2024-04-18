@@ -25,6 +25,7 @@ function Login({visible}:LogInProp) {
         if (!login.email || !login.password) return error("Faltan Datos por completar")
 
         const { data } = await fetchPOST("http://localhost:3001/user/login", login) as {data: ResponseData}
+        console.log(data);
         
         if (data.error) return error(data.message)
         if (!data.error && data.token) {

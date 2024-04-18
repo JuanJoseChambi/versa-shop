@@ -1,6 +1,6 @@
 import ArrowBefore from "../../components/ArrowBefore/ArrowBefore"
 import flowerGrey from "../../assets/asHome/FlowerWhite.png"
-import SignUp from "../../components/SignUp/SignUp"
+// import SignUp from "../../components/SignUp/SignUp"
 import { useState } from "react"
 import Login from "../../components/Login/Login"
 
@@ -21,12 +21,12 @@ function Access() {
             <h3 className="w-[80%] text-xs text-center text-neutral-600 font-light">Únete a Versa y descubre la moda que te define. Regístrate ahora para acceder a ofertas exclusivas y novedades irresistibles.</h3>
             <section className="flex justify-center items-center text-xs  bg-neutral-800 divide-x-2 rounded-sm text-white">
                 <button className="px-10 py-2" onClick={() => setVisible("login")}>LOGIN</button>
-                <button className="px-10 py-2" onClick={() => setVisible("signup")}>SIGNUP</button>
+                {/* <button className="px-10 py-2" onClick={() => setVisible("signup")}>SIGNUP</button> */}
             </section>
 
             <div className="w-[80%] min-h-[1px] bg-neutral-400"></div>
 
-            <SignUp visible={visible}/>
+            {/* <SignUp visible={visible}/> */}
             <Login visible={visible}/>
         </section>
     </header>
