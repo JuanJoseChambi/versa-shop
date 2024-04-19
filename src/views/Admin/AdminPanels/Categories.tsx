@@ -46,7 +46,7 @@ function Categories() {
   return (
     <section className="flex justify-center items-center flex-wrap gap-5">
 
-        <section className="flex justify-center items-center flex-col gap-y-3 border border-neutral-400 py-5 px-10 my-5 ">
+        <section className="flex justify-center items-center flex-col gap-y-3 border border-neutral-400 py-5 px-28 my-5 ">
             <h2>Crear categorias</h2>
             <form className="flex justify-center items-center flex-col gap-y-3" onSubmit={hanlderCategory}>
                 <input type="text" className="border border-black" placeholder="Categorias" onChange={(e) => setDataSend({...dataSend,category: e.target.value})}/>
@@ -59,7 +59,7 @@ function Categories() {
             </select>
         </section>    
 
-        <section className="flex justify-center items-center flex-col gap-y-3 border border-neutral-400 py-5 px-10 my-5 ">
+        <section className="flex justify-center items-center flex-col gap-y-3 border border-neutral-400 py-5 px-28 my-5 ">
             <h2>Crear tipos</h2>
             <form className="flex justify-center items-center flex-col gap-y-3" onSubmit={hanlderType}>
                 <input type="text" className="border border-black" placeholder="Tipos" onChange={(e) => setDataSend({...dataSend, type: e.target.value})}/>
@@ -72,7 +72,7 @@ function Categories() {
             </select>
         </section>
 
-        <section className="flex justify-center items-center flex-col gap-y-3 border border-neutral-400 py-5 px-10 my-5 ">
+        <section className="flex justify-center items-center flex-col gap-y-3 border border-neutral-400 py-5 px-28 my-5 ">
             <h2>Crear Color</h2>
             <form className="flex justify-center items-center flex-col gap-y-3" onSubmit={hanlderColor}>
                 <input type="text" className="border border-black" placeholder="Tipos" onChange={(e) => setDataSend({...dataSend, color: e.target.value})}/>
@@ -85,7 +85,7 @@ function Categories() {
             </select>
         </section>
 
-        <section className="flex justify-center items-center flex-col gap-y-3 border border-neutral-400 py-5 px-10 my-5 ">
+        <section className="flex justify-center items-center flex-col gap-y-3 border border-neutral-400 py-5 px-28 my-5 ">
             <h2>Crear Tamaño</h2>
             <form className="flex justify-center items-center flex-col gap-y-3" onSubmit={hanlderSize}>
                 <input type="text" className="border border-black" placeholder="Tipos" onChange={(e) => setDataSend({...dataSend, size: e.target.value})}/>

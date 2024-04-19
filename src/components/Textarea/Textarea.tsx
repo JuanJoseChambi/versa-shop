@@ -1,15 +1,26 @@
 
 interface TextareaProp {
     placeholder:string;
-    style?:string
+    name?:string;
+    style?:string;
+    styleDimensions?:string;
+    styleColor?:string;
 }
 
-const styleDefault:string = "w-full min-h-[50px] resize-none py-1 px-2 flex justify-between items-center gap-x-2 text-xs rounded-lg border border-neutral-400 outline-none bg-white"
+const styleDefault:string = "resize-none flex justify-between items-center gap-x-2 text-xs rounded-md bg-white"
 
 
-function Textarea({placeholder, style = styleDefault}: TextareaProp) {
+function Textarea(
+  {placeholder, 
+    name, 
+    style = styleDefault,
+    styleDimensions = "w-full min-h-[85px]"
+  }: TextareaProp) {
   return (
-    <textarea className={style} placeholder={placeholder}></textarea>
+    <div className={`relative py-1 px-2 border border-neutral-400 outline-none  ${style} ${styleDimensions}`}>
+      <label className="absolute -top-5 left-0 text-xs tracking-widest text-neutral-600">{name}</label>
+      <textarea className={`w-full h-full resize-none outline-none `} placeholder={placeholder}></textarea>
+    </div>
   )
 }
 
