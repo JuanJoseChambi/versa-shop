@@ -8,25 +8,14 @@ interface AuthSlice {
 }
 
 interface UserTypes {
-    email: string | undefined;
-    name: string | undefined;
-    lastname: string | undefined;
-    nickname: string | undefined;
     role: string | null;
-    id: string | undefined;
-    user_id?: string | undefined;
     token: string | undefined;   
 }
 
 let initialState:AuthSlice = {
 
     user: {
-        email: undefined,
-        name: undefined,
-        lastname: undefined,
-        nickname: undefined,
         role: null,
-        id: undefined,
         token: undefined
     }
 }
@@ -36,12 +25,7 @@ if (userInfoCookie) {
     const infoUser:UserTypes = JSON.parse(atob(token.split('.')[1])).usuario
     
     initialState.user = {
-        email: infoUser?.email,
-        name: infoUser?.name,
-        lastname: infoUser?.lastname,
-        nickname: infoUser?.nickname,
         role: infoUser?.role,
-        id: infoUser?.user_id,
         token: token
     }
 }
@@ -54,18 +38,13 @@ const authSlice = createSlice ({
     reducers:{
         deleteUser: (state) => {
             state.user = {
-                email: undefined,
-                name: undefined,
-                lastname: undefined,
-                nickname: undefined,
                 role: null,
-                id: undefined,
                 token: undefined
             }
         }
     }
 })
 
-export const {} = authSlice.actions;
+export const { deleteUser } = authSlice.actions;
 
 export default authSlice.reducer;

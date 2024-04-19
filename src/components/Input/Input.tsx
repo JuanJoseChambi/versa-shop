@@ -17,7 +17,7 @@ interface InputProp {
 }
 
 
-const styleDefault:string = "w-full rounded-md"
+const styleDefault:string = "rounded-md"
 
 function Input({ 
     placeholder, 
@@ -30,14 +30,14 @@ function Input({
     style = styleDefault, 
     styleIcon = "text-lg", 
     styleText = "text-sm",
-    styleDimensions, 
+    styleDimensions = "w-full", 
     onChange}: InputProp) {
 
  
   const [show, setShow] = useState<boolean>(false)
 
   return (
-    <div className={`relative outline-none py-1 px-2 gap-x-2 flex justify-between items-center bg-white border border-neutral-400 ${style} ${styleDimensions} ${styleText}`}>
+    <div className={`relative outline-none py-1 ${icon && "px-2"} gap-x-2 flex justify-between items-center bg-white border border-neutral-400 ${style} ${styleDimensions} ${styleText}`}>
         {iconLeft
           ? <i className={`${styleIcon} ${type === "password" ? (show ? "bx bx-show" : "bx bx-hide") : icon}`} onClick={() => setShow(!show)}></i> 
           : null}

@@ -4,6 +4,10 @@ import Cart from "../Cart/Cart"
 import { useSelector } from "react-redux"
 import { RootState } from "../../redux/store"
 import { Link, useLocation } from "react-router-dom"
+import OptionsAcordeon from "../OptionsAcordeon/OptionsAcordeon"
+import Cookies from "js-cookie" 
+const { VITE_R_SA, VITE_C_USER } = import.meta.env
+
 interface styleProp {
     style?:string
 }
@@ -11,12 +15,16 @@ interface styleProp {
 function Nav({style}:styleProp) {
     const [cartVisible, setCartVisible] = useState<boolean>(false)
     const [hover, setHover] = useState<string | null>();
+    const [acorden, serAcordeon] = useState<boolean>(false) 
 
     const { cart } = useSelector((state:RootState) => state.cart)
+    const { user } = useSelector((state:RootState) => state.auth)
 
     const { pathname } = useLocation();
 
     const cartButton = pathname === "/checkout";
+    // console.log((user));
+    
 
   return (
     <nav className={`w-[95%] mx-auto flex justify-between items-center py-4 fixed left-0 right-0 z-[100] ${style}`}>
@@ -41,8 +49,16 @@ function Nav({style}:styleProp) {
                 <Button iconLeft="bx bx-cart" style="text-lg z-10" onClick={() => setCartVisible(!cartVisible)}/>
                 <div className="absolute -top-2 -right-2 text-[10px] px-1 bg-neutral-500 text-white rounded-full">{cart.length}</div>
             </div>}
+            { user.role === VITE_R_SA && <div>
+            <Button iconLeft="bx bx-shield-alt-2" style="text-lg" onClick={() => serAcordeon(!acorden)}/>
+            </div>}
 
         </div>
+        <OptionsAcordeon visible={acorden} options={
+            [
+                {text:"Panel Admin", iconLeft:"bx bx-user", dir:"/admin", onClick:() => setCartVisible(!cartVisible)},
+                {text:"Cerrar sesion", iconLeft:"bx bx-log-out", dir:"/shop", onClick:() => {Cookies.remove(VITE_C_USER), window.location.reload()}},
+            ]}/>
         <Cart visible={cartVisible} onClose={() => setCartVisible(!cartVisible)}/>
     </nav>
   )

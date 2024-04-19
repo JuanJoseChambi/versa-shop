@@ -1,12 +1,12 @@
 import ArrowBefore from "../../components/ArrowBefore/ArrowBefore"
 import flowerGrey from "../../assets/asHome/FlowerWhite.png"
 // import SignUp from "../../components/SignUp/SignUp"
-import { useState } from "react"
+// import { useState } from "react"
 import Login from "../../components/Login/Login"
 
 function Access() {
 
-    const [visible, setVisible] = useState<string>("login")
+    // const [visible, setVisible] = useState<string>("login")
 
 
   return (
@@ -18,16 +18,17 @@ function Access() {
         </picture>
         <section className="w-[40%] h-[80%] flex justify-center items-center flex-col gap-y-6 divide-neutral-400 bg-redd-500">
             <p className="text-6xl font-noto">VERSA</p>
-            <h3 className="w-[80%] text-xs text-center text-neutral-600 font-light">Únete a Versa y descubre la moda que te define. Regístrate ahora para acceder a ofertas exclusivas y novedades irresistibles.</h3>
+            {/* <h3 className="w-[80%] text-xs text-center text-neutral-600 font-light">Únete a Versa y descubre la moda que te define. Regístrate ahora para acceder a ofertas exclusivas y novedades irresistibles.</h3> */}
             <section className="flex justify-center items-center text-xs  bg-neutral-800 divide-x-2 rounded-sm text-white">
-                <button className="px-10 py-2" onClick={() => setVisible("login")}>LOGIN</button>
+                {/* <button className="px-10 py-2" onClick={() => setVisible("login")}>LOGIN</button> */}
                 {/* <button className="px-10 py-2" onClick={() => setVisible("signup")}>SIGNUP</button> */}
             </section>
 
             <div className="w-[80%] min-h-[1px] bg-neutral-400"></div>
 
             {/* <SignUp visible={visible}/> */}
-            <Login visible={visible}/>
+            <Login visible={"login"}/>
+            {/* <Login visible={visible}/> */}
         </section>
     </header>
   )
