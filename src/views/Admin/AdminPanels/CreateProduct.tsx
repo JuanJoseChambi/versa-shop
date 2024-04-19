@@ -81,7 +81,7 @@ function CreateProduct() {
         <section className="">
             <h3 className="text-3xl">Create Product</h3>
         </section>
-        <section className="w-full flex justify-evenly items-centerbg-redd-500 py-10">
+        <section className="w-full flex justify-evenly items-centerbg-redd-500 pt-5">
             <picture className="w-[350px] min-h-[350px] max-h-[350px] overflow-hidden flex justify-center items-center bg-blued-500">
                 <img src="https://res.cloudinary.com/dth62bdky/image/upload/v1704144326/ProductApi/do3asovhei15ieqitptj.jpg" alt="" className="w-[90%]"/>
             </picture>
@@ -94,7 +94,7 @@ function CreateProduct() {
                         <Filters filter={categories || []} title="Categorias"/>
                         <Filters filter={types || []} title="Tipos"/>
                     </div>
-                    <section className="w-full flex justify-between items-center bg-redd-500">
+                    <section className="w-full flex justify-between items-start bg-redd-500">
 
                         <section className="w-[60%] flex justify-center items-center flex-col gap-y-5 bg-greend-500">
                             <div className="w-full flex justify-center items-center bg-blued-500">
@@ -103,18 +103,31 @@ function CreateProduct() {
                             </div>
                             <div className="w-full flex justify-center items-center flex-col gap-y-5 bg-redd-500">
                                 <div className="w-full flex justify-center items-center gap-x-3">
-                                    <Input name="Unidades" type="number" placeholder="10" styleDimensions="w-[45%]"/>
-                                    <Input name="Talle" placeholder="S" styleDimensions="w-[45%]"/>
+                                    <Input name="Unidades" type="number" placeholder="10" styleDimensions="w-[45%]" onChange={(e) => setStock({...stock, unit:Number(e.target.value)})}/>
+                                    <Input name="Talle" placeholder="S" styleDimensions="w-[45%]" onChange={(e) => setStock({...stock, size:e.target.value})}/>
                                 </div>
                                 <div className="w-full flex justify-center items-center gap-x-3">
-                                    <Input name="Color" placeholder="Negro" styleDimensions="w-[45%]"/>
-                                    <Input name="HxaColor" placeholder="#000000" styleDimensions="w-[45%]"/>
+                                    <Input name="Color" placeholder="Negro" styleDimensions="w-[45%]" onChange={(e) => setStock({...stock, color:e.target.value})}/>
+                                    <Input name="HxaColor" placeholder="#000000" styleDimensions="w-[45%]" onChange={(e) => setStock({...stock, hxaColor:e.target.value})}/>
                                 </div>
-                                <Button text="Añadir Stock" style="w-full rounded-full bg-neutral-800 text-white"/>
+                                <Button text="Añadir Stock" style="w-full rounded-full bg-neutral-800 text-white" onClick={() => setNewProduct({...newProduct, stocks:[...newProduct.stocks, stock]})}/>
                             </div>
                         </section>
 
-                        <section className="w-[35%] bg-blue-500">StocksCreados</section>
+                        <section className="w-[35%] h-[180px] flex justify-start items-start flex-col gap-y-3 bg-blued-500 overflow-auto">
+                            {newProduct.stocks.map(stock => (
+                                <div className="w-full text-sm bg-neutral-200 rounded-md border border-neutral-400 py-1 px-2">
+                                        {/* <h3>Talle: {stock.size}</h3>
+                                        <h3>Unidades: {stock.unit}</h3>
+                                        <h3>Color: {stock.color}</h3>
+                                        <h3>HxaColor: {stock.hxaColor}</h3> */}
+                                        {stock.size}
+                                        {stock.unit}
+                                        {stock.color}
+                                        {stock.hxaColor}
+                                </div>
+                            ))}
+                        </section>
 
                     </section>
                 </section>
