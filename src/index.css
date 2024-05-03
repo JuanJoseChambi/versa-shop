@@ -30,6 +30,15 @@
         -webkit-line-clamp: 2; /* número de líneas a mostrar */
         -webkit-box-orient: vertical;
     }
+    .invert {
+        filter: invert(100%);
+    }
+    .text-clipping{
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
 }
 .bgRadial{
     background: radial-gradient(circle at top, #d2d1d1cc 0%, #686868cc 25%, #3a3737 50%,#1C1818 100%);

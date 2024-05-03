@@ -36,7 +36,7 @@ function Footer() {
 
             <section className="w-area py-10 border-t border-b border-neutral-700 flex justify-between items-center flex-col gap-y-8 lg:flex-row lg:gap-0 bg-violetd-500 ">
                 <section className="text-white text-center lg:text-start space-y-3">
-                    <h3 className="font-semibold">Suscríbete a nuestro boletín</h3>
+                    <h3 className="font-semibold">Suscríbete a nuestra tienda</h3>
                     <h3 className="text-sm font-light">Las últimas noticias, artículos y recursos, enviados a su bandeja de entrada semanalmente.</h3>
                 </section>
                 <section>
