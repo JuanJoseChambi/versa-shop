@@ -76,21 +76,34 @@ function CreateProduct() {
     // console.log(categories);
     
   return (
-    <section className="w-[95%] bg-redd-500">
+    <section className="w-[95%] h-[90vh] bg-redd-500">
         
         <section className="">
-            <h3 className="text-3xl">Create Product</h3>
+            <h3 className="text-3xl">Crear producto</h3>
         </section>
-        <section className="w-full flex justify-evenly items-centerbg-redd-500 pt-5">
-            <picture className="w-[350px] min-h-[350px] max-h-[350px] overflow-hidden flex justify-center items-center bg-blued-500">
-                <img src="https://res.cloudinary.com/dth62bdky/image/upload/v1704144326/ProductApi/do3asovhei15ieqitptj.jpg" alt="" className="w-[90%]"/>
-            </picture>
-            <section className="w-[60%] bg-blued-500 flex justify-center items-start flex-col gap-y-8">
+        <section className="w-full h-full flex justify-evenly items-start bg-blued-500 pt-5">
+            <section className="w-[350px] h-full bg-greend-500 flex justify-center items-center flex-col gap-5">
+                <picture className="w-[350px] relative min-h-[350px] max-h-[350px] overflow-hidden flex justify-center items-center bg-blued-500">
+                    <img src="https://res.cloudinary.com/dth62bdky/image/upload/v1704144326/ProductApi/do3asovhei15ieqitptj.jpg" alt="" className="w-[90%] h-auto object-cover"/>
+                    {/* <button className="absolute bottom-0 text-sm text-gray-500">+ Agregar</button> */}
+                </picture>
+                <section className="flex justify-center items-center gap-5 bg-redd-500">
+                    {[{image:"https://res.cloudinary.com/dth62bdky/image/upload/v1704144326/ProductApi/do3asovhei15ieqitptj.jpg"},{image:"https://res.cloudinary.com/dth62bdky/image/upload/v1704144326/ProductApi/do3asovhei15ieqitptj.jpg"}].map(image => (
+                        <picture className="w-[60px] h-[60px] overflow-hidden border-2 border-neutral-600 rounded-sm bg-redd-500">
+                            <img src={image.image} alt="Image" className=""/>
+                        </picture>
+                    ))}
+                    <div className="w-[60px] h-[60px] flex justify-center items-center overflow-hidden border-2 text-2xl bg-[#00000096] border-neutral-600 rounded-sm text-white cursor-pointer">
+                        +
+                    </div>
+                </section>
+            </section>
+            <section className="w-[60%] h-full bg-greend-500 flex justify-evenly items-start flex-col gap-5 bg-redd-500">
                 <Input name="Name" placeholder="Nombre" styleDimensions="w-[50%]" styleText="ml-0 text-sm"/>
                 <Textarea placeholder="Descripción" name="Description" />
 
                 <section className="w-full flex justify-center items-center flex-col gap-y-5">
-                    <div className="w-full h-auto flex justify-around items-center bg-redd-500">
+                    <div className="w-full h-auto flex justify-around items-center divide-x divide-neutral-300 bg-redd-500">
                         <Filters filter={categories || []} title="Categorias"/>
                         <Filters filter={types || []} title="Tipos"/>
                     </div>
@@ -110,30 +123,33 @@ function CreateProduct() {
                                     <Input name="Color" placeholder="Negro" styleDimensions="w-[45%]" onChange={(e) => setStock({...stock, color:e.target.value})}/>
                                     <Input name="HxaColor" placeholder="#000000" styleDimensions="w-[45%]" onChange={(e) => setStock({...stock, hxaColor:e.target.value})}/>
                                 </div>
-                                <Button text="Añadir Stock" style="w-full rounded-full bg-neutral-800 text-white" onClick={() => setNewProduct({...newProduct, stocks:[...newProduct.stocks, stock]})}/>
+                                <Button text="Añadir Stock" style="py-1 px-7 rounded-full bg-neutral-800 text-white" onClick={() => setNewProduct({...newProduct, stocks:[...newProduct.stocks, stock]})}/>
                             </div>
                         </section>
 
-                        <section className="w-[35%] h-[180px] flex justify-start items-start flex-col gap-y-3 bg-blued-500 overflow-auto">
+                        <section className="w-[35%] h-[180px] flex justify-start items-start flex-col gap-y-3 bg-blued-500 overflow-auto scroll">
+                            <h4 className="w-full leading-[20px] bg-redd-500 m-0 border-b border-neutral-400 sticky top-0 z-0 backdrop-blur-sm bg-gradient-to-b from-white to-transparent tracking-widest">Stocks</h4>
                             {newProduct.stocks.map(stock => (
-                                <div className="w-full text-sm bg-neutral-200 rounded-md border border-neutral-400 py-1 px-2">
-                                        {/* <h3>Talle: {stock.size}</h3>
-                                        <h3>Unidades: {stock.unit}</h3>
+                                <div className="w-full relative text-sm bg-white rounded-sm border border-neutral-400 py-1 px-2 z-[-10]">
+                                        <h3>Talle: {stock.size}</h3>
+                                        <h3 className="absolute right-2 top-1 text-xs">x {stock.unit}</h3>
                                         <h3>Color: {stock.color}</h3>
-                                        <h3>HxaColor: {stock.hxaColor}</h3> */}
-                                        {stock.size}
+                                        <h3>HxaColor: {stock.hxaColor}</h3>
+                                        {/* {stock.size}
                                         {stock.unit}
                                         {stock.color}
-                                        {stock.hxaColor}
+                                        {stock.hxaColor} */}
                                 </div>
                             ))}
                         </section>
 
                     </section>
                 </section>
-                <div className="flex w-full justify-start items-center gap-x-1">
+                <div className="flex w-full justify-start items-center gap-x-1 bg-redd-500">
                     <h3>$</h3><Input type="number" name="Price" placeholder="Precio" defaultValue="" styleDimensions="w-[30%]" onChange={(e) => setNewProduct({...newProduct, price: Number(e.target.value)})}/>
                 </div>
+
+                <Button text="Crear Producto" style="py-1 px-7 rounded-full bg-neutral-800 text-white my-0" onClick={() => console.log(newProduct)}/>
             </section>
         </section>
 
