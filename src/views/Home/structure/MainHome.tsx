@@ -21,25 +21,25 @@ function MainHome() {
       <section className="w-full h-auto my-2 flex justify-center items-center flex-wrap 1xl:space-x-2 max-1xl:space-y-2 bg-redd-500 overflow-hidden">
 
           <section className="w-[49%] max-1xl:w-[1340px] flex flex-wrap justify-center items-center space-x-2 bg-blued-500">
-            {imagesTypeProducts.slice(0,2).map(product => (
+            {imagesTypeProducts ? imagesTypeProducts.slice(0,2).map(product => (
               <picture key={product.info} className="flex-1 h-[350px] max-1xl:w-[48%] max-1xl:h-[500px] relative flex justify-center items-center bg-greend-500 overflow-hidden">
                 <div className="w-full h-full bg-[#3a3939b0] absolute right-0 bottom-0 flex justify-center items-center">
                   <p className="text-white text-3xl font-noto font-normal tracking-[15px] text-center">{product.type}</p>
                 </div>
                 <img src={product.image} alt="" className="w-[70%]" />
               </picture>
-            ))}
+            )): null}
           </section>
 
           <section className="w-[49%] max-1xl:w-[1340px] flex flex-wrap justify-center items-center space-x-2 bg-blued-500">
-            {imagesTypeProducts.slice(2,4).map(product => (
+            {imagesTypeProducts ? imagesTypeProducts.slice(2,4).map(product => (
               <picture key={product.info} className="flex-1 h-[350px] max-1xl:w-[48%] max-1xl:h-[500px] relative flex justify-center items-center bg-greend-500 overflow-hidden">
                 <div className="w-full h-full bg-[#3a3939b0] absolute right-0 bottom-0 flex justify-center items-center">
                   <p className="text-white text-3xl font-noto font-normal tracking-[15px] text-center">{product.type}</p>
                 </div>
                 <img src={product.image} alt="" className="w-[70%]" />
               </picture>
-            ))}
+            )): null}
           </section>
           
       </section>

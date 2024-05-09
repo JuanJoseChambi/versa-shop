@@ -1,9 +1,13 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Input from "../../../components/Input/Input";
 import Textarea from "../../../components/Textarea/Textarea";
 import useApi from "../../../hooks/useApi";
 import Filters from "../../../components/Filters/Filters";
 import Button from "../../../components/Button/Button";
+import { fetchPOST } from "../../../utils/fetchPOST";
+import { error, success } from "../../../utils/alert";
+import { ResponseData } from "../../../interfaces/interfaces";
+const {VITE_CLOUD_NAME, VITE_PRESET_KEY} = import.meta.env;
 
 
 interface StructureNewProduct {
@@ -66,7 +70,7 @@ function CreateProduct() {
         color:"",
         hxaColor:""
     })
-
+    
     const {data} = useApi("http://localhost:3001/product/filters") as {data:Filters}
     // console.log(data);
 
@@ -74,7 +78,82 @@ function CreateProduct() {
     const types = data?.types?.map(type => type?.type)
     const sizes = data?.sizes?.map(size => size?.size)
     // console.log(categories);
+    async function handlerCreateProduct () {
+        if (!fileImage) return error("Por favor selecione una imagen")
+        // handlerUploadImage()
+        const imageURL = await handlerUploadImage();
+        const upload = setNewProduct({ ...newProduct, image: imageURL as string }) 
+        console.log(upload);
+        
+        if(!newProduct?.image) return error("Error al subir la imagen")
+        const { data } = await fetchPOST("http://localhost:3001/product/create", newProduct) as {data: ResponseData};
+        if (data.error) {
+            return error(data.message)
+        }else {
+            success(data.message)
+            setNewProduct({
+                name:"",
+                image:"",
+                description:"",
+                price:0,
+                category:"",
+                type:"",
+                stocks:[]
+            })
+            setStock({
+                unit:0,
+                size:"",
+                color:"",
+                hxaColor:""
+            })
+        }
+    }
+
+    const [previewImage, setPreviewImage] = useState("")
+    const [fileImage, setFileImage] = useState<File | null>(null)
+
+    const URL = `https://api.cloudinary.com/v1_1/${VITE_CLOUD_NAME}/image/upload`;
+
+    async function handlerUploadImage ():Promise<string | void> {
+
+    if (!fileImage) return alert("Por favor seleccione una imagen");
+  
+      const formData = new FormData();
+      formData.append("file", fileImage);
+      formData.append("upload_preset", VITE_PRESET_KEY);
+      const response = await fetch(URL, {
+        method:"POST",
+        body:formData
+      });
+      if (!response.ok) {
+        throw new Error(`Error uploading image: ${response.status}`);
+      }
+  
+      const responseData = await response.json();
+      return responseData.secure_url;
+    //   setNewProduct({ ...newProduct, image: responseData.secure_url });
+    }
     
+    async function handlerPreviewImage (e:React.ChangeEvent<HTMLInputElement>) {
+        if (!e.target.files) return null;
+
+        const file = e.target.files[0]
+        setFileImage(file);
+        
+        const reader = new FileReader()
+        reader.onload = () => {
+            setPreviewImage(reader.result as string)
+        }
+        reader.readAsDataURL(file)
+
+    }
+
+    useEffect(() => {
+        console.log(newProduct);
+        console.log(stock);
+        
+    },[newProduct, stock])
+
   return (
     <section className="w-[95%] h-[90vh] bg-redd-500">
         
@@ -84,12 +163,19 @@ function CreateProduct() {
         <section className="w-full h-full flex justify-evenly items-start bg-blued-500 pt-5">
             <section className="w-[350px] h-full bg-greend-500 flex justify-center items-center flex-col gap-5">
                 <picture className="w-[350px] relative min-h-[350px] max-h-[350px] overflow-hidden flex justify-center items-center bg-blued-500">
-                    <img src="https://res.cloudinary.com/dth62bdky/image/upload/v1704144326/ProductApi/do3asovhei15ieqitptj.jpg" alt="" className="w-[90%] h-auto object-cover"/>
+                    <div className={`${!previewImage ? "h-full w-full border border-neutral-500 bg-redd-500 bg-transparent" : "hidden"}`}>
+                        <label htmlFor="imageUpload">
+                            <i className="bx bx-image-add text-white w-full h-full flex justify-center items-center bg-[#00000096] text-4xl opacity-0 hover:opacity-100 transition-opacity duration-500 z-10 cursor-pointer"></i>
+                        </label>
+                        <input type="file" id="imageUpload" className="hidden" onChange={handlerPreviewImage}/>
+                        
+                    </div>
+                    {previewImage && <img src={previewImage} alt="" className={`w-[90%] h-auto object-cover`}/>}
                     {/* <button className="absolute bottom-0 text-sm text-gray-500">+ Agregar</button> */}
                 </picture>
                 <section className="flex justify-center items-center gap-5 bg-redd-500">
-                    {[{image:"https://res.cloudinary.com/dth62bdky/image/upload/v1704144326/ProductApi/do3asovhei15ieqitptj.jpg"},{image:"https://res.cloudinary.com/dth62bdky/image/upload/v1704144326/ProductApi/do3asovhei15ieqitptj.jpg"}].map(image => (
-                        <picture className="w-[60px] h-[60px] overflow-hidden border-2 border-neutral-600 rounded-sm bg-redd-500">
+                    {[{image:"https://res.cloudinary.com/dth62bdky/image/upload/v1704144326/ProductApi/do3asovhei15ieqitptj.jpg"},{image:"https://res.cloudinary.com/dth62bdky/image/upload/v1704144326/ProductApi/do3asovhei15ieqitptj.jpg"}].map((image, index) => (
+                        <picture key={index} className="w-[60px] h-[60px] overflow-hidden border-2 border-neutral-600 rounded-sm bg-redd-500">
                             <img src={image.image} alt="Image" className=""/>
                         </picture>
                     ))}
@@ -99,20 +185,24 @@ function CreateProduct() {
                 </section>
             </section>
             <section className="w-[60%] h-full bg-greend-500 flex justify-evenly items-start flex-col gap-5 bg-redd-500">
-                <Input name="Name" placeholder="Nombre" styleDimensions="w-[50%]" styleText="ml-0 text-sm"/>
-                <Textarea placeholder="Descripción" name="Description" />
+                <Input name="Name" placeholder="Nombre" styleDimensions="w-[50%]" styleText="ml-0 text-sm" onChange={(e) => setNewProduct({...newProduct, name: e.target.value})}/>
+                <Textarea placeholder="Descripción" name="Description" onChange={(e) => setNewProduct({...newProduct, description: e.target.value})}/>
 
                 <section className="w-full flex justify-center items-center flex-col gap-y-5">
                     <div className="w-full h-auto flex justify-around items-center divide-x divide-neutral-300 bg-redd-500">
-                        <Filters filter={categories || []} title="Categorias"/>
-                        <Filters filter={types || []} title="Tipos"/>
+                        <Filters filter={categories || []} title="Categorias" select={newProduct?.category} onClick={(value) => setNewProduct({...newProduct, category: value as string})}/>
+                        <Filters filter={types || []} title="Tipos" select={newProduct?.type} onClick={(value) => setNewProduct({...newProduct, type: value as string})}/>
                     </div>
                     <section className="w-full flex justify-between items-start bg-redd-500">
 
                         <section className="w-[60%] flex justify-center items-center flex-col gap-y-5 bg-greend-500">
                             <div className="w-full flex justify-center items-center bg-blued-500">
-                                <Filters filter={data?.colors || []} title="Colores"/>
-                                <Filters filter={sizes || []} title="Colores"/>
+                                <Filters filter={data?.colors || []} title="Colores" 
+                                select={stock?.color}
+                                onClick={(value) => { 
+                                    typeof value === 'string' ? setStock({ ...stock, color: value }) : setStock({ ...stock, color: value.color, hxaColor: value.hxacolor });
+                                }}/>
+                                <Filters filter={sizes || []} title="Talles" select={stock?.size} onClick={(value) => setStock({...stock, size: value as string})}/>
                             </div>
                             <div className="w-full flex justify-center items-center flex-col gap-y-5 bg-redd-500">
                                 <div className="w-full flex justify-center items-center gap-x-3">
@@ -129,12 +219,12 @@ function CreateProduct() {
 
                         <section className="w-[35%] h-[180px] flex justify-start items-start flex-col gap-y-3 bg-blued-500 overflow-auto scroll">
                             <h4 className="w-full leading-[20px] bg-redd-500 m-0 border-b border-neutral-400 sticky top-0 z-0 backdrop-blur-sm bg-gradient-to-b from-white to-transparent tracking-widest">Stocks</h4>
-                            {newProduct.stocks.map(stock => (
-                                <div className="w-full relative text-sm bg-white rounded-sm border border-neutral-400 py-1 px-2 z-[-10]">
-                                        <h3>Talle: {stock.size}</h3>
-                                        <h3 className="absolute right-2 top-1 text-xs">x {stock.unit}</h3>
-                                        <h3>Color: {stock.color}</h3>
-                                        <h3>HxaColor: {stock.hxaColor}</h3>
+                            {newProduct.stocks.map((stock, index) => (
+                                <div key={index} className="w-full relative text-sm bg-white rounded-sm border border-neutral-400 py-1 px-2 z-[-10]">
+                                        <h3>Talle: {stock.size ? stock.size : null }</h3>
+                                        <h3 className="absolute right-2 top-1 text-xs">x {stock.unit ? stock.unit : null}</h3>
+                                        <h3>Color: {stock.color ? stock.color : null}</h3>
+                                        <h3>HxaColor: {stock.hxaColor ? stock.hxaColor : null}</h3>
                                         {/* {stock.size}
                                         {stock.unit}
                                         {stock.color}
@@ -149,7 +239,7 @@ function CreateProduct() {
                     <h3>$</h3><Input type="number" name="Price" placeholder="Precio" defaultValue="" styleDimensions="w-[30%]" onChange={(e) => setNewProduct({...newProduct, price: Number(e.target.value)})}/>
                 </div>
 
-                <Button text="Crear Producto" style="py-1 px-7 rounded-full bg-neutral-800 text-white my-0" onClick={() => console.log(newProduct)}/>
+                <Button text="Crear Producto" style="py-1 px-7 rounded-full bg-neutral-800 text-white my-0" onClick={handlerCreateProduct}/>
             </section>
         </section>
 
