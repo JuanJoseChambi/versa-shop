@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import Input from "../../../components/Input/Input";
 import Textarea from "../../../components/Textarea/Textarea";
 import useApi from "../../../hooks/useApi";
@@ -7,7 +7,7 @@ import Button from "../../../components/Button/Button";
 import { fetchPOST } from "../../../utils/fetchPOST";
 import { error, success } from "../../../utils/alert";
 import { ResponseData } from "../../../interfaces/interfaces";
-const {VITE_CLOUD_NAME, VITE_PRESET_KEY} = import.meta.env;
+import { uploadImageToCloudinary } from "../../../utils/uploadImageToCloudinary";
 
 
 interface StructureNewProduct {
@@ -77,16 +77,18 @@ function CreateProduct() {
     const categories = data?.categories?.map(categorie => categorie?.category)
     const types = data?.types?.map(type => type?.type)
     const sizes = data?.sizes?.map(size => size?.size)
-    // console.log(categories);
+
+    const [previewImage, setPreviewImage] = useState("")
+    const [fileImage, setFileImage] = useState<File | null>(null)
+
+
     async function handlerCreateProduct () {
         if (!fileImage) return error("Por favor selecione una imagen")
-        // handlerUploadImage()
-        const imageURL = await handlerUploadImage();
-        const upload = setNewProduct({ ...newProduct, image: imageURL as string }) 
-        console.log(upload);
+        const imageURL = await uploadImageToCloudinary(fileImage);
         
-        if(!newProduct?.image) return error("Error al subir la imagen")
-        const { data } = await fetchPOST("http://localhost:3001/product/create", newProduct) as {data: ResponseData};
+        if(!imageURL) return error("Error al subir la imagen");    
+        
+        const { data } = await fetchPOST("http://localhost:3001/product/create", {...newProduct, image:imageURL}) as {data: ResponseData};
         if (data.error) {
             return error(data.message)
         }else {
@@ -106,34 +108,10 @@ function CreateProduct() {
                 color:"",
                 hxaColor:""
             })
+            setFileImage(null)
         }
     }
 
-    const [previewImage, setPreviewImage] = useState("")
-    const [fileImage, setFileImage] = useState<File | null>(null)
-
-    const URL = `https://api.cloudinary.com/v1_1/${VITE_CLOUD_NAME}/image/upload`;
-
-    async function handlerUploadImage ():Promise<string | void> {
-
-    if (!fileImage) return alert("Por favor seleccione una imagen");
-  
-      const formData = new FormData();
-      formData.append("file", fileImage);
-      formData.append("upload_preset", VITE_PRESET_KEY);
-      const response = await fetch(URL, {
-        method:"POST",
-        body:formData
-      });
-      if (!response.ok) {
-        throw new Error(`Error uploading image: ${response.status}`);
-      }
-  
-      const responseData = await response.json();
-      return responseData.secure_url;
-    //   setNewProduct({ ...newProduct, image: responseData.secure_url });
-    }
-    
     async function handlerPreviewImage (e:React.ChangeEvent<HTMLInputElement>) {
         if (!e.target.files) return null;
 
@@ -147,12 +125,6 @@ function CreateProduct() {
         reader.readAsDataURL(file)
 
     }
-
-    useEffect(() => {
-        console.log(newProduct);
-        console.log(stock);
-        
-    },[newProduct, stock])
 
   return (
     <section className="w-[95%] h-[90vh] bg-redd-500">
@@ -225,10 +197,6 @@ function CreateProduct() {
                                         <h3 className="absolute right-2 top-1 text-xs">x {stock.unit ? stock.unit : null}</h3>
                                         <h3>Color: {stock.color ? stock.color : null}</h3>
                                         <h3>HxaColor: {stock.hxaColor ? stock.hxaColor : null}</h3>
-                                        {/* {stock.size}
-                                        {stock.unit}
-                                        {stock.color}
-                                        {stock.hxaColor} */}
                                 </div>
                             ))}
                         </section>
