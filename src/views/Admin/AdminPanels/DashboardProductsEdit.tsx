@@ -21,8 +21,8 @@ function DashboardProductsEdit() {
 
                 ]}/>
             </div>
-            {data?.map(product => (
-                <div key={`${product.product_id} - ${product.unit}`} className="w-full bg-redd-500 flex justify-center items-center divide-x bg-redd-500 border-b border-neutral-300 divide-neutral-400">
+            {data?.map((product, index) => (
+                <div key={index} className="w-full bg-redd-500 flex justify-center items-center divide-x bg-redd-500 border-b border-neutral-300 divide-neutral-400">
                     <picture className="w-1/6 flex justify-center items-center mr-3">
                         <img src={product.image} alt=""/>
                     </picture>
@@ -31,7 +31,7 @@ function DashboardProductsEdit() {
                     <h3 className="w-1/3 text-center">$ {product.price}</h3>
                     <h4 className="w-1/3 text-center">{product.Category.category}</h4>
                     <h3 className="w-1/3 text-center">{product.Type.type}</h3>
-                    <div className="w-1/2 text-sm flex justify-center items-center flex-col gap-x-3">{product.Stocks.map(stock => (<h3 key={stock.Color.color}>{stock.Size.size} : {stock.Color.color}: {stock.unit}</h3>))}</div>
+                    <div className="w-1/2 text-sm flex justify-center items-center flex-col gap-x-3">{product.Stocks.map((stock, index) => (<h3 key={index}>{stock.Size.size} : {stock.Color.color}: {stock.unit}</h3>))}</div>
                     <div className="w-1/3 flex justify-center items-center gap-x-2">
                         <i className="cursor-pointer bx bx-edit"></i>
                         <i className="cursor-pointer bx bx-lock-alt"></i>

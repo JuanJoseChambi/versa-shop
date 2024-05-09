@@ -9,8 +9,10 @@ function MainShop() {
 
     const [filters, setFilters] = useState<boolean>(false)
 
-    const { data } = useApi("http://localhost:3001/product/all") as { data: DataProduct[] }
+    const { data } = useApi("http://localhost:3001/product/all") as { data: DataProduct[] | [] }
 
+    // console.log(data);
+    
     let categories =  new Set(data?.map(product => product.Category.category))
     let types = new Set(data?.map(product => product.Type.type));
 
@@ -34,9 +36,9 @@ function MainShop() {
     const typesArray = [...types] as string[];
     const sizesArray = [...sizes] as string[];
 
-    const productoDestacado1: string = data && data[0].image;
-    const productoDestacado2: string = data && data[1].image;
-    const productoDestacado3: string = data && data[2].image;
+    const productoDestacado1: string = data && data.length > 0 ? data[0].image : "";
+    const productoDestacado2: string = data && data.length > 1 ? data[1].image : "";
+    const productoDestacado3: string = data && data.length > 2 ? data[2].image : "";
     
   return (
     <main className=" mx-auto flex justify-between items-start flex-col bg-redd-500">
