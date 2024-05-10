@@ -2,8 +2,9 @@
 // --------------- Hooks useApi ------------------------
 export interface ApiResponse<T> {
     data?: T | null | ResponseData;
-    error?: string | null;
+    error?: string | boolean | null;
     loading?:boolean;
+    message?:string
 }
 
 export interface CategoryData {
@@ -73,7 +74,7 @@ export interface ResponseAllProducts {
 
 export interface ResponseData {
     message:string;
-    error:boolean;
+    error:boolean | unknown;
     token?:string;
 }
 
