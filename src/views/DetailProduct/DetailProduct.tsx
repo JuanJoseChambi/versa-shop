@@ -9,7 +9,7 @@ import { AppDispatch } from "../../redux/store"
 import { useDispatch } from "react-redux"
 import { addToCart } from "../../redux/slice/cartSlice"
 import Button from "../../components/Button/Button"
-import Footer from "../../components/Footer/Footer"
+// import Footer from "../../components/Footer/Footer"
 
 
 
@@ -27,6 +27,8 @@ function DetailProduct() {
     const { id } = useParams();
 
     const { data, loading} = useApi(`http://localhost:3001/product/detail/${id}`) as { data:DataProduct, loading:boolean }
+
+    const [quantity, setQuantity] = useState(1)
 
     const [size, setSize] = useState<StockGroupColors>()
     const [color, setColor] = useState<string>("")
@@ -63,7 +65,7 @@ function DetailProduct() {
         id:data?.product_id,
         name:data?.name, 
         image:data?.image, 
-        cantidad:1, 
+        cantidad:quantity, 
         size:size?.size || "", 
         unit:size?.unit || 0,
         price:data?.price, 
@@ -77,7 +79,7 @@ return (
         <section className="w-[95%] min-h-[550px] pt-[50px] mx-auto flex justify-center items-start bg-redd-500">
         {/* <section className="w-[95%] lg:w-[90%] min-h-[90%] md:h-[90%]  mx-auto flex justify-center items-center flex-col md:flex-row bg-blue-500"> */}
             
-            <picture className="w-[50%] min-h-[550px] max-w-[650px] overflow-hidden flex justify-center items-center bg-grayd-500 border border-neutral-500"> 
+            <picture className="w-[50%] max-w-[650px]  min-h-[550px] max-h-[550px] overflow-hidden flex justify-center items-center "> 
             {/* <picture className="max-w-[300px] max-h-[350px] min-h-[350px] md:w-[550px] md:max-h-[75%] md:min-h-[75%] lg:max-w-[25%] overflow-hidden mt-10 mb-5 flex justify-center items-center bg-greend-500 p-5 border border-neutral-500 rounded-sm"> */}
                 <img src={data?.image} alt={data?.name} className="w-full h-auto"/>
             </picture>
@@ -90,16 +92,20 @@ return (
                     <p>|</p>
                     <p>{data?.Category.category}</p>
                 </div>
+                <p className="mt-auto text-2xl pt-3">$ {data?.price}</p>
 
                 {/* <p className="tracking-widest text-pretty my-5">{data?.description}</p> */}
-                <div className="flex justify-center items-center gap-x-3 my-5">
+                <div className="flex justify-center items-start flex-col gap-x-3 py-3">
+                    <h3 className="text-sm text-neutral-700 tracking-widest">Talles:</h3>
+                    <div className="w-full flex justify-center items-center gap-x-3">
                     {avalibleSizeColors.map(stock => (
                         <button 
                             key={stock.size} 
                             className={`border border-neutral-400 
-                            ${stock.size === size?.size? "bg-neutral-800 text-white" : null} py-1 px-3 rounded-xl transition-colors duration-500`} 
+                            ${stock.size === size?.size? "bg-neutral-800 text-white" : null} py-1 px-3 rounded-sm transition-colors duration-500`} 
                             onClick={() => (setColor(""), setSize(stock))}>{stock.size}</button>
                     ))}
+                    </div>
                 </div>
 
                 <div className="flex justify-center items-center gap-x-3">
@@ -122,13 +128,13 @@ return (
 
                 </div>
                 <div className={`my-3 flex justify-center items-center ${size?.unit === 0 ? "text-rose-500" :"text-green-500"} text-sm`}>{size ?<p> Unidades disponibles: {size?.unit}</p> : <p>ㅤ</p>}</div>
-                <p className="mt-auto mb-5 text-xl">$ {data?.price}</p>
+                {/* <p className="mt-auto mb-5 text-xl">$ {data?.price}</p> */}
                 
                 <section className="w-full flex justify-start items-center gap-5 bg-redd-500">
-                    <div className="w-[100px] p-2 text-lg divide-x divide-neutral-300 flex justify-between items-center bg-slate-200 border border-neutral-300">
-                        <div className="w-[30px] flex justify-center items-center bg-redd-500 cursor-pointer">-</div>
-                        <div className="w-[30px] flex justify-center items-center bg-redd-500 cursor-pointer">0</div>
-                        <div className="w-[30px] flex justify-center items-center bg-redd-500 cursor-pointer">+</div>
+                    <div className="w-[100px] h-[40px] text-lg text-neutral-700 divide-x divide-neutral-400 flex justify-between items-center bg-neutral-100 border border-neutral-400">
+                        <div className="w-[30px] h-full flex justify-center items-center bg-redd-500 cursor-pointer select-none" onClick={() => setQuantity(quantity - 1)}>-</div>
+                        <div className="w-[30px] h-full flex justify-center items-center bg-redd-500 cursor-pointer select-none">{quantity}</div>
+                        <div className="w-[30px] h-full flex justify-center items-center bg-redd-500 cursor-pointer select-none" onClick={() => setQuantity(quantity + 1)}>+</div>
                     </div>
                 <Button 
                     style={`w-[300px] py-3 text-sm text-white ${!size || !color || !size.unit ? "bg-neutral-400 pointer-events-none select-none" : "bg-neutral-800"}`}
