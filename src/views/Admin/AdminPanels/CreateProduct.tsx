@@ -8,10 +8,13 @@ import { fetchPOST } from "../../../utils/fetchPOST";
 import { error, success } from "../../../utils/alert";
 import { ResponseData } from "../../../interfaces/interfaces";
 import { uploadImageToCloudinary } from "../../../utils/uploadImageToCloudinary";
-
+// import { uploadImageToCloudinary } from "../../../utils/uploadImageToCloudinary";
+// const {VITE_PRESET_KEY} = import.meta.env
 
 interface StructureNewProduct {
     name: string;
+    // image: FormData | null;
+    // image: File | null;
     image: string;
     description: string;
     price: number;
@@ -56,7 +59,8 @@ function CreateProduct() {
     
     const [newProduct, setNewProduct] = useState<StructureNewProduct>({
         name:"",
-        image:"",
+        image: "",
+        // image: "",
         description:"",
         price:0,
         category:"",
@@ -72,20 +76,20 @@ function CreateProduct() {
     })
     
     const {data} = useApi("http://localhost:3001/product/filters") as {data:Filters}
-    // console.log(data);
 
     const categories = data?.categories?.map(categorie => categorie?.category)
     const types = data?.types?.map(type => type?.type)
     const sizes = data?.sizes?.map(size => size?.size)
 
     const [previewImage, setPreviewImage] = useState("")
+    // const [fileImage, setFileImage] = useState<string>("")
     const [fileImage, setFileImage] = useState<File | null>(null)
 
 
     async function handlerCreateProduct () {
         if (!fileImage) return error("Por favor selecione una imagen")
+
         const imageURL = await uploadImageToCloudinary(fileImage);
-        
         if(!imageURL) return error("Error al subir la imagen");    
         
         const { data } = await fetchPOST("http://localhost:3001/product/create", {...newProduct, image:imageURL}) as {data: ResponseData};
@@ -96,6 +100,7 @@ function CreateProduct() {
             setNewProduct({
                 name:"",
                 image:"",
+                // image:"",
                 description:"",
                 price:0,
                 category:"",
@@ -109,21 +114,22 @@ function CreateProduct() {
                 hxaColor:""
             })
             setFileImage(null)
+            // setFileImage("")
         }
     }
 
     async function handlerPreviewImage (e:React.ChangeEvent<HTMLInputElement>) {
+        
         if (!e.target.files) return null;
 
         const file = e.target.files[0]
-        setFileImage(file);
+        setFileImage(file)
         
         const reader = new FileReader()
         reader.onload = () => {
             setPreviewImage(reader.result as string)
         }
         reader.readAsDataURL(file)
-
     }
 
   return (
@@ -139,7 +145,7 @@ function CreateProduct() {
                         <label htmlFor="imageUpload">
                             <i className="bx bx-image-add text-white w-full h-full flex justify-center items-center bg-[#00000096] text-4xl opacity-0 hover:opacity-100 transition-opacity duration-500 z-10 cursor-pointer"></i>
                         </label>
-                        <input type="file" id="imageUpload" className="hidden" onChange={handlerPreviewImage}/>
+                        <input type="file" id="imageUpload" className="hidden" accept="image/*" onChange={handlerPreviewImage}/>
                         
                     </div>
                     {previewImage && <img src={previewImage} alt="" className={`w-[90%] h-auto object-cover`}/>}
