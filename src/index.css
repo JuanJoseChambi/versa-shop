@@ -39,6 +39,14 @@
         -webkit-box-orient: vertical;
         overflow: hidden;
     }
+    
+    .clamp{
+        font-size: clamp(60%, 300%, 500%);
+        /* font-size: 32px; */
+        /* font-size: clamp(48px, 5vw, 32px); */
+        /* font-size: clamp(32px, 5vw, 16px); */
+        /* font-size: clamp(1rem, 5vw, 3rem); */
+    }
 }
 .bgRadial{
     background: radial-gradient(circle at top, #d2d1d1cc 0%, #686868cc 25%, #3a3737 50%,#1C1818 100%);
