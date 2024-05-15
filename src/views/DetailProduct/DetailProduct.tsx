@@ -3,13 +3,14 @@ import useApi from "../../hooks/useApi"
 import { Color, DataProduct, Stock } from "../../interfaces/interfaces"
 import Loader from "../../components/Loader/Loader"
 import Nav from "../../components/Nav/Nav"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import Tooltip from "../../components/Tooltip/Tooltip"
 import { AppDispatch, RootState } from "../../redux/store"
 import { useDispatch, useSelector } from "react-redux"
 import { addToCart } from "../../redux/slice/cartSlice"
 import Button from "../../components/Button/Button"
-// import Footer from "../../components/Footer/Footer"
+import Footer from "../../components/Footer/Footer"
+import Acordeon from "../../components/Acordeon/Acordeon"
 
 
 
@@ -78,7 +79,6 @@ function DetailProduct() {
     const quantityAvaliable = size && productInCart[0]?.cantidad >= size.unit ;
 
     // console.log(quantityAvaliable);
-    console.log(quantity);
     
 
     // useEffect(() => {
@@ -86,6 +86,7 @@ function DetailProduct() {
     
 
 return (
+    <>
     <main className="min-h-[100vh] flex justify-center items-center flex-col bg-blued-500 ">
         <Nav style="fixed top-0"/>
         <Loader active={loading}/>
@@ -158,7 +159,9 @@ return (
 
                 <div className="w-full h-auto mt-5 pt-3 border-t border-neutral-400 bg-neutrald-600">
                     <h3 className="text-xl font-semibold ">Descripcion</h3>
-                    <p className="tracking-widest text-pretty">{data?.description}</p>
+                    <Acordeon>
+                        <pre className="text-pretty text-sm">{data?.description}</pre>
+                    </Acordeon>
                 </div>
 
 
@@ -166,8 +169,10 @@ return (
             </article>
 
         </section>
-        {/* <Footer/> */}
     </main>
+
+    {/* <Footer/> */}
+    </>
   )
 }
 

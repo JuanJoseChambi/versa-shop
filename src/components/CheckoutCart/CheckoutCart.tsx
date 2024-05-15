@@ -36,7 +36,7 @@ function CheckoutCart() {
                     <div className="flex justify-center items-center gap-x-3">
                         <button className="bg-neutral-300 w-[20px] h-[20px] text-center rounded-full" onClick={() => dispatch(removeToCart(product))}>-</button>
                         <p>{product.cantidad}</p>
-                        <button className="bg-neutral-300 w-[20px] h-[20px] text-center rounded-full" onClick={() => dispatch(addToCart(product))}>+</button>
+                        <button className="bg-neutral-300 w-[20px] h-[20px] text-center rounded-full" onClick={() => {product.unit <= product.cantidad ? null : dispatch(addToCart(product)) }}>+</button>
                     </div>, width3:"w-[15%]",
                 value4:`$ ${product.price}`, width4:"w-[15%]",
                 value5:
