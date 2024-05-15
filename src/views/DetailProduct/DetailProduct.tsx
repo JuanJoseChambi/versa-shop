@@ -3,10 +3,10 @@ import useApi from "../../hooks/useApi"
 import { Color, DataProduct, Stock } from "../../interfaces/interfaces"
 import Loader from "../../components/Loader/Loader"
 import Nav from "../../components/Nav/Nav"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Tooltip from "../../components/Tooltip/Tooltip"
-import { AppDispatch } from "../../redux/store"
-import { useDispatch } from "react-redux"
+import { AppDispatch, RootState } from "../../redux/store"
+import { useDispatch, useSelector } from "react-redux"
 import { addToCart } from "../../redux/slice/cartSlice"
 import Button from "../../components/Button/Button"
 // import Footer from "../../components/Footer/Footer"
@@ -33,6 +33,7 @@ function DetailProduct() {
     const [size, setSize] = useState<StockGroupColors>()
     const [color, setColor] = useState<string>("")
 
+    const cart = useSelector((state: RootState) => state.cart.cart)
     const dispatch:AppDispatch = useDispatch()
 
 
@@ -71,6 +72,22 @@ function DetailProduct() {
         price:data?.price, 
         color:color
     }
+
+    const productInCart = cart.filter(product => product.id === data?.product_id)
+
+    const quantityAvaliable = size && productInCart[0]?.cantidad >= size.unit ;
+
+    console.log(quantityAvaliable);
+
+    useEffect(() => {
+        console.log(quantityAvaliable);
+        console.log(productInCart);
+        console.log(size);
+        
+        
+        
+    },[cart, productInCart, addToCart])
+    
 
 return (
     <main className="min-h-[100vh] flex justify-center items-center flex-col bg-blued-500 ">
@@ -132,12 +149,12 @@ return (
                 
                 <section className="w-full flex justify-start items-center gap-5 bg-redd-500">
                     <div className="w-[100px] h-[40px] text-lg text-neutral-700 divide-x divide-neutral-400 flex justify-between items-center bg-neutral-100 border border-neutral-400">
-                        <div className="w-[30px] h-full flex justify-center items-center bg-redd-500 cursor-pointer select-none" onClick={() => setQuantity(quantity - 1)}>-</div>
+                        <div className="w-[30px] h-full flex justify-center items-center bg-redd-500 cursor-pointer select-none" onClick={() => {quantity === 1 ? null : setQuantity(quantity - 1)}}>-</div>
                         <div className="w-[30px] h-full flex justify-center items-center bg-redd-500 cursor-pointer select-none">{quantity}</div>
-                        <div className="w-[30px] h-full flex justify-center items-center bg-redd-500 cursor-pointer select-none" onClick={() => setQuantity(quantity + 1)}>+</div>
+                        <div className="w-[30px] h-full flex justify-center items-center bg-redd-500 cursor-pointer select-none" onClick={() => {size && size?.unit <= quantity ? null : setQuantity(quantity + 1)}}>+</div>
                     </div>
                 <Button 
-                    style={`w-[300px] py-3 text-sm text-white ${!size || !color || !size.unit ? "bg-neutral-400 pointer-events-none select-none" : "bg-neutral-800"}`}
+                    style={`w-[300px] py-3 text-sm text-white ${!size || !color || !size.unit || quantity > size.unit || quantityAvaliable ? "bg-neutral-400 pointer-events-none select-none" : "bg-neutral-800"}`}
                     text="Añadir a Carrito" 
                     iconLeft="bx bx-cart-add"
                     onClick={() => dispatch(addToCart(infoProduct))}/>
