@@ -77,16 +77,12 @@ function DetailProduct() {
 
     const quantityAvaliable = size && productInCart[0]?.cantidad >= size.unit ;
 
-    console.log(quantityAvaliable);
+    // console.log(quantityAvaliable);
+    console.log(quantity);
+    
 
-    useEffect(() => {
-        console.log(quantityAvaliable);
-        console.log(productInCart);
-        console.log(size);
-        
-        
-        
-    },[cart, productInCart, addToCart])
+    // useEffect(() => {
+    // },[productInCart])
     
 
 return (
