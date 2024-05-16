@@ -24,7 +24,7 @@ const cartSlice = createSlice ({
         addToCart: (state, action: PayloadAction<ProductsInCart>) => {
             const product = action.payload;
             if (product.unit === 0) return error("No existen mas Stocks de este producto")
-            const productRepeat = state.cart.find(productsInCart => productsInCart.id === product.id && productsInCart.color !== product.color && productsInCart.size !== product.size)
+            const productRepeat = state.cart.find(productsInCart => productsInCart.id === product.id && (productsInCart.color !== product.color || productsInCart.size !== product.size))
             if (productRepeat) return info("No se puede agregar mas variaciones de este articulo");
             if (!productRepeat) {
                 const productExist = state.cart.find(productsInCart => productsInCart.id === product.id )

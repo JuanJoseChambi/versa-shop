@@ -32,7 +32,7 @@ function CartCard({products}:CartCard) {
 
                   <button className="bg-neutral-200 flex justify-center items-center w-[20px] h-[20px] text-center rounded-full" onClick={() => dispatch(removeToCart(products))}>-</button>
                   <p>{products.cantidad}</p>
-                  <button className="bg-neutral-200 flex justify-center items-center w-[20px] h-[20px] text-center rounded-full" onClick={() => dispatch(addToCart(products))}>+</button>
+                  <button className="bg-neutral-200 flex justify-center items-center w-[20px] h-[20px] text-center rounded-full" onClick={() => {products.unit <= products.cantidad ? null : dispatch(addToCart(products))}}>+</button>
 
                 </div>
                 <p>$ {products.price}</p>

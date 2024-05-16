@@ -5,12 +5,13 @@ import Loader from "../../components/Loader/Loader"
 import Nav from "../../components/Nav/Nav"
 import { useState } from "react"
 import Tooltip from "../../components/Tooltip/Tooltip"
-import { AppDispatch } from "../../redux/store"
-import { useDispatch } from "react-redux"
+import { AppDispatch, RootState } from "../../redux/store"
+import { useDispatch, useSelector } from "react-redux"
 import { addToCart } from "../../redux/slice/cartSlice"
 import Button from "../../components/Button/Button"
 // import Footer from "../../components/Footer/Footer"
-
+import Acordeon from "../../components/Acordeon/Acordeon"
+import ImageZoom from "../../components/ImageZoom/ImageZoom"
 
 
 interface StockGroupColors {
@@ -33,6 +34,7 @@ function DetailProduct() {
     const [size, setSize] = useState<StockGroupColors>()
     const [color, setColor] = useState<string>("")
 
+    const cart = useSelector((state: RootState) => state.cart.cart)
     const dispatch:AppDispatch = useDispatch()
 
 
@@ -72,19 +74,29 @@ function DetailProduct() {
         color:color
     }
 
+    const productInCart = cart.filter(product => product.id === data?.product_id)
+
+    const quantityAvaliable = size && productInCart[0]?.cantidad >= size.unit ;
+
 return (
+    <>
     <main className="min-h-[100vh] flex justify-center items-center flex-col bg-blued-500 ">
         <Nav style="fixed top-0"/>
         <Loader active={loading}/>
-        <section className="w-[95%] min-h-[550px] pt-[50px] mx-auto flex justify-center items-start bg-redd-500">
-        {/* <section className="w-[95%] lg:w-[90%] min-h-[90%] md:h-[90%]  mx-auto flex justify-center items-center flex-col md:flex-row bg-blue-500"> */}
+        <section className="w-[95%] h-[80vh]  mx-auto flex justify-center items-center bg-greend-500">
+        {/* <section className="w-[95%] lg:w-[90%] min-h-[90%] md:h-[90%]  mx-auto flex justify-center items-center flex-col md:flex-row bg-blue-500">     pt-[50px]  h-[550px]*/}
             
-            <picture className="w-[50%] max-w-[650px]  min-h-[550px] max-h-[550px] overflow-hidden flex justify-center items-center "> 
-            {/* <picture className="max-w-[300px] max-h-[350px] min-h-[350px] md:w-[550px] md:max-h-[75%] md:min-h-[75%] lg:max-w-[25%] overflow-hidden mt-10 mb-5 flex justify-center items-center bg-greend-500 p-5 border border-neutral-500 rounded-sm"> */}
-                <img src={data?.image} alt={data?.name} className="w-full h-auto"/>
-            </picture>
 
-            <article className="w-[100%] lg:w-[70%] min-h-[75%] py-5 px-5 lg:px-16 flex justify-between items-start flex-col bg-blued-500">
+            {/* <picture className="w-[50%] max-w-[650px]  min-h-[550px] max-h-[550px] overflow-hidden flex justify-center items-center ">  */}
+
+            {/* <picture className="max-w-[300px] max-h-[350px] min-h-[350px] md:w-[550px] md:max-h-[75%] md:min-h-[75%] lg:max-w-[25%] overflow-hidden mt-10 mb-5 flex justify-center items-center bg-greend-500 p-5 border border-neutral-500 rounded-sm"> */}
+                {/* <img src={data?.image} alt={data?.name} className="w-full h-auto"/> */}
+            {/* </picture> */}
+
+            <ImageZoom imageUrl={data?.image}/>
+
+            <article className="w-[100%] lg:w-[50%] min-h-[75%] py-5 px-5 lg:px-16 flex justify-between items-start flex-col bg-blued-500">
+                <p className="text-xs text-neutral-700 tracking-widest">Tienda | Productos | Camperas</p>
                 <h2 className="text-4xl tracking-widest font-semibold">{data?.name}</h2>
 
                 <div className="flex justify-center items-center gap-x-2 text-sm font-light tracking-widest">
@@ -128,16 +140,15 @@ return (
 
                 </div>
                 <div className={`my-3 flex justify-center items-center ${size?.unit === 0 ? "text-rose-500" :"text-green-500"} text-sm`}>{size ?<p> Unidades disponibles: {size?.unit}</p> : <p>ㅤ</p>}</div>
-                {/* <p className="mt-auto mb-5 text-xl">$ {data?.price}</p> */}
                 
                 <section className="w-full flex justify-start items-center gap-5 bg-redd-500">
                     <div className="w-[100px] h-[40px] text-lg text-neutral-700 divide-x divide-neutral-400 flex justify-between items-center bg-neutral-100 border border-neutral-400">
-                        <div className="w-[30px] h-full flex justify-center items-center bg-redd-500 cursor-pointer select-none" onClick={() => setQuantity(quantity - 1)}>-</div>
+                        <div className="w-[30px] h-full flex justify-center items-center bg-redd-500 cursor-pointer select-none" onClick={() => {quantity === 1 ? null : setQuantity(quantity - 1)}}>-</div>
                         <div className="w-[30px] h-full flex justify-center items-center bg-redd-500 cursor-pointer select-none">{quantity}</div>
-                        <div className="w-[30px] h-full flex justify-center items-center bg-redd-500 cursor-pointer select-none" onClick={() => setQuantity(quantity + 1)}>+</div>
+                        <div className="w-[30px] h-full flex justify-center items-center bg-redd-500 cursor-pointer select-none" onClick={() => {size && size?.unit <= quantity ? null : setQuantity(quantity + 1)}}>+</div>
                     </div>
                 <Button 
-                    style={`w-[300px] py-3 text-sm text-white ${!size || !color || !size.unit ? "bg-neutral-400 pointer-events-none select-none" : "bg-neutral-800"}`}
+                    style={`w-[300px] py-3 text-sm text-white ${!size || !color || !size.unit || quantity > size.unit || quantityAvaliable ? "bg-neutral-400 pointer-events-none select-none" : "bg-neutral-800"}`}
                     text="Añadir a Carrito" 
                     iconLeft="bx bx-cart-add"
                     onClick={() => dispatch(addToCart(infoProduct))}/>
@@ -145,7 +156,9 @@ return (
 
                 <div className="w-full h-auto mt-5 pt-3 border-t border-neutral-400 bg-neutrald-600">
                     <h3 className="text-xl font-semibold ">Descripcion</h3>
-                    <p className="tracking-widest text-pretty">{data?.description}</p>
+                    <Acordeon>
+                        <pre className="text-pretty text-sm">{data?.description}</pre>
+                    </Acordeon>
                 </div>
 
 
@@ -153,9 +166,12 @@ return (
             </article>
 
         </section>
-        {/* <Footer/> */}
     </main>
+
+    {/* <Footer/> */}
+    </>
   )
 }
 
 export default DetailProduct
+

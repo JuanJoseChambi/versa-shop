@@ -25,7 +25,7 @@ function SummaryProfile() {
                         
                         </article>
                         <article className="w-full flex justify-between items-center">
-                            <h3 className="text-sm">{product.cantidad}</h3>
+                            <h3 className="text-sm">x{product.cantidad}</h3>
                             <h3 className="">$ {product.price}</h3>
                         </article>
                     </section>
