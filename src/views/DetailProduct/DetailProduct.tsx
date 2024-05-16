@@ -80,22 +80,20 @@ function DetailProduct() {
 
 return (
     <>
-    <main className="min-h-[100vh] flex justify-center items-center flex-col bg-blued-500 ">
+    <main className="min-h-[100vh] 
+        flex justify-start items-center flex-col pt-[65px]
+        lg:justify-center lg:items-center
+        bg-blued-500 ">
         <Nav style="fixed top-0"/>
         <Loader active={loading}/>
-        <section className="w-[95%] h-[80vh]  mx-auto flex justify-center items-center bg-greend-500">
-        {/* <section className="w-[95%] lg:w-[90%] min-h-[90%] md:h-[90%]  mx-auto flex justify-center items-center flex-col md:flex-row bg-blue-500">     pt-[50px]  h-[550px]*/}
-            
-
-            {/* <picture className="w-[50%] max-w-[650px]  min-h-[550px] max-h-[550px] overflow-hidden flex justify-center items-center ">  */}
-
-            {/* <picture className="max-w-[300px] max-h-[350px] min-h-[350px] md:w-[550px] md:max-h-[75%] md:min-h-[75%] lg:max-w-[25%] overflow-hidden mt-10 mb-5 flex justify-center items-center bg-greend-500 p-5 border border-neutral-500 rounded-sm"> */}
-                {/* <img src={data?.image} alt={data?.name} className="w-full h-auto"/> */}
-            {/* </picture> */}
+        <section className="w-[95%] h-[80vh] mx-auto 
+            flex justify-start items-center 
+            lg:justify-center lg:items-start 
+            bg-greend-500 flex-col lg:flex-row ">
 
             <ImageZoom imageUrl={data?.image}/>
 
-            <article className="w-[100%] lg:w-[50%] min-h-[75%] py-5 px-5 lg:px-16 flex justify-between items-start flex-col bg-blued-500">
+            <article className="w-[100%] lg:w-[50%] min-h-[75%] py-5 px-5 lg:px-10 flex justify-between items-start flex-col bg-blued-500">
                 <p className="text-xs text-neutral-700 tracking-widest">Tienda | Productos | Camperas</p>
                 <h2 className="text-4xl tracking-widest font-semibold">{data?.name}</h2>
 
@@ -104,7 +102,7 @@ return (
                     <p>|</p>
                     <p>{data?.Category.category}</p>
                 </div>
-                <p className="mt-auto text-2xl pt-3">$ {data?.price}</p>
+                <p className="text-2xl pt-3">$ {data?.price}</p>
 
                 {/* <p className="tracking-widest text-pretty my-5">{data?.description}</p> */}
                 <div className="flex justify-center items-start flex-col gap-x-3 py-3">
