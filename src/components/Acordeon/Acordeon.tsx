@@ -8,8 +8,8 @@ interface PropAcordeon {
 
 function Acordeon({children}:PropAcordeon) {
 
-    const [open, setOpen] = useState(true)
-    const [hover, setHover] = useState(true)
+    const [open, setOpen] = useState(false)
+    const [hover, setHover] = useState(false)
 
   return (
     // <div className="w-full relative overflow-hidden bg-red-500 transition-[max-height] duration-500 ease-in-out" style={{ maxHeight: open ? '1000px' : '100px' }}>
