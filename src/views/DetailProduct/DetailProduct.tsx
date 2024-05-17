@@ -79,7 +79,6 @@ function DetailProduct() {
     const quantityAvaliable = size && productInCart[0]?.cantidad >= size.unit ;
 
 return (
-    <>
     <main className="min-h-[100vh] 
         flex justify-start items-center flex-col pt-[65px]
         lg:justify-center lg:items-center
@@ -93,7 +92,7 @@ return (
 
             <ImageZoom imageUrl={data?.image}/>
 
-            <article className="w-[100%] lg:w-[50%] min-h-[75%] py-5 px-5 lg:px-10 flex justify-between items-start flex-col bg-blued-500">
+            <article className="w-[100%] lg:w-[50%] h-[75%] py-5 lg:pt-0 px-5 lg:px-10 flex justify-between items-start flex-col bg-blued-500">
                 <p className="text-xs text-neutral-700 tracking-widest">Tienda | Productos | Camperas</p>
                 <h2 className="text-4xl tracking-widest font-semibold">{data?.name}</h2>
 
@@ -152,10 +151,10 @@ return (
                     onClick={() => dispatch(addToCart(infoProduct))}/>
                 </section>
 
-                <div className="w-full h-auto mt-5 pt-3 border-t border-neutral-400 bg-neutrald-600">
+                <div className="w-full mt-5 pt-3 border-t border-neutral-400 bg-neutrald-600">
                     <h3 className="text-xl font-semibold ">Descripcion</h3>
                     <Acordeon>
-                        <pre className="text-pretty text-sm">{data?.description}</pre>
+                        <pre className="h-auto text-pretty text-sm">{data?.description}</pre>
                     </Acordeon>
                 </div>
 
@@ -166,8 +165,6 @@ return (
         </section>
     </main>
 
-    {/* <Footer/> */}
-    </>
   )
 }
 

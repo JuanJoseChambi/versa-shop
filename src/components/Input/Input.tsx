@@ -17,7 +17,7 @@ interface InputProp {
 }
 
 
-const styleDefault:string = "rounded-md"
+const styleDefault:string = "rounded-md py-1"
 
 function Input({ 
     placeholder, 
@@ -37,7 +37,7 @@ function Input({
   const [show, setShow] = useState<boolean>(false)
 
   return (
-    <div className={`relative outline-none py-1 ${icon && "px-2"} gap-x-2 flex justify-between items-center bg-white border border-neutral-400 ${style} ${styleDimensions} ${styleText}`}>
+    <div className={`relative outline-none ${icon && "px-2"} gap-x-2 flex justify-between items-center bg-white border border-neutral-400 ${style} ${styleDimensions} ${styleText}`}>
         {iconLeft
           ? <i className={`${styleIcon} ${type === "password" ? (show ? "bx bx-show" : "bx bx-hide") : icon}`} onClick={() => setShow(!show)}></i> 
           : null}

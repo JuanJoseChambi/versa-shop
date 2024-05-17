@@ -1,17 +1,16 @@
-// import { CategoryData, ColorData, SizeData, TypeData, UseFilterResponse } from "../interfaces/interfaces";
-// import { fetchGET } from "../utils/fetchGET";
+import useApi from "../hooks/useApi";
+import { ArraysWithFilters, Filters } from "../interfaces/components";
 
-// export async function allFilters (): Promise<UseFilterResponse> {
 
-//         const { data:categories } = await fetchGET<CategoryData[]>("http://localhost:3001/category/all")
-//         const { data:types } = await fetchGET<TypeData[]>("http://localhost:3001/type/all")
-//         const { data:colors } = await fetchGET<ColorData[]>("http://localhost:3001/color/all")
-//         const { data:sizes } = await fetchGET<SizeData[]>("http://localhost:3001/size/all")
- 
-//         const filteredCategories = categories || [];
-//         const filteredTypes = types || [];
-//         const filteredColors = colors || [];
-//         const filteredSizes = sizes || [];
+
+export function allFilters (): ArraysWithFilters {
+
+    const {data} = useApi("http://localhost:3001/product/filters") as {data:Filters}
     
-//         return { categories: filteredCategories, types: filteredTypes, colors: filteredColors, sizes: filteredSizes };
-//     }
+    const categories = data?.categories?.map(categorie => categorie?.category)
+    const types = data?.types?.map(type => type?.type)
+    const sizes = data?.sizes?.map(size => size?.size)
+    const colors = data?.colors;
+
+    return { categories, types, sizes, colors };
+}

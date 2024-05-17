@@ -49,3 +49,35 @@ interface ProfilePurchase {
         city: string;
         receives: string;
 }
+// CreateProduct ------------------------------
+
+export interface ArraysWithFilters {
+    categories: string[] 
+    types: string[]
+    sizes: string[]
+    colors: Color[]
+}
+
+export interface Filters {
+    colors:     Color[];
+    sizes:      Size[];
+    types:      Type[];
+    categories: Category[];
+}
+
+export interface Category {
+    category: string;
+}
+
+export interface Color {
+    color:    string;
+    hxacolor: string;
+}
+
+export interface Size {
+    size: string;
+}
+
+export interface Type {
+    type: string;
+}
