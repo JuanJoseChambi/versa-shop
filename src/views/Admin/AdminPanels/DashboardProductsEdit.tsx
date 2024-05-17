@@ -22,7 +22,7 @@ function DashboardProductsEdit() {
         } 
     }
 
-    const {categories, colors, sizes, types} = allFilters()
+    const {categories, types} = allFilters()
 
     useEffect(() => {
         setDataProduct(data)   
@@ -81,10 +81,13 @@ function DashboardProductsEdit() {
                                     <Filters filter={colors} title="Colores"/>
                                 </div> */}
                             </div>
-                            <div>
+                            <div className="w-[100px] flex justify-center items-center flex-col gap-y-3 bg-redd-500">
                                 {product.Stocks.map(stock => (
-                                    <div className="w-full h-[20px] bg-red-50">
-                                        stock
+                                    <div className="w-full h-[20px] flex justify-between items-center text-sm py-3 px-1 cursor-pointer border border-neutral-400">
+                                        <div className="w-[20px] h-[20px] flex justify-center items-center rounded-full" style={{backgroundColor:stock.Color.hxacolor}}></div>
+                                        <p className="">{stock.Size.size}</p>
+                                        {/* <p>{stock.Color.color}</p> */}
+                                        <p>x{stock.unit}</p>
                                     </div>
                                 ))}
                             </div>
