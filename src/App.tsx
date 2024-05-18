@@ -30,7 +30,6 @@ function App() {
 
       <Route path="/detail/:id" element={<DetailProduct/>}/>
     </Routes>
-    {/* <Footer/> */}
     </>
   )
 }

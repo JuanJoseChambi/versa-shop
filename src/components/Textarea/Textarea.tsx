@@ -1,11 +1,12 @@
 
 interface TextareaProp {
-    placeholder:string;
+    placeholder?:string;
     name?:string;
+    defaultValue?:string;
     style?:string;
     styleDimensions?:string;
     styleColor?:string;
-    onChange:(e:React.ChangeEvent<HTMLTextAreaElement>) => void 
+    onChange?:(e:React.ChangeEvent<HTMLTextAreaElement>) => void 
 }
 
 const styleDefault:string = "resize-none flex justify-between items-center gap-x-2 text-xs rounded-md bg-white"
@@ -14,6 +15,7 @@ const styleDefault:string = "resize-none flex justify-between items-center gap-x
 function Textarea(
   {placeholder, 
     name, 
+    defaultValue,
     style = styleDefault,
     styleDimensions = "w-full min-h-[85px]",
     onChange
@@ -21,7 +23,7 @@ function Textarea(
   return (
     <div className={`relative py-1 px-2 border border-neutral-400 outline-none  ${style} ${styleDimensions}`}>
       <label className="absolute -top-5 left-0 text-xs tracking-widest text-neutral-600">{name}</label>
-      <textarea className={`w-full h-full resize-none outline-none `} placeholder={placeholder} onChange={onChange}></textarea>
+      <textarea defaultValue={defaultValue} className={`scroll w-full h-full resize-none outline-none `} placeholder={placeholder} onChange={onChange}></textarea>
     </div>
   )
 }

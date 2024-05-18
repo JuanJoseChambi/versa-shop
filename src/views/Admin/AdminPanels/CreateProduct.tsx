@@ -8,6 +8,7 @@ import { fetchPOST } from "../../../utils/fetchPOST";
 import { error, success } from "../../../utils/alert";
 import { ResponseData } from "../../../interfaces/interfaces";
 import { uploadImageToCloudinary } from "../../../utils/uploadImageToCloudinary";
+import {Filters as FiltersInterface} from "../../../interfaces/components"
 // import { uploadImageToCloudinary } from "../../../utils/uploadImageToCloudinary";
 // const {VITE_PRESET_KEY} = import.meta.env
 
@@ -31,30 +32,6 @@ interface Stocks {
 }
 
 
-export interface Filters {
-    colors:     Color[];
-    sizes:      Size[];
-    types:      Type[];
-    categories: Category[];
-}
-
-export interface Category {
-    category: string;
-}
-
-export interface Color {
-    color:    string;
-    hxacolor: string;
-}
-
-export interface Size {
-    size: string;
-}
-
-export interface Type {
-    type: string;
-}
-
 function CreateProduct() {
     
     const [newProduct, setNewProduct] = useState<StructureNewProduct>({
@@ -75,7 +52,7 @@ function CreateProduct() {
         hxaColor:""
     })
     
-    const {data} = useApi("http://localhost:3001/product/filters") as {data:Filters}
+    const {data} = useApi("http://localhost:3001/product/filters") as {data:FiltersInterface}
 
     const categories = data?.categories?.map(categorie => categorie?.category)
     const types = data?.types?.map(type => type?.type)
@@ -93,7 +70,9 @@ function CreateProduct() {
         if(!imageURL) return error("Error al subir la imagen");    
         
         const { data } = await fetchPOST("http://localhost:3001/product/create", {...newProduct, image:imageURL}) as {data: ResponseData};
+        
         if (data.error) {
+            console.log(data);
             return error(data.message)
         }else {
             success(data.message)

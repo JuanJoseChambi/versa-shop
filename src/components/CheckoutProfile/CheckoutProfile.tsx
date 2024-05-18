@@ -30,7 +30,7 @@ function CheckoutProfile() {
     const [oneClick, setOneClick] = useState<boolean>(false)
     const dispatch = useDispatch()
 
-    async function payment () {                             //Usar Redux para pasar la preferencia al SummaryProfile al precionar mercado pago
+    async function payment () {
         const body = {
             title:"Buso Nike",
             quantity:5,
