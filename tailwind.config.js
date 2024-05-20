@@ -8,7 +8,7 @@ export default {
     extend: {
       backgroundColor:{
         "grayLight":"#EAEAEA",
-        "grayDark":"#E7E7E7"
+        "grayDark":"#E7E7E7",
       },
       screens:{
         "1xl":"1440px"
