@@ -1,4 +1,4 @@
-import {check, delivery, payment} from "../../assets/IconSvgs/IconSvgs"
+import {check, deliverySvg, payment} from "../../assets/IconSvgs/IconSvgs"
 
 interface PropCheckoutProgress {    
     currentCheckout?: string
@@ -20,7 +20,7 @@ function CheckoutProgress({currentCheckout}: PropCheckoutProgress) {
         <li>
             <button className={`w-[20px] text-center flex justify-center items-center flex-col bg-transparent cursor-pointer ${currentCheckout === "delivery" ? "opacity-100": "opacity-70"}`}>
                 <div className={`${currentCheckout === "delivery" ? "p-[6px]" : "p-[4px]"} border border-neutral-500 rounded-full `}>
-                    {currentCheckout === "delivery" ? delivery : check}
+                    {currentCheckout === "delivery" ? deliverySvg["sm"] : check}
                 </div>
                 <p className="text-sm">Entrega</p>
             </button>

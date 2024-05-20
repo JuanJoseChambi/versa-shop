@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { updateProfileProperty } from "../../redux/slice/preferenceProfileSlice"
 import { RootState } from "../../redux/store"
 import DeliveryMethodOption from "../DeliveryMethodOption/DeliveryMethodOption"
-import { ubication } from "../../assets/IconSvgs/IconSvgs"
+import { ubicationSvg, deliverySvg } from "../../assets/IconSvgs/IconSvgs"
 
 interface PropCheckoutDelivery {
     setCheckout: () => void
@@ -64,7 +64,7 @@ function CheckoutDelivery({setCheckout}:PropCheckoutDelivery) {
 
         </section>
 
-        <section className={`w-full ${delivery ? "h-auto" : "min-h-[48px] max-h-[48px] overflow-hidden"} relative flex justify-start items-center flex-col gap-y-7 sm:gap-y-6 px-5 pb-7 bg-transparent`}>
+        <section className={`w-full ${delivery ? "h-auto" : "min-h-[48px] max-h-[48px] overflow-hidden"} relative flex justify-start items-center flex-col gap-y-7 sm:gap-y-8 px-5 pb-7 bg-transparent`}>
             
                 <div className="w-full flex justify-between items-center gap-x-3 bg-redd-500">
                     <h2 className="w-full py-3 text-2xl sm:text-3xl tracking-widest bg-redd-500 ">Entrega</h2>
@@ -72,7 +72,7 @@ function CheckoutDelivery({setCheckout}:PropCheckoutDelivery) {
                 </div>
 
                 <div className="w-full">
-                    <h3 className="text-xl flex justify-start items-center gap-x-4">{ubication}Envio a domicilio</h3>
+                    <h3 className="text-sm tracking-widest font-semibold mb-2 flex justify-start items-center gap-x-3">{deliverySvg["xl"]}Envio a domicilio</h3>
                     <DeliveryMethodOption 
                         title="Correo Argentino Clasico | Envio a domicilio"
                         subtitle="Llega entre miércoles 22/05 y lunes 27/05" 
@@ -80,12 +80,17 @@ function CheckoutDelivery({setCheckout}:PropCheckoutDelivery) {
                         nameRadio="delivery"/>
 
                 </div>
-                <div className="w-full">
-                    <h3 className="text-xl flex justify-start items-center gap-x-4">Retira por</h3>
+                <div className="w-full flex justify-center items-start flex-col gap-y-4">
+                    <h3 className="text-sm tracking-widest font-semibold mb-2 flex justify-start items-center gap-x-3">{ubicationSvg}Retira por</h3>
                     <DeliveryMethodOption 
                         title="Retira en Local Versa" 
                         subtitle="Av. Saenz, Pompeya, Local 21" 
                         price="Gratis" 
+                        nameRadio="delivery"/>
+                    <DeliveryMethodOption 
+                        title="Correo Argentino Clasico | Retiro"
+                        subtitle="Llega entre miércoles 22/05 y lunes 27/05" 
+                        price="$1.000" 
                         nameRadio="delivery"/>
                 </div>
                 
