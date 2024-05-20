@@ -9,7 +9,7 @@ function Button({text, iconLeft, iconRight, dir, style, styleIcon, onClick, img,
   const styleImage = "flex justify-center items-center w-[35px] h-[35px] bg-slate-300 rounded-full"
   
   return (
-    <Link to={dir ? dir : "#"} className={`relative ${img ? styleImage : `${style} ${disable && "pointer-events-none select-none bg-neutral-400 text-neutral-300"}`}`} onClick={onClick} onMouseEnter={() => setHoverButton(true)} onMouseLeave={() => setHoverButton(false)}>
+    <Link to={dir ? dir : "#"} className={`relative ${img ? styleImage : `${style} ${disable && "pointer-events-none select-none bg-zinc-400 text-neutral-300"}`}`} onClick={onClick} onMouseEnter={() => setHoverButton(true)} onMouseLeave={() => setHoverButton(false)}>
         <div className="flex justify-center items-center">
           {iconLeft && <i className={`${text ? `scale-150 mr-2 ${styleIcon}` : ""} ${iconLeft}`}></i>}
           { !disable && text }

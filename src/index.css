@@ -48,6 +48,17 @@
         /* font-size: clamp(1rem, 5vw, 3rem); */
     }
 }
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
 .bgRadial{
     background: radial-gradient(circle at top, #d2d1d1cc 0%, #686868cc 25%, #3a3737 50%,#1C1818 100%);
 }

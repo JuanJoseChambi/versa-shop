@@ -7,7 +7,6 @@ import RouterProtection from "./middleware/RouterProtection/RouterProtection"
 import { useSelector } from "react-redux"
 import { RootState } from "./redux/store"
 import Checkout from "./views/Checkout/Checkout"
-// import Footer from "./components/Footer/Footer"
 const { VITE_R_SA } = import.meta.env
 
 function App() {

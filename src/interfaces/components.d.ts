@@ -9,7 +9,7 @@ export interface ButtonProp {
     onClick?: () => void;
     img?: string;
     hover?:boolean;
-    disable?:boolean | string;
+    disable?:boolean ;
     loaderSpin?:boolean;
 }
 // Tooltip ------------------------------------
@@ -40,7 +40,9 @@ interface ProfilePurchase {
         name: string;
         lastname: string;
         phone: string;
-        gender: string;
+        // gender: string;
+        methodOfDelivery:string;
+        id:string;
         postalCode:string;
         street: string;
         number: string;
