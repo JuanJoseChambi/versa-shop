@@ -12,8 +12,6 @@ interface PropDeliveryMethodOption {
 }
 function DeliveryMethodOption({title, subtitle, price, nameRadio, valueRadio, defaultChecked, disable, onChange}:PropDeliveryMethodOption) {
 
-    // const [radio, setRadio] = useState()
-    // defaultChecked
   return (
     <section className={`w-full relative py-4 flex justify-start items-center border gap-x-3 px-3 border-neutral-400 ${disable && "select-none pointer-events-none"}`}>
         {disable && <div className="absolute top-0 left-0 w-full h-full bg-[#0000006f] backdrop-blur-sm flex justify-center items-center text-white font-extralight tracking-widest select-none pointer-events-none">No Disponible</div>}

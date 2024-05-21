@@ -7,6 +7,7 @@ import { updateProfileProperty } from "../../redux/slice/preferenceProfileSlice"
 import { RootState } from "../../redux/store"
 import DeliveryMethodOption from "../DeliveryMethodOption/DeliveryMethodOption"
 import { ubicationSvg, deliverySvg } from "../../assets/IconSvgs/IconSvgs"
+import methodDelivery from "../../utils/methodDelivery.json"
 
 interface PropCheckoutDelivery {
     setCheckout: () => void
@@ -69,13 +70,13 @@ function CheckoutDelivery({setCheckout}:PropCheckoutDelivery) {
                 <div className="w-full">
                     <h3 className="text-sm tracking-widest font-semibold mb-2 flex justify-start items-center gap-x-3">{deliverySvg["xl"]}Envio a domicilio</h3>
                     <DeliveryMethodOption 
-                        title="Correo Argentino Clasico | Envio a domicilio"
-                        subtitle="Llega entre miércoles 22/05 y lunes 27/05" 
-                        price="$1.600" 
+                        title={methodDelivery.homeDelivery.correoArg.title}
+                        subtitle={methodDelivery.homeDelivery.correoArg.subtitle} 
+                        price={methodDelivery.homeDelivery.correoArg.price}
                         disable={false} 
                         nameRadio="delivery"
-                        valueRadio="homeDelivery_CorreoARG"
-                        defaultChecked={profilePurchase.methodOfDelivery === "homeDelivery_CorreoARG"}
+                        valueRadio={methodDelivery.homeDelivery.correoArg.value}
+                        defaultChecked={profilePurchase.methodOfDelivery === methodDelivery.homeDelivery.correoArg.value}
                         onChange={(e) => changePreferenceProfile("methodOfDelivery", e.target.value)}
                         />
 
@@ -83,27 +84,27 @@ function CheckoutDelivery({setCheckout}:PropCheckoutDelivery) {
                 <div className="w-full flex justify-center items-start flex-col gap-y-4">
                     <h3 className="text-sm tracking-widest font-semibold mb-2 flex justify-start items-center gap-x-3">{ubicationSvg}Retira por</h3>
                     <DeliveryMethodOption 
-                        title="Retira en Local Versa" 
-                        subtitle="Av. Saenz, Pompeya, Local 21" 
-                        price="Gratis" 
+                        title={methodDelivery.withdrawal.localVersa.title} 
+                        subtitle={methodDelivery.withdrawal.localVersa.subtitle}
+                        price={methodDelivery.withdrawal.localVersa.price} 
                         nameRadio="delivery"
-                        valueRadio="withdrawal_LocalVersa"
-                        defaultChecked={profilePurchase.methodOfDelivery === "withdrawal_LocalVersa"}
+                        valueRadio={methodDelivery.withdrawal.localVersa.value} 
+                        defaultChecked={profilePurchase.methodOfDelivery === methodDelivery.withdrawal.localVersa.value}
                         onChange={(e) => changePreferenceProfile("methodOfDelivery", e.target.value)}
                         />
                     <DeliveryMethodOption 
-                        title="Correo Argentino Clasico | Retiro"
-                        subtitle="Llega entre miércoles 22/05 y lunes 27/05" 
-                        price="$1.000" 
+                        title={methodDelivery.withdrawal.correoArg.title}
+                        subtitle={methodDelivery.withdrawal.correoArg.subtitle}
+                        price={methodDelivery.withdrawal.correoArg.price}
                         disable={true} 
                         nameRadio="delivery"
-                        valueRadio="withdrawal_CorreoARG"
-                        defaultChecked={profilePurchase.methodOfDelivery === "withdrawal_CorreoARG"}
+                        valueRadio={methodDelivery.withdrawal.correoArg.value}
+                        defaultChecked={profilePurchase.methodOfDelivery === methodDelivery.withdrawal.correoArg.value}
                         onChange={(e) => changePreferenceProfile("methodOfDelivery", e.target.value)}
                         />
                 </div>
                 
-                { profilePurchase.methodOfDelivery === "homeDelivery_CorreoARG" && 
+                { profilePurchase.methodOfDelivery === methodDelivery.homeDelivery.correoArg.value && 
                     <div className="w-full min-h-[300px] flex justify-start items-start flex-col gap-y-8 bg-redd-500">
                         <h3 className="text-2xl font-light tracking-wider">Datos del destinatario</h3>
                         <div className="w-full flex justify-center items-center flex-col sm:flex-row gap-y-7 sm:gap-y-0 sm:gap-x-5">
@@ -133,7 +134,7 @@ function CheckoutDelivery({setCheckout}:PropCheckoutDelivery) {
                         </div>
                     </div>
                 }
-                {profilePurchase.methodOfDelivery === "withdrawal_LocalVersa" && 
+                {profilePurchase.methodOfDelivery === methodDelivery.withdrawal.localVersa.value && 
                     
                     <div className="w-full min-h-[300px] flex justify-start items-start flex-col gap-y-8 bg-redd-500">
 

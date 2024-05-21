@@ -83,3 +83,25 @@ export interface Size {
 export interface Type {
     type: string;
 }
+
+export interface MethodsOfDelivery {
+    homeDelivery: HomeDelivery;
+    withdrawal:   Withdrawal;
+}
+
+export interface HomeDelivery {
+    correoArg: ValueMethods;
+}
+export interface Withdrawal {
+    localVersa: ValueMethods;
+    correoArg:  ValueMethods;
+}
+
+export interface ValueMethods {
+    value?:    string;
+    title?:    string;
+    subtitle?: string;
+    price?:    string;
+}
+
+

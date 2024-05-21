@@ -29,10 +29,7 @@ function SummaryCart({subtotal, setCheckout, btnStartPayment = true}:SummaryCart
                 style="w-[80%] py-2 rounded-sm bg-neutral-800 text-white text-sm" 
                 text="Iniciar pago" 
                 onClick={setCheckout} 
-                // onClick={setCheckoutProfile} 
-            // disable={oneClick} !oneClick && payment() setOneClick(true) 
             />
-          {/* {preferenceId && <Wallet initialization={{ preferenceId: preferenceId }} customization={{ texts:{ valueProp: 'smart_option'}, visual:{ buttonBackground: 'black' }}} />} */}
         </section>}
 
     </section>
