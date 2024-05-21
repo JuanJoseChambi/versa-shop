@@ -14,7 +14,7 @@ export interface ButtonProp {
 }
 // Tooltip ------------------------------------
 export interface TooltipProp {
-    text:string;
+    text:string ;
     children:React.ReactNode
 }
 // Cart ---------------------------------------
@@ -36,20 +36,20 @@ export interface CheckoutProfileProp {
     statePurchase:ProfilePurchase
 }
 interface ProfilePurchase {
+        id:string;
         email: string;
         name: string;
         lastname: string;
         phone: string;
         // gender: string;
         methodOfDelivery:string;
-        id:string;
         postalCode:string;
         street: string;
         number: string;
         houseApartament: string;
         neighborhood: string;
         city: string;
-        receives: string;
+        // receives: string;
 }
 // CreateProduct ------------------------------
 

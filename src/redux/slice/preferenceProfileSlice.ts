@@ -12,20 +12,20 @@ const {decode, encode} = useEncode()
 const preferenceProfile = decode(VITE_N_PREFERENCE_PROFILE)
 
 const structureDefault = {
+    id:"",
     name: "",
     email: "",
     lastname: "",
     phone: "",
     // gender: "",
     methodOfDelivery:"",
-    id:"",
     postalCode:"",
     street: "",
     number: "",
     houseApartament: "",
     neighborhood: "",
     city: "",
-    receives: "",
+    // receives: "",
 }
 
 const initialState:ProfilePurchaseState = {

@@ -26,7 +26,7 @@ function SummaryCart({subtotal, setCheckout, btnStartPayment = true}:SummaryCart
         </div>
         {btnStartPayment && <section className="w-full flex justify-center items-center flex-col gap-y-3">
             <Button 
-                style="w-[80%] py-2 rounded-full bg-black text-white text-sm" 
+                style="w-[80%] py-2 rounded-sm bg-neutral-800 text-white text-sm" 
                 text="Iniciar pago" 
                 onClick={setCheckout} 
                 // onClick={setCheckoutProfile} 
