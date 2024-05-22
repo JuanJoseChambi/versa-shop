@@ -76,7 +76,7 @@ function Checkout() {
     if (params["status"] === "approved" && cartProducts.length > 0) {
       handlerPurchase(params["payment_id"])
     } 
-    console.log(params);
+    // console.log(params);
     // console.log(profilePurchase);
     
   },[])
