@@ -24,7 +24,9 @@ const structureDefault = {
     number: "",
     houseApartament: "",
     neighborhood: "",
+    
     city: "",
+    country:""
     // receives: "",
 }
 

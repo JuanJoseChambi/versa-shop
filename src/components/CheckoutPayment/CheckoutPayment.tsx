@@ -3,15 +3,14 @@ import credit from "../../assets/paymentMethod/Credito.png"
 import debit from "../../assets/paymentMethod/Debito.png"
 import mp from "../../assets/paymentMethod/mercadopago.png"
 import { Wallet, initMercadoPago } from "@mercadopago/sdk-react"
-import { deliverySvg, letterSVG, messageSVG, ubicationSvg } from "../../assets/IconSvgs/IconSvgs"
+import { deliverySvg, letterSVG, ubicationSvg } from "../../assets/IconSvgs/IconSvgs"
 import { useSelector } from "react-redux"
 import { RootState } from "../../redux/store"
-// import { MethodsOfDelivery } from "../../interfaces/components"
-// import methodDelivery from "../../utils/methodDelivery.json"
-// import { ValueMethods } from "../../interfaces/components"
+import { HomeDelivery, ValueMethods, Withdrawal } from "../../interfaces/components"
+import methodDelivery from "../../utils/methodDelivery"
+import postalCodes from "../../utils/postalCodes.json"
 const {VITE_MP_P_KEY} = import.meta.env
 
-// type MethodOfDeliveryKey = keyof typeof methodDelivery;
 
 function CheckoutPayment() {
     const { profilePurchase } = useSelector((state:RootState) => state.preferenceProfile)
@@ -46,16 +45,18 @@ function CheckoutPayment() {
     
         const preference = await response.json();
         
-        setPreferenceId(preference.id)
-        
+        setPreferenceId(preference.id)    
     }
-    const nameMethod = profilePurchase.methodOfDelivery.split("_")[0]
-    const delivery = profilePurchase.methodOfDelivery.split("_")[1]
-    console.log(nameMethod);
-    console.log(delivery);
-    
-    }
-    // const {subtitle} = methodDelivery[nameMethod][delivery] as ValueMethods
+
+    const [nameMethod, delivery] = profilePurchase?.methodOfDelivery.split("_") || "";
+
+    // console.log(nameMethod);
+    // console.log(delivery);
+    // console.log(methodDelivery);
+
+    const {title, subtitle, price} = methodDelivery[nameMethod as keyof typeof methodDelivery]?.[delivery as keyof (HomeDelivery | Withdrawal)] as ValueMethods;
+
+    const code = postalCodes.find(country => country.name === profilePurchase.country)?.provinces?.find(province => province.name === profilePurchase.city)
     
   return (
     <section className={`w-fulltransition-[height_min-height_max-height] duration-700 relative flex justify-start items-center flex-col gap-y-2 px-5 pt-0 pb-7 bg-transparent`} >
@@ -69,8 +70,8 @@ function CheckoutPayment() {
                     <div className="px-5">
                         {letterSVG}
                     </div>
-                    <div className="flex-1">
-                        {profilePurchase.email}
+                    <div className="flex-1 bg-redd-500">
+                        <h3 className="text-sm tracking-wide text-neutral-700 font-bold">{profilePurchase.email}</h3>
                     </div>
                     <div className="px-5 cursor-pointer">
                         <i className="bx bx-edit"></i>
@@ -81,7 +82,9 @@ function CheckoutPayment() {
                         {ubicationSvg}
                     </div>
                     <div className="flex-1">
-                        {profilePurchase.street}
+                        <h3 className="font-bold tracking-wide text-sm text-neutral-700">{`${profilePurchase.street} ${profilePurchase.number} ${profilePurchase.houseApartament && `, ${profilePurchase.houseApartament}`}`}</h3>
+                        <p className="font-semibold text-sm text-neutral-600">CP {code?.code}{profilePurchase.postalCode}</p>
+                        <p className="font-semibold text-sm text-neutral-600">{profilePurchase.country}, {profilePurchase.city}</p>
                     </div>
                     <div className="px-5 cursor-pointer">
                         <i className="bx bx-edit"></i>
@@ -91,25 +94,25 @@ function CheckoutPayment() {
                     <div className="px-5">
                         {deliverySvg["xl"]}
                     </div>
-                    <div className="flex-1">
-                        {profilePurchase.methodOfDelivery}
-                        {subtitle}
+                    <div className="flex-1 flex justify-start items-start flex-col">
+                        <h3 className="font-bold tracking-wide text-sm text-neutral-700">{title}</h3>
+                        <p className="font-semibold text-sm text-neutral-600">{subtitle} | {price}</p> 
                     </div>
                     <div className="px-5 cursor-pointer">
                         <i className="bx bx-edit"></i>
                     </div>
                 </div>
-                <div className="w-full py-3 flex justify-center items-center">
+                {/* <div className="w-full py-3 flex justify-center items-center">
                     <div className="px-5">
                         {messageSVG}
                     </div>
                     <div className="flex-1">
-                        Notas de pedido
+                        <h3 className="text-sm text-neutral-700 font-bold ">Notas de pedido</h3>
                     </div>
                     <div className="px-5 cursor-pointer">
                         <i className="bx bx-plus"></i>
                     </div>
-                </div>
+                </div> */}
             </section>
             
             <section className="w-full flex justify-between items-center gap-x-3 bg-redd-500">

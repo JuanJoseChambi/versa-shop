@@ -1,10 +1,10 @@
 // import { useState } from "react";
 
 interface PropDeliveryMethodOption {
-    title:string;
-    subtitle:string;
+    title?:string;
+    subtitle?:string;
     price?:string;
-    nameRadio:string;
+    nameRadio?:string;
     valueRadio?:string;
     defaultChecked?:boolean;
     disable?:boolean;

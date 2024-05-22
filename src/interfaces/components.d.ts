@@ -49,6 +49,7 @@ interface ProfilePurchase {
         houseApartament: string;
         neighborhood: string;
         city: string;
+        country:string;
         // receives: string;
 }
 // CreateProduct ------------------------------
@@ -84,17 +85,20 @@ export interface Type {
     type: string;
 }
 
+
+// 
+
 export interface MethodsOfDelivery {
-    homeDelivery: HomeDelivery;
-    withdrawal:   Withdrawal;
+    homeDelivery?: HomeDelivery;
+    withdrawal?:   Withdrawal;
 }
 
 export interface HomeDelivery {
-    correoArg: ValueMethods;
+    correoArg?: ValueMethods | null;
 }
 export interface Withdrawal {
-    localVersa: ValueMethods;
-    correoArg:  ValueMethods;
+    localVersa?: ValueMethods | null;
+    correoArg?:  ValueMethods | null; 
 }
 
 export interface ValueMethods {

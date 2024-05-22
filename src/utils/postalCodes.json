@@ -1,0 +1,2313 @@
+[
+    {
+        "code": "AR",
+        "name": "Argentina",
+        "provinces": [
+            {
+                "code": "C",
+                "name": "Capital Federal"
+            },
+            {
+                "code": "BX",
+                "name": "Gran Buenos Aires"
+            },
+            {
+                "code": "B",
+                "name": "Buenos Aires"
+            },
+            {
+                "code": "K",
+                "name": "Catamarca"
+            },
+            {
+                "code": "H",
+                "name": "Chaco"
+            },
+            {
+                "code": "U",
+                "name": "Chubut"
+            },
+            {
+                "code": "X",
+                "name": "Córdoba"
+            },
+            {
+                "code": "W",
+                "name": "Corrientes"
+            },
+            {
+                "code": "E",
+                "name": "Entre Ríos"
+            },
+            {
+                "code": "P",
+                "name": "Formosa"
+            },
+            {
+                "code": "Y",
+                "name": "Jujuy"
+            },
+            {
+                "code": "L",
+                "name": "La Pampa"
+            },
+            {
+                "code": "F",
+                "name": "La Rioja"
+            },
+            {
+                "code": "M",
+                "name": "Mendoza"
+            },
+            {
+                "code": "N",
+                "name": "Misiones"
+            },
+            {
+                "code": "Q",
+                "name": "Neuquén"
+            },
+            {
+                "code": "R",
+                "name": "Río Negro"
+            },
+            {
+                "code": "A",
+                "name": "Salta"
+            },
+            {
+                "code": "J",
+                "name": "San Juan"
+            },
+            {
+                "code": "D",
+                "name": "San Luis"
+            },
+            {
+                "code": "Z",
+                "name": "Santa Cruz"
+            },
+            {
+                "code": "S",
+                "name": "Santa Fe"
+            },
+            {
+                "code": "G",
+                "name": "Santiago del Estero"
+            },
+            {
+                "code": "V",
+                "name": "Tierra del Fuego"
+            },
+            {
+                "code": "T",
+                "name": "Tucumán"
+            }
+        ]
+    },
+    {
+        "code": "BR",
+        "name": "Brasil",
+        "provinces": [
+            {
+                "code": "AC",
+                "name": "Acre"
+            },
+            {
+                "code": "AL",
+                "name": "Alagoas"
+            },
+            {
+                "code": "AP",
+                "name": "Amapá"
+            },
+            {
+                "code": "AM",
+                "name": "Amazonas"
+            },
+            {
+                "code": "BA",
+                "name": "Bahia"
+            },
+            {
+                "code": "CE",
+                "name": "Ceará"
+            },
+            {
+                "code": "DF",
+                "name": "Distrito Federal"
+            },
+            {
+                "code": "ES",
+                "name": "Espírito Santo"
+            },
+            {
+                "code": "GO",
+                "name": "Goiás"
+            },
+            {
+                "code": "MA",
+                "name": "Maranhão"
+            },
+            {
+                "code": "MT",
+                "name": "Mato Grosso"
+            },
+            {
+                "code": "MS",
+                "name": "Mato Grosso do Sul"
+            },
+            {
+                "code": "MG",
+                "name": "Minas Gerais"
+            },
+            {
+                "code": "PA",
+                "name": "Pará"
+            },
+            {
+                "code": "PB",
+                "name": "Paraíba"
+            },
+            {
+                "code": "PR",
+                "name": "Paraná"
+            },
+            {
+                "code": "PE",
+                "name": "Pernambuco"
+            },
+            {
+                "code": "PI",
+                "name": "Piauí"
+            },
+            {
+                "code": "RJ",
+                "name": "Rio de Janeiro"
+            },
+            {
+                "code": "RN",
+                "name": "Rio Grande do Norte"
+            },
+            {
+                "code": "RS",
+                "name": "Rio Grande do Sul"
+            },
+            {
+                "code": "RO",
+                "name": "Rondônia"
+            },
+            {
+                "code": "RR",
+                "name": "Rorâima"
+            },
+            {
+                "code": "SC",
+                "name": "Santa Catarina"
+            },
+            {
+                "code": "SP",
+                "name": "São Paulo"
+            },
+            {
+                "code": "SE",
+                "name": "Sergipe"
+            },
+            {
+                "code": "TO",
+                "name": "Tocantins"
+            }
+        ]
+    },
+    {
+        "code": "CL",
+        "name": "Chile",
+        "provinces": [
+            {
+                "code": "AN",
+                "name": "Antofagasta"
+            },
+            {
+                "code": "AP",
+                "name": "Arica y Parinacota"
+            },
+            {
+                "code": "AT",
+                "name": "Atacama"
+            },
+            {
+                "code": "AI",
+                "name": "Aysén del General Carlos Ibáñez del Campo"
+            },
+            {
+                "code": "BI",
+                "name": "BioBío"
+            },
+            {
+                "code": "CO",
+                "name": "Coquimbo"
+            },
+            {
+                "code": "AR",
+                "name": "La Araucanía"
+            },
+            {
+                "code": "LI",
+                "name": "Libertador General Bernardo O'Higgins"
+            },
+            {
+                "code": "LL",
+                "name": "Los Lagos"
+            },
+            {
+                "code": "LR",
+                "name": "Los Ríos"
+            },
+            {
+                "code": "MA",
+                "name": "Magallanes y de la Antártica Chilena"
+            },
+            {
+                "code": "ML",
+                "name": "Maule"
+            },
+            {
+                "code": "RM",
+                "name": "Metropolitana de Santiago"
+            },
+            {
+                "code": "NB",
+                "name": "Ñuble"
+            },
+            {
+                "code": "TA",
+                "name": "Tarapacá"
+            },
+            {
+                "code": "VS",
+                "name": "Valparaíso"
+            }
+        ]
+    },
+    {
+        "code": "CO",
+        "name": "Colombia",
+        "provinces": [
+            {
+                "code": "AMA",
+                "name": "Amazonas"
+            },
+            {
+                "code": "ANT",
+                "name": "Antioquia"
+            },
+            {
+                "code": "ARA",
+                "name": "Arauca"
+            },
+            {
+                "code": "ATL",
+                "name": "Atlántico"
+            },
+            {
+                "code": "DC",
+                "name": "Bogotá D.C."
+            },
+            {
+                "code": "BOL",
+                "name": "Bolívar"
+            },
+            {
+                "code": "BOY",
+                "name": "Boyacá"
+            },
+            {
+                "code": "CAL",
+                "name": "Caldas"
+            },
+            {
+                "code": "CAQ",
+                "name": "Caquetá"
+            },
+            {
+                "code": "CAS",
+                "name": "Casanare"
+            },
+            {
+                "code": "CAU",
+                "name": "Cauca"
+            },
+            {
+                "code": "CES",
+                "name": "Cesar"
+            },
+            {
+                "code": "CHO",
+                "name": "Chocó"
+            },
+            {
+                "code": "COR",
+                "name": "Córdoba"
+            },
+            {
+                "code": "CUN",
+                "name": "Cundinamarca"
+            },
+            {
+                "code": "GUA",
+                "name": "Guainía"
+            },
+            {
+                "code": "GUV",
+                "name": "Guaviare"
+            },
+            {
+                "code": "HUI",
+                "name": "Huila"
+            },
+            {
+                "code": "LAG",
+                "name": "La Guajira"
+            },
+            {
+                "code": "MAG",
+                "name": "Magdalena"
+            },
+            {
+                "code": "MET",
+                "name": "Meta"
+            },
+            {
+                "code": "NAR",
+                "name": "Nariño"
+            },
+            {
+                "code": "NSA",
+                "name": "Norte de Santander"
+            },
+            {
+                "code": "PUT",
+                "name": "Putumayo"
+            },
+            {
+                "code": "QUI",
+                "name": "Quindío"
+            },
+            {
+                "code": "RIS",
+                "name": "Risaralda"
+            },
+            {
+                "code": "SAP",
+                "name": "San Andrés, Providencia y Santa Catalina"
+            },
+            {
+                "code": "SAN",
+                "name": "Santander"
+            },
+            {
+                "code": "SUC",
+                "name": "Sucre"
+            },
+            {
+                "code": "TOL",
+                "name": "Tolima"
+            },
+            {
+                "code": "VAC",
+                "name": "Valle del Cauca"
+            },
+            {
+                "code": "VAU",
+                "name": "Vaupés"
+            },
+            {
+                "code": "VID",
+                "name": "Vichada"
+            }
+        ]
+    },
+    {
+        "code": "MX",
+        "name": "México",
+        "provinces": [
+            {
+                "code": "CMX",
+                "name": "Ciudad de México"
+            },
+            {
+                "code": "MEX",
+                "name": "México"
+            },
+            {
+                "code": "JAL",
+                "name": "Jalisco"
+            },
+            {
+                "code": "AGU",
+                "name": "Aguascalientes"
+            },
+            {
+                "code": "BCN",
+                "name": "Baja California"
+            },
+            {
+                "code": "BCS",
+                "name": "Baja California Sur"
+            },
+            {
+                "code": "CAM",
+                "name": "Campeche"
+            },
+            {
+                "code": "CHP",
+                "name": "Chiapas"
+            },
+            {
+                "code": "CHH",
+                "name": "Chihuahua"
+            },
+            {
+                "code": "COA",
+                "name": "Coahuila"
+            },
+            {
+                "code": "COL",
+                "name": "Colima"
+            },
+            {
+                "code": "DUR",
+                "name": "Durango"
+            },
+            {
+                "code": "GUA",
+                "name": "Guanajuato"
+            },
+            {
+                "code": "GRO",
+                "name": "Guerrero"
+            },
+            {
+                "code": "HID",
+                "name": "Hidalgo"
+            },
+            {
+                "code": "MIC",
+                "name": "Michoacán"
+            },
+            {
+                "code": "MOR",
+                "name": "Morelos"
+            },
+            {
+                "code": "NAY",
+                "name": "Nayarit"
+            },
+            {
+                "code": "NLE",
+                "name": "Nuevo León"
+            },
+            {
+                "code": "OAX",
+                "name": "Oaxaca"
+            },
+            {
+                "code": "PUE",
+                "name": "Puebla"
+            },
+            {
+                "code": "QUE",
+                "name": "Querétaro"
+            },
+            {
+                "code": "ROO",
+                "name": "Quintana Roo"
+            },
+            {
+                "code": "SLP",
+                "name": "San Luis Potosí"
+            },
+            {
+                "code": "SIN",
+                "name": "Sinaloa"
+            },
+            {
+                "code": "SON",
+                "name": "Sonora"
+            },
+            {
+                "code": "TAB",
+                "name": "Tabasco"
+            },
+            {
+                "code": "TAM",
+                "name": "Tamaulipas"
+            },
+            {
+                "code": "TLA",
+                "name": "Tlaxcala"
+            },
+            {
+                "code": "VER",
+                "name": "Veracruz"
+            },
+            {
+                "code": "YUC",
+                "name": "Yucatán"
+            },
+            {
+                "code": "ZAC",
+                "name": "Zacatecas"
+            }
+        ]
+    },
+    {
+        "code": "AF",
+        "name": "Afganistán",
+        "provinces": []
+    },
+    {
+        "code": "AL",
+        "name": "Albania",
+        "provinces": []
+    },
+    {
+        "code": "DE",
+        "name": "Alemania",
+        "provinces": []
+    },
+    {
+        "code": "AD",
+        "name": "Andorra",
+        "provinces": []
+    },
+    {
+        "code": "AO",
+        "name": "Angola",
+        "provinces": []
+    },
+    {
+        "code": "AI",
+        "name": "Anguila",
+        "provinces": []
+    },
+    {
+        "code": "AG",
+        "name": "Antigua y Barbuda",
+        "provinces": []
+    },
+    {
+        "code": "AN",
+        "name": "Antillas Neerlandesas",
+        "provinces": []
+    },
+    {
+        "code": "SA",
+        "name": "Arabia Saudita",
+        "provinces": []
+    },
+    {
+        "code": "DZ",
+        "name": "Argelia",
+        "provinces": []
+    },
+    {
+        "code": "AM",
+        "name": "Armenia",
+        "provinces": []
+    },
+    {
+        "code": "AW",
+        "name": "Aruba",
+        "provinces": []
+    },
+    {
+        "code": "AU",
+        "name": "Australia",
+        "provinces": []
+    },
+    {
+        "code": "AT",
+        "name": "Austria",
+        "provinces": []
+    },
+    {
+        "code": "AZ",
+        "name": "Azerbaiyán",
+        "provinces": []
+    },
+    {
+        "code": "BS",
+        "name": "Bahamas",
+        "provinces": []
+    },
+    {
+        "code": "BH",
+        "name": "Bahréin",
+        "provinces": []
+    },
+    {
+        "code": "BD",
+        "name": "Bangladesh",
+        "provinces": []
+    },
+    {
+        "code": "BB",
+        "name": "Barbados",
+        "provinces": []
+    },
+    {
+        "code": "BZ",
+        "name": "Belice",
+        "provinces": []
+    },
+    {
+        "code": "BJ",
+        "name": "Benín",
+        "provinces": []
+    },
+    {
+        "code": "BM",
+        "name": "Bermudas",
+        "provinces": []
+    },
+    {
+        "code": "BY",
+        "name": "Bielorrusia",
+        "provinces": []
+    },
+    {
+        "code": "MM",
+        "name": "Birmania",
+        "provinces": []
+    },
+    {
+        "code": "BO",
+        "name": "Bolivia",
+        "provinces": [
+            {
+                "code": "H",
+                "name": "Chuquisaca"
+            },
+            {
+                "code": "C",
+                "name": "Cochabamba"
+            },
+            {
+                "code": "B",
+                "name": "El Beni"
+            },
+            {
+                "code": "L",
+                "name": "La Paz"
+            },
+            {
+                "code": "O",
+                "name": "Oruro"
+            },
+            {
+                "code": "N",
+                "name": "Pando"
+            },
+            {
+                "code": "P",
+                "name": "Potosí"
+            },
+            {
+                "code": "S",
+                "name": "Santa Cruz"
+            },
+            {
+                "code": "T",
+                "name": "Tarija"
+            }
+        ]
+    },
+    {
+        "code": "BA",
+        "name": "Bosnia y Herzegovina",
+        "provinces": []
+    },
+    {
+        "code": "BW",
+        "name": "Botsuana",
+        "provinces": []
+    },
+    {
+        "code": "BN",
+        "name": "Brunéi",
+        "provinces": []
+    },
+    {
+        "code": "BG",
+        "name": "Bulgaria",
+        "provinces": []
+    },
+    {
+        "code": "BF",
+        "name": "Burkina Faso",
+        "provinces": []
+    },
+    {
+        "code": "BI",
+        "name": "Burundi",
+        "provinces": []
+    },
+    {
+        "code": "BT",
+        "name": "Bután",
+        "provinces": []
+    },
+    {
+        "code": "BE",
+        "name": "Bélgica",
+        "provinces": []
+    },
+    {
+        "code": "CV",
+        "name": "Cabo Verde",
+        "provinces": []
+    },
+    {
+        "code": "KH",
+        "name": "Camboya",
+        "provinces": []
+    },
+    {
+        "code": "CM",
+        "name": "Camerún",
+        "provinces": []
+    },
+    {
+        "code": "CA",
+        "name": "Canadá",
+        "provinces": []
+    },
+    {
+        "code": "TD",
+        "name": "Chad",
+        "provinces": []
+    },
+    {
+        "code": "CN",
+        "name": "China",
+        "provinces": []
+    },
+    {
+        "code": "CY",
+        "name": "Chipre",
+        "provinces": []
+    },
+    {
+        "code": "VA",
+        "name": "Ciudad del Vaticano",
+        "provinces": []
+    },
+    {
+        "code": "KM",
+        "name": "Comoras",
+        "provinces": []
+    },
+    {
+        "code": "KP",
+        "name": "Corea del Norte",
+        "provinces": []
+    },
+    {
+        "code": "KR",
+        "name": "Corea del Sur",
+        "provinces": []
+    },
+    {
+        "code": "CR",
+        "name": "Costa Rica",
+        "provinces": []
+    },
+    {
+        "code": "CI",
+        "name": "Costa de Marfil",
+        "provinces": []
+    },
+    {
+        "code": "HR",
+        "name": "Croacia",
+        "provinces": []
+    },
+    {
+        "code": "CU",
+        "name": "Cuba",
+        "provinces": []
+    },
+    {
+        "code": "DK",
+        "name": "Dinamarca",
+        "provinces": []
+    },
+    {
+        "code": "DM",
+        "name": "Dominica",
+        "provinces": []
+    },
+    {
+        "code": "EC",
+        "name": "Ecuador",
+        "provinces": []
+    },
+    {
+        "code": "EG",
+        "name": "Egipto",
+        "provinces": []
+    },
+    {
+        "code": "SV",
+        "name": "El Salvador",
+        "provinces": []
+    },
+    {
+        "code": "AE",
+        "name": "Emiratos Árabes Unidos",
+        "provinces": []
+    },
+    {
+        "code": "ER",
+        "name": "Eritrea",
+        "provinces": []
+    },
+    {
+        "code": "SK",
+        "name": "Eslovaquia",
+        "provinces": []
+    },
+    {
+        "code": "SI",
+        "name": "Eslovenia",
+        "provinces": []
+    },
+    {
+        "code": "ES",
+        "name": "España",
+        "provinces": []
+    },
+    {
+        "code": "US",
+        "name": "Estados Unidos",
+        "provinces": [
+            {
+                "code": "AL",
+                "name": "Alabama"
+            },
+            {
+                "code": "AK",
+                "name": "Alaska"
+            },
+            {
+                "code": "AS",
+                "name": "American Samoa"
+            },
+            {
+                "code": "AZ",
+                "name": "Arizona"
+            },
+            {
+                "code": "AR",
+                "name": "Arkansas"
+            },
+            {
+                "code": "CA",
+                "name": "California"
+            },
+            {
+                "code": "CO",
+                "name": "Colorado"
+            },
+            {
+                "code": "CT",
+                "name": "Connecticut"
+            },
+            {
+                "code": "DE",
+                "name": "Delaware"
+            },
+            {
+                "code": "DC",
+                "name": "District of Columbia"
+            },
+            {
+                "code": "FL",
+                "name": "Florida"
+            },
+            {
+                "code": "GA",
+                "name": "Georgia"
+            },
+            {
+                "code": "GU",
+                "name": "Guam"
+            },
+            {
+                "code": "HI",
+                "name": "Hawaii"
+            },
+            {
+                "code": "ID",
+                "name": "Idaho"
+            },
+            {
+                "code": "IL",
+                "name": "Illinois"
+            },
+            {
+                "code": "IN",
+                "name": "Indiana"
+            },
+            {
+                "code": "IA",
+                "name": "Iowa"
+            },
+            {
+                "code": "KS",
+                "name": "Kansas"
+            },
+            {
+                "code": "KY",
+                "name": "Kentucky"
+            },
+            {
+                "code": "LA",
+                "name": "Louisiana"
+            },
+            {
+                "code": "ME",
+                "name": "Maine"
+            },
+            {
+                "code": "MD",
+                "name": "Maryland"
+            },
+            {
+                "code": "MA",
+                "name": "Massachusetts"
+            },
+            {
+                "code": "MI",
+                "name": "Michigan"
+            },
+            {
+                "code": "MN",
+                "name": "Minnesota"
+            },
+            {
+                "code": "MS",
+                "name": "Mississippi"
+            },
+            {
+                "code": "MO",
+                "name": "Missouri"
+            },
+            {
+                "code": "MT",
+                "name": "Montana"
+            },
+            {
+                "code": "NE",
+                "name": "Nebraska"
+            },
+            {
+                "code": "NV",
+                "name": "Nevada"
+            },
+            {
+                "code": "NH",
+                "name": "New Hampshire"
+            },
+            {
+                "code": "NJ",
+                "name": "New Jersey"
+            },
+            {
+                "code": "NM",
+                "name": "New Mexico"
+            },
+            {
+                "code": "NY",
+                "name": "New York"
+            },
+            {
+                "code": "NC",
+                "name": "North Carolina"
+            },
+            {
+                "code": "ND",
+                "name": "North Dakota"
+            },
+            {
+                "code": "MP",
+                "name": "Northern Mariana Islands"
+            },
+            {
+                "code": "OH",
+                "name": "Ohio"
+            },
+            {
+                "code": "OK",
+                "name": "Oklahoma"
+            },
+            {
+                "code": "OR",
+                "name": "Oregon"
+            },
+            {
+                "code": "PA",
+                "name": "Pennsylvania"
+            },
+            {
+                "code": "PR",
+                "name": "Puerto Rico"
+            },
+            {
+                "code": "RI",
+                "name": "Rhode Island"
+            },
+            {
+                "code": "SC",
+                "name": "South Carolina"
+            },
+            {
+                "code": "SD",
+                "name": "South Dakota"
+            },
+            {
+                "code": "TN",
+                "name": "Tennessee"
+            },
+            {
+                "code": "TX",
+                "name": "Texas"
+            },
+            {
+                "code": "UM",
+                "name": "Uniteds Minor Outlying Islands"
+            },
+            {
+                "code": "UT",
+                "name": "Utah"
+            },
+            {
+                "code": "VT",
+                "name": "Vermont"
+            },
+            {
+                "code": "VI",
+                "name": "Virgin Islands, U.S."
+            },
+            {
+                "code": "VA",
+                "name": "Virginia"
+            },
+            {
+                "code": "WA",
+                "name": "Washington"
+            },
+            {
+                "code": "WV",
+                "name": "West Virginia"
+            },
+            {
+                "code": "WI",
+                "name": "Wisconsin"
+            },
+            {
+                "code": "WY",
+                "name": "Wyoming"
+            }
+        ]
+    },
+    {
+        "code": "EE",
+        "name": "Estonia",
+        "provinces": []
+    },
+    {
+        "code": "ET",
+        "name": "Etiopía",
+        "provinces": []
+    },
+    {
+        "code": "PH",
+        "name": "Filipinas",
+        "provinces": []
+    },
+    {
+        "code": "FI",
+        "name": "Finlandia",
+        "provinces": []
+    },
+    {
+        "code": "FJ",
+        "name": "Fiyi",
+        "provinces": []
+    },
+    {
+        "code": "FR",
+        "name": "Francia",
+        "provinces": []
+    },
+    {
+        "code": "GA",
+        "name": "Gabón",
+        "provinces": []
+    },
+    {
+        "code": "GM",
+        "name": "Gambia",
+        "provinces": []
+    },
+    {
+        "code": "GE",
+        "name": "Georgia",
+        "provinces": []
+    },
+    {
+        "code": "GH",
+        "name": "Ghana",
+        "provinces": []
+    },
+    {
+        "code": "GI",
+        "name": "Gibraltar",
+        "provinces": []
+    },
+    {
+        "code": "GD",
+        "name": "Granada",
+        "provinces": []
+    },
+    {
+        "code": "GR",
+        "name": "Grecia",
+        "provinces": []
+    },
+    {
+        "code": "GL",
+        "name": "Groenlandia",
+        "provinces": []
+    },
+    {
+        "code": "GP",
+        "name": "Guadalupe",
+        "provinces": []
+    },
+    {
+        "code": "GU",
+        "name": "Guam",
+        "provinces": []
+    },
+    {
+        "code": "GT",
+        "name": "Guatemala",
+        "provinces": []
+    },
+    {
+        "code": "GF",
+        "name": "Guayana Francesa",
+        "provinces": []
+    },
+    {
+        "code": "GG",
+        "name": "Guernsey",
+        "provinces": []
+    },
+    {
+        "code": "GN",
+        "name": "Guinea",
+        "provinces": []
+    },
+    {
+        "code": "GQ",
+        "name": "Guinea Ecuatorial",
+        "provinces": []
+    },
+    {
+        "code": "GW",
+        "name": "Guinea-Bissau",
+        "provinces": []
+    },
+    {
+        "code": "GY",
+        "name": "Guyana",
+        "provinces": []
+    },
+    {
+        "code": "HT",
+        "name": "Haití",
+        "provinces": []
+    },
+    {
+        "code": "HN",
+        "name": "Honduras",
+        "provinces": []
+    },
+    {
+        "code": "HK",
+        "name": "Hong Kong",
+        "provinces": []
+    },
+    {
+        "code": "HU",
+        "name": "Hungría",
+        "provinces": []
+    },
+    {
+        "code": "IN",
+        "name": "India",
+        "provinces": []
+    },
+    {
+        "code": "ID",
+        "name": "Indonesia",
+        "provinces": []
+    },
+    {
+        "code": "IQ",
+        "name": "Iraq",
+        "provinces": []
+    },
+    {
+        "code": "IE",
+        "name": "Irlanda",
+        "provinces": []
+    },
+    {
+        "code": "IR",
+        "name": "Irán",
+        "provinces": []
+    },
+    {
+        "code": "BV",
+        "name": "Isla Bouvet",
+        "provinces": []
+    },
+    {
+        "code": "IM",
+        "name": "Isla de Man",
+        "provinces": []
+    },
+    {
+        "code": "CX",
+        "name": "Isla de Navidad",
+        "provinces": []
+    },
+    {
+        "code": "IS",
+        "name": "Islandia",
+        "provinces": []
+    },
+    {
+        "code": "KY",
+        "name": "Islas Caimán",
+        "provinces": []
+    },
+    {
+        "code": "CC",
+        "name": "Islas Cocos",
+        "provinces": []
+    },
+    {
+        "code": "CK",
+        "name": "Islas Cook",
+        "provinces": []
+    },
+    {
+        "code": "FO",
+        "name": "Islas Feroe",
+        "provinces": []
+    },
+    {
+        "code": "GS",
+        "name": "Islas Georgias del Sur y Sandwich del Sur",
+        "provinces": []
+    },
+    {
+        "code": "HM",
+        "name": "Islas Heard y McDonald",
+        "provinces": []
+    },
+    {
+        "code": "FK",
+        "name": "Islas Malvinas",
+        "provinces": []
+    },
+    {
+        "code": "MP",
+        "name": "Islas Marianas del Norte",
+        "provinces": []
+    },
+    {
+        "code": "MH",
+        "name": "Islas Marshall",
+        "provinces": []
+    },
+    {
+        "code": "PN",
+        "name": "Islas Pitcairn",
+        "provinces": []
+    },
+    {
+        "code": "SB",
+        "name": "Islas Salomón",
+        "provinces": []
+    },
+    {
+        "code": "TC",
+        "name": "Islas Turcas y Caicos",
+        "provinces": []
+    },
+    {
+        "code": "VG",
+        "name": "Islas Vírgenes Británicas",
+        "provinces": []
+    },
+    {
+        "code": "VI",
+        "name": "Islas Vírgenes de los Estados Unidos",
+        "provinces": []
+    },
+    {
+        "code": "UM",
+        "name": "Islas ultramarinas de Estados Unidos",
+        "provinces": []
+    },
+    {
+        "code": "IL",
+        "name": "Israel",
+        "provinces": []
+    },
+    {
+        "code": "IT",
+        "name": "Italia",
+        "provinces": []
+    },
+    {
+        "code": "JM",
+        "name": "Jamaica",
+        "provinces": []
+    },
+    {
+        "code": "JP",
+        "name": "Japón",
+        "provinces": []
+    },
+    {
+        "code": "JE",
+        "name": "Jersey",
+        "provinces": []
+    },
+    {
+        "code": "JO",
+        "name": "Jordania",
+        "provinces": []
+    },
+    {
+        "code": "KZ",
+        "name": "Kazajistán",
+        "provinces": []
+    },
+    {
+        "code": "KE",
+        "name": "Kenia",
+        "provinces": []
+    },
+    {
+        "code": "KG",
+        "name": "Kirguistán",
+        "provinces": []
+    },
+    {
+        "code": "KI",
+        "name": "Kiribati",
+        "provinces": []
+    },
+    {
+        "code": "KW",
+        "name": "Kuwait",
+        "provinces": []
+    },
+    {
+        "code": "LA",
+        "name": "Laos",
+        "provinces": []
+    },
+    {
+        "code": "LS",
+        "name": "Lesoto",
+        "provinces": []
+    },
+    {
+        "code": "LV",
+        "name": "Letonia",
+        "provinces": []
+    },
+    {
+        "code": "LR",
+        "name": "Liberia",
+        "provinces": []
+    },
+    {
+        "code": "LY",
+        "name": "Libia",
+        "provinces": []
+    },
+    {
+        "code": "LI",
+        "name": "Liechtenstein",
+        "provinces": []
+    },
+    {
+        "code": "LT",
+        "name": "Lituania",
+        "provinces": []
+    },
+    {
+        "code": "LU",
+        "name": "Luxemburgo",
+        "provinces": []
+    },
+    {
+        "code": "LB",
+        "name": "Líbano",
+        "provinces": []
+    },
+    {
+        "code": "MO",
+        "name": "Macao",
+        "provinces": []
+    },
+    {
+        "code": "MG",
+        "name": "Madagascar",
+        "provinces": []
+    },
+    {
+        "code": "MY",
+        "name": "Malasia",
+        "provinces": []
+    },
+    {
+        "code": "MW",
+        "name": "Malaui",
+        "provinces": []
+    },
+    {
+        "code": "MV",
+        "name": "Maldivas",
+        "provinces": []
+    },
+    {
+        "code": "MT",
+        "name": "Malta",
+        "provinces": []
+    },
+    {
+        "code": "ML",
+        "name": "Malí",
+        "provinces": []
+    },
+    {
+        "code": "MA",
+        "name": "Marruecos",
+        "provinces": []
+    },
+    {
+        "code": "MQ",
+        "name": "Martinica",
+        "provinces": []
+    },
+    {
+        "code": "MU",
+        "name": "Mauricio",
+        "provinces": []
+    },
+    {
+        "code": "MR",
+        "name": "Mauritania",
+        "provinces": []
+    },
+    {
+        "code": "YT",
+        "name": "Mayotte",
+        "provinces": []
+    },
+    {
+        "code": "FM",
+        "name": "Micronesia",
+        "provinces": []
+    },
+    {
+        "code": "MD",
+        "name": "Moldavia",
+        "provinces": []
+    },
+    {
+        "code": "MN",
+        "name": "Mongolia",
+        "provinces": []
+    },
+    {
+        "code": "ME",
+        "name": "Montenegro",
+        "provinces": []
+    },
+    {
+        "code": "MS",
+        "name": "Montserrat",
+        "provinces": []
+    },
+    {
+        "code": "MZ",
+        "name": "Mozambique",
+        "provinces": []
+    },
+    {
+        "code": "MC",
+        "name": "Mónaco",
+        "provinces": []
+    },
+    {
+        "code": "NA",
+        "name": "Namibia",
+        "provinces": []
+    },
+    {
+        "code": "NR",
+        "name": "Nauru",
+        "provinces": []
+    },
+    {
+        "code": "NP",
+        "name": "Nepal",
+        "provinces": []
+    },
+    {
+        "code": "NI",
+        "name": "Nicaragua",
+        "provinces": []
+    },
+    {
+        "code": "NG",
+        "name": "Nigeria",
+        "provinces": []
+    },
+    {
+        "code": "NU",
+        "name": "Niue",
+        "provinces": []
+    },
+    {
+        "code": "NF",
+        "name": "Norfolk",
+        "provinces": []
+    },
+    {
+        "code": "NO",
+        "name": "Noruega",
+        "provinces": []
+    },
+    {
+        "code": "NC",
+        "name": "Nueva Caledonia",
+        "provinces": []
+    },
+    {
+        "code": "NZ",
+        "name": "Nueva Zelanda",
+        "provinces": []
+    },
+    {
+        "code": "NE",
+        "name": "Níger",
+        "provinces": []
+    },
+    {
+        "code": "OM",
+        "name": "Omán",
+        "provinces": []
+    },
+    {
+        "code": "PK",
+        "name": "Pakistán",
+        "provinces": []
+    },
+    {
+        "code": "PW",
+        "name": "Palaos",
+        "provinces": []
+    },
+    {
+        "code": "PA",
+        "name": "Panamá",
+        "provinces": []
+    },
+    {
+        "code": "PG",
+        "name": "Papúa Nueva Guinea",
+        "provinces": []
+    },
+    {
+        "code": "PY",
+        "name": "Paraguay",
+        "provinces": []
+    },
+    {
+        "code": "NL",
+        "name": "Países Bajos",
+        "provinces": []
+    },
+    {
+        "code": "PE",
+        "name": "Perú",
+        "provinces": [
+            {
+                "code": "AMA",
+                "name": "Amazonas"
+            },
+            {
+                "code": "ANC",
+                "name": "Ancash"
+            },
+            {
+                "code": "APU",
+                "name": "Apurímac"
+            },
+            {
+                "code": "ARE",
+                "name": "Arequipa"
+            },
+            {
+                "code": "AYA",
+                "name": "Ayacucho"
+            },
+            {
+                "code": "CAJ",
+                "name": "Cajamarca"
+            },
+            {
+                "code": "CUS",
+                "name": "Cusco"
+            },
+            {
+                "code": "CAL",
+                "name": "El Callao"
+            },
+            {
+                "code": "HUV",
+                "name": "Huancavelica"
+            },
+            {
+                "code": "HUC",
+                "name": "Huánuco"
+            },
+            {
+                "code": "ICA",
+                "name": "Ica"
+            },
+            {
+                "code": "JUN",
+                "name": "Junín"
+            },
+            {
+                "code": "LAL",
+                "name": "La Libertad"
+            },
+            {
+                "code": "LAM",
+                "name": "Lambayeque"
+            },
+            {
+                "code": "LIM",
+                "name": "Lima"
+            },
+            {
+                "code": "LOR",
+                "name": "Loreto"
+            },
+            {
+                "code": "MDD",
+                "name": "Madre de Dios"
+            },
+            {
+                "code": "MOQ",
+                "name": "Moquegua"
+            },
+            {
+                "code": "LMA",
+                "name": "Municipalidad Metropolitana de Lima"
+            },
+            {
+                "code": "PAS",
+                "name": "Pasco"
+            },
+            {
+                "code": "PIU",
+                "name": "Piura"
+            },
+            {
+                "code": "PUN",
+                "name": "Puno"
+            },
+            {
+                "code": "SAM",
+                "name": "San Martín"
+            },
+            {
+                "code": "TAC",
+                "name": "Tacna"
+            },
+            {
+                "code": "TUM",
+                "name": "Tumbes"
+            },
+            {
+                "code": "UCA",
+                "name": "Ucayali"
+            }
+        ]
+    },
+    {
+        "code": "PF",
+        "name": "Polinesia Francesa",
+        "provinces": []
+    },
+    {
+        "code": "PL",
+        "name": "Polonia",
+        "provinces": []
+    },
+    {
+        "code": "PT",
+        "name": "Portugal",
+        "provinces": []
+    },
+    {
+        "code": "PR",
+        "name": "Puerto Rico",
+        "provinces": []
+    },
+    {
+        "code": "QA",
+        "name": "Qatar",
+        "provinces": []
+    },
+    {
+        "code": "GB",
+        "name": "Reino Unido",
+        "provinces": []
+    },
+    {
+        "code": "CD",
+        "name": "Rep. Dem. del Congo",
+        "provinces": []
+    },
+    {
+        "code": "CF",
+        "name": "República Centroafricana",
+        "provinces": []
+    },
+    {
+        "code": "CZ",
+        "name": "República Checa",
+        "provinces": []
+    },
+    {
+        "code": "DO",
+        "name": "República Dominicana",
+        "provinces": []
+    },
+    {
+        "code": "MK",
+        "name": "República de Macedonia",
+        "provinces": []
+    },
+    {
+        "code": "CG",
+        "name": "República del Congo",
+        "provinces": []
+    },
+    {
+        "code": "EH",
+        "name": "República Árabe Saharaui Democrática",
+        "provinces": []
+    },
+    {
+        "code": "RE",
+        "name": "Reunión",
+        "provinces": []
+    },
+    {
+        "code": "RW",
+        "name": "Ruanda",
+        "provinces": []
+    },
+    {
+        "code": "RO",
+        "name": "Rumania",
+        "provinces": []
+    },
+    {
+        "code": "RU",
+        "name": "Rusia",
+        "provinces": []
+    },
+    {
+        "code": "WS",
+        "name": "Samoa",
+        "provinces": []
+    },
+    {
+        "code": "AS",
+        "name": "Samoa Estadounidense",
+        "provinces": []
+    },
+    {
+        "code": "BL",
+        "name": "San Bartolomé",
+        "provinces": []
+    },
+    {
+        "code": "KN",
+        "name": "San Cristóbal y Nieves",
+        "provinces": []
+    },
+    {
+        "code": "SM",
+        "name": "San Marino",
+        "provinces": []
+    },
+    {
+        "code": "MF",
+        "name": "San Martín",
+        "provinces": []
+    },
+    {
+        "code": "PM",
+        "name": "San Pedro y Miquelón",
+        "provinces": []
+    },
+    {
+        "code": "VC",
+        "name": "San Vicente y las Granadinas",
+        "provinces": []
+    },
+    {
+        "code": "SH",
+        "name": "Santa Helena, A. y T.",
+        "provinces": []
+    },
+    {
+        "code": "LC",
+        "name": "Santa Lucía",
+        "provinces": []
+    },
+    {
+        "code": "ST",
+        "name": "Santo Tomé y Príncipe",
+        "provinces": []
+    },
+    {
+        "code": "SN",
+        "name": "Senegal",
+        "provinces": []
+    },
+    {
+        "code": "RS",
+        "name": "Serbia",
+        "provinces": []
+    },
+    {
+        "code": "SC",
+        "name": "Seychelles",
+        "provinces": []
+    },
+    {
+        "code": "SL",
+        "name": "Sierra Leona",
+        "provinces": []
+    },
+    {
+        "code": "SG",
+        "name": "Singapur",
+        "provinces": []
+    },
+    {
+        "code": "SY",
+        "name": "Siria",
+        "provinces": []
+    },
+    {
+        "code": "SO",
+        "name": "Somalia",
+        "provinces": []
+    },
+    {
+        "code": "LK",
+        "name": "Sri Lanka",
+        "provinces": []
+    },
+    {
+        "code": "SZ",
+        "name": "Suazilandia",
+        "provinces": []
+    },
+    {
+        "code": "ZA",
+        "name": "Sudáfrica",
+        "provinces": []
+    },
+    {
+        "code": "SD",
+        "name": "Sudán",
+        "provinces": []
+    },
+    {
+        "code": "SE",
+        "name": "Suecia",
+        "provinces": []
+    },
+    {
+        "code": "CH",
+        "name": "Suiza",
+        "provinces": []
+    },
+    {
+        "code": "SR",
+        "name": "Surinam",
+        "provinces": []
+    },
+    {
+        "code": "SJ",
+        "name": "Svalbard y Jan Mayen",
+        "provinces": []
+    },
+    {
+        "code": "TH",
+        "name": "Tailandia",
+        "provinces": []
+    },
+    {
+        "code": "TW",
+        "name": "Taiwán",
+        "provinces": []
+    },
+    {
+        "code": "TZ",
+        "name": "Tanzania",
+        "provinces": []
+    },
+    {
+        "code": "TJ",
+        "name": "Tayikistán",
+        "provinces": []
+    },
+    {
+        "code": "IO",
+        "name": "Territorio Británico del Océano Índico",
+        "provinces": []
+    },
+    {
+        "code": "TF",
+        "name": "Territorios Australes Franceses",
+        "provinces": []
+    },
+    {
+        "code": "PS",
+        "name": "Territorios palestinos",
+        "provinces": []
+    },
+    {
+        "code": "TL",
+        "name": "Timor Oriental",
+        "provinces": []
+    },
+    {
+        "code": "TG",
+        "name": "Togo",
+        "provinces": []
+    },
+    {
+        "code": "TK",
+        "name": "Tokelau",
+        "provinces": []
+    },
+    {
+        "code": "TO",
+        "name": "Tonga",
+        "provinces": []
+    },
+    {
+        "code": "TT",
+        "name": "Trinidad y Tobago",
+        "provinces": []
+    },
+    {
+        "code": "TM",
+        "name": "Turkmenistán",
+        "provinces": []
+    },
+    {
+        "code": "TR",
+        "name": "Turquía",
+        "provinces": []
+    },
+    {
+        "code": "TV",
+        "name": "Tuvalu",
+        "provinces": []
+    },
+    {
+        "code": "TN",
+        "name": "Túnez",
+        "provinces": []
+    },
+    {
+        "code": "UA",
+        "name": "Ucrania",
+        "provinces": []
+    },
+    {
+        "code": "UG",
+        "name": "Uganda",
+        "provinces": []
+    },
+    {
+        "code": "UY",
+        "name": "Uruguay",
+        "provinces": [
+            {
+                "code": "AR",
+                "name": "Artigas"
+            },
+            {
+                "code": "CA",
+                "name": "Canelones"
+            },
+            {
+                "code": "CL",
+                "name": "Cerro Largo"
+            },
+            {
+                "code": "CO",
+                "name": "Colonia"
+            },
+            {
+                "code": "DU",
+                "name": "Durazno"
+            },
+            {
+                "code": "FS",
+                "name": "Flores"
+            },
+            {
+                "code": "FD",
+                "name": "Florida"
+            },
+            {
+                "code": "LA",
+                "name": "Lavalleja"
+            },
+            {
+                "code": "MA",
+                "name": "Maldonado"
+            },
+            {
+                "code": "MO",
+                "name": "Montevideo"
+            },
+            {
+                "code": "PA",
+                "name": "Paysandú"
+            },
+            {
+                "code": "RN",
+                "name": "Río Negro"
+            },
+            {
+                "code": "RV",
+                "name": "Rivera"
+            },
+            {
+                "code": "RO",
+                "name": "Rocha"
+            },
+            {
+                "code": "SA",
+                "name": "Salto"
+            },
+            {
+                "code": "SJ",
+                "name": "San José"
+            },
+            {
+                "code": "SO",
+                "name": "Soriano"
+            },
+            {
+                "code": "TA",
+                "name": "Tacuarembó"
+            },
+            {
+                "code": "TT",
+                "name": "Treinta y Tres"
+            }
+        ]
+    },
+    {
+        "code": "UZ",
+        "name": "Uzbekistán",
+        "provinces": []
+    },
+    {
+        "code": "VU",
+        "name": "Vanuatu",
+        "provinces": []
+    },
+    {
+        "code": "VE",
+        "name": "Venezuela",
+        "provinces": [
+            {
+                "code": "Z",
+                "name": "Amazonas"
+            },
+            {
+                "code": "B",
+                "name": "Anzoátegui"
+            },
+            {
+                "code": "C",
+                "name": "Apure"
+            },
+            {
+                "code": "D",
+                "name": "Aragua"
+            },
+            {
+                "code": "E",
+                "name": "Barinas"
+            },
+            {
+                "code": "F",
+                "name": "Bolívar"
+            },
+            {
+                "code": "G",
+                "name": "Carabobo"
+            },
+            {
+                "code": "H",
+                "name": "Cojedes"
+            },
+            {
+                "code": "Y",
+                "name": "Delta Amacuro"
+            },
+            {
+                "code": "W",
+                "name": "Dependencias Federales"
+            },
+            {
+                "code": "A",
+                "name": "Distrito Capital"
+            },
+            {
+                "code": "I",
+                "name": "Falcón"
+            },
+            {
+                "code": "J",
+                "name": "Guárico"
+            },
+            {
+                "code": "K",
+                "name": "Lara"
+            },
+            {
+                "code": "L",
+                "name": "Mérida"
+            },
+            {
+                "code": "M",
+                "name": "Miranda"
+            },
+            {
+                "code": "N",
+                "name": "Monagas"
+            },
+            {
+                "code": "O",
+                "name": "Nueva Esparta"
+            },
+            {
+                "code": "P",
+                "name": "Portuguesa"
+            },
+            {
+                "code": "R",
+                "name": "Sucre"
+            },
+            {
+                "code": "S",
+                "name": "Táchira"
+            },
+            {
+                "code": "T",
+                "name": "Trujillo"
+            },
+            {
+                "code": "X",
+                "name": "Vargas"
+            },
+            {
+                "code": "U",
+                "name": "Yaracuy"
+            },
+            {
+                "code": "V",
+                "name": "Zulia"
+            }
+        ]
+    },
+    {
+        "code": "VN",
+        "name": "Vietnam",
+        "provinces": []
+    },
+    {
+        "code": "WF",
+        "name": "Wallis y Futuna",
+        "provinces": []
+    },
+    {
+        "code": "YE",
+        "name": "Yemen",
+        "provinces": []
+    },
+    {
+        "code": "DJ",
+        "name": "Yibuti",
+        "provinces": []
+    },
+    {
+        "code": "ZM",
+        "name": "Zambia",
+        "provinces": []
+    },
+    {
+        "code": "ZW",
+        "name": "Zimbabue",
+        "provinces": []
+    },
+    {
+        "code": "AX",
+        "name": "Åland",
+        "provinces": []
+    }
+]
