@@ -20,7 +20,7 @@ function SummaryProfile() {
                     </picture>
                     <section className="w-full flex flex-col justify-center items-start bg-redd-500">
                         <article>
-                            <h2 className="">{product.name}</h2>
+                            <h2 className="leading-5 text-sm text-clipping">{product.name}</h2>
                             <h3 className="text-sm">Talle: {product.size} | Color: {product.color}</h3>
                         
                         </article>

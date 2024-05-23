@@ -48,7 +48,10 @@
         /* font-size: clamp(1rem, 5vw, 3rem); */
     }
 }
-
+*::selection {
+    background: #313030; /* Color de fondo del texto seleccionado */
+    color: #ffff; /* Color del texto seleccionado */
+}
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
     -webkit-appearance: none;
