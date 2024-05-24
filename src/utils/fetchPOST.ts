@@ -1,4 +1,5 @@
-import { ApiResponse } from "../interfaces/interfaces";
+import { ApiResponse, ResponseData } from "../interfaces/interfaces";
+import { error, success } from "./alert";
 
 
 type RequestBody<T> = T;
@@ -11,13 +12,15 @@ export async function fetchPOST<T>(url: string, body: RequestBody<T>): Promise<A
       body: JSON.stringify(body),
     });
 
-    // if (!response.ok) {
-      // throw new Error(`Error: ${response.status} ${response}`);
-    // }
+    const result: ResponseData = await response.json();
+    if (result.error) {
+      error(result.message);
+      return { error: true };
+    }
 
-    const result: T = await response.json();
-
-    return { data: result, error: null };
+    success(result.message)
+    return { data: result, error: false };
+    
   } catch (error) {
     return { data: null, error: `Error: ${error}` };
   }

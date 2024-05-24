@@ -16,7 +16,7 @@ export async function fetchDELETE<T> (url:string): Promise<ApiResponse<T>> {
         const result:ResponseData = await response.json();
         // console.log(result);
 
-        if(result.error) {error(result.message);}
+        if(result.error) { error(result.message) ;}
 
         success(result.message)
         return { error: false }

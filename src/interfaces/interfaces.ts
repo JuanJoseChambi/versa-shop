@@ -5,6 +5,7 @@ export interface ApiResponse<T> {
     error?: string | boolean | null;
     loading?:boolean;
     message?:string
+
 }
 
 export interface CategoryData {
@@ -111,6 +112,7 @@ export interface Stock {
     unit:  number;
     Size:  Size;
     Color: Color;
+    stock_id:string
 }
 
 export interface Color {
@@ -142,4 +144,14 @@ export interface ProfileUser {
     createdAt: Date;
     updatedAt: Date;
     Purchases: any[];
+}
+
+// REQUEST PATCH -----------------------------------------------
+export interface UpdateProduct {
+    id:string;
+    name:string, 
+    description:string, 
+    price:number, 
+    category:string, 
+    type:string
 }
