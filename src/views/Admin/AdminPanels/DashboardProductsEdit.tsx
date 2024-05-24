@@ -118,15 +118,15 @@ function DashboardProductsEdit() {
                             </div>
 
 
-                            {(!stockEdit && !createStock) && <div className="w-[250px] h-full flex justify-center items-center flex-col bg-redd-500">
+                            {(!stockEdit && !createStock) && <div className="w-[250px] h-full flex justify-start items-center flex-col bg-redd-500">
                                 <div className="w-full flex justify-between items-center bg-redd-500 ">
                                     <h3 className="flex justify-start items-center text-sm font-semibold tracking-wide text-neutral-600 cursor-pointer" onClick={() => setCreateStock(product.product_id)}><i className="bx bx-plus"></i> Crear Stock</h3>
                                     <h3 className="flex justify-start items-center text-sm font-semibold tracking-wide text-neutral-600 cursor-pointer"><i className="bx bx-plus"></i> Agregar Stock</h3>
                                 </div>
-                                <div className="w-full h-full flex justify-start items-start flex-wrap overflow-y-auto bg-blue-500 ">
+                                <div className="w-full min-h-[10px] flex justify-center items-start flex-wrap gap-x-3 gap-y-2 pt-2 bg-blued-500 ">
                                     {product.Stocks.map(stock => (
-                                        <div key={stock.Size.size} onClick={() => setStockEdit(stock)} className="min-w-[60px] h-[20px] relative flex justify-between items-center text-sm py-3 px-1 cursor-pointer border border-neutral-400">
-                                            <div className="w-[20px] h-[20px] flex justify-center items-center rounded-full" style={{backgroundColor:stock.Color.hxacolor}}></div>
+                                        <div key={stock.Size.size} onClick={() => setStockEdit(stock)} className="min-w-[50px] min-h-[20px] max-h-[20px] relative flex justify-between items-center text-sm py-3 px-1 cursor-pointer border border-neutral-400">
+                                            <div className="w-[20px] min-h-[20px] max-h-[20px] flex justify-center items-center rounded-full" style={{backgroundColor:stock.Color.hxacolor}}></div>
                                             <p className="text-sm">{stock.Size.size}</p>
                                             <p className="min-w-[15px] h-[15px] p-1 flex justify-center items-center rounded-full absolute -top-2 -left-2 text-xs bg-white border border-neutral-800">{stock.unit}</p>
                                         </div>
