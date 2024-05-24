@@ -3,7 +3,7 @@ interface PropImageMagnifier {
     imageUrl: string;
     carusel?: boolean;
 }
-function ImageZoom({imageUrl, carusel}:PropImageMagnifier) {
+function ImageZoom({imageUrl, carusel= false}:PropImageMagnifier) {
     const [zoomPosition, setZoomPosition] = useState({ x: 0, y: 0 });
     const [isZoomVisible, setIsZoomVisible] = useState(false);
     const [client, setClient] = useState({ x: 0, y: 0 });

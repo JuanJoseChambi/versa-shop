@@ -20,7 +20,8 @@ function Filters({filter, title, onClick, select}:FiltersProp) {
                     onClick={() => onClick && onClick(option)}
                     className={`
                     ${typeof option === "object" 
-                    ? `w-[20px] h-[20px] rounded-full cursor-pointer ${select === option.color && "border-2 border-rose-600"}` : `cursor-pointer w-auto px-2 rounded-md border border-neutral-400 text-center ${select === option && "bg-neutral-400 text-white" }`} `} 
+                    ? `w-[20px] h-[20px] rounded-full cursor-pointer ${select === option.color && "border-2 border-rose-600"}` 
+                    : `cursor-pointer w-auto px-2 rounded-md border border-neutral-400 text-center ${select === option && "bg-neutral-400 text-white" }`} `} 
                     style={{backgroundColor : `${typeof option === "object" && option.hxacolor}`}} >
                         {typeof option === "object" ? null : option}
                 </label>
