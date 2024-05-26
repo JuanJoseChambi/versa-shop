@@ -52,6 +52,7 @@ interface Product {
     description:string
     brand: string
     price:  number
+    available:boolean
     category: string
     type:string
     stock: number
@@ -99,6 +100,7 @@ export interface DataProduct {
     description:     string;
     price:           number;
     unit:            number;
+    available:       boolean;
     Category:        Category;
     Type:            Type;
     Stocks:          Stock[];

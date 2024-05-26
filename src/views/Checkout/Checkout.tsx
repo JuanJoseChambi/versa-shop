@@ -18,7 +18,7 @@ import ArrowBefore from "../../components/ArrowBefore/ArrowBefore"
 import CheckoutPayment from "../../components/CheckoutPayment/CheckoutPayment"
 import CheckoutDelivery from "../../components/CheckoutDelivery/CheckoutDelivery"
 import CheckoutProgress from "../../components/CheckoutProgress/CheckoutProgress"
-const { VITE_C_CART} = import.meta.env
+const { VITE_C_CART, VITE_URL_BASE} = import.meta.env
 
 
 
@@ -58,7 +58,7 @@ function Checkout() {
   const cartProducts = decode(VITE_C_CART)
     
   async function handlerPurchase (payment_id:string) {
-    const {data} = await fetchPOST("http://localhost:3001/purchase/create", { direction:profilePurchase.street, userEmail: profilePurchase.email, payment_id: payment_id, products:cartProducts }) as {data:ResponseData}
+    const {data} = await fetchPOST(`${VITE_URL_BASE}/purchase/create`, { direction:profilePurchase.street, userEmail: profilePurchase.email, payment_id: payment_id, products:cartProducts }) as {data:ResponseData}
     dispatch(deletePreferenceProfile())
     if (data.error) return error(data.message);
     if (!data.error) {

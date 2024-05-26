@@ -7,13 +7,16 @@ import ArrowBefore from "../../components/ArrowBefore/ArrowBefore";
 function Admin() {
 
     const [adminPanel, setAdminPanel] = useState("stocks")
+    const [openOptions, setOpenOptions] = useState<boolean>(false)
 
   return (
     <main className="h-screen bg-redd-500 flex justify-start items-start">
+        <button className={` fixed top-2 left-2 p-1 rounded-full text-xl flex justify-center items-center bg-white md:hidden`} onClick={() => setOpenOptions(true)}><i className="bx bx-menu"></i></button>
 
-        <aside className="w-[300px] h-screen bg-neutral-800 text-white">
+        <aside className={` ${openOptions ? "w-full absolute top-0 left-0 z-10": "max-md:hidden" } h-screen bg-neutral-800 text-white md:w-[300px] md:relative`}>
             <ArrowBefore redirect="/shop" styleIcon="text-lg" style="text-white absolute left-2 top-4"/>
             <h3 className="text-center text-sm font-semibold tracking-widest py-5 ">ADMINISTRADOR</h3>
+            <button className={`absolute top-6 right-5 text-3xl md:hidden`}><i className="bx bx-x block lg:hidden" onClick={() => setOpenOptions(false)}></i></button>
 
             <ul className="text-sm font-extralight tracking-widest flex justify-center items-start flex-col gap-y-3">
                 <li className={`cursor-pointer px-3 ${adminPanel === "stocks" && "text-black bg-white rounded-sm"}`} onClick={() => setAdminPanel("stocks")}>Stocks</li>

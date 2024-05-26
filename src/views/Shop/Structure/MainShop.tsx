@@ -4,12 +4,13 @@ import CardProduct from "../../../components/CardProduct/CardProduct"
 import Filters from "../../../components/Filters/Filters"
 import { useState } from "react"
 import React from "react"
+const {VITE_URL_BASE} = import.meta.env
 
 function MainShop() {
 
     const [filters, setFilters] = useState<boolean>(false)
 
-    const { data } = useApi("http://localhost:3001/product/all") as { data: DataProduct[] | [] }
+    const { data } = useApi(`${VITE_URL_BASE}/product/all`) as { data: DataProduct[] | [] }
 
     // console.log(data);
     

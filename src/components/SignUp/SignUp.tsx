@@ -5,7 +5,7 @@ import Input from "../../components/Input/Input"
 import { error, success } from "../../utils/alert"
 import { useNavigate } from "react-router-dom"
 import { SignUpProp } from "../../interfaces/components"
-
+const {VITE_URL_BASE} = import.meta.env
 
 function SignUp({visible}: SignUpProp) {
 
@@ -28,7 +28,7 @@ function SignUp({visible}: SignUpProp) {
         
         if (signUpData.password !== signUpData.repeatPassword) return error("La contraseña no coincide")
         
-        const { data } = await fetchPOST("http://localhost:3001/user/create", signUpData) as {data: ResponseData};
+        const { data } = await fetchPOST(`${VITE_URL_BASE}}/user/create`, signUpData) as {data: ResponseData};
         if (data.error) return error(data.message)
         if(!data.error) {
             navigate("/shop")
