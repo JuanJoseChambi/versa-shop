@@ -6,7 +6,7 @@ import { fetchPOST } from "../../utils/fetchPOST";
 import { ResponseData } from "../../interfaces/interfaces";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie" 
-const { VITE_C_USER } = import.meta.env
+const { VITE_C_USER, VITE_URL_BASE } = import.meta.env
 
 
 function Login({visible}:LogInProp) {
@@ -24,7 +24,7 @@ function Login({visible}:LogInProp) {
         e.preventDefault();
         if (!login.email || !login.password) return error("Faltan Datos por completar")
 
-        const { data } = await fetchPOST("http://localhost:3001/user/login", login) as {data: ResponseData}
+        const { data } = await fetchPOST(`${VITE_URL_BASE}/user/login`, login) as {data: ResponseData}
         // console.log(data);
         
         if (data.error) return error(data.message)

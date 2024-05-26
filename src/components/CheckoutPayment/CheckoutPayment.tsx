@@ -9,7 +9,8 @@ import { RootState } from "../../redux/store"
 import { HomeDelivery, ValueMethods, Withdrawal } from "../../interfaces/components"
 import methodDelivery from "../../utils/methodDelivery"
 import postalCodes from "../../utils/postalCodes.json"
-const {VITE_MP_P_KEY} = import.meta.env
+const {VITE_MP_P_KEY, VITE_URL_BASE} = import.meta.env
+
 
 
 function CheckoutPayment() {
@@ -35,7 +36,7 @@ function CheckoutPayment() {
             price:10
         };
 
-        const response = await fetch("http://localhost:3001/create_preference", {
+        const response = await fetch(`${VITE_URL_BASE}/create_preference`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

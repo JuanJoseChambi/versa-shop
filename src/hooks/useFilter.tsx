@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { CategoryData, ColorData, SizeData, TypeData, UseFilterResponse } from "../interfaces/interfaces";
 import { fetchGET } from "../utils/fetchGET";
+const {VITE_URL_BASE} = import.meta.env
 
 export function useFilter (): UseFilterResponse{
     const [categories, setCategories] = useState<CategoryData[]>()
@@ -13,10 +14,10 @@ export function useFilter (): UseFilterResponse{
 
     async function fetchGet() {
         try {
-            const { data:categories } = await fetchGET("http://localhost:3001/category/all")
-            const { data:types } = await fetchGET("http://localhost:3001/type/all")
-            const { data:colors } = await fetchGET("http://localhost:3001/color/all")
-            const { data:sizes } = await fetchGET("http://localhost:3001/size/all")
+            const { data:categories } = await fetchGET(`${VITE_URL_BASE}/category/all`)
+            const { data:types } = await fetchGET(`${VITE_URL_BASE}/type/all`)
+            const { data:colors } = await fetchGET(`${VITE_URL_BASE}/color/all`)
+            const { data:sizes } = await fetchGET(`${VITE_URL_BASE}/size/all`)
             setCategories(categories as CategoryData[])
             setTypes(types as TypeData[])
             setColors(colors as ColorData[])

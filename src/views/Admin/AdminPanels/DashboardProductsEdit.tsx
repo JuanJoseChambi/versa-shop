@@ -13,6 +13,7 @@ import { fetchPATCH } from "../../../utils/fetchPATCH"
 import { fetchPOST } from "../../../utils/fetchPOST"
 const {VITE_URL_BASE} = import.meta.env
 
+
 function DashboardProductsEdit() {
     const [dataProduct, setDataProduct] = useState<DataProduct[]>([])
     
@@ -64,6 +65,7 @@ function DashboardProductsEdit() {
 
     useEffect(() => {
         setDataProduct(data)   
+        console.log(addStock);
         
     },[data])
     
@@ -84,16 +86,71 @@ function DashboardProductsEdit() {
             </div>
             {dataProduct?.map((product, index) => (
                 <React.Fragment key={index}>
-                    <div className={`w-full bg-redd-500  ${edit === product.product_id && "text-neutral-500 border-none"} flex justify-center items-center divide-x bg-redd-500 border-b border-neutral-300 divide-neutral-400`}>
-                        <picture className="w-[175px] h-[50px] overflow-hidden flex justify-center items-center mr-3 bg-redd-500">
+                    <div className={`w-full h-[70px] bg-redd-500  ${edit === product.product_id && "text-neutral-500 border-none"} flex justify-center items-center md:divide-x md:divide-neutral-400 bg-redd-500 border-b border-neutral-300 `}>
+
+                        <picture className={`hidden md:flex w-[175px] h-[50px] overflow-hidden justify-center items-center mr-3 ${!product.image && "animate-pulse"} bg-redd-500`}>
                             <img src={product.image} alt="" className="w-full h-full object-cover"/>
                         </picture>
-                        <h3 className="w-full pl-1">{updateProduct.id === product.product_id && updateProduct.name ? updateProduct.name :product.name}</h3>
-                        <h4 className="w-1/3 text-center">{product.unit}</h4>
-                        <h3 className="w-1/3 text-center">$ {updateProduct.id === product.product_id && updateProduct.price ? updateProduct.price: product.price}</h3>
-                        <h4 className="w-1/3 text-center">{updateProduct.id === product.product_id && updateProduct.category ? updateProduct.category: product.Category.category}</h4>
-                        <h3 className="w-1/3 text-center">{updateProduct.id === product.product_id && updateProduct.type ? updateProduct.type: product.Type.type}</h3>
-                        <div className="w-1/2 text-sm flex justify-center items-center flex-col gap-x-3">{product.Stocks.map((stock, index) => (<h3 key={index}>{stock.Size.size} : {stock.Color.color}: {stock.unit}</h3>))}</div>
+                        <h3 className="w-full max-md:hidden pl-1">{updateProduct.id === product.product_id && updateProduct.name ? updateProduct.name :product.name}</h3>
+                        <h4 className="w-1/3 max-md:hidden text-center">{product.unit}</h4>
+                        <h3 className="w-1/3 max-md:hidden text-center">$ {updateProduct.id === product.product_id && updateProduct.price ? updateProduct.price: product.price}</h3>
+                        <h4 className="w-1/3 max-md:hidden text-center">{updateProduct.id === product.product_id && updateProduct.category ? updateProduct.category: product.Category.category}</h4>
+                        <h3 className="w-1/3 max-md:hidden text-center">{updateProduct.id === product.product_id && updateProduct.type ? updateProduct.type: product.Type.type}</h3>
+                        <div className="w-1/2 h-full text-sm hidden md:flex justify-start items-center flex-col overflow-auto scroll gap-x-3">
+                            {product.Stocks.map((stock, index) => (
+                                // <h3 key={index}>{stock.Size.size} : {stock.Color.color}: {stock.unit}</h3>
+                                <div key={index} onClick={() => setStockEdit(stock)} className="w-full mx-auto min-h-[20px] max-h-[20px] relative flex justify-start items-center text-sm py-4 px-1">
+                                            
+                                            <div className="w-[20px] min-h-[20px] max-h-[20px] flex justify-center items-center rounded-full mr-1" style={{backgroundColor:stock.Color.hxacolor}}></div>
+                                            <div className="flex justify-start items-start flex-col">
+                                                <div className="bg-redd-500 relative flex justify-center items-center">
+                                                    <p className="text-sm leading-3 font-semibold text-neutral-700">{stock.Color.color}</p>
+                                                    <p className="text-[11px] leading-3 font-semibold text-neutral-700 ml-2">{stock.Size.size}</p>
+                                                </div>
+                                                <p className="text-[11px] text-neutral-600">{stock.Color.hxacolor}</p>
+                                            </div>
+                                            <p className="text-center ml-auto bg-blued-500 text-sm">{stock.unit}</p>
+                                        </div>
+                            ))}
+                        </div>
+                        
+                        {/* View Mobile --------------------------------------------------------------------------- */}
+                        <picture className="hidden max-md:flex min-w-[70px] h-[70px] object-cover">
+                            <img src={product.image} alt={product.name} className="w-full h-full object-cover"/>
+                        </picture>
+
+                        <section className="w-full md:hidden pl-1 ">
+                            <div className="w-full flex justify-start items-center text-neutral-800 font-bold tracking-wider">
+                                <h3 className="text-clipping-1">{updateProduct.id === product.product_id && updateProduct.name ? updateProduct.name :product.name}</h3>
+                                <h3 className="text-center ml-auto mr-5">x{product.unit}</h3>
+                            </div>
+                            <div className="text-sm text-neutral-600 flex justify-start items-center gap-x-1">
+                                <h4 className="text-center">{updateProduct.id === product.product_id && updateProduct.category ? updateProduct.category: product.Category.category}</h4>
+                                <h4>|</h4>
+                                <h4 className="text-center">{updateProduct.id === product.product_id && updateProduct.type ? updateProduct.type: product.Type.type}</h4>
+                            </div>
+                            <h3 className="text-start text-neutral-600 font-semibold tracking-wider">$ {updateProduct.id === product.product_id && updateProduct.price ? updateProduct.price: product.price}</h3>
+                        </section>
+
+                        <section className="min-w-[110px] h-full bg-redd-500 overflow-y-auto flex md:hidden justify-start items-start flex-col">
+                            {product.Stocks.map((stock, index) => (
+                                <div key={index} onClick={() => setStockEdit(stock)} className="w-full mx-auto min-h-[20px] max-h-[20px] relative flex justify-start items-center text-sm py-4 px-1">
+                                            
+                                            <div className="min-w-[20px] min-h-[20px] max-h-[20px] flex justify-center items-center rounded-full mr-1" style={{backgroundColor:stock.Color.hxacolor}}></div>
+                                            <div className="flex justify-start items-start flex-col">
+                                                <div className="bg-redd-500 relative flex justify-center items-center">
+                                                    <p className="text-xs leading-3 font-semibold text-neutral-700">{stock.Color.color}</p>
+                                                    <p className="text-[11px] leading-3 font-semibold text-neutral-800 ml-1">{stock.Size.size}</p>
+                                                </div>
+                                                <p className="text-[11px] text-neutral-600">{stock.Color.hxacolor}</p>
+                                            </div>
+                                            <p className="text-center ml-auto bg-blued-500 text-sm">{stock.unit}</p>
+                                        </div>
+                            ))}
+                        </section>
+                        
+                        {/* ------------------------------------------------------------------------------------------ */}
+
                         <div className="w-1/3 flex justify-center items-center gap-x-2">
                             {edit === product.product_id && <i className="bx bx-x cursor-pointer" onClick={() => {setEdit(null), setStockEdit(null)}}></i>}
                             {edit !== product.product_id && <i className="cursor-pointer bx bx-edit" onClick={() => {setEdit(product.product_id), setStockEdit(null)}}></i>}
@@ -101,16 +158,23 @@ function DashboardProductsEdit() {
                             <i className="cursor-pointer bx bx-trash" onClick={() => hanlderDelete(product.product_id)}></i>
                         </div>
                     </div>
+
+
+
+
                     {edit === product.product_id && 
-                        <div className="w-full h-[160px] flex justify-start items-center gap-x-2 border-b border-neutral-300 bg-redd-500">
-                            <picture className="w-[120px] h-[120px] flex justify-center bg-redd-500 items-center">
-                                <img src={product.image} alt={product.name} className="w-full h-full object-cover" />
-                            </picture>
-                            <div className="w-[300px] h-[120px] flex justify-center items-start flex-col gap-y-5 bg-blued-500">
-                                <Input defaultValue={product.name} name="Nombre" placeholder="Nombre" style="p-0" onChange={(e) => setUpdateProduct({...updateProduct, name:e.target.value})}/>
-                                <Textarea defaultValue={product.description} name="Descripcion" placeholder="Descripcion" style="text-sm scroll" onChange={(e) => setUpdateProduct({...updateProduct, description:e.target.value})}/>
-                            </div>
-                            <div className="w-[150px] h-[100px] bg-redd-500 flex justify-center items-center flex-col gap-y-2">
+                        <div className="w-full min-h-[160px] flex justify-start items-center flex-col md:flex-row gap-x-2 border-b border-neutral-300 bg-redd-500">
+                            <section className="flex justify-center items-center flex-row gap-x-2 mt-5 md:pt0">
+
+                                <picture className="w-[120px] h-[120px] flex justify-center bg-redd-500 items-center">
+                                    <img src={product.image} alt={product.name} className="w-full h-full object-cover" />
+                                </picture>
+                                <div className="min-w-[200px] md:w-[300px] h-[120px] flex justify-center items-start flex-col gap-y-5 bg-blued-500">
+                                    <Input defaultValue={product.name} name="Nombre" placeholder="Nombre" style="p-0" onChange={(e) => setUpdateProduct({...updateProduct, name:e.target.value})}/>
+                                    <Textarea defaultValue={product.description} name="Descripcion" placeholder="Descripcion" style="text-sm scroll" onChange={(e) => setUpdateProduct({...updateProduct, description:e.target.value})}/>
+                                </div>
+                            </section>
+                            <div className="w-[90%] md:w-[150px] min-h-[50px] my-6 md:mt-0 bg-redd-500 flex justify-center items-start flex-row md:flex-col gap-y-2">
                                     <Filters select={product.Category.category} filter={categories} title="Categorias" 
                                         onClick={(value) => setUpdateProduct({...updateProduct, category:value as string})}/>
                                     <Filters select={product.Type.type} filter={types} title="Tipos"  
@@ -123,12 +187,22 @@ function DashboardProductsEdit() {
                                     <h3 className="flex justify-start items-center text-sm font-semibold tracking-wide text-neutral-600 cursor-pointer" onClick={() => setCreateStock(product.product_id)}><i className="bx bx-plus"></i> Crear Stock</h3>
                                     <h3 className="flex justify-start items-center text-sm font-semibold tracking-wide text-neutral-600 cursor-pointer"><i className="bx bx-plus"></i> Agregar Stock</h3>
                                 </div>
-                                <div className="w-full min-h-[10px] flex justify-center items-start flex-wrap gap-x-3 gap-y-2 pt-2 bg-blued-500 ">
+                                <ul className="w-full flex justify-center items-center border-b border-neutral-400 divide-x divide-neutral-400">
+                                    <li className="text-xs mr-auto font-semibold text-neutral-700">Color</li>
+                                    <li className="text-xs min-w-[60px] text-center font-semibold text-neutral-700 bg-redd-500">Tamaño</li>
+                                    <li className="text-xs min-w-[60px] text-center mr-2  font-semibold text-neutral-700 bg-blued-500">Unidades</li>
+                                </ul>
+                                <div className="w-full min-h-[10px] flex justify-start items-start overflow-y-auto scroll divide-y divide-neutral-400 flex-col pt-2 bg-blued-500 ">
                                     {product.Stocks.map(stock => (
-                                        <div key={stock.Size.size} onClick={() => setStockEdit(stock)} className="min-w-[50px] min-h-[20px] max-h-[20px] relative flex justify-between items-center text-sm py-3 px-1 cursor-pointer border border-neutral-400">
-                                            <div className="w-[20px] min-h-[20px] max-h-[20px] flex justify-center items-center rounded-full" style={{backgroundColor:stock.Color.hxacolor}}></div>
-                                            <p className="text-sm">{stock.Size.size}</p>
-                                            <p className="min-w-[15px] h-[15px] p-1 flex justify-center items-center rounded-full absolute -top-2 -left-2 text-xs bg-white border border-neutral-800">{stock.unit}</p>
+                                        <div key={`${stock.Size.size}-${stock.stock_id}`} onClick={() => setStockEdit(stock)} className="w-full mx-auto min-h-[20px] max-h-[20px] relative flex justify-between items-center text-sm py-4 px-1 cursor-pointer">
+                                            
+                                            <div className="w-[20px] min-h-[20px] max-h-[20px] flex justify-center items-center rounded-full mr-1" style={{backgroundColor:stock.Color.hxacolor}}></div>
+                                            <div className="flex justify-start items-start flex-col">
+                                                <p className="text-sm leading-3 font-semibold text-neutral-700">{stock.Color.color}</p>
+                                                <p className="text-[11px] text-neutral-600">{stock.Color.hxacolor}</p>
+                                            </div>
+                                            <p className="min-w-[55px] text-center text-sm ml-auto bg-redd-500">{stock.Size.size}</p>
+                                            <p className="min-w-[55px] text-center bg-blued-500 text-sm">{stock.unit}</p>
                                         </div>
                                     ))}
                                 </div>
@@ -162,7 +236,7 @@ function DashboardProductsEdit() {
                             </div>}
 
 
-                            <div className="w-[200px] h-full flex justify-center items-center flex-col bg-redd-500">
+                            <div className="w-[200px] h-full mt-3 md:mt-0 flex justify-center items-center flex-col bg-redd-500">
                                 <div className="my-4 flex justify-center items-center bg-blued-500">
                                     <Input type="number" defaultValue={product.price.toString()} styleDimensions="w-[80%]" name="Precio" onChange={(e) => setUpdateProduct({...updateProduct, price:Number(e.target.value)})}/>
                                 </div>
@@ -174,6 +248,65 @@ function DashboardProductsEdit() {
                     }
                 </React.Fragment>
             ))}
+            {!dataProduct && 
+            <div className={`w-full h-[70px] -z-10 bg-redd-500 flex justify-center items-center md:divide-x md:divide-neutral-400 bg-redd-500 border-b border-neutral-300 `}>
+
+            <div className={`hidden md:block w-[175px] h-[50px] mr-3 bg-neutral-400 rounded-md animate-pulse`}>
+                {/* <img src={product.image} alt="" className="w-full h-full object-cover"/> */}
+            </div>
+            <h3 className="w-full max-md:hidden pl-1 flex justify-start items-center">
+                <p className="w-[200px] h-4 bg-neutral-400 rounded-md animate-pulse"></p>
+            </h3>
+            <h4 className="w-1/3 max-md:hidden text-center flex justify-center items-center">
+                <p className="w-[50px] h-4 bg-neutral-400 rounded-md animate-pulse"></p>
+            </h4>
+            <h3 className="w-1/3 max-md:hidden text-center flex justify-center items-center">
+                <p className="w-[50px] h-4 bg-neutral-400 rounded-md animate-pulse"></p>
+            </h3>
+            <h4 className="w-1/3 max-md:hidden text-center flex justify-center items-center">
+                <p className="w-[50px] h-4 bg-neutral-400 rounded-md animate-pulse"></p>
+            </h4>
+            <h3 className="w-1/3 max-md:hidden text-center flex justify-center items-center">
+                <p className="w-[80px] h-4 bg-neutral-400 rounded-md animate-pulse"></p>
+            </h3>
+            <div className="w-1/2 h-full text-sm hidden md:flex justify-start items-center flex-col overflow-auto scroll gap-y-2">
+                <div className="w-full mx-auto min-h-[20px] max-h-[20px] relative flex justify-start items-center text-sm py-4 px-1 bg-neutral-400 rounded-md animate-pulse"></div>
+                <div className="w-full mx-auto min-h-[20px] max-h-[20px] relative flex justify-start items-center text-sm py-4 px-1 bg-neutral-400 rounded-md animate-pulse"></div>
+            </div>
+            
+            {/* View Mobile --------------------------------------------------------------------------- */}
+            <picture className="hidden max-md:flex min-w-[70px] h-[70px] bg-neutral-400 rounded-md animate-pulse">
+                {/* <img src={product.image} alt={product.name} className="w-full h-full object-cover"/> */}
+            </picture>
+
+            <section className="w-full md:hidden pl-1 ">
+                <div className="w-full flex justify-start items-center text-neutral-800 font-bold tracking-wider">
+                    <h3 className="w-24 h-4 bg-neutral-400 rounded-md animate-pulse"></h3>
+                    <h3 className=" ml-auto mr-5 w-5 h-4 bg-neutral-400 rounded-md animate-pulse"></h3>
+                </div>
+                <div className="text-sm text-neutral-600 flex justify-start items-center gap-x-1">
+                    <h4 className="w-14 h-4 bg-neutral-400 rounded-md animate-pulse"></h4>
+                    <h4>|</h4>
+                    <h4 className="w-14 h-4 bg-neutral-400 rounded-md animate-pulse"></h4>
+                </div>
+                <h3 className="w-14 h-4 bg-neutral-400 rounded-md animate-pulse"></h3>
+            </section>
+
+            <section className="min-w-[110px] h-full bg-redd-500 overflow-y-auto flex md:hidden justify-start items-start flex-col gap-y-2">
+
+                <div className="w-full mx-auto min-h-[20px] max-h-[20px] h-4 bg-neutral-400 rounded-md animate-pulse"></div>
+                <div className="w-full mx-auto min-h-[20px] max-h-[20px] h-4 bg-neutral-400 rounded-md animate-pulse"></div>
+                
+            </section>
+            
+            {/* ------------------------------------------------------------------------------------------ */}
+
+            <div className="w-1/3 flex justify-center items-center gap-x-2">
+                <div className="w-3 h-3 bg-neutral-400 rounded-md animate-pulse"></div>
+                <div className="w-3 h-3 bg-neutral-400 rounded-md animate-pulse"></div>
+                <div className="w-3 h-3 bg-neutral-400 rounded-md animate-pulse"></div>
+            </div>
+        </div>}
         </section>
   )
 }

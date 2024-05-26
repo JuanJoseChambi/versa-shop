@@ -12,6 +12,7 @@ import Button from "../../components/Button/Button"
 // import Footer from "../../components/Footer/Footer"
 import Acordeon from "../../components/Acordeon/Acordeon"
 import ImageZoom from "../../components/ImageZoom/ImageZoom"
+const {VITE_URL_BASE} = import.meta.env
 
 
 interface StockGroupColors {
@@ -27,7 +28,7 @@ interface StockGroupColors {
 function DetailProduct() {
     const { id } = useParams();
 
-    const { data, loading} = useApi(`http://localhost:3001/product/detail/${id}`) as { data:DataProduct, loading:boolean }
+    const { data, loading} = useApi(`${VITE_URL_BASE}/product/detail/${id}`) as { data:DataProduct, loading:boolean }
 
     const [quantity, setQuantity] = useState(1)
 

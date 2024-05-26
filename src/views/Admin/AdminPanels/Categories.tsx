@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { useFilter } from "../../../hooks/useFilter"
 import { fetchPOST } from "../../../utils/fetchPOST";
+const {VITE_URL_BASE} = import.meta.env
 
 interface DataSend {
     category:undefined | string;
@@ -18,25 +19,25 @@ function Categories() {
 
     async function hanlderCategory (e:React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
-        const {data} = await fetchPOST("http://localhost:3001/category/create", {category:dataSend.category})
+        const {data} = await fetchPOST(`${VITE_URL_BASE}/category/create`, {category:dataSend.category})
         console.log(data);
         
     }
     async function hanlderType (e:React.FormEvent<HTMLFormElement>) {
             e.preventDefault()
-            const {data} = await fetchPOST("http://localhost:3001/type/create", {type:dataSend.type})
+            const {data} = await fetchPOST(`${VITE_URL_BASE}/type/create`, {type:dataSend.type})
             console.log(data);
             
     }
     async function hanlderColor (e:React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
-        const {data} = await fetchPOST("http://localhost:3001/color/create", {color:dataSend.color})
+        const {data} = await fetchPOST(`${VITE_URL_BASE}/color/create`, {color:dataSend.color})
         console.log(data);
         
     }
     async function hanlderSize (e:React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
-        const {data} = await fetchPOST("http://localhost:3001/size/create", {size:dataSend.size})
+        const {data} = await fetchPOST(`${VITE_URL_BASE}/size/create`, {size:dataSend.size})
         console.log(data);
         
     }

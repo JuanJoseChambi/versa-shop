@@ -1,11 +1,12 @@
 import useApi from "../hooks/useApi";
 import { ArraysWithFilters, Filters } from "../interfaces/components";
+const {VITE_URL_BASE} = import.meta.env
 
 
 
 export function allFilters (): ArraysWithFilters {
 
-    const {data} = useApi("http://localhost:3001/product/filters") as {data:Filters}
+    const {data} = useApi(`${VITE_URL_BASE}/product/filters`) as {data:Filters}
     
     const categories = data?.categories?.map(categorie => categorie?.category)
     const types = data?.types?.map(type => type?.type)

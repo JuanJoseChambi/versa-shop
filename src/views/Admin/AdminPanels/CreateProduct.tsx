@@ -11,6 +11,7 @@ import { uploadImageToCloudinary } from "../../../utils/uploadImageToCloudinary"
 import {Filters as FiltersInterface} from "../../../interfaces/components"
 // import { uploadImageToCloudinary } from "../../../utils/uploadImageToCloudinary";
 // const {VITE_PRESET_KEY} = import.meta.env
+const {VITE_URL_BASE} = import.meta.env
 
 interface StructureNewProduct {
     name: string;
@@ -52,7 +53,7 @@ function CreateProduct() {
         hxaColor:""
     })
     
-    const {data} = useApi("http://localhost:3001/product/filters") as {data:FiltersInterface}
+    const {data} = useApi(`${VITE_URL_BASE}/product/filters`) as {data:FiltersInterface}
 
     const categories = data?.categories?.map(categorie => categorie?.category)
     const types = data?.types?.map(type => type?.type)
@@ -69,7 +70,7 @@ function CreateProduct() {
         const imageURL = await uploadImageToCloudinary(fileImage);
         if(!imageURL) return error("Error al subir la imagen");    
         
-        const { data } = await fetchPOST("http://localhost:3001/product/create", {...newProduct, image:imageURL}) as {data: ResponseData};
+        const { data } = await fetchPOST(`${VITE_URL_BASE}/product/create`, {...newProduct, image:imageURL}) as {data: ResponseData};
         
         if (data.error) {
             console.log(data);
