@@ -70,7 +70,7 @@ function CreateProduct() {
         const imageURL = await uploadImageToCloudinary(fileImage);
         if(!imageURL) return error("Error al subir la imagen");    
         
-        const { data } = await fetchPOST(`${VITE_URL_BASE}/product/create`, {...newProduct, image:imageURL}) as {data: ResponseData};
+        const { data } = await fetchPOST(`${VITE_URL_BASE}/product/create`, {...newProduct, image:imageURL, name:newProduct.name.toUpperCase()}) as {data: ResponseData};
         
         if (data.error) {
             console.log(data);

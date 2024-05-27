@@ -85,7 +85,7 @@ return (
         lg:justify-center lg:items-center
         bg-blued-500 ">
         <Nav style="fixed top-0"/>
-        <Loader active={loading}/>
+        <Loader active={loading} label="DETAIL"/>
         <section className="w-[95%] h-[80vh] mx-auto 
             flex justify-start items-center 
             lg:justify-center lg:items-start 
