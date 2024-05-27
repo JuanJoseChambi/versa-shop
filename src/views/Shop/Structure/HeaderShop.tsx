@@ -8,7 +8,7 @@ function HeaderShop() {
     style={{ backgroundImage: `url(${UrbanStreetWear})` }}>
         <div className="w-full h-1/4 bg-redd-500 absolute top-0 bg-gradient-to-t from-transparent to-neutral-800"></div>
         <section className="absolute mt-28 mb-10 flex justify-center items-center bg-blud-500 ">
-            <h2 className="text-8xl text-white tracking-widest font-noto backdrop-invert px-4 rounded-sm">Tienda</h2>
+            <h2 className="text-8xl text-white tracking-widest font-noto backdrop-invert px-4 rounded-sm" style={{fontSize:"clamp(60px, 6vw, 90px)"}}>Tienda</h2>
         </section>
 
     </header>
