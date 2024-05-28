@@ -5,7 +5,7 @@ import useApi from "../../../hooks/useApi";
 import Filters from "../../../components/Filters/Filters";
 import Button from "../../../components/Button/Button";
 import { fetchPOST } from "../../../utils/fetchPOST";
-import { error, success } from "../../../utils/alert";
+import { error } from "../../../utils/alert";
 import { ResponseData } from "../../../interfaces/interfaces";
 import { uploadImageToCloudinary } from "../../../utils/uploadImageToCloudinary";
 import {Filters as FiltersInterface} from "../../../interfaces/components"
@@ -73,10 +73,8 @@ function CreateProduct() {
         const { data } = await fetchPOST(`${VITE_URL_BASE}/product/create`, {...newProduct, image:imageURL, name:newProduct.name.toUpperCase()}) as {data: ResponseData};
         
         if (data.error) {
-            console.log(data);
-            return error(data.message)
+            return 
         }else {
-            success(data.message)
             setNewProduct({
                 name:"",
                 image:"",
@@ -94,7 +92,6 @@ function CreateProduct() {
                 hxaColor:""
             })
             setFileImage(null)
-            // setFileImage("")
         }
     }
 
