@@ -4,6 +4,7 @@ import CardProduct from "../../../components/CardProduct/CardProduct"
 import Filters from "../../../components/Filters/Filters"
 import { useState } from "react"
 import React from "react"
+import Loader from "../../../components/Loader/Loader"
 const {VITE_URL_BASE} = import.meta.env
 
 function MainShop() {
@@ -12,8 +13,6 @@ function MainShop() {
 
     const { data } = useApi(`${VITE_URL_BASE}/product/all`) as { data: DataProduct[] | [] }
 
-    // console.log(data);
-    
     let categories =  new Set(data?.map(product => product.Category.category))
     let types = new Set(data?.map(product => product.Type.type));
 
@@ -83,6 +82,7 @@ function MainShop() {
                     {product.unit > 0 && <CardProduct key={product.product_id} product={product}/>}
                 </React.Fragment>
             ))}
+            <Loader active={!data}/>
         </section>
     </main>
   )
