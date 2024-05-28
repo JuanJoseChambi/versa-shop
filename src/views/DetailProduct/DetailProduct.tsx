@@ -80,11 +80,11 @@ function DetailProduct() {
     const quantityAvaliable = size && productInCart[0]?.cantidad >= size.unit ;
 
 return (
-    <main className="min-h-[100vh] 
+    <main className="h-screen w-full 
         flex justify-start items-center flex-col pt-[65px]
         lg:justify-center lg:items-center
         bg-blued-500 ">
-        <Nav style="fixed top-0"/>
+        <Nav style="fixed left-0 top-0"/>
         <Loader active={loading}/>
         <section className="w-[95%] h-[80vh] mx-auto 
             flex justify-start items-center 
