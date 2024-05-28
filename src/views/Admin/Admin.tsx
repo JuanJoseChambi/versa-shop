@@ -1,6 +1,6 @@
 import { useState } from "react";
 import DashboardProductsEdit from "./AdminPanels/DashboardProductsEdit";
-import Categories from "./AdminPanels/Categories";
+import Categories from "./AdminPanels/ProductData";
 import CreateProduct from "./AdminPanels/CreateProduct";
 import ArrowBefore from "../../components/ArrowBefore/ArrowBefore";
 
@@ -11,16 +11,16 @@ function Admin() {
 
   return (
     <main className="h-screen bg-redd-500 flex justify-start items-start">
-        <button className={` fixed top-2 left-2 p-1 rounded-full text-xl flex justify-center items-center bg-white md:hidden`} onClick={() => setOpenOptions(true)}><i className="bx bx-menu"></i></button>
+        <button className={` fixed top-5 right-2 p-1 rounded-full text-xl flex justify-center items-center bg-white md:hidden`} onClick={() => setOpenOptions(true)}><i className="bx bx-menu"></i></button>
 
-        <aside className={` ${openOptions ? "w-full absolute top-0 left-0 z-10": "max-md:hidden" } h-screen bg-neutral-800 text-white md:w-[300px] md:relative`}>
+        <aside className={` ${openOptions ? "w-full h-screen absolute top-0 left-0 z-10": "max-md:hidden" } h-screen bg-neutral-800 text-white md:w-[300px] md:relative`}>
             <ArrowBefore redirect="/shop" styleIcon="text-lg" style="text-white absolute left-2 top-4"/>
             <h3 className="text-center text-sm font-semibold tracking-widest py-5 ">ADMINISTRADOR</h3>
             <button className={`absolute top-6 right-5 text-3xl md:hidden`}><i className="bx bx-x block lg:hidden" onClick={() => setOpenOptions(false)}></i></button>
 
             <ul className="text-sm font-extralight tracking-widest flex justify-center items-start flex-col gap-y-3">
                 <li className={`cursor-pointer px-3 ${adminPanel === "stocks" && "text-black bg-white rounded-sm"}`} onClick={() => setAdminPanel("stocks")}>Stocks</li>
-                <li className={`cursor-pointer px-3 ${adminPanel === "categories" && "text-black bg-white rounded-sm"}`} onClick={() => setAdminPanel("categories")}>Categorias</li>
+                <li className={`cursor-pointer px-3 ${adminPanel === "productData" && "text-black bg-white rounded-sm"}`} onClick={() => setAdminPanel("productData")}>Categorias</li>
                 <li className={`cursor-pointer px-3 ${adminPanel === "createProduct" && "text-black bg-white rounded-sm"}`} onClick={() => setAdminPanel("createProduct")}>Crear Productos</li>
                 <li className={`cursor-pointer px-3`} onClick={() => setAdminPanel("createAdmin")}>Crear Admins</li>
                 <li className={`cursor-pointer px-3`} onClick={() => setAdminPanel("createOffer")}>Crear Ofertas</li>
@@ -34,7 +34,7 @@ function Admin() {
         <section className="w-full flex justify-center items-center flex-col pt-5">
             
             {adminPanel === "stocks" && <DashboardProductsEdit/>}
-            {adminPanel === "categories" && <Categories/>}
+            {adminPanel === "productData" && <Categories/>}
             {adminPanel === "createProduct" && <CreateProduct/>}
         </section>
 

@@ -112,27 +112,31 @@ function CreateProduct() {
         reader.readAsDataURL(file)
     }
 
+    const imagesTest = [
+            {image:"https://res.cloudinary.com/dth62bdky/image/upload/v1704144326/ProductApi/do3asovhei15ieqitptj.jpg"},
+            {image:"https://res.cloudinary.com/dth62bdky/image/upload/v1704144326/ProductApi/do3asovhei15ieqitptj.jpg"}
+        ]
+
   return (
     <section className="w-[95%] h-[90vh] bg-redd-500">
         
         <section className="">
-            <h3 className="text-3xl">Crear producto</h3>
+            <h3 className="w-full text-start text-2xl font-semibold text-neutral-800 tracking-widest">CREAR PRODUCTO</h3>
         </section>
-        <section className="w-full h-full flex justify-evenly items-start bg-blued-500 pt-5">
-            <section className="w-[350px] h-full bg-greend-500 flex justify-center items-center flex-col gap-5">
-                <picture className="w-[350px] relative min-h-[350px] max-h-[350px] overflow-hidden flex justify-center items-center bg-blued-500">
-                    <div className={`${!previewImage ? "h-full w-full border border-neutral-500 bg-redd-500 bg-transparent" : "hidden"}`}>
+        <section className="w-full min-h-full flex justify-evenly items-start flex-col md:flex-row gap-y-8 md:gap-y-0 bg-blued-500 pt-5 max-md:pb-10">
+            <section className="w-full md:w-[350px] h-full flex justify-center items-center flex-row md:flex-col bg-greend-500 gap-5">
+                <picture className="relative w-[90%] md:w-[350px] min-h-[200px] md:h-[350px] md:min-h-[350px] md:max-h-[350px] overflow-hidden flex justify-center items-center bg-blued-500">
+                    <div className={`${!previewImage ? "h-[200px] md:h-full w-full border border-neutral-500 bg-redd-500 bg-transparent" : "hidden"}`}>
                         <label htmlFor="imageUpload">
-                            <i className="bx bx-image-add text-white w-full h-full flex justify-center items-center bg-[#00000096] text-4xl opacity-0 hover:opacity-100 transition-opacity duration-500 z-10 cursor-pointer"></i>
+                            <i className="bx bx-image-add text-white w-full h-full flex justify-center items-center bg-[#00000096] text-4xl duration-500 z-10 cursor-pointer"></i>
                         </label>
                         <input type="file" id="imageUpload" className="hidden" accept="image/*" onChange={handlerPreviewImage}/>
                         
                     </div>
-                    {previewImage && <img src={previewImage} alt="" className={`w-[90%] h-auto object-cover`}/>}
-                    {/* <button className="absolute bottom-0 text-sm text-gray-500">+ Agregar</button> */}
+                    {previewImage && <img src={previewImage} alt="" className={`w-[100%] h-auto object-cover`}/>}
                 </picture>
-                <section className="flex justify-center items-center gap-5 bg-redd-500">
-                    {[{image:"https://res.cloudinary.com/dth62bdky/image/upload/v1704144326/ProductApi/do3asovhei15ieqitptj.jpg"},{image:"https://res.cloudinary.com/dth62bdky/image/upload/v1704144326/ProductApi/do3asovhei15ieqitptj.jpg"}].map((image, index) => (
+                <section className="h-full md:h-auto flex justify-start md:justify-center items-center flex-col md:flex-row gap-5 bg-greend-500">
+                    {imagesTest.map((image, index) => (
                         <picture key={index} className="w-[60px] h-[60px] overflow-hidden border-2 border-neutral-600 rounded-sm bg-redd-500">
                             <img src={image.image} alt="Image" className=""/>
                         </picture>
@@ -142,18 +146,18 @@ function CreateProduct() {
                     </div>
                 </section>
             </section>
-            <section className="w-[60%] h-full bg-greend-500 flex justify-evenly items-start flex-col gap-5 bg-redd-500">
-                <Input name="Name" placeholder="Nombre" styleDimensions="w-[50%]" styleText="ml-0 text-sm" onChange={(e) => setNewProduct({...newProduct, name: e.target.value})}/>
-                <Textarea placeholder="Descripción" name="Description" onChange={(e) => setNewProduct({...newProduct, description: e.target.value})}/>
+            <section className="w-full md:w-[60%] h-full bg-greend-500 flex justify-evenly items-start flex-col gap-5 bg-redd-500">
+                <Input name="Name" placeholder="Nombre" styleDimensions="w-full md:w-[50%]" styleText="ml-0 text-sm" onChange={(e) => setNewProduct({...newProduct, name: e.target.value})}/>
+                <Textarea placeholder="Descripción" name="Description" style="text-sm" onChange={(e) => setNewProduct({...newProduct, description: e.target.value})}/>
 
                 <section className="w-full flex justify-center items-center flex-col gap-y-5">
                     <div className="w-full h-auto flex justify-around items-center divide-x divide-neutral-300 bg-redd-500">
                         <Filters filter={categories || []} title="Categorias" select={newProduct?.category} onClick={(value) => setNewProduct({...newProduct, category: value as string})}/>
                         <Filters filter={types || []} title="Tipos" select={newProduct?.type} onClick={(value) => setNewProduct({...newProduct, type: value as string})}/>
                     </div>
-                    <section className="w-full flex justify-between items-start bg-redd-500">
+                    <section className="w-full flex justify-between items-start flex-col md:flex-row bg-redd-500">
 
-                        <section className="w-[60%] flex justify-center items-center flex-col gap-y-5 bg-greend-500">
+                        <section className="w-full md:w-[60%] flex justify-center items-center flex-col gap-y-5 bg-greend-500">
                             <div className="w-full flex justify-center items-center bg-blued-500">
                                 <Filters filter={data?.colors || []} title="Colores" 
                                 select={stock?.color}
@@ -175,7 +179,7 @@ function CreateProduct() {
                             </div>
                         </section>
 
-                        <section className="w-[35%] h-[180px] flex justify-start items-start flex-col gap-y-3 bg-blued-500 overflow-auto scroll">
+                        <section className="w-[95%] md:w-[35%] min-h-[50px] max-h-[180px] mx-auto md:mx-0 flex justify-start items-start flex-col gap-y-3 bg-blued-500 overflow-auto scroll">
                             <h4 className="w-full leading-[20px] bg-redd-500 m-0 border-b border-neutral-400 sticky top-0 z-0 backdrop-blur-sm bg-gradient-to-b from-white to-transparent tracking-widest">Stocks</h4>
                             {newProduct.stocks.map((stock, index) => (
                                 <div key={index} className="w-full relative text-sm bg-white rounded-sm border border-neutral-400 py-1 px-2 z-[-10]">
@@ -190,10 +194,10 @@ function CreateProduct() {
                     </section>
                 </section>
                 <div className="flex w-full justify-start items-center gap-x-1 bg-redd-500">
-                    <h3>$</h3><Input type="number" name="Price" placeholder="Precio" defaultValue="" styleDimensions="w-[30%]" onChange={(e) => setNewProduct({...newProduct, price: Number(e.target.value)})}/>
+                    <h3>$</h3><Input type="number" name="Price" placeholder="Precio" defaultValue="" styleDimensions="w-full mx-auto md:mx-0 md:w-[30%]" onChange={(e) => setNewProduct({...newProduct, price: Number(e.target.value)})}/>
                 </div>
 
-                <Button text="Crear Producto" style="py-1 px-7 rounded-full bg-neutral-800 text-white my-0" onClick={handlerCreateProduct}/>
+                <Button text="Crear Producto" style="mx-auto md:mx-0 py-1 px-7 rounded-full bg-neutral-800 text-white my-0" onClick={handlerCreateProduct}/>
             </section>
         </section>
 
