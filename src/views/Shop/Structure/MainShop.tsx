@@ -5,6 +5,7 @@ import Filters from "../../../components/Filters/Filters"
 import { useState } from "react"
 import React from "react"
 import Loader from "../../../components/Loader/Loader"
+import WithoutResult from "../../../components/WithoutResult/WithoutResult"
 const {VITE_URL_BASE} = import.meta.env
 
 function MainShop() {
@@ -39,21 +40,22 @@ function MainShop() {
     const productoDestacado1: string = data && data.length > 0 ? data[0].image : "";
     const productoDestacado2: string = data && data.length > 1 ? data[1].image : "";
     const productoDestacado3: string = data && data.length > 2 ? data[2].image : "";
+    const imagesProducts = [productoDestacado1, productoDestacado2, productoDestacado3]
+
+    // console.log(imagesProducts.join(""));
     
+
   return (
     <main className=" mx-auto flex justify-between items-start flex-col bg-redd-500">
         <section className="w-full h-auto my-2 flex justify-center items-center flex-col py-10">
             <h2 className="tracking-widest font-noto text-2xl">PRODUCTOS DESTACADOS</h2>
             <section className="flex area justify-evenly items-center py-10">
-                <picture className="flex flex-col justify-center items-center w-[350px] max-h-[300px] overflow-hidden bg-redd-500">
-                    <img src={productoDestacado1} alt="" className="w-full object-cover" />
-                </picture>
-                <picture className="flex flex-col justify-center items-center w-[350px] max-h-[300px] overflow-hidden bg-redd-500">
-                    <img src={productoDestacado2} alt="" className="w-full object-cover" />
-                </picture>
-                <picture className="flex flex-col justify-center items-center w-[350px] max-h-[300px] overflow-hidden bg-redd-500">
-                    <img src={productoDestacado3} alt="" className="w-full object-cover" />
-                </picture>
+                {imagesProducts.join("") && imagesProducts.map((images) => (
+                    <picture key={images} className="flex flex-col justify-center items-center w-[350px] max-h-[300px] overflow-hidden bg-redd-500">
+                        <img src={images} alt="" className="w-full object-cover" />
+                    </picture>
+                ))}
+                {!imagesProducts.join("") && <WithoutResult visible={!imagesProducts.join("")}/>}
             </section>
         </section>
 
@@ -76,13 +78,14 @@ function MainShop() {
 
         </aside>
 
-        <section className="w-full gap-10 flex flex-wrap justify-center items-center pt-5 pb-16 bg-blued-500">
+        <section className="w-[95%] max-w-[1850px] mx-auto gap-10 flex flex-wrap justify-center items-center pt-5 pb-16 bg-blued-500">
             {data?.map(product => (
                 <React.Fragment key={product.product_id}>
                     {product.unit > 0 && <CardProduct key={product.product_id} product={product}/>}
                 </React.Fragment>
             ))}
             <Loader active={!data}/>
+            <WithoutResult visible={data && data.length === 0}/>
         </section>
     </main>
   )
