@@ -1,12 +1,9 @@
 import ArrowBefore from "../../components/ArrowBefore/ArrowBefore"
 import flowerGrey from "../../assets/asHome/FlowerWhite.png"
-// import SignUp from "../../components/SignUp/SignUp"
-// import { useState } from "react"
 import Login from "../../components/Login/Login"
 
 function Access() {
 
-    // const [visible, setVisible] = useState<string>("login")
 
 
   return (

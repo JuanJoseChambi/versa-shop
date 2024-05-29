@@ -16,7 +16,7 @@ function Footer() {
 
 
   return (
-    <footer className="w-full h-auto relative bg-neutral-800 mt-auto ">
+    <footer className="w-full h-auto bg-neutral-800 ">
         
         <section className="w-full h-full flex justify-evenly items-center flex-col bg-redd-500">
             <section className="w-full py-14 flex justify-around items-center flex-col gap-y-9 lg:gap-0 lg:flex-row bg-yellowd-500">

@@ -7,6 +7,7 @@ import RouterProtection from "./middleware/RouterProtection/RouterProtection"
 import { useSelector } from "react-redux"
 import { RootState } from "./redux/store"
 import Checkout from "./views/Checkout/Checkout"
+import ScrollToTop from "./middleware/ScrollToTop/ScrollToTop"
 const { VITE_R_SA } = import.meta.env
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
 
   return (
     <>
+    <ScrollToTop/>
     <Routes>
       <Route path="/" element={<Shop/>}/>
       <Route path="/shop" element={<Shop/>}/>

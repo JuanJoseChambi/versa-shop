@@ -12,6 +12,8 @@ import Button from "../../components/Button/Button"
 // import Footer from "../../components/Footer/Footer"
 import Acordeon from "../../components/Acordeon/Acordeon"
 import ImageZoom from "../../components/ImageZoom/ImageZoom"
+import RelatedProducts from "../../components/RelatedProducts/RelatedProducts"
+import Footer from "../../components/Footer/Footer"
 const {VITE_URL_BASE} = import.meta.env
 
 
@@ -80,90 +82,95 @@ function DetailProduct() {
     const quantityAvaliable = size && productInCart[0]?.cantidad >= size.unit ;
 
 return (
-    <main className="h-screen w-full 
-        flex justify-start items-center flex-col pt-[65px]
-        lg:justify-center lg:items-center
-        bg-blued-500 ">
+    <main className="w-full min-h-screen bg-redd-500 flex justify-center items-start flex-col gap-12">
         <Nav style="fixed left-0 top-0"/>
         <Loader active={loading}/>
-        <section className="w-[95%] h-[80vh] mx-auto 
-            flex justify-start items-center 
-            lg:justify-center lg:items-start 
-            bg-greend-500 flex-col lg:flex-row ">
+        <section className="min-h-screen w-full flex justify-start items-center flex-col pt-[65px]
+        lg:justify-center lg:items-center
+        bg-blued-500">
 
-            <ImageZoom imageUrl={data?.image}/>
 
-            <article className="w-[100%] lg:w-[50%] h-[75%] py-5 lg:pt-0 px-5 lg:px-10 flex justify-between items-start flex-col bg-blued-500">
-                <p className="text-xs text-neutral-700 tracking-widest">Tienda | Productos | Camperas</p>
-                <h2 className="text-4xl tracking-widest font-semibold">{data?.name}</h2>
+            <section className="w-[95%] min-h-[80vh] mx-auto 
+                flex justify-start items-center 
+                lg:justify-center lg:items-start 
+                bg-greend-500 flex-col lg:flex-row ">
 
-                <div className="flex justify-center items-center gap-x-2 text-sm font-light tracking-widest">
-                    <p>{data?.Type.type}</p>
-                    <p>|</p>
-                    <p>{data?.Category.category}</p>
-                </div>
-                <p className="text-2xl pt-3">$ {data?.price}</p>
+                <ImageZoom imageUrl={data?.image}/>
 
-                {/* <p className="tracking-widest text-pretty my-5">{data?.description}</p> */}
-                <div className="flex justify-center items-start flex-col gap-x-3 py-3">
-                    <h3 className="text-sm text-neutral-700 tracking-widest">Talles:</h3>
-                    <div className="w-full flex justify-center items-center gap-x-3">
-                    {avalibleSizeColors.map(stock => (
-                        <button 
-                            key={stock.size} 
-                            className={`border border-neutral-400 
-                            ${stock.size === size?.size? "bg-neutral-800 text-white" : null} py-1 px-3 rounded-sm transition-colors duration-500`} 
-                            onClick={() => (setColor(""), setSize(stock))}>{stock.size}</button>
-                    ))}
+                <article className="w-[100%] lg:w-[50%] h-[75%] py-5 lg:pt-0 px-5 lg:px-10 flex justify-between items-start flex-col bg-blued-500">
+                    <p className="text-xs text-neutral-700 tracking-widest">Tienda | Productos | Camperas</p>
+                    <h2 className="text-4xl tracking-widest font-semibold">{data?.name}</h2>
+
+                    <div className="flex justify-center items-center gap-x-2 text-sm font-light tracking-widest">
+                        <p>{data?.Type.type}</p>
+                        <p>|</p>
+                        <p>{data?.Category.category}</p>
                     </div>
-                </div>
+                    <p className="text-2xl pt-3">$ {data?.price}</p>
 
-                <div className="flex justify-center items-center gap-x-3">
+                    {/* <p className="tracking-widest text-pretty my-5">{data?.description}</p> */}
+                    <div className="flex justify-center items-start flex-col gap-x-3 py-3">
+                        <h3 className="text-sm text-neutral-700 tracking-widest">Talles:</h3>
+                        <div className="w-full flex justify-center items-center gap-x-3">
+                        {avalibleSizeColors.map(stock => (
+                            <button 
+                                key={stock.size} 
+                                className={`border border-neutral-400 
+                                ${stock.size === size?.size? "bg-neutral-800 text-white" : null} py-1 px-3 rounded-sm transition-colors duration-500`} 
+                                onClick={() => (setColor(""), setSize(stock))}>{stock.size}</button>
+                        ))}
+                        </div>
+                    </div>
+
+                    <div className="flex justify-center items-center gap-x-3">
+
+                        {size 
+                        ?   size.colors.map((colors) => (
+                            <Tooltip text={colors.color} key={size.size}>
+                                <button style={{backgroundColor:colors.hxacolor}} 
+                                        className={`w-[30px] h-[30px] rounded-full ${colors.color === color? "outline outline-neutral-800" : null}`}
+                                        onClick={() => setColor(colors.color)}></button> 
+                            </Tooltip>
+                        )) 
+
+                        : colorsAvalible.map(colors => (
+                            <Tooltip text={colors.color} key={colors.hxacolor}>
+                                <div  style={{backgroundColor:colors.hxacolor}} 
+                                className="w-[30px] h-[30px] rounded-full"></div>
+                            </Tooltip>
+                        )) }
+
+                    </div>
+                    <div className={`my-3 flex justify-center items-center ${size?.unit === 0 ? "text-rose-500" :"text-green-500"} text-sm`}>{size ?<p> Unidades disponibles: {size?.unit}</p> : <p>ㅤ</p>}</div>
                     
-                    {size 
-                    ?   size.colors.map((colors) => (
-                        <Tooltip text={colors.color} key={size.size}>
-                            <button style={{backgroundColor:colors.hxacolor}} 
-                                    className={`w-[30px] h-[30px] rounded-full ${colors.color === color? "outline outline-neutral-800" : null}`}
-                                    onClick={() => setColor(colors.color)}></button> 
-                        </Tooltip>
-                    )) 
+                    <section className="w-full flex justify-start items-center gap-5 bg-redd-500">
+                        <div className="w-[100px] h-[40px] text-lg text-neutral-700 divide-x divide-neutral-400 flex justify-between items-center bg-neutral-100 border border-neutral-400">
+                            <div className="w-[30px] h-full flex justify-center items-center bg-redd-500 cursor-pointer select-none" onClick={() => {quantity === 1 ? null : setQuantity(quantity - 1)}}>-</div>
+                            <div className="w-[30px] h-full flex justify-center items-center bg-redd-500 cursor-pointer select-none">{quantity}</div>
+                            <div className="w-[30px] h-full flex justify-center items-center bg-redd-500 cursor-pointer select-none" onClick={() => {size && size?.unit <= quantity ? null : setQuantity(quantity + 1)}}>+</div>
+                        </div>
+                    <Button 
+                        style={`w-[300px] py-3 text-sm text-white ${!size || !color || !size.unit || quantity > size.unit || quantityAvaliable ? "bg-neutral-400 pointer-events-none select-none" : "bg-neutral-800"}`}
+                        text="Añadir a Carrito" 
+                        iconLeft="bx bx-cart-add"
+                        onClick={() => dispatch(addToCart(infoProduct))}/>
+                    </section>
 
-                    : colorsAvalible.map(colors => (
-                        <Tooltip text={colors.color} key={colors.hxacolor}>
-                            <div  style={{backgroundColor:colors.hxacolor}} 
-                            className="w-[30px] h-[30px] rounded-full"></div>
-                        </Tooltip>
-                    )) }
-
-                </div>
-                <div className={`my-3 flex justify-center items-center ${size?.unit === 0 ? "text-rose-500" :"text-green-500"} text-sm`}>{size ?<p> Unidades disponibles: {size?.unit}</p> : <p>ㅤ</p>}</div>
-                
-                <section className="w-full flex justify-start items-center gap-5 bg-redd-500">
-                    <div className="w-[100px] h-[40px] text-lg text-neutral-700 divide-x divide-neutral-400 flex justify-between items-center bg-neutral-100 border border-neutral-400">
-                        <div className="w-[30px] h-full flex justify-center items-center bg-redd-500 cursor-pointer select-none" onClick={() => {quantity === 1 ? null : setQuantity(quantity - 1)}}>-</div>
-                        <div className="w-[30px] h-full flex justify-center items-center bg-redd-500 cursor-pointer select-none">{quantity}</div>
-                        <div className="w-[30px] h-full flex justify-center items-center bg-redd-500 cursor-pointer select-none" onClick={() => {size && size?.unit <= quantity ? null : setQuantity(quantity + 1)}}>+</div>
+                    <div className="w-full mt-5 pt-3 border-t border-neutral-400 bg-neutrald-600">
+                        <h3 className="text-xl font-semibold ">Descripcion</h3>
+                        <Acordeon>
+                            <pre className="h-auto text-pretty text-sm">{data?.description}</pre>
+                        </Acordeon>
                     </div>
-                <Button 
-                    style={`w-[300px] py-3 text-sm text-white ${!size || !color || !size.unit || quantity > size.unit || quantityAvaliable ? "bg-neutral-400 pointer-events-none select-none" : "bg-neutral-800"}`}
-                    text="Añadir a Carrito" 
-                    iconLeft="bx bx-cart-add"
-                    onClick={() => dispatch(addToCart(infoProduct))}/>
-                </section>
-
-                <div className="w-full mt-5 pt-3 border-t border-neutral-400 bg-neutrald-600">
-                    <h3 className="text-xl font-semibold ">Descripcion</h3>
-                    <Acordeon>
-                        <pre className="h-auto text-pretty text-sm">{data?.description}</pre>
-                    </Acordeon>
-                </div>
 
 
 
-            </article>
+                </article>
 
+            </section>
         </section>
+        <RelatedProducts/>
+        <Footer/>
     </main>
 
   )
