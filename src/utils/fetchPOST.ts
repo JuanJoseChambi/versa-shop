@@ -14,11 +14,11 @@ export async function fetchPOST<T>(url: string, body: RequestBody<T>): Promise<A
 
     const result: ResponseData = await response.json();
     if (result.error) {
-      error(result.message);
+      error(result.message || "Error al realizar la Accion");
       return { error: true };
     }
 
-    success(result.message)
+    success(result.message || "Accion Exitosa")
     return { data: result, error: false };
     
   } catch (error) {

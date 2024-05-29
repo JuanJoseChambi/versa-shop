@@ -6,7 +6,6 @@ import { fetchPOST } from "../../utils/fetchPOST";
 import { ResponseData } from "../../interfaces/interfaces";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie" 
-import Button from "../Button/Button";
 const { VITE_C_USER, VITE_URL_BASE } = import.meta.env
 
 
@@ -26,9 +25,7 @@ function Login({visible}:LogInProp) {
         if (!login.email || !login.password) return error("Faltan Datos por completar")
 
         const { data } = await fetchPOST(`${VITE_URL_BASE}/user/login`, login) as {data: ResponseData}
-        // console.log(data);
         
-        if (data.error) return error(data.message)
         if (!data.error && data.token) {
             let tokenString = typeof data.token === 'string' ? data.token : JSON.stringify(data.token);
             const tokenEncode = btoa(tokenString)
@@ -44,7 +41,7 @@ function Login({visible}:LogInProp) {
         <Input placeholder="Email" name="Correo Electronico" type="email" icon="bx bx-envelope-open"onChange={(e) => setLogin({...login, email:e.target.value})}/>
         <Input placeholder="Password" name="Contraseña" type="password" onChange={(e) => setLogin({...login, password:e.target.value})}/>
 
-        <Button text="Iniciar Sesion" style="w-full text-white py-2 bg-neutral-800"/>
+        <button type="submit" className="w-full text-white py-2 bg-neutral-800">Iniciar Sesion</button>
     </form>
   )
 }
