@@ -25,7 +25,7 @@ function CardProduct({product}:CardProductProp) {
                             <p className="text-sm text-neutral-500">{uniqueColors.length} Colores</p>
                             <div className="flex justify-center items-center gap-x-1 ">
                                 {product.Stocks.map(stock => (
-                                    <button key={stock.Color.color} style={{backgroundColor:stock?.Color?.hxacolor}} className={`flex justify-center items-center min-w-[15px] min-h-[15px] rounded-full`}></button>
+                                    <button key={`${product.product_id}${stock.stock_id}`} style={{backgroundColor:stock?.Color?.hxacolor}} className={`flex justify-center items-center min-w-[15px] min-h-[15px] rounded-full`}></button>
                                     ))}
                             </div>
                         </div>

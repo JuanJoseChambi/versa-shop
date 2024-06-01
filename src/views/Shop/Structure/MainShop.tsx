@@ -19,6 +19,7 @@ interface OptionsFilter {
 function MainShop() {
 
     const [filters, setFilters] = useState<boolean>(false)
+    const [productsFiltred, setProductsFiltred] = useState<DataProduct[] | null>(null)
 
     const { data } = useApi(`${VITE_URL_BASE}/product/all`) as { data: DataProduct[] | [] }
 
@@ -69,19 +70,20 @@ function MainShop() {
 
     async function handlerFilterProducts () {
 
-        const query:string[] = []
+        const queryOptions = [
+            `${optionsFilter.category.length > 0 ? optionsFilter.category.length > 1 ? `category=${optionsFilter.category.join(",")}` : `category=${optionsFilter.category.join("")}` : ""}`,
+            `${optionsFilter.type.length > 0 ? optionsFilter.type.length > 1 ? `type=${optionsFilter.type.join(",")}` : `type=${optionsFilter.type.join("")}` : ""}`,
+            `${optionsFilter.size.length > 0 ? optionsFilter.size.length > 1 ? `size=${optionsFilter.size.join(",")}` : `size=${optionsFilter.size.join("")}` : ""}`,
+            `${optionsFilter.color.length > 0 ? optionsFilter.color.length > 1 ? `color=${optionsFilter.color.join(",")}` : `color=${optionsFilter.color.join("")}` : ""}`,
+        ]
+        const query = queryOptions.filter(qry => qry !== "")
 
-        optionsFilter.category && query.push(optionsFilter.category.join(","))
-        optionsFilter.type && query.push(optionsFilter.type.join(","))
-        optionsFilter.size && query.push(optionsFilter.size.join(","))
-        optionsFilter.color && query.push(optionsFilter.color.join(","))
-
-        const filtred = query.filter(qry => qry !== "")
-        console.log(filtred);
-        
-        console.log(`${VITE_URL_BASE}/product?${filtred.join("&")}`);
-        // const data = await fetch(`${VITE_URL_BASE}/product?${query}`)
+        const data = await fetch(`${VITE_URL_BASE}/product?${query.join("&")}`)
+        const result = await data.json()
+        setProductsFiltred(result)
     }
+
+    const buttonDisable = `${!optionsFilter.category.length && !optionsFilter.type.length && !optionsFilter.size.length && !optionsFilter.color.length ? "pointer-events-none select-none bg-neutral-400 text-neutral-200" : " bg-neutral-800 text-white"} text-sm px-4 py-1`
 
   return (
     <main className=" mx-auto flex justify-between items-start flex-col bg-redd-500">
@@ -116,15 +118,20 @@ function MainShop() {
                     <Filters maxWidth="min-w-[100px]" filter={colorsArray} select={optionsFilter.color} title="COLORES" onClick={(value) => updateFilter("color", value as {color:string, hxacolor:string})}/>
                 </div>
                 <div className="flex justify-center items-center gap-8">
-                    <button className={`${!optionsFilter.category.length && !optionsFilter.type.length && !optionsFilter.size.length && !optionsFilter.color.length ? "pointer-events-none select-none bg-neutral-400 text-neutral-200" : " bg-neutral-800 text-white"} text-sm px-4 py-1`} onClick={() => setOptionsFilter({category:[], type:[], size:[], color:[]})}>Limpiar filtro</button>
-                    <button className={`${!optionsFilter.category.length && !optionsFilter.type.length && !optionsFilter.size.length && !optionsFilter.color.length ? "pointer-events-none select-none bg-neutral-400 text-neutral-200" : " bg-neutral-800 text-white"} text-sm px-4 py-1`} onClick={handlerFilterProducts}>Filtrar</button>
+                    <button className={buttonDisable} onClick={() => {setOptionsFilter({category:[], type:[], size:[], color:[]}), setProductsFiltred(null)}}>Limpiar filtro</button>
+                    <button className={buttonDisable} onClick={handlerFilterProducts}>Filtrar</button>
                 </div>
         </aside>
 
         <section className="w-[95%] max-w-[1850px] mx-auto gap-10 flex flex-wrap justify-center items-center pt-5 pb-16 bg-blued-500">
-            {data?.map(product => (
+            {!productsFiltred && data?.map(product => (
                 <React.Fragment key={product.product_id}>
-                    {product.unit > 0 && <CardProduct key={product.product_id} product={product}/>}
+                    {product.unit > 0 && product.available && <CardProduct product={product}/>}
+                </React.Fragment>
+            ))}
+            {productsFiltred && productsFiltred?.map(product => (
+                <React.Fragment key={product.product_id}>
+                    {product.unit > 0 && product.available && <CardProduct product={product}/>}
                 </React.Fragment>
             ))}
             <Loader active={!data}/>
