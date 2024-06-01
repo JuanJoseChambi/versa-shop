@@ -135,7 +135,7 @@ function MainShop() {
 
         </aside>
         
-        <aside className={`${filters ? "w-full h-screen " : "hidden"} fixed top-0 left-0 z-[100] flex justify-start items-center flex-col pt-2 pb-5 gap-10 bg-white`}>
+        <aside className={`${filters ? "w-full h-screen md:hidden" : "hidden"} fixed top-0 left-0 z-[100] flex justify-start items-center flex-col pt-2 pb-5 gap-10 bg-white`}>
             <section className="w-area flex justify-between items-center">
                 <h3 className="text-2xl font-semibold tracking-widest">FILTROS</h3>
                 <button className="bg-blued-500 flex justify-center items-center scale-150" onClick={() => setFilters(false)}><i className="bx bx-x"></i></button>
@@ -152,7 +152,7 @@ function MainShop() {
             </section>
             <div className={`mt-auto flex justify-center items-center gap-8`}>
                 <button className={buttonDisable} onClick={() => {setOptionsFilter({category:[], type:[], size:[], color:[], maxPrice:0, minPrice:0}), setProductsFiltred(null)}}>Limpiar filtro</button>
-                <button className={buttonDisable} onClick={handlerFilterProducts}>Filtrar</button>
+                <button className={buttonDisable} onClick={() => {handlerFilterProducts(), setFilters(false)}}>Filtrar</button>
             </div>
         </aside>
 
