@@ -38,7 +38,6 @@ function CreateProduct() {
     const [newProduct, setNewProduct] = useState<StructureNewProduct>({
         name:"",
         image: "",
-        // image: "",
         description:"",
         price:0,
         category:"",
@@ -60,7 +59,6 @@ function CreateProduct() {
     const sizes = data?.sizes?.map(size => size?.size)
 
     const [previewImage, setPreviewImage] = useState("")
-    // const [fileImage, setFileImage] = useState<string>("")
     const [fileImage, setFileImage] = useState<File | null>(null)
 
 
