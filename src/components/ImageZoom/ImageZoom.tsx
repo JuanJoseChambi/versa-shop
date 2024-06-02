@@ -2,8 +2,9 @@ import { useState } from "react";
 interface PropImageMagnifier {
     imageUrl: string;
     carusel?: boolean;
+    stylePosition?:string; 
 }
-function ImageZoom({imageUrl, carusel= false}:PropImageMagnifier) {
+function ImageZoom({imageUrl, stylePosition, carusel= false}:PropImageMagnifier) {
     const [zoomPosition, setZoomPosition] = useState({ x: 0, y: 0 });
     const [isZoomVisible, setIsZoomVisible] = useState(false);
     const [client, setClient] = useState({ x: 0, y: 0 });
@@ -25,7 +26,7 @@ function ImageZoom({imageUrl, carusel= false}:PropImageMagnifier) {
     };
     const images = [imageUrl, imageUrl, imageUrl, imageUrl, imageUrl, imageUrl, imageUrl, imageUrl, imageUrl]
     return ( 
-    <div className="w-full h-full max-h-full lg:w-[45%] flex justify-center items-center flex-col lg:flex-row bg-blued-500">
+    <div className={`w-full h-full max-h-full lg:w-[45%] ${stylePosition} top-10 flex justify-center items-center flex-col lg:flex-row bg-blued-500`}>
 
       {carusel && <div className="w-[90%] mx-auto h-[150px] lg:w-[100px] lg:h-full flex-row lg:flex-col relative flex justify-start items-center  gap-x-2 lg:gap-y-2 order-2 lg:order-1 overflow-x-auto lg:overflow-hidden bg-redd-500">
 

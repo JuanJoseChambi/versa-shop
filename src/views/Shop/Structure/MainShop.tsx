@@ -76,7 +76,6 @@ function MainShop() {
     };
 
     async function handlerFilterProducts() {
-        console.log("init Not Error");
         
         const queryOptions = [
             optionsFilter.category.length > 0 ? `category=${optionsFilter.category.join(",")}` : "",
@@ -86,11 +85,7 @@ function MainShop() {
             optionsFilter.maxPrice > 0 ? `maxPrice=${optionsFilter.maxPrice}` : "",
             optionsFilter.minPrice > 0 ? `minPrice=${optionsFilter.minPrice}` : "",
         ]
-        console.log("query Not Error");
-
         const query = queryOptions?.filter(qry => qry !== "").join("&")
-
-        console.log("Filter Not Error");
 
         try {
             const response = await fetch(`${VITE_URL_BASE}/product?${query}`)
@@ -145,10 +140,10 @@ function MainShop() {
 
         </aside>
         
-        <aside className={`${filters ? "w-full h-screen md:hidden" : "hidden"} fixed top-0 left-0 z-[100] flex justify-start items-center flex-col pt-2 pb-5 gap-10 bg-white`}>
+        <aside className={`${filters ? "w-full h-screen md:hidden" : "hidden"} fixed top-0 left-0 z-[100] flex justify-start items-center flex-col pt-5 pb-5 gap-10 bg-white`}>
             <section className="w-area flex justify-between items-center">
                 <h3 className="text-2xl font-semibold tracking-widest">FILTROS</h3>
-                <button className="bg-blued-500 flex justify-center items-center scale-150" onClick={() => setFilters(false)}><i className="bx bx-x"></i></button>
+                <button className="bg-blued-500 flex justify-center items-center text-2xl scale-150" onClick={() => setFilters(false)}><i className="bx bx-x"></i></button>
             </section>
             <section className="w-full flex justify-center items-center flex-col gap-y-7">
                 <Filters styleTitle="text-sm -top-5 text-neutral-700 font-semibold tracking-widest" filter={categoriesArray} select={optionsFilter.category} title="CATEGORIAS" onClick={(value) => updateFilter("category", value as string)}/>
@@ -160,13 +155,13 @@ function MainShop() {
                     <Input name="Min Price" type="number" onChange={(e) => setOptionsFilter({...optionsFilter, minPrice:Number(e.target.value)})}/>
                 </div>
             </section>
-            <div className={`mt-auto flex justify-center items-center gap-8`}>
+            <div className={`flex justify-center items-center gap-8`}>
                 <button className={buttonDisable} onClick={() => {setOptionsFilter({category:[], type:[], size:[], color:[], maxPrice:0, minPrice:0}), setProductsFiltred(null)}}>Limpiar filtro</button>
                 <button className={buttonDisable} onClick={() => {handlerFilterProducts(), setFilters(false)}}>Filtrar</button>
             </div>
         </aside>
 
-        <section className="w-[95%] max-w-[1850px] mx-auto gap-10 flex flex-wrap justify-center items-center pt-5 pb-16 bg-blued-500">
+        <section className="w-[95%] max-w-[1850px] mx-auto md:gap-10 flex flex-wrap justify-center items-center pt-5 pb-16 bg-blued-500">
             {!productsFiltred && data?.map(product => (
                 <React.Fragment key={product.product_id}>
                     {product.unit > 0 && product.available && <CardProduct product={product}/>}

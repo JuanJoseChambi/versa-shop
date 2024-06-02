@@ -23,7 +23,6 @@ function Nav({style}:styleProp) {
     const { pathname } = useLocation();
 
     const cartButton = pathname === "/checkout";
-    // console.log((user));
     
 
   return (

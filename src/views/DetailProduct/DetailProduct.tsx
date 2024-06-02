@@ -95,7 +95,7 @@ return (
                 lg:justify-center lg:items-start 
                 bg-greend-500 flex-col lg:flex-row ">
 
-                <ImageZoom imageUrl={data?.image}/>
+                <ImageZoom imageUrl={data?.image} stylePosition="lg:sticky lg:top-14"/>
 
                 <article className="w-[100%] lg:w-[50%] h-[75%] py-5 lg:pt-0 px-5 lg:px-10 flex justify-between items-start flex-col bg-blued-500">
                     <p className="text-xs text-neutral-700 tracking-widest">Tienda | Productos | Camperas</p>
