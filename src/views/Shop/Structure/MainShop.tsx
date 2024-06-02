@@ -162,7 +162,7 @@ function MainShop() {
                     {product.unit > 0 && product.available && <CardProduct product={product}/>}
                 </React.Fragment>
             ))}
-            {productsFiltred && productsFiltred?.map(product => (
+            {productsFiltred !== null && productsFiltred?.map(product => (
                 <React.Fragment key={product.product_id}>
                     {product.unit > 0 && product.available && <CardProduct product={product}/>}
                 </React.Fragment>
