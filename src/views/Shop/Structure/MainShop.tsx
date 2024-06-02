@@ -75,23 +75,46 @@ function MainShop() {
         }
     };
 
-    async function handlerFilterProducts () {
+    // async function handlerFilterProducts () {
 
-        const queryOptions = [
-            `${optionsFilter.category.length > 0 ? optionsFilter.category.length > 1 ? `category=${optionsFilter.category.join(",")}` : `category=${optionsFilter.category.join("")}` : ""}`,
-            `${optionsFilter.type.length > 0 ? optionsFilter.type.length > 1 ? `type=${optionsFilter.type.join(",")}` : `type=${optionsFilter.type.join("")}` : ""}`,
-            `${optionsFilter.size.length > 0 ? optionsFilter.size.length > 1 ? `size=${optionsFilter.size.join(",")}` : `size=${optionsFilter.size.join("")}` : ""}`,
-            `${optionsFilter.color.length > 0 ? optionsFilter.color.length > 1 ? `color=${optionsFilter.color.join(",")}` : `color=${optionsFilter.color.join("")}` : ""}`,
-            `${optionsFilter.maxPrice > 0 ? `maxPrice=${optionsFilter.maxPrice}` : ""}`,
-            `${optionsFilter.minPrice > 0 ? `minPrice=${optionsFilter.minPrice}` : ""}`,
-        ]
-        const query = queryOptions.filter(qry => qry !== "")
+    //     const queryOptions = [
+    //         `${optionsFilter.category.length > 0 ? optionsFilter.category.length > 1 ? `category=${optionsFilter.category.join(",")}` : `category=${optionsFilter.category.join("")}` : ""}`,
+    //         `${optionsFilter.type.length > 0 ? optionsFilter.type.length > 1 ? `type=${optionsFilter.type.join(",")}` : `type=${optionsFilter.type.join("")}` : ""}`,
+    //         `${optionsFilter.size.length > 0 ? optionsFilter.size.length > 1 ? `size=${optionsFilter.size.join(",")}` : `size=${optionsFilter.size.join("")}` : ""}`,
+    //         `${optionsFilter.color.length > 0 ? optionsFilter.color.length > 1 ? `color=${optionsFilter.color.join(",")}` : `color=${optionsFilter.color.join("")}` : ""}`,
+    //         `${optionsFilter.maxPrice > 0 ? `maxPrice=${optionsFilter.maxPrice}` : ""}`,
+    //         `${optionsFilter.minPrice > 0 ? `minPrice=${optionsFilter.minPrice}` : ""}`,
+    //     ]
+    //     const query = queryOptions.filter(qry => qry !== "")
 
-        console.log(`${VITE_URL_BASE}/product?${query.join("&")}`);
+    //     // console.log(`${VITE_URL_BASE}/product?${query.join("&")}`);
         
-        const data = await fetch(`${VITE_URL_BASE}/product?${query.join("&")}`)
-        const result = await data.json()
-        setProductsFiltred(result)
+    //     const data = await fetch(`${VITE_URL_BASE}/product?${query.join("&")}`)
+    //     const result = await data.json()
+    //     setProductsFiltred(result)
+    // }
+
+    async function handlerFilterProducts() {
+        const queryOptions = [
+            optionsFilter.category.length > 0 ? `category=${optionsFilter.category.join(",")}` : "",
+            optionsFilter.type.length > 0 ? `type=${optionsFilter.type.join(",")}` : "",
+            optionsFilter.size.length > 0 ? `size=${optionsFilter.size.join(",")}` : "",
+            optionsFilter.color.length > 0 ? `color=${optionsFilter.color.join(",")}` : "",
+            optionsFilter.maxPrice > 0 ? `maxPrice=${optionsFilter.maxPrice}` : "",
+            optionsFilter.minPrice > 0 ? `minPrice=${optionsFilter.minPrice}` : "",
+        ]
+        const query = queryOptions.filter(qry => qry !== "").join("&")
+
+        try {
+            const response = await fetch(`${VITE_URL_BASE}/product?${query}`)
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`)
+            }
+            const result = await response.json()
+            setProductsFiltred(result)
+        } catch (error) {
+            console.error("Error fetching filtered products:", error)
+        }
     }
 
     const buttonDisable = `${!optionsFilter.maxPrice && !optionsFilter.minPrice && !optionsFilter.category.length && !optionsFilter.type.length && !optionsFilter.size.length && !optionsFilter.color.length ? "pointer-events-none select-none bg-neutral-400 text-neutral-200" : " bg-neutral-800 text-white"} text-sm px-4 py-1`
