@@ -75,26 +75,9 @@ function MainShop() {
         }
     };
 
-    // async function handlerFilterProducts () {
-
-    //     const queryOptions = [
-    //         `${optionsFilter.category.length > 0 ? optionsFilter.category.length > 1 ? `category=${optionsFilter.category.join(",")}` : `category=${optionsFilter.category.join("")}` : ""}`,
-    //         `${optionsFilter.type.length > 0 ? optionsFilter.type.length > 1 ? `type=${optionsFilter.type.join(",")}` : `type=${optionsFilter.type.join("")}` : ""}`,
-    //         `${optionsFilter.size.length > 0 ? optionsFilter.size.length > 1 ? `size=${optionsFilter.size.join(",")}` : `size=${optionsFilter.size.join("")}` : ""}`,
-    //         `${optionsFilter.color.length > 0 ? optionsFilter.color.length > 1 ? `color=${optionsFilter.color.join(",")}` : `color=${optionsFilter.color.join("")}` : ""}`,
-    //         `${optionsFilter.maxPrice > 0 ? `maxPrice=${optionsFilter.maxPrice}` : ""}`,
-    //         `${optionsFilter.minPrice > 0 ? `minPrice=${optionsFilter.minPrice}` : ""}`,
-    //     ]
-    //     const query = queryOptions.filter(qry => qry !== "")
-
-    //     // console.log(`${VITE_URL_BASE}/product?${query.join("&")}`);
-        
-    //     const data = await fetch(`${VITE_URL_BASE}/product?${query.join("&")}`)
-    //     const result = await data.json()
-    //     setProductsFiltred(result)
-    // }
-
     async function handlerFilterProducts() {
+        console.log("init Not Error");
+        
         const queryOptions = [
             optionsFilter.category.length > 0 ? `category=${optionsFilter.category.join(",")}` : "",
             optionsFilter.type.length > 0 ? `type=${optionsFilter.type.join(",")}` : "",
@@ -103,7 +86,11 @@ function MainShop() {
             optionsFilter.maxPrice > 0 ? `maxPrice=${optionsFilter.maxPrice}` : "",
             optionsFilter.minPrice > 0 ? `minPrice=${optionsFilter.minPrice}` : "",
         ]
-        const query = queryOptions.filter(qry => qry !== "").join("&")
+        console.log("query Not Error");
+
+        const query = queryOptions?.filter(qry => qry !== "").join("&")
+
+        console.log("Filter Not Error");
 
         try {
             const response = await fetch(`${VITE_URL_BASE}/product?${query}`)
