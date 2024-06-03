@@ -114,10 +114,22 @@ function MainShop() {
     useEffect(() => {
         if (sought) {
             handlerSearchProduct()
+        } else {
+            setSearchProduct(null)
         }
     },[sought])
 
     const buttonDisable = `${!optionsFilter.maxPrice && !optionsFilter.minPrice && !optionsFilter.category.length && !optionsFilter.type.length && !optionsFilter.size.length && !optionsFilter.color.length ? "pointer-events-none select-none bg-neutral-400 text-neutral-200" : " bg-neutral-800 text-white"} text-sm px-4 py-1`
+
+    let productsToDisplay: DataProduct[] | null = null;
+
+    if (searchProduct) {
+        productsToDisplay = searchProduct;
+    } else if (productsFiltred) {
+        productsToDisplay = productsFiltred;
+    } else {
+        productsToDisplay = data;
+    }
 
   return (
     <main className=" mx-auto flex justify-between items-start flex-col bg-redd-500">
@@ -180,23 +192,12 @@ function MainShop() {
         </aside>
 
         <section className="w-[95%] max-w-[1850px] mx-auto md:gap-10 flex flex-wrap justify-center items-center pt-5 pb-16 bg-blued-500">
-            {!productsFiltred && !sought && data?.map(product => (
+
+            {productsToDisplay?.map(product => (
                 <React.Fragment key={product.product_id}>
                     {product.unit > 0 && product.available && <CardProduct product={product}/>}
                 </React.Fragment>
             ))}
-            {!searchProduct && productsFiltred?.map(product => (
-                <React.Fragment key={product.product_id}>
-                    {product.unit > 0 && product.available && <CardProduct product={product}/>}
-                </React.Fragment>
-            ))}
-            {!productsFiltred && searchProduct?.map(product => (
-                <React.Fragment key={product.product_id}>
-                    {product.unit > 0 && product.available && <CardProduct product={product}/>}
-                </React.Fragment>
-            ))
-                
-            }
 
             <Loader active={!data}/>
             <WithoutResult visible={data?.length === 0 || searchProduct?.length === 0 || productsFiltred?.length === 0}/>

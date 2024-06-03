@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import Button from "../Button/Button"
 import Cart from "../Cart/Cart"
 import { useDispatch, useSelector } from "react-redux"
 import { AppDispatch, RootState } from "../../redux/store"
-import { Link, useLocation } from "react-router-dom"
+import { Link, useLocation, useNavigate } from "react-router-dom"
 import OptionsAcordeon from "../OptionsAcordeon/OptionsAcordeon"
 import Cookies from "js-cookie" 
 import { search } from "../../redux/slice/navBarSlice"
@@ -30,17 +30,13 @@ function Nav({style}:styleProp) {
 
     const cartButton = pathname === "/checkout";
     const homeButtons = pathname === "/" || pathname === "/shop";
-    
-    useEffect(() => {
-        const width = window.innerWidth;
 
-        searchActive && width <= 640 ? window.document.body.style.overflowY = "hidden" : window.document.body.style.overflowY = "auto";
-    },[searchActive])
-
+    const navigate = useNavigate()
 
     function handlerKey (e:React.KeyboardEvent<HTMLInputElement>) {
         if(e.key === "Enter"){
             dispatch(search(sought))
+            navigate("/")
         }
     }
 
@@ -56,7 +52,7 @@ function Nav({style}:styleProp) {
                 {!searchActive && <Button style="text-xs font-semibold tracking-widest" text="NOSOTROS"/>}
                 {!searchActive && <Button style="text-xs font-semibold tracking-widest" text="CATEGORIAS"/>}
                 {searchActive && 
-                <div className="w-[300px] text-sm flex justify-center items-center gap-x-1 text-black font-semibold px-3 py-0.5 rounded-full outline-none bg-[#ffffff] border border-neutral-300">
+                <div className="w-[300px] text-sm flex justify-center items-center gap-x-1 text-black font-semibold px-3 py-0.5 rounded-full outline-none bg-[#ffffff] border border-neutral-300 shadow-md shadow-neutral-700">
                     <input 
                         type="text" 
                         value={sought}
@@ -65,28 +61,25 @@ function Nav({style}:styleProp) {
                         className="w-full bg-transparent outline-none" 
                         placeholder="Que estas buscando?"/>
                     <i className={`${!sought && "hidden"} cursor-pointer bx bx-x scale-150 text-neutral-600`} onClick={() => {setSought(""), dispatch(search(""))}}></i>
-                    {/* <i className={`${!sought && "hidden"} cursor-pointer bx bx-search scale-125`} onClick={() => dispatch(search(sought))}></i> */}
                 </div>
                 }
             </section>
 
-            <aside className={`${searchActive ? "w-full h-screen flex sm:hidden justify-center items-center flex-col gap-10 fixed top-0 left-0 right-0 bg-[#000000b6]" : "hidden"}`}>
-                <h3 className="font-bold text-5xl tracking-widest">BUSCADOR</h3>
-                <div className="w-[80%] flex justify-between items-center text-sm text-black font-semibold px-2 py-2 outline-none rounded-sm bg-[#ffffffe7] border border-neutral-300">
+            <div className="w-full h-auto fixed top-16 bg-redd-500 flex justify-center items-center bg-transparent sm:hidden">
+                <div className={`
+                    ${searchActive 
+                        ? "w-[80%] mx-auto flex sm:hidden justify-between items-center text-sm text-black font-semibold px-3 py-1.5 outline-none rounded-xl bg-white border border-neutral-400 shadow-md shadow-neutral-700"
+                        : "hidden"}`}>
                     <input 
                         type="text" 
                         className="w-full bg-transparent outline-none" 
                         value={sought}
+                        onKeyDown={handlerKey}
                         onChange={(e) => setSought(e.target.value)}
                         placeholder="Que estas buscando?"/>
                     <i className={`${!sought && "hidden"} bx bx-x scale-150`} onClick={() => {setSought(""), dispatch(search(""))}}></i>
                 </div>
-                <div className="w-full flex justify-center items-center gap-5">
-                    <button className="px-5 py-1 text-white border border-neutral-200" onClick={() => setSearchActive(false)}>Cancelar</button>
-                    <button className="px-5 py-1 bg-neutral-800 text-white" onClick={() => dispatch(search(sought))}>Buscar</button>
-                </div>
-                <h3 className="font-noto text-3xl absolute bottom-6 tracking-widest font-semibold">Versa</h3>
-            </aside>
+            </div>
 
             <div className={`flex justify-center items-center space-x-5 ${homeButtons && "px-3 py-2 rounded-full bg-[#0000002f]"}`}>
 
