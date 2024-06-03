@@ -112,10 +112,7 @@ function MainShop() {
     }
 
     useEffect(() => {
-        console.log(sought);
-        console.log(searchProduct);
         if (sought) {
-            
             handlerSearchProduct()
         }
     },[sought])

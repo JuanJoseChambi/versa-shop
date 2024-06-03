@@ -7,6 +7,7 @@ import { Link, useLocation } from "react-router-dom"
 import OptionsAcordeon from "../OptionsAcordeon/OptionsAcordeon"
 import Cookies from "js-cookie" 
 import { search } from "../../redux/slice/navBarSlice"
+// import Input from "../Input/Input"
 const { VITE_R_SA, VITE_C_USER } = import.meta.env
 
 interface styleProp {
@@ -21,6 +22,7 @@ function Nav({style}:styleProp) {
     const { user } = useSelector((state:RootState) => state.auth)
 
     const dispatch: AppDispatch = useDispatch()
+
     const [sought, setSought] = useState<string>("")
     const [searchActive, setSearchActive] = useState(false)
 
@@ -30,8 +32,17 @@ function Nav({style}:styleProp) {
     const homeButtons = pathname === "/" || pathname === "/shop";
     
     useEffect(() => {
-        searchActive ? window.document.body.style.overflowY = "hidden" : window.document.body.style.overflowY = "auto";
+        const width = window.innerWidth;
+
+        searchActive && width <= 640 ? window.document.body.style.overflowY = "hidden" : window.document.body.style.overflowY = "auto";
     },[searchActive])
+
+
+    function handlerKey (e:React.KeyboardEvent<HTMLInputElement>) {
+        if(e.key === "Enter"){
+            dispatch(search(sought))
+        }
+    }
 
   return (
     <nav className={`w-area mx-auto flex justify-between items-center py-4 fixed left-0 right-0 z-[100] ${style}`}>
@@ -44,10 +55,22 @@ function Nav({style}:styleProp) {
                 {!searchActive && <Button style="text-xs font-semibold tracking-widest" text="TIENDA" dir="/shop"/>}
                 {!searchActive && <Button style="text-xs font-semibold tracking-widest" text="NOSOTROS"/>}
                 {!searchActive && <Button style="text-xs font-semibold tracking-widest" text="CATEGORIAS"/>}
-                {searchActive && <input type="text" className="w-[300px] text-sm text-black font-semibold px-2 py-0.5 outline-none rounded-sm bg-[#ffffffe7] border border-neutral-300" placeholder="Que estas buscando?"/>}
+                {searchActive && 
+                <div className="w-[300px] text-sm flex justify-center items-center gap-x-1 text-black font-semibold px-3 py-0.5 rounded-full outline-none bg-[#ffffff] border border-neutral-300">
+                    <input 
+                        type="text" 
+                        value={sought}
+                        onChange={(e) => setSought(e.target.value)}
+                        onKeyDown={handlerKey}
+                        className="w-full bg-transparent outline-none" 
+                        placeholder="Que estas buscando?"/>
+                    <i className={`${!sought && "hidden"} cursor-pointer bx bx-x scale-150 text-neutral-600`} onClick={() => {setSought(""), dispatch(search(""))}}></i>
+                    {/* <i className={`${!sought && "hidden"} cursor-pointer bx bx-search scale-125`} onClick={() => dispatch(search(sought))}></i> */}
+                </div>
+                }
             </section>
 
-            <aside className={`${searchActive ? "w-full h-screen flex justify-center items-center flex-col gap-10 fixed top-0 left-0 right-0 bg-[#000000b6]" : "hidden"}`}>
+            <aside className={`${searchActive ? "w-full h-screen flex sm:hidden justify-center items-center flex-col gap-10 fixed top-0 left-0 right-0 bg-[#000000b6]" : "hidden"}`}>
                 <h3 className="font-bold text-5xl tracking-widest">BUSCADOR</h3>
                 <div className="w-[80%] flex justify-between items-center text-sm text-black font-semibold px-2 py-2 outline-none rounded-sm bg-[#ffffffe7] border border-neutral-300">
                     <input 
