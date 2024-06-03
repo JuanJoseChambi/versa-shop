@@ -2,11 +2,13 @@ import useApi from "../../../hooks/useApi"
 import { DataProduct } from "../../../interfaces/interfaces"
 import CardProduct from "../../../components/CardProduct/CardProduct"
 import Filters from "../../../components/Filters/Filters"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import React from "react"
 import Loader from "../../../components/Loader/Loader"
 import WithoutResult from "../../../components/WithoutResult/WithoutResult"
 import Input from "../../../components/Input/Input"
+import { useSelector } from "react-redux"
+import { RootState } from "../../../redux/store"
 const {VITE_URL_BASE} = import.meta.env
 
 
@@ -23,6 +25,8 @@ function MainShop() {
 
     const [filters, setFilters] = useState<boolean>(false)
     const [productsFiltred, setProductsFiltred] = useState<DataProduct[] | null>(null)
+
+    const [searchProduct, setSearchProduct] = useState<DataProduct[] | null>(null)
 
     const { data } = useApi(`${VITE_URL_BASE}/product/all`) as { data: DataProduct[] | [] }
 
@@ -99,6 +103,23 @@ function MainShop() {
         }
     }
 
+    const sought = useSelector((state:RootState) => state.navBar.sought)
+
+    async function handlerSearchProduct () {
+        const response = await fetch(`${VITE_URL_BASE}/product?search=${sought}`)
+        const result = await response.json()
+        setSearchProduct(result)
+    }
+
+    useEffect(() => {
+        console.log(sought);
+        console.log(searchProduct);
+        if (sought) {
+            
+            handlerSearchProduct()
+        }
+    },[sought])
+
     const buttonDisable = `${!optionsFilter.maxPrice && !optionsFilter.minPrice && !optionsFilter.category.length && !optionsFilter.type.length && !optionsFilter.size.length && !optionsFilter.color.length ? "pointer-events-none select-none bg-neutral-400 text-neutral-200" : " bg-neutral-800 text-white"} text-sm px-4 py-1`
 
   return (
@@ -162,18 +183,26 @@ function MainShop() {
         </aside>
 
         <section className="w-[95%] max-w-[1850px] mx-auto md:gap-10 flex flex-wrap justify-center items-center pt-5 pb-16 bg-blued-500">
-            {!productsFiltred && data?.map(product => (
+            {!productsFiltred && !sought && data?.map(product => (
                 <React.Fragment key={product.product_id}>
                     {product.unit > 0 && product.available && <CardProduct product={product}/>}
                 </React.Fragment>
             ))}
-            {productsFiltred !== null && productsFiltred?.map(product => (
+            {!searchProduct && productsFiltred?.map(product => (
                 <React.Fragment key={product.product_id}>
                     {product.unit > 0 && product.available && <CardProduct product={product}/>}
                 </React.Fragment>
             ))}
+            {!productsFiltred && searchProduct?.map(product => (
+                <React.Fragment key={product.product_id}>
+                    {product.unit > 0 && product.available && <CardProduct product={product}/>}
+                </React.Fragment>
+            ))
+                
+            }
+
             <Loader active={!data}/>
-            <WithoutResult visible={data && data.length === 0}/>
+            <WithoutResult visible={data?.length === 0 || searchProduct?.length === 0 || productsFiltred?.length === 0}/>
         </section>
     </main>
   )
