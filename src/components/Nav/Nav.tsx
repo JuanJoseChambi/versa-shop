@@ -36,7 +36,8 @@ function Nav({style}:styleProp) {
     function handlerKey (e:React.KeyboardEvent<HTMLInputElement>) {
         if(e.key === "Enter"){
             dispatch(search(sought))
-            navigate("/")
+            !homeButtons && navigate("/")
+            // navigate("/")
         }
     }
 
@@ -49,10 +50,11 @@ function Nav({style}:styleProp) {
 
             <section className="hidden sm:flex space-x-5 justify-center items-center">
                 {!searchActive && <Button style="text-xs font-semibold tracking-widest" text="TIENDA" dir="/shop"/>}
-                {!searchActive && <Button style="text-xs font-semibold tracking-widest" text="NOSOTROS"/>}
+                {/* {!searchActive && <Button style="text-xs font-semibold tracking-widest" text="NOSOTROS"/>} */}
                 {!searchActive && <Button style="text-xs font-semibold tracking-widest" text="CATEGORIAS"/>}
                 {searchActive && 
-                <div className="w-[300px] text-sm flex justify-center items-center gap-x-1 text-black font-semibold px-3 py-0.5 rounded-full outline-none bg-[#ffffff] border border-neutral-300 shadow-md shadow-neutral-700">
+                <div className="w-[300px] text-sm flex justify-center items-center gap-x-1 text-black font-semibold px-2 py-0.5 rounded-full outline-none bg-[#ffffff] border border-neutral-300 shadow-md shadow-neutral-700">
+                    <i className={`bx bx-search scale-100`} onClick={() => dispatch(search(sought))}></i>
                     <input 
                         type="text" 
                         value={sought}
@@ -68,8 +70,9 @@ function Nav({style}:styleProp) {
             <div className="w-full h-auto fixed top-16 bg-redd-500 flex justify-center items-center bg-transparent sm:hidden">
                 <div className={`
                     ${searchActive 
-                        ? "w-[80%] mx-auto flex sm:hidden justify-between items-center text-sm text-black font-semibold px-3 py-1.5 outline-none rounded-xl bg-white border border-neutral-400 shadow-md shadow-neutral-700"
+                        ? "w-[80%] mx-auto flex sm:hidden justify-between items-center gap-x-1 text-sm text-black font-semibold px-2 py-1.5 outline-none rounded-xl bg-white border border-neutral-400 shadow-md shadow-neutral-700"
                         : "hidden"}`}>
+                    <i className={`bx bx-search scale-100`} onClick={() => {setSought(""), dispatch(search(""))}}></i>
                     <input 
                         type="text" 
                         className="w-full bg-transparent outline-none" 
