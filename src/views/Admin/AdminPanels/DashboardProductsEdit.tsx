@@ -56,9 +56,11 @@ function DashboardProductsEdit() {
     }
  
     async function handlerUpdate (id:string) {
-        
         await fetchPATCH(`${VITE_URL_BASE}/product/update/${id}`, updateProduct)
         setUpdateProduct({...updateProduct, id: id})
+    }
+    async function hanlderUpdateState (id:string, available:boolean) {
+        await fetchPATCH(`${VITE_URL_BASE}/product/update/${id}`, {available: !available})
     }
 
 
@@ -67,7 +69,6 @@ function DashboardProductsEdit() {
     useEffect(() => {
         setDataProduct(data)   
         console.log(addStock);
-        
     },[data])
     
     return (
@@ -156,7 +157,8 @@ function DashboardProductsEdit() {
                         <div className="w-1/3 flex justify-center items-center gap-x-2">
                             {edit === product.product_id && <i className="bx bx-x cursor-pointer" onClick={() => {setEdit(null), setStockEdit(null)}}></i>}
                             {edit !== product.product_id && <i className="cursor-pointer bx bx-edit" onClick={() => {setEdit(product.product_id), setStockEdit(null)}}></i>}
-                            <i className="cursor-pointer bx bx-lock-alt"></i>
+                            {product.available && <i className="cursor-pointer bx bx-lock-open-alt scale-110" onClick={() => hanlderUpdateState(product.product_id, product.available)}></i>}
+                            {!product.available && <i className="cursor-pointer bx bxs-lock-alt scale-110" onClick={() => hanlderUpdateState(product.product_id, product.available)}></i>}
                             <i className="cursor-pointer bx bx-trash" onClick={() => hanlderDelete(product.product_id)}></i>
                         </div>
                     </div>
