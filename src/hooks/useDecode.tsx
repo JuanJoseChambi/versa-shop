@@ -17,27 +17,28 @@ export function useDecode () {
             
             if (tokenPayload) {
                 const infoToken = {
-                    email: tokenPayload?.email,
-                    lastname: tokenPayload?.lastname,
-                    name: tokenPayload?.name,
-                    nickname: tokenPayload?.nickname,
+                    // email: tokenPayload?.email,
+                    // lastname: tokenPayload?.lastname,
+                    // name: tokenPayload?.name,
+                    // nickname: tokenPayload?.nickname,
                     role: tokenPayload?.role,
-                    user_id: tokenPayload?.user_id,
+                    // user_id: tokenPayload?.user_id,
                     token:tokenJwt
                 }
                 setDecode(infoToken)
             }
         }
         decodeToken()
+        
     },[])
     
     return { 
-        email:decode?.email,
-        name: decode?.name, 
-        lastname: decode?.lastname,
-        nickname:decode?.nickname,
+        // email:decode?.email,
+        // name: decode?.name, 
+        // lastname: decode?.lastname,
+        // nickname:decode?.nickname,
         role:decode?.role || null, 
-        id:decode?.user_id, 
+        // id:decode?.user_id, 
         token:decode?.token
     }
 }

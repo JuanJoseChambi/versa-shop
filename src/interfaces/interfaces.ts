@@ -36,12 +36,12 @@ export interface UseFilterResponse {
 }
 // Hook useDecode ----------------------------------
 export interface DecodeToken {
-    email: string,
-    lastname: string,
-    name: string,
-    nickname: string,
+    // email: string,
+    // lastname: string,
+    // name: string,
+    // nickname: string,
     role: string,
-    user_id: string,
+    // user_id: string,
     token:string
 }
 // -----------------------------------------------------
@@ -146,6 +146,39 @@ export interface ProfileUser {
     createdAt: Date;
     updatedAt: Date;
     Purchases: any[];
+}
+
+// AdmilPanel -------------------------------------------------
+export interface SalesData {
+    purchase_id:   string;
+    direction:     string;
+    payment_id:    string;
+    priceTotal:    number;
+    createdAt:     Date;
+    updatedAt:     Date;
+    userPurchase:  string;
+    PurchaseState: PurchaseState;
+    Products:      ProductPurchase[];
+}
+
+export interface ProductPurchase {
+    product_id:      string;
+    name:            string;
+    image:           string;
+    description:     string;
+    PurchaseProduct: PurchaseProduct;
+}
+
+export interface PurchaseProduct {
+    PurchaseProduct_id: string;
+    cantidad:           number;
+    size:               string;
+    color:              string;
+    PurchasePurchaseId: string;
+    ProductProductId:   string;
+}
+export interface PurchaseState {
+    state: string;
 }
 
 // REQUEST PATCH -----------------------------------------------

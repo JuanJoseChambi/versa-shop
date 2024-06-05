@@ -48,7 +48,6 @@ function DashboardProductsEdit() {
 
     async function handlerUpdateStock(id:string) {
         await fetchPATCH(`${VITE_URL_BASE}/product/update/stock/${id}`, updateStock)
-        // console.log(error);
     }
 
     async function handlerCreateStock (id:string) {
@@ -66,7 +65,6 @@ function DashboardProductsEdit() {
     async function handlerDeleteStock(id:string) {
         await fetchDELETE(`${VITE_URL_BASE}/stock/delete/${id}`)
     }
-
 
     const {categories, types} = allFilters()
 
@@ -166,8 +164,6 @@ function DashboardProductsEdit() {
                             <i className="cursor-pointer bx bx-trash" onClick={() => hanlderDelete(product.product_id)}></i>
                         </div>
                     </div>
-
-
 
 
                     {edit === product.product_id && 
