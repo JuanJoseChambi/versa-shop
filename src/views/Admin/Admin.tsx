@@ -3,6 +3,7 @@ import DashboardProductsEdit from "./AdminPanels/DashboardProductsEdit";
 import Categories from "./AdminPanels/ProductData";
 import CreateProduct from "./AdminPanels/CreateProduct";
 import ArrowBefore from "../../components/ArrowBefore/ArrowBefore";
+import Sales from "./AdminPanels/Sales";
 
 function Admin() {
 
@@ -22,10 +23,10 @@ function Admin() {
                 <li className={`cursor-pointer px-3 ${adminPanel === "stocks" && "text-black bg-white rounded-sm"}`} onClick={() => setAdminPanel("stocks")}>Stocks</li>
                 <li className={`cursor-pointer px-3 ${adminPanel === "productData" && "text-black bg-white rounded-sm"}`} onClick={() => setAdminPanel("productData")}>Categorias</li>
                 <li className={`cursor-pointer px-3 ${adminPanel === "createProduct" && "text-black bg-white rounded-sm"}`} onClick={() => setAdminPanel("createProduct")}>Crear Productos</li>
+                <li className={`cursor-pointer px-3 ${adminPanel === "sales" && "text-black bg-white rounded-sm"}`} onClick={() => setAdminPanel("sales")}>Ventas</li>
                 <li className={`cursor-pointer px-3`} onClick={() => setAdminPanel("createAdmin")}>Crear Admins</li>
                 <li className={`cursor-pointer px-3`} onClick={() => setAdminPanel("createOffer")}>Crear Ofertas</li>
                 <li className={`cursor-pointer px-3`} onClick={() => setAdminPanel("createDiscount")}>Crear Descuentos</li>
-                <li className={`cursor-pointer px-3`} onClick={() => setAdminPanel("sales")}>Ventas</li>
                 <li className={`cursor-pointer px-3`} onClick={() => setAdminPanel("labels")}>Etiquetas</li>
             </ul>
 
@@ -36,6 +37,7 @@ function Admin() {
             {adminPanel === "stocks" && <DashboardProductsEdit/>}
             {adminPanel === "productData" && <Categories/>}
             {adminPanel === "createProduct" && <CreateProduct/>}
+            {adminPanel === "sales" && <Sales/>}
         </section>
 
     </main>

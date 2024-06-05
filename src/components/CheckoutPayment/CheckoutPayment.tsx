@@ -15,6 +15,7 @@ const {VITE_MP_P_KEY, VITE_URL_BASE} = import.meta.env
 
 function CheckoutPayment() {
     const { profilePurchase } = useSelector((state:RootState) => state.preferenceProfile)
+    const products = useSelector((state:RootState) => state.cart.cart)
     const CREDIT = "CREDITO"
     const DEBIT = "DEBITO"
     const MP = "MP"
@@ -30,18 +31,13 @@ function CheckoutPayment() {
     const [oneClick, setOneClick] = useState<boolean>(false)
 
     async function payment () {
-        const body = {
-            title:"Buso Nike",
-            quantity:5,
-            price:10
-        };
 
         const response = await fetch(`${VITE_URL_BASE}/create_preference`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(body),
+            body: JSON.stringify(products),
         });
     
         const preference = await response.json();
@@ -50,10 +46,6 @@ function CheckoutPayment() {
     }
 
     const [nameMethod, delivery] = profilePurchase?.methodOfDelivery.split("_") || "";
-
-    // console.log(nameMethod);
-    // console.log(delivery);
-    // console.log(methodDelivery);
 
     const {title, subtitle, price} = methodDelivery[nameMethod as keyof typeof methodDelivery]?.[delivery as keyof (HomeDelivery | Withdrawal)] as ValueMethods;
 
@@ -103,17 +95,7 @@ function CheckoutPayment() {
                         <i className="bx bx-edit"></i>
                     </div>
                 </div>
-                {/* <div className="w-full py-3 flex justify-center items-center">
-                    <div className="px-5">
-                        {messageSVG}
-                    </div>
-                    <div className="flex-1">
-                        <h3 className="text-sm text-neutral-700 font-bold ">Notas de pedido</h3>
-                    </div>
-                    <div className="px-5 cursor-pointer">
-                        <i className="bx bx-plus"></i>
-                    </div>
-                </div> */}
+                
             </section>
             
             <section className="w-full flex justify-between items-center gap-x-3 bg-redd-500">
@@ -144,7 +126,6 @@ function CheckoutPayment() {
                     </picture>
                     <h3 className="text-xs tracking-widest font-semibold text-neutral-800">DÉBITO / CRÉDITO</h3>
                 </div>
-
 
             </section>
                 {preferenceId && oneClick && 

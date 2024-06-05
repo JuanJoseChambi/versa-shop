@@ -47,8 +47,8 @@ function DashboardProductsEdit() {
     })
 
     async function handlerUpdateStock(id:string) {
-        const {error} = await fetchPATCH(`${VITE_URL_BASE}/product/update/stock/${id}`, updateStock)
-        console.log(error);
+        await fetchPATCH(`${VITE_URL_BASE}/product/update/stock/${id}`, updateStock)
+        // console.log(error);
     }
 
     async function handlerCreateStock (id:string) {
@@ -61,6 +61,10 @@ function DashboardProductsEdit() {
     }
     async function hanlderUpdateState (id:string, available:boolean) {
         await fetchPATCH(`${VITE_URL_BASE}/product/update/${id}`, {available: !available})
+    }
+
+    async function handlerDeleteStock(id:string) {
+        await fetchDELETE(`${VITE_URL_BASE}/stock/delete/${id}`)
     }
 
 
@@ -231,6 +235,7 @@ function DashboardProductsEdit() {
                                         onChange={(e) => setUpdateStock({...updateStock, unit:Number(e.target.value)})}/>
                                 </div>
                                 <div className="w-full flex justify-around items-center">
+                                    {stockEdit && <button onClick={() => handlerDeleteStock(stockEdit.stock_id)}><i className="bx bx-trash"></i></button>}
                                     <button className="text-sm font-semibold tracking-wide px-2 py-1 text-white rounded-sm bg-neutral-800" 
                                         onClick={() => {
                                             stockEdit ? handlerUpdateStock(stockEdit?.stock_id) : handlerCreateStock(product.product_id)
