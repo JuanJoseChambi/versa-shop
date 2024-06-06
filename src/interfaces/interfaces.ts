@@ -150,8 +150,23 @@ export interface ProfileUser {
 
 // AdmilPanel -------------------------------------------------
 export interface SalesData {
+
+    city: string;
+    country: string;
+    email: string;
+    houseApartament: string;
+    id: string;
+    lastname: string;
+    methodOfDelivery: string;
+    name: string;
+    neighborhood: string;
+    number: string;
+    phone: string;
+    postalCode: string;
+    street: string;
+
     purchase_id:   string;
-    direction:     string;
+    // direction:     string;
     payment_id:    string;
     priceTotal:    number;
     createdAt:     Date;

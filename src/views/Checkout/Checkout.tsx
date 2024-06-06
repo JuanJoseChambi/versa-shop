@@ -58,7 +58,25 @@ function Checkout() {
   const cartProducts = decode(VITE_C_CART)
     
   async function handlerPurchase (payment_id:string) {
-    const {data} = await fetchPOST(`${VITE_URL_BASE}/purchase/create`, { direction:profilePurchase.street, userEmail: profilePurchase.email, payment_id: payment_id, products:cartProducts }) as {data:ResponseData}
+    const {data} = await fetchPOST(`${VITE_URL_BASE}/purchase/create`, { 
+      city: profilePurchase.city,
+      country: profilePurchase.country,
+      email: profilePurchase.email,
+      houseApartament: profilePurchase.houseApartament,
+      id: profilePurchase.id,
+      lastname: profilePurchase.lastname,
+      methodOfDelivery: profilePurchase.methodOfDelivery,
+      name: profilePurchase.name,
+      neighborhood: profilePurchase.neighborhood,
+      number: profilePurchase.number,
+      phone: profilePurchase.phone,
+      postalCode: profilePurchase.postalCode,
+      street:profilePurchase.street, 
+      
+      userEmail: profilePurchase.email, 
+      payment_id: payment_id, 
+      products:cartProducts 
+    }) as {data:ResponseData}
     dispatch(deletePreferenceProfile())
     if (data.error) return error(data.message);
     if (!data.error) {

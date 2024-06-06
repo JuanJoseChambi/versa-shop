@@ -2,29 +2,20 @@ import { useEffect, useState } from "react";
 // import useApi from "../../../hooks/useApi"
 import { useDecode } from "../../../hooks/useDecode";
 import { SalesData } from "../../../interfaces/interfaces";
+import LabelText from "../../../components/LabelText/LabelText";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../redux/store";
 
 const {VITE_URL_BASE} = import.meta.env
 
-interface LabelTextProp {
-    text:string
-    label:string
-    styleText?: string;
-    styleLabel?: string;
-}
-function LabelText ({text, label, styleText, styleLabel}: LabelTextProp) {
-    return (
-        <section className="w-auto relative flex justify-center items-start flex-col -z-10">
-            <label className={`${styleLabel ? styleLabel : "text-nowrap text-neutral-600 font-semibold absolute -top-3 text-xs"}`}>{label}</label>
-            <p className={`${styleText ? styleText : "text-neutral-800 font-bold"}`}>{text}</p>
-        </section>
-    )
-}
+
 
 function Sales() {
     const { token } = useDecode()
     
     const [data, setData] = useState<SalesData[] | null>(null)
     const [sale, setSale] = useState<string | null>(null)
+    const { profilePurchase } = useSelector((state:RootState) => state.preferenceProfile)
 
     async function handlerData () {
         const response = await fetch(`${VITE_URL_BASE}/purchase/all`, {
@@ -56,11 +47,13 @@ function Sales() {
                 return (
                 <div key={purchases.purchase_id} className="w-full flex justify-between items-center flex-col bg-redd-500 border border-neutral-400">
                     <div className="hidden sm:flex sm:w-full justify-between items-center pb-2 pt-5 px-3 gap-x-3 cursor-pointer" onClick={() => setSale(purchases.purchase_id)}>
-                                <LabelText text={purchases.payment_id} label="Payment ID"/>
-                                <LabelText text={purchases.PurchaseState.state} label="Estado"/>
-                                <LabelText text={date} label="Fecha de Compra"/>
-                                <LabelText text={purchases.Products.length.toString()} label="Productos"/>
-                                <LabelText text={purchases.priceTotal.toString()} label="Precio"/>
+                        <LabelText text={purchases.payment_id} label="Payment ID"/>
+                        <LabelText text={purchases.PurchaseState.state} label="Estado"/>
+                        <LabelText text={date} label="Fecha de Compra"/>
+                        <LabelText text={purchases.Products.length.toString()} label="Productos"/>
+                        <LabelText text={purchases.priceTotal.toString()} label="Precio"/>
+                        {/* <LabelText text={purchases.city} label="Precio"/> */}
+                        <button onClick={() => {console.log(profilePurchase)}}>Profile</button>
                     </div>
 
                     <div className="flex sm:hidden w-full justify-between items-center bg-blued-500 pb-2 pt-5 px-3 gap-x-3 cursor-pointer" onClick={() => setSale(purchases.purchase_id)}>
@@ -81,13 +74,19 @@ function Sales() {
                     {sale === purchases.purchase_id && 
                         <aside className="w-full h-screen fixed top-0 left-0 flex justify-center items-center bg-black bg-opacity-50">
 
-                            <div className="w-[70%] h-[60vh] relative bg-white">
+                            <div className="w-[70%] h-[60vh] relative z-10 bg-white">
                                 <button className="absolute top-2 right-5 text-2xl" onClick={() => setSale(null)}><i className="bx bx-x text-black"></i></button>
                                 {purchases.Products.map(product => (
                                     <p key={product.product_id}>{product.name}</p>
                                 ))}
+                                {/* <p>{purchases.city}</p> */}
+                                <div className="w-full flex justify-center items-center">
+                                    <LabelText text={`${purchases.country}`} label="Pais"/>
+                                    <LabelText text={`${purchases.city}`} label="Ciudad"/>
+
+                                </div>
                             </div>
-                            
+
                         </aside>
                     }
                 </div>
