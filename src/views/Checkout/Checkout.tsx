@@ -63,7 +63,7 @@ function Checkout() {
       country: profilePurchase.country,
       email: profilePurchase.email,
       houseApartament: profilePurchase.houseApartament,
-      id: profilePurchase.id,
+      idUser: profilePurchase.id,
       lastname: profilePurchase.lastname,
       methodOfDelivery: profilePurchase.methodOfDelivery,
       name: profilePurchase.name,
@@ -80,6 +80,7 @@ function Checkout() {
     dispatch(deletePreferenceProfile())
     if (data.error) return error(data.message);
     if (!data.error) {
+      // dispatch(deletePreferenceProfile())
       dispatch(deleteAllCart())
       return success(data.message)
     }

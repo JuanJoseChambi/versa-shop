@@ -181,6 +181,7 @@ export interface ProductPurchase {
     name:            string;
     image:           string;
     description:     string;
+    price:           number;
     PurchaseProduct: PurchaseProduct;
 }
 

@@ -22,7 +22,7 @@ function Cart({visible, onClose}:CartProp) {
       </div>
 
         {cart.length > 0 ? 
-            <section className=" w-full min-h-[10%] max-h-[50%] 2xl:max-h-[50%] 2xl:h-auto overflow-auto my-5 gap-y-3 flex flex-col justify-start items-center scroll bg-redd-500">
+            <section className=" w-full min-h-[10%] max-h-[50%] 2xl:max-h-[60%] 2xl:h-auto overflow-auto my-5 gap-y-3 flex flex-col justify-start items-center scroll bg-redd-500">
                 {cart?.map((products) => (
                   <CartCard products={products}/>
                 ))}
