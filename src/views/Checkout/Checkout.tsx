@@ -77,10 +77,10 @@ function Checkout() {
       payment_id: payment_id, 
       products:cartProducts 
     }) as {data:ResponseData}
-    dispatch(deletePreferenceProfile())
+    // dispatch(deletePreferenceProfile())
     if (data.error) return error(data.message);
     if (!data.error) {
-      // dispatch(deletePreferenceProfile())
+      dispatch(deletePreferenceProfile())
       dispatch(deleteAllCart())
       return success(data.message)
     }
