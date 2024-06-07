@@ -12,12 +12,14 @@ import ArrowBefore from "../../../components/ArrowBefore/ArrowBefore"
 import { fetchPATCH } from "../../../utils/fetchPATCH"
 import { fetchPOST } from "../../../utils/fetchPOST"
 import { DashboardProductPulse } from "../../../components/ComponentsAnimatePulse/ComponentsAnimatePulse"
+import { Filters as FiltersInterface } from "../../../interfaces/components"
 const {VITE_URL_BASE} = import.meta.env
 
 
 function DashboardProductsEdit() {
     const [dataProduct, setDataProduct] = useState<DataProduct[]>([])
     
+    const {data: filter} = useApi(`${VITE_URL_BASE}/product/filters`) as {data:FiltersInterface}
     const { data } = useApi(`${VITE_URL_BASE}/product/all`) as { data: DataProduct[] }
     const [edit, setEdit] = useState<string | null>(null)
     const [stockEdit, setStockEdit] = useState<Stock | null>(null)
@@ -70,7 +72,6 @@ function DashboardProductsEdit() {
 
     useEffect(() => {
         setDataProduct(data)   
-        console.log(addStock);
     },[data])
     
     return (
@@ -167,7 +168,7 @@ function DashboardProductsEdit() {
 
 
                     {edit === product.product_id && 
-                        <div className="w-full min-h-[160px] flex justify-start items-center flex-col md:flex-row gap-x-2 border-b border-neutral-300 bg-redd-500">
+                        <div className="w-full min-h-[160px] flex justify-around items-center flex-col md:flex-row gap-x-2 border-b border-neutral-300 bg-redd-500">
                             <section className="flex justify-center items-center flex-row gap-x-2 mt-5 md:pt0">
 
                                 <picture className="w-[120px] h-[120px] flex justify-center bg-redd-500 items-center">
@@ -186,10 +187,10 @@ function DashboardProductsEdit() {
                             </div>
 
 
-                            {(!stockEdit && !createStock) && <div className="w-[250px] h-full flex justify-start items-center flex-col bg-redd-500">
+                            {(!stockEdit && !createStock && !addStock) && <div className="w-[250px] h-full flex justify-start items-center flex-col bg-redd-500">
                                 <div className="w-full flex justify-between items-center bg-redd-500 ">
                                     <h3 className="flex justify-start items-center text-sm font-semibold tracking-wide text-neutral-600 cursor-pointer" onClick={() => setCreateStock(product.product_id)}><i className="bx bx-plus"></i> Crear Stock</h3>
-                                    <h3 className="flex justify-start items-center text-sm font-semibold tracking-wide text-neutral-600 cursor-pointer"><i className="bx bx-plus"></i> Agregar Stock</h3>
+                                    <h3 className="flex justify-start items-center text-sm font-semibold tracking-wide text-neutral-600 cursor-pointer" onClick={() => setAddStock(product.product_id)}><i className="bx bx-plus"></i> Agregar Stock</h3>
                                 </div>
                                 <ul className="w-full flex justify-center items-center border-b border-neutral-400 divide-x divide-neutral-400">
                                     <li className="text-xs mr-auto font-semibold text-neutral-700">Color</li>
@@ -212,17 +213,21 @@ function DashboardProductsEdit() {
                                 </div>
                                 
                             </div>}
-                            {(stockEdit || createStock) && <div className="w-[250px] h-full flex justify-start items-center flex-col  relative bg-blued-500">
+                            {(stockEdit || createStock || addStock) && <div className="w-[250px] h-full flex justify-start items-center flex-col  relative bg-blued-500">
                                 {/* {stockEdit} */}
                                 <ArrowBefore icon="bx bx-chevron-left" styleIcon="text-lg" style="w-auto h-[20px] flex justify-center items-center absolute top-0 left-0 z-10 bg-blued-500" 
                                     onClick={() => {setStockEdit(null), setCreateStock(null), setAddStock(null)}}/>
-                                <h3 className="w-full text-center text-sm bg-redd-500 ">{stockEdit ? "Editar Stock" : "Crear Stock"}</h3>
+                                <h3 className="w-full text-center text-sm bg-redd-500 ">{stockEdit ? "Editar Stock" : createStock ? "Crear Stock" : addStock ? "Agregar Stock" : ""}</h3>
                                 <div className="w-full flex justify-center items-center gap-x-1 my-4">
                                     {stockEdit && <div className="min-w-[25px] min-h-[25px] border border-rose-400 rounded-full" style={{backgroundColor:stockEdit?.Color.hxacolor}}></div>}
-                                    <Input name="Color" placeholder="Color" defaultValue={stockEdit?.Color?.color} 
-                                        onChange={(e) => setUpdateStock({...updateStock, color:e.target.value})} />
-                                    <Input name="HxaColor" placeholder="HxaColor" defaultValue={stockEdit?.Color?.hxacolor} 
-                                        onChange={(e) => setUpdateStock({...updateStock, hxacolor:e.target.value})}/>
+                                    
+                                    {!addStock && <Input name="Color" placeholder="Color" defaultValue={stockEdit?.Color?.color} 
+                                        onChange={(e) => setUpdateStock({...updateStock, color:e.target.value})} />}
+                                    {!addStock && <Input name="HxaColor" placeholder="HxaColor" defaultValue={stockEdit?.Color?.hxacolor} 
+                                        onChange={(e) => setUpdateStock({...updateStock, hxacolor:e.target.value})}/>}
+
+                                    {addStock && <Filters title="Color" select={updateStock.color} filter={filter?.colors} onClick={(value) => typeof value === "object" && setUpdateStock({...updateStock, color:value.color, hxacolor:value.hxacolor})}/>}
+                                
                                 </div>
                                 <div className="w-full flex justify-center items-center gap-x-4 my-2">
                                     <Input name="Talle" placeholder="Talle" defaultValue={createStock ? "" : stockEdit?.Size.size} 
@@ -234,8 +239,8 @@ function DashboardProductsEdit() {
                                     {stockEdit && <button onClick={() => handlerDeleteStock(stockEdit.stock_id)}><i className="bx bx-trash"></i></button>}
                                     <button className="text-sm font-semibold tracking-wide px-2 py-1 text-white rounded-sm bg-neutral-800" 
                                         onClick={() => {
-                                            stockEdit ? handlerUpdateStock(stockEdit?.stock_id) : handlerCreateStock(product.product_id)
-                                        }}>{stockEdit ? "Editar Stock" : "Crear Stock"}</button>
+                                            stockEdit ? handlerUpdateStock(stockEdit?.stock_id) : createStock || addStock ? handlerCreateStock(product.product_id) : null;
+                                        }}>{stockEdit ? "Editar Stock" : createStock ? "Crear Stock" : addStock ? "Agregar Stock" : ""}</button>
                                     <button className="text-sm font-semibold tracking-wide px-2 py-1" onClick={() => {setStockEdit(null), setCreateStock(null), setAddStock(null)}}>Cancelar</button>
                                 </div>
                             </div>}
