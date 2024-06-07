@@ -103,7 +103,7 @@ function Sales() {
                                 </section>
                                 <section className="w-full h-auto overflow-y-auto scroll flex justify-start items-center flex-col gap-y-1">
                                     <h3 className="w-full text-start text-xl font-semibold text-neutral-700">PRODUCTOS</h3>
-                                    {purchases.Products.map(product => (
+                                    {purchases?.Products.map(product => (
                                         <div key={product.product_id} className="w-full bg-redd-500 flex justify-start items-center gap-2 border border-neutral-500">
                                             <picture className="max-w-[40px] max-h-[40px] md:w-[50px] md:h-[50px] overflow-hidden flex justify-center items-center">
                                                 <img src={product.image} alt="" className="w-full h-full object-cover"/>

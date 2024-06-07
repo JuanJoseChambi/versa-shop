@@ -106,7 +106,7 @@ function Checkout() {
   return (
     <main className="min-h-screen bg-greend-500">
         <Nav style="sticky"/>
-        {cartProducts.length > 0
+        {cartProducts?.length > 0
           ? 
             <section className="w-area  mx-auto h-auto flex justify-evenly items-start flex-col gap-y-8 lg:gap-0 lg:flex-row pt-10 pb-28 bg-blued-500"> 
               <section className="w-full lg:w-[65%] h-auto lg:min-h-[500px] px-3 bg-re-500">
