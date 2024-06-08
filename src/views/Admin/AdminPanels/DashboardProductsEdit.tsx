@@ -261,6 +261,7 @@ function DashboardProductsEdit() {
             
             <DashboardProductPulse active={!dataProduct}/>
             <DashboardProductPulse active={!dataProduct}/>
+            {dataProduct?.length === 0 && <h3 className="font-semibold text-2xl tracking-widest text-neutral-800">NO HAY STOCKS</h3>}
         </section>
   )
 }
