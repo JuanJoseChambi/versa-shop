@@ -99,7 +99,7 @@ function DashboardProductsEdit() {
                         <picture className={`hidden md:flex w-[175px] h-[50px] overflow-hidden justify-center items-center mr-3 ${!product.image && "animate-pulse"} bg-redd-500`}>
                             <img src={product.image} alt="" className="w-full h-full object-cover"/>
                         </picture>
-                        <h3 className="w-full max-md:hidden pl-1">{updateProduct.id === product.product_id && updateProduct.name ? updateProduct.name :product.name}</h3>
+                        <h3 className="w-full max-md:hidden pl-1 text-clipping-2">{updateProduct.id === product.product_id && updateProduct.name ? updateProduct.name :product.name}</h3>
                         <h4 className="w-1/3 max-md:hidden text-center">{product.unit}</h4>
                         <h3 className="w-1/3 max-md:hidden text-center">$ {updateProduct.id === product.product_id && updateProduct.price ? updateProduct.price: product.price}</h3>
                         <h4 className="w-1/3 max-md:hidden text-center">{updateProduct.id === product.product_id && updateProduct.category ? updateProduct.category: product.Category.category}</h4>

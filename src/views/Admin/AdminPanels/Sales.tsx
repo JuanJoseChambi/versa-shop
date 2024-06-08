@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useDecode } from "../../../hooks/useDecode";
 import { SalesData } from "../../../interfaces/interfaces";
 import LabelText from "../../../components/LabelText/LabelText";
+import { SalesPulse } from "../../../components/ComponentsAnimatePulse/ComponentsAnimatePulse";
 // import { useSelector } from "react-redux";
 // import { RootState } from "../../../redux/store";
 
@@ -27,6 +28,7 @@ function Sales() {
         });
         const data = await response.json();
         setData(data)
+        // setData(data)
     }
 
     useEffect(() => {
@@ -125,6 +127,7 @@ function Sales() {
                     }
                 </div>
             )})}
+            <SalesPulse active={!data}/>
             {data?.length === 0 && (
                 <div className="w-area h-[90vh] md:h-[80vh] relative py-10 flex justify-center items-center flex-col bg-redd-500">
                     <h3 className=" font-bold text-2xl tracking-widest text-neutral-800">NO HAY VENTAS</h3>

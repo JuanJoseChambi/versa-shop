@@ -1,9 +1,9 @@
 
-interface PropDashboardProductPulse {
+interface Pulse {
     active:boolean
 }
 
-export function DashboardProductPulse ({active}:PropDashboardProductPulse) {
+export function DashboardProductPulse ({active}:Pulse) {
 
     if(!active) return
 
@@ -62,5 +62,38 @@ export function DashboardProductPulse ({active}:PropDashboardProductPulse) {
                 <div className="w-3 h-3 bg-neutral-400 rounded-md animate-pulse"></div>
             </div>
         </div>
+    )
+}
+
+
+export function SalesPulse ({active}:Pulse) {
+
+    if(!active) return;
+
+
+    return (
+        <>
+            <div className="hidden sm:flex sm:w-full h-[54px] border border-neutral-400 justify-between items-center px-3 gap-x-3 cursor-pointer -z-10" >
+                <div className="w-[100px] h-5 rounded-md bg-neutral-400 animate-pulse"></div>
+                <div className="w-[100px] h-5 rounded-md bg-neutral-400 animate-pulse"></div>
+                <div className="w-[115px] h-5 rounded-md bg-neutral-400 animate-pulse"></div>
+                <div className="w-[20px] h-5 rounded-md bg-neutral-400 animate-pulse"></div>
+                <div className="w-[35px] h-5 rounded-md bg-neutral-400 animate-pulse"></div>
+            </div>
+
+            <div className="flex sm:hidden w-full h-[90px] border border-neutral-400 justify-between items-center bg-blued-500 px-3 gap-x-3 cursor-pointer -z-10" >
+                <div className="bg-greend-500 flex flex-col gap-3">
+                    <div className="w-[110px] h-5 rounded-md bg-neutral-400 animate-pulse"></div>
+                    <div className="w-[110px] h-5 rounded-md bg-neutral-400 animate-pulse"></div>
+                </div>
+                <div className="bg-greend-300 flex flex-col gap-3">
+                    <div className="w-[50px] h-5 rounded-md bg-neutral-400 animate-pulse"></div>
+                    <div className="w-[50px] h-5 rounded-md bg-neutral-400 animate-pulse"></div>
+                </div>
+                <div className="bg-greend-800 relative flex justify-center items-center flex-col">
+                    <div className="w-[90px] h-5 rounded-md bg-neutral-400 animate-pulse"></div>
+                </div>
+            </div>
+        </>
     )
 }
