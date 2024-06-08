@@ -72,6 +72,8 @@ function DashboardProductsEdit() {
 
     useEffect(() => {
         setDataProduct(data)   
+        console.log(data);
+        
     },[data])
     
     return (
@@ -261,7 +263,15 @@ function DashboardProductsEdit() {
             
             <DashboardProductPulse active={!dataProduct}/>
             <DashboardProductPulse active={!dataProduct}/>
-            {dataProduct?.length === 0 && <h3 className="font-semibold text-2xl tracking-widest text-neutral-800">NO HAY STOCKS</h3>}
+            {dataProduct?.length === 0 && (
+                <div className="w-area h-[90vh] md:h-[80vh] relative py-10 flex justify-center items-center flex-col bg-redd-500">
+                    <h3 className=" font-bold text-2xl tracking-widest text-neutral-800">NO HAY STOCKS</h3>
+                    <p className="text-sm text-neutral-600 font-semibold">Añada productos al Stock</p>
+                    <div className="w-[30%] h-[1px] absolute bottom-3 flex justify-center items-center bg-neutral-500">
+                        <h3 className="text-xl px-1 font-semibold font-noto bg-white">Versa</h3>
+                    </div>
+                </div>
+            )}
         </section>
   )
 }
