@@ -23,6 +23,7 @@ interface StockGroupColors {
     colors: {
         color: string;
         hxacolor: string;
+        unit:number
     }[];
   }
 
@@ -34,7 +35,8 @@ function DetailProduct() {
 
     const [quantity, setQuantity] = useState(1)
 
-    const [size, setSize] = useState<StockGroupColors>()
+    const [colorUnit, setColorUnit] = useState<number | null>(0)
+    const [size, setSize] = useState<StockGroupColors | null>()
     const [color, setColor] = useState<string>("")
 
     const cart = useSelector((state: RootState) => state.cart.cart)
@@ -59,11 +61,12 @@ function DetailProduct() {
         const sizeColorsExist = avalibleSizeColors.find(sizes => sizes.size === stock.Size.size);
 
         if (!sizeColorsExist) {
-            avalibleSizeColors.push({unit:stock.unit, size:stock.Size.size, colors:[{color:stock.Color.color, hxacolor:stock.Color.hxacolor}]})
+            avalibleSizeColors.push({unit:stock.unit, size:stock.Size.size, colors:[{color:stock.Color.color, hxacolor:stock.Color.hxacolor, unit: stock.unit}]})
         }else {
             sizeColorsExist.unit += stock.unit,
-            sizeColorsExist.colors.push({color:stock.Color.color, hxacolor:stock.Color.hxacolor})
+            sizeColorsExist.colors.push({color:stock.Color.color, hxacolor:stock.Color.hxacolor, unit: stock.unit})
         }
+
     });
 
     const infoProduct = {
@@ -80,7 +83,8 @@ function DetailProduct() {
     const productInCart = cart.filter(product => product.id === data?.product_id)
 
     const quantityAvaliable = size && productInCart[0]?.cantidad >= size.unit ;
-
+    // console.log(size);
+    
 return (
     <main className="w-full min-h-screen bg-redd-500 flex justify-center items-start flex-col gap-12">
         <Nav style="fixed left-0 top-0"/>
@@ -88,7 +92,6 @@ return (
         <section className="min-h-screen w-full flex justify-start items-center flex-col pt-[65px]
         lg:justify-center lg:items-center
         bg-blued-500">
-
 
             <section className="w-[95%] min-h-[80vh] mx-auto 
                 flex justify-start items-center 
@@ -106,18 +109,17 @@ return (
                         <p>|</p>
                         <p>{data?.Category.category}</p>
                     </div>
-                    <p className="text-2xl pt-3">$ {data?.price}</p>
+                    <p className="text-2xl pt-3 text-neutral-800"><span className="text-sm">$</span> {data?.price}</p>
 
-                    {/* <p className="tracking-widest text-pretty my-5">{data?.description}</p> */}
                     <div className="flex justify-center items-start flex-col gap-x-3 py-3">
                         <h3 className="text-sm text-neutral-700 tracking-widest">Talles:</h3>
                         <div className="w-full flex justify-center items-center gap-x-3">
-                        {avalibleSizeColors.map(stock => (
+                        {avalibleSizeColors.map((stock) => (
                             <button 
                                 key={stock.size} 
                                 className={`border border-neutral-400 
                                 ${stock.size === size?.size? "bg-neutral-800 text-white" : null} py-1 px-3 rounded-sm transition-colors duration-500`} 
-                                onClick={() => (setColor(""), setSize(stock))}>{stock.size}</button>
+                                onClick={() => (setColor(""), setSize(stock), setColorUnit(null))}>{stock.size}</button>
                         ))}
                         </div>
                     </div>
@@ -125,23 +127,23 @@ return (
                     <div className="flex justify-center items-center gap-x-3">
 
                         {size 
-                        ?   size.colors.map((colors) => (
-                            <Tooltip text={colors.color} key={size.size}>
+                        ?   size?.colors?.map((colors, index) => (
+                            <Tooltip text={colors.color} key={index}>
                                 <button style={{backgroundColor:colors.hxacolor}} 
                                         className={`w-[30px] h-[30px] rounded-full ${colors.color === color? "outline outline-neutral-800" : null}`}
-                                        onClick={() => setColor(colors.color)}></button> 
+                                        onClick={() => {setColor(colors.color), setColorUnit(colors.unit)}}></button> 
                             </Tooltip>
                         )) 
 
-                        : colorsAvalible.map(colors => (
-                            <Tooltip text={colors.color} key={colors.hxacolor}>
+                        : colorsAvalible.map((colors, index) => (
+                            <Tooltip text={colors.color} key={index}>
                                 <div  style={{backgroundColor:colors.hxacolor}} 
                                 className="w-[30px] h-[30px] rounded-full"></div>
                             </Tooltip>
                         )) }
 
                     </div>
-                    <div className={`my-3 flex justify-center items-center ${size?.unit === 0 ? "text-rose-500" :"text-green-500"} text-sm`}>{size ?<p> Unidades disponibles: {size?.unit}</p> : <p>ㅤ</p>}</div>
+                    <div className={`my-3 flex justify-center items-center ${size?.unit === 0 ? "text-rose-500" :"text-green-500"} text-sm`}>{size && colorUnit ?<p> Unidades disponibles: {colorUnit}</p> : <p>ㅤ</p>}</div>
                     
                     <section className="w-full flex justify-start items-center gap-5 bg-redd-500">
                         <div className="w-[100px] h-[40px] text-lg text-neutral-700 divide-x divide-neutral-400 flex justify-between items-center bg-neutral-100 border border-neutral-400">
