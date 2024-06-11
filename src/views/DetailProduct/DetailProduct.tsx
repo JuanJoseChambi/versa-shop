@@ -17,7 +17,7 @@ import Footer from "../../components/Footer/Footer"
 const {VITE_URL_BASE} = import.meta.env
 
 
-interface StockGroupColors {
+export interface StockGroupColors {
     unit: number;
     size: string;
     colors: {
@@ -83,7 +83,7 @@ function DetailProduct() {
     const productInCart = cart.filter(product => product.id === data?.product_id)
 
     const quantityAvaliable = size && productInCart[0]?.cantidad >= size.unit ;
-    // console.log(size);
+    console.log(infoProduct);
     
 return (
     <main className="w-full min-h-screen bg-redd-500 flex justify-center items-start flex-col gap-12">

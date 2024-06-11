@@ -1,47 +1,88 @@
 import { useState } from "react";
-import { DataProduct } from "../../interfaces/interfaces"
+import { DataProduct, Stock } from "../../interfaces/interfaces"
 import { Link } from "react-router-dom"
+import { StockGroupColors } from "../../views/DetailProduct/DetailProduct";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../redux/store";
+import { addToCart } from "../../redux/slice/cartSlice";
 
 interface CardProductProp {
     product: DataProduct
 }
 
 function CardProduct({product}:CardProductProp) {
-    const [size, setSize] = useState<string | null>(null)
-    const [hoverImage, setHoverImage] = useState(false)
-
-    const color = product.Stocks.filter(sizeStock => sizeStock.Size.size === size)
-    // console.log(color);
-    
-    const sizeUnique = new Set(product.Stocks.map(stock => stock.Size.size));
-    const sizes = [...sizeUnique]
-    // console.log(sizes);
+    const [color, setColor] = useState<string>("")
+    const [size, setSize] = useState<StockGroupColors | null>(null)
+    const [addCart, setAddCart] = useState(false)
+    const dispatch:AppDispatch = useDispatch()
+    // const colors = product.Stocks.filter(sizeStock => sizeStock.Size.size === size)
+    const cart = useSelector((state: RootState) => state.cart.cart)
     
     const colorsAvailable = new Set(product.Stocks.map(stock => stock.Color.color));
     const hxacolorAvailable = new Set(product.Stocks.map(stock => stock.Color.hxacolor));
     const uniqueColorsQuantity = [...colorsAvailable]
     const uniqueHxacolorQuantity = [...hxacolorAvailable]
     
+
+    const avalibleSizeColors: StockGroupColors[] = [];
+
+    product.Stocks.forEach((stock:Stock) => {
+        
+        const sizeColorsExist = avalibleSizeColors.find(sizes => sizes.size === stock.Size.size);
+
+        if (!sizeColorsExist) {
+            avalibleSizeColors.push({unit:stock.unit, size:stock.Size.size, colors:[{color:stock.Color.color, hxacolor:stock.Color.hxacolor, unit: stock.unit}]})
+        }else {
+            sizeColorsExist.unit += stock.unit,
+            sizeColorsExist.colors.push({color:stock.Color.color, hxacolor:stock.Color.hxacolor, unit: stock.unit})
+        }
+
+    });
+
+    const productInCart = cart.filter(productC => productC.id === product?.product_id)
+
+    const quantityAvaliable = size && productInCart[0]?.cantidad >= size.unit ;
+
+    const infoProduct = {
+        id:product.product_id,
+        name:product.name, 
+        image:product.image, 
+        cantidad:1, 
+        size:size?.size || "", 
+        unit:size?.unit || 0,
+        price:product.price, 
+        color:color
+    }
+    // console.log(size);
+    
   return (
     <article key={product.product_id} className="max-w-[276px] min-h-[320px] relative flex justify-start items-start flex-col bg-redd-500 p-3 outline-none hover:outline-1 hover:outline hover:outline-neutral-300 transition-[outline] duration-500 ">
                 {/* <Link to={`/detail/${product.product_id}`}> */}
-                    <picture className="w-[250px] min-h-[220px] max-h-[220px] relative flex justify-center items-center overflow-hidden bg-blued-500" onMouseEnter={() => setHoverImage(true)}
-                        onMouseDown={() => setHoverImage(true)} onMouseLeave={() => {setHoverImage(false), setSize(null)}}>
+                    <picture className="w-[250px] min-h-[220px] max-h-[220px] relative flex justify-center items-center overflow-hidden bg-blued-500">
                         <img src={product.image} alt={product.name} className="w-[90%] h-full object-cover"/>
+                        {!addCart && <button className="absolute top-1 right-2 scale-125 cursor-pointer" onClick={() => setAddCart(true)}><i className="bx bx-cart-add"></i></button>}
                         
-                        <div className={`${hoverImage ? "w-full h-full bg-[#0000007c] absolute top-0 left-0 flex justify-center items-center rounded-sm": "hidden"}`}>
-                            <div className="w-full flex justify-center items-center gap-3">
-                                {color.map(col => (
-                                    <div className={`w-[25px] h-[25px] rounded-full cursor-pointer`} style={{backgroundColor: col.Color.hxacolor}}></div>
+                        <div className={`${addCart ? "w-full h-full bg-[#ffffff] flex justify-start items-center flex-col py-10 absolute top-0 left-0 rounded-sm": "hidden"}`}>
+                            {addCart && <button className="absolute top-1 right-2 scale-125 cursor-pointer" onClick={() => setAddCart(false)}><i className="bx bx-x"></i></button>}
+                            <h3 className="absolute top-1 text-sm text-neutral-800 font-semibold tracking-wider">Añadir a carrito</h3>
+                            <div className="bg-redd-500 text-white flex justify-center items-center gap-x-3">
+                                
+                                {avalibleSizeColors.map(stock => (
+                                    <p className={`${stock.size === size?.size && "bg-black text-white"} text-neutral-800 font-bold px-2 cursor-pointer border border-neutral-400 rounded-md`} onClick={() => {size && size.size === stock.size ? setSize(null) : (setColor(""), setSize(stock))}}>{stock.size}</p>
+                                ))}
+                                
+                            </div>
+                            <div className="w-full flex justify-center items-center gap-3 my-auto">
+                                {size && size?.colors.map(col => (
+                                    <div className={`${color === col.color ? "outline outline-neutral-600" : "outline outline-neutral-300"} w-[25px] h-[25px] rounded-full cursor-pointer`} onClick={() => setColor(col.color)} style={{backgroundColor: col.hxacolor}}></div>
+                                ))}
+                                {!size && uniqueHxacolorQuantity?.map(hxacolor => (
+                                    <div className="w-[25px] h-[25px] rounded-full cursor-pointer outline outline-neutral-300" style={{backgroundColor:hxacolor}}></div>
                                 ))}
                             </div>
-                            <div className="bg-redd-500 text-white absolute bottom-3 flex justify-center items-center gap-x-3">
-                                {sizes.map(sizeUnique => {
-                                    
-                                return(
-                                    <p className={`${size === sizeUnique ? "bg-black text-white " : "bg-white text-black"} transition-all duration-500 px-2 py-1 cursor-pointer`} onClick={() => setSize(sizeUnique)}>{sizeUnique}</p>
-                                )})}
-                            </div>
+                            <button 
+                                className={`${!size || !color || quantityAvaliable ? "bg-neutral-300 text-neutral-600 pointer-events-none select-none" : "bg-neutral-800 text-white"}  font-bold px-2 py-2 rounded-md flex justify-center items-center`} 
+                                onClick={() => {dispatch(addToCart(infoProduct))}}><i className="bx bx-cart-add scale-110"/></button>
                         </div>
                     </picture>
                 {/* </Link> */}
