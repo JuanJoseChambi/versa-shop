@@ -41,6 +41,15 @@ function Data ({filter, title, data, state, change, onClickAdd, onClickDelete}: 
                         onChange={change}/>
                     <i hidden={!state} className="bx bx-check scale-150 cursor-pointer" onClick={onClickAdd}/>
                 </div>}
+                {!filter && 
+                <div className="w-full flex justify-center items-center flex-col gap-y-2">
+                    <div className="w-[20px] h-[20px] animate-spin rounded-full border-2 border-b border-l border-neutral-600"></div>
+                    <h3>Cargando Datos</h3>
+                </div>}
+                {filter?.length === 0 && 
+                <div className="w-full flex justify-center items-center">
+                    <h3>No se encontraron Datos de este Producto</h3>
+                </div>}
                 {filter?.map((value, index) => (
                     <React.Fragment key={index}>
                         <li className="flex justify-center items-center gap-x-2">
