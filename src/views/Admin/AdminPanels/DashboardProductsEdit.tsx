@@ -60,7 +60,7 @@ function DashboardProductsEdit() {
  
     async function handlerUpdate (id:string) {
         await fetchPATCH(`${VITE_URL_BASE}/product/update/${id}`, updateProduct)
-        {updateProduct.discount && await fetchPATCH(`${VITE_URL_BASE}/product/${id}/discount`, {discount: updateProduct.discount})}
+        {updateProduct.discount >= 0 && await fetchPATCH(`${VITE_URL_BASE}/product/${id}/discount`, {discount: updateProduct.discount})}
         setUpdateProduct({...updateProduct, id: id})
     }
     async function hanlderUpdateState (id:string, available:boolean) {
@@ -113,7 +113,7 @@ function DashboardProductsEdit() {
                         <h4 className="w-1/3 max-md:hidden text-center text-neutral-700 font-semibold">{product.unit}</h4>
                         <div className="w-1/3 max-md:hidden text-center text-neutral-700 font-semibold flex flex-col">
                             <h4 className={`${product.discount && "line-through text-red-400 text-sm order-2"}`}>$ {updateProduct.id === product.product_id && updateProduct.price ? updateProduct.price: product.price}</h4>
-                            {product.discount && <h4 className="order-1">$ {hanlderDiscount(product.price, product.discount)}</h4>  }
+                            {product.discount !== 0 && <h4 className="order-1">$ {hanlderDiscount(product.price, product.discount)}</h4>  }
                         </div>
                         <h4 className="w-1/3 max-md:hidden text-center text-neutral-700 font-semibold">{updateProduct.id === product.product_id && updateProduct.discount ? updateProduct.discount: product.discount}%</h4>
                         <h4 className="w-1/3 max-md:hidden text-center text-neutral-700 font-semibold">{updateProduct.id === product.product_id && updateProduct.category ? updateProduct.category: product.Category.category}</h4>
@@ -155,7 +155,7 @@ function DashboardProductsEdit() {
                             </div>
                             <div className="text-start text-neutral-600 font-semibold tracking-wider flex justify-start items-center gap-x-2">
                                 <h4 className={`${product.discount && "line-through text-red-400 text-xs order-2"}`}>$ {updateProduct.id === product.product_id && updateProduct.price ? updateProduct.price: product.price}</h4>
-                                {product.discount && <h4 className="order-1">$ {hanlderDiscount(product.price, product.discount)}</h4>  }
+                                {product.discount === 0 && <h4 className="order-1">$ {hanlderDiscount(product.price, product.discount)}</h4>  }
                             </div>
                         </section>
 
