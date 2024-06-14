@@ -37,7 +37,9 @@ function DashboardProductsEdit() {
         description:"", 
         price:0, 
         category:"", 
-        type:""
+        // available:,
+        type:"",
+        discount:0
     })
     const [addStock, setAddStock] = useState<string | null>(null);
     const [createStock, setCreateStock] = useState<string | null>(null);
@@ -58,6 +60,7 @@ function DashboardProductsEdit() {
  
     async function handlerUpdate (id:string) {
         await fetchPATCH(`${VITE_URL_BASE}/product/update/${id}`, updateProduct)
+        {updateProduct.discount && await fetchPATCH(`${VITE_URL_BASE}/product/${id}/discount`, {discount: updateProduct.discount})}
         setUpdateProduct({...updateProduct, id: id})
     }
     async function hanlderUpdateState (id:string, available:boolean) {
@@ -75,6 +78,12 @@ function DashboardProductsEdit() {
         console.log(data);
         
     },[data])
+
+    function hanlderDiscount (price:number, discount:number) {
+        const montoDescuento = price * (discount / price);
+        const precioConDescuento = price - montoDescuento
+        return precioConDescuento
+    }
     
     return (
     <section className="w-[95%] flex justify-center items-center flex-col bg-blued-500">
@@ -85,6 +94,7 @@ function DashboardProductsEdit() {
                     {text:"Nombre", width:"w-full"},
                     {text:"Unidades", width:"w-1/3"},
                     {text:"Precio", width:"w-1/3"},
+                    {text:"Descuento", width:"w-1/3"},
                     {text:"Categoria", width:"w-1/3"},
                     {text:"Tipo", width:"w-1/3"},
                     {text:"Stocks", width:"w-1/2"},
@@ -94,16 +104,20 @@ function DashboardProductsEdit() {
             </div>
             {dataProduct?.map((product, index) => (
                 <React.Fragment key={index}>
-                    <div className={`w-full h-[70px] bg-redd-500  ${edit === product.product_id && "text-neutral-500 border-none"} flex justify-center items-center md:divide-x md:divide-neutral-400 bg-redd-500 border-b border-neutral-300 `}>
+                    <div className={`w-full h-[70px] bg-redd-500  ${edit === product.product_id && "text-neutral-500 border-none"} flex justify-center items-center bg-redd-500 border-b border-neutral-300 `}>
 
                         <picture className={`hidden md:flex w-[175px] h-[50px] overflow-hidden justify-center items-center mr-3 ${!product.image && "animate-pulse"} bg-redd-500`}>
                             <img src={product.image} alt="" className="w-full h-full object-cover"/>
                         </picture>
-                        <h3 className="w-full max-md:hidden pl-1 text-clipping-2">{updateProduct.id === product.product_id && updateProduct.name ? updateProduct.name :product.name}</h3>
-                        <h4 className="w-1/3 max-md:hidden text-center">{product.unit}</h4>
-                        <h3 className="w-1/3 max-md:hidden text-center">$ {updateProduct.id === product.product_id && updateProduct.price ? updateProduct.price: product.price}</h3>
-                        <h4 className="w-1/3 max-md:hidden text-center">{updateProduct.id === product.product_id && updateProduct.category ? updateProduct.category: product.Category.category}</h4>
-                        <h3 className="w-1/3 max-md:hidden text-center">{updateProduct.id === product.product_id && updateProduct.type ? updateProduct.type: product.Type.type}</h3>
+                        <h4 className="w-full max-md:hidden pl-1 text-clipping-2 text-neutral-700 text-sm font-semibold tracking-wider">{updateProduct.id === product.product_id && updateProduct.name ? updateProduct.name :product.name}</h4>
+                        <h4 className="w-1/3 max-md:hidden text-center text-neutral-700 font-semibold">{product.unit}</h4>
+                        <div className="w-1/3 max-md:hidden text-center text-neutral-700 font-semibold flex flex-col">
+                            <h4 className={`${product.discount && "line-through text-red-400 text-sm order-2"}`}>$ {updateProduct.id === product.product_id && updateProduct.price ? updateProduct.price: product.price}</h4>
+                            {product.discount && <h4 className="order-1">$ {hanlderDiscount(product.price, product.discount)}</h4>  }
+                        </div>
+                        <h4 className="w-1/3 max-md:hidden text-center text-neutral-700 font-semibold">{updateProduct.id === product.product_id && updateProduct.discount ? updateProduct.discount: product.discount}%</h4>
+                        <h4 className="w-1/3 max-md:hidden text-center text-neutral-700 font-semibold">{updateProduct.id === product.product_id && updateProduct.category ? updateProduct.category: product.Category.category}</h4>
+                        <h4 className="w-1/3 max-md:hidden text-center text-neutral-700 font-semibold">{updateProduct.id === product.product_id && updateProduct.type ? updateProduct.type: product.Type.type}</h4>
                         <div className="w-1/2 h-full text-sm hidden md:flex justify-start items-center flex-col overflow-auto scroll gap-x-3">
                             {product.Stocks.map((stock, index) => (
                                 // <h3 key={index}>{stock.Size.size} : {stock.Color.color}: {stock.unit}</h3>
@@ -112,7 +126,7 @@ function DashboardProductsEdit() {
                                             <div className="w-[20px] min-h-[20px] max-h-[20px] flex justify-center items-center rounded-full mr-1" style={{backgroundColor:stock.Color.hxacolor}}></div>
                                             <div className="flex justify-start items-start flex-col">
                                                 <div className="bg-redd-500 relative flex justify-center items-center">
-                                                    <p className="text-sm leading-3 font-semibold text-neutral-700">{stock.Color.color}</p>
+                                                    <p className="text-sm text-nowrap leading-3 font-semibold text-neutral-700">{stock.Color.color}</p>
                                                     <p className="text-[11px] leading-3 font-semibold text-neutral-700 ml-2">{stock.Size.size}</p>
                                                 </div>
                                                 <p className="text-[11px] text-neutral-600">{stock.Color.hxacolor}</p>
@@ -136,8 +150,13 @@ function DashboardProductsEdit() {
                                 <h4 className="text-center">{updateProduct.id === product.product_id && updateProduct.category ? updateProduct.category: product.Category.category}</h4>
                                 <h4>|</h4>
                                 <h4 className="text-center">{updateProduct.id === product.product_id && updateProduct.type ? updateProduct.type: product.Type.type}</h4>
+                                <h4>|</h4>
+                                <h4 className="text-center">{updateProduct.id === product.product_id && updateProduct.discount ? updateProduct.discount: product.discount} %</h4>
                             </div>
-                            <h3 className="text-start text-neutral-600 font-semibold tracking-wider">$ {updateProduct.id === product.product_id && updateProduct.price ? updateProduct.price: product.price}</h3>
+                            <div className="text-start text-neutral-600 font-semibold tracking-wider flex justify-start items-center gap-x-2">
+                                <h4 className={`${product.discount && "line-through text-red-400 text-xs order-2"}`}>$ {updateProduct.id === product.product_id && updateProduct.price ? updateProduct.price: product.price}</h4>
+                                {product.discount && <h4 className="order-1">$ {hanlderDiscount(product.price, product.discount)}</h4>  }
+                            </div>
                         </section>
 
                         <section className="min-w-[110px] h-full bg-redd-500 overflow-y-auto flex md:hidden justify-start items-start flex-col">
@@ -249,11 +268,12 @@ function DashboardProductsEdit() {
 
 
                             <div className="w-[200px] h-full mt-3 md:mt-0 flex justify-center items-center flex-col bg-redd-500">
-                                <div className="my-4 flex justify-center items-center bg-blued-500">
+                                <div className="my-4 flex justify-center items-center flex-col gap-y-5 bg-blued-500">
+                                    <Input type="number" defaultValue={product.discount.toString()} styleDimensions="w-[80%]" name="Crear Descuento" onChange={(e) => setUpdateProduct({...updateProduct, discount:Number(e.target.value)})}/>
                                     <Input type="number" defaultValue={product.price.toString()} styleDimensions="w-[80%]" name="Precio" onChange={(e) => setUpdateProduct({...updateProduct, price:Number(e.target.value)})}/>
                                 </div>
                                 <div className="w-full flex justify-center items-center">
-                                    <button className="px-3 py-1 font-semibold tracking-wide bg-neutral-800 text-white" onClick={() => {handlerUpdate(product.product_id), setEdit(null)}}>Editar Producto</button>
+                                    <button className="px-3 py-1 font-semibold tracking-wide bg-neutral-800 text-white" onClick={() => {handlerUpdate(product.product_id); setEdit(null)}}>Editar Producto</button>
                                 </div>
                             </div>
                         </div>

@@ -101,6 +101,7 @@ export interface DataProduct {
     price:           number;
     unit:            number;
     available:       boolean;
+    discount:        number;
     Category:        Category;
     Type:            Type;
     Stocks:          Stock[];
@@ -204,5 +205,6 @@ export interface UpdateProduct {
     description:string, 
     price:number, 
     category:string, 
-    type:string
+    type:string;
+    discount: number;
 }
