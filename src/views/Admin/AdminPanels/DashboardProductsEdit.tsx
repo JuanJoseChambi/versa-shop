@@ -75,8 +75,7 @@ function DashboardProductsEdit() {
 
     useEffect(() => {
         setDataProduct(data)   
-        console.log(data);
-        
+        // console.log(data);
     },[data])
 
     function hanlderDiscount (price:number, discount:number) {
@@ -155,7 +154,7 @@ function DashboardProductsEdit() {
                             </div>
                             <div className="text-start text-neutral-600 font-semibold tracking-wider flex justify-start items-center gap-x-2">
                                 <h4 className={`${product.discount && "line-through text-red-400 text-xs order-2"}`}>$ {updateProduct.id === product.product_id && updateProduct.price ? updateProduct.price: product.price}</h4>
-                                {product.discount === 0 && <h4 className="order-1">$ {hanlderDiscount(product.price, product.discount)}</h4>  }
+                                {product.discount !== 0 && <h4 className="order-1">$ {hanlderDiscount(product.price, product.discount)}</h4>  }
                             </div>
                         </section>
 
