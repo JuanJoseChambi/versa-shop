@@ -90,18 +90,17 @@ function CardProduct({product}:CardProductProp) {
                 <Link to={`/detail/${product.product_id}`} className="w-full min-h-[80px] max-h-[80px] flex flex-col justify-between items-start bg-greend-500 ">
                     <h5 className="font-semibold text-lg text-neutral-800 tracking-widest leading-5 text-clipping">{product.name}</h5>
                     <div className="w-full flex justify-between items-center mt-auto ">
+
                     <div className="flex justify-start items-center gap-x-1">
-                            <span className={`${product.discount && "order-2"} relative text-neutral-800 text-lg`}>
-                                <span className={`${product.discount ? "hidden" : "text-sm"}`}>$ </span>
-                                <span className={`${product.discount && "text-sm text-neutral-400 line-through"}`}>
-                                    <span className={`${product.discount && "text-xs"}`}>$</span>
-                                    {product.price}
-                                </span>
-                                {product.discount !== 0 && <span className={`absolute -top-1 left-6 text-xs px-1 rounded-sm bg-neutral-700 text-white font-light`}>{product.discount}%</span>}
-                            </span>
-                            <p className={`${product.discount ? "order-1" : "hidden"} text-neutral-800 text-xl`}><span className="text-sm">$ </span> {hanlderDiscount(product.price, product.discount)}</p>
-                            <div></div>
+                        {product.discount !== 0 && <h3 className="text-xl flex justify-center items-center gap-x-1"><span className="text-sm">$</span> {hanlderDiscount(product.price, product.discount)}</h3>}
+                        {product.discount !== 0 && <span className="text-sm text-neutral-600 line-through flex justify-center items-center relative">
+                            <span className="text-xs">$</span>
+                            {product.price}
+                            {product.discount !== 0 && <span className={`absolute -top-2 left-6 text-xs px-1 rounded-sm bg-neutral-700 text-white font-light`}>{product.discount}%</span>}
+                        </span>}
+                        {product.discount === 0 && <h3 className="text-xl flex justify-center items-center gap-x-1"><span className="text-sm">$</span> {product.price}</h3>}
                     </div>
+
                         <div className="flex justify-center items-center flex-col gap-y-1 ">
                             <p className="text-sm text-neutral-500">{uniqueColorsQuantity.length} Colores</p>
                             <div className="flex justify-center items-center gap-x-1 ">

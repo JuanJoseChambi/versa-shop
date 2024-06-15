@@ -113,16 +113,13 @@ return (
                         <p>{data?.Category.category}</p>
                     </div>
                     <div className="flex justify-start items-center gap-x-1">
-                            <span className={`${data?.discount && "order-2"} relative text-neutral-800 text-lg`}>
-                                <span className={`${data?.discount ? "hidden" : "text-sm"}`}>$ </span>
-                                <span className={`${data?.discount && "text-sm text-neutral-400 line-through"}`}>
-                                    <span className={`${data?.discount && "text-xs"}`}>$ </span>
-                                    {data?.price}
-                                </span>
-                                {data?.discount !== 0 && <span className={`absolute -top-1 left-7 text-xs px-1 rounded-sm bg-neutral-700 text-white font-light`}>{data?.discount}%</span>}
-                            </span>
-                            <p className={`${data?.discount ? "order-1" : "hidden"} text-neutral-800 text-2xl`}><span className="text-sm">$ </span> {hanlderDiscount(data?.price, data?.discount)}</p>
-                            <div></div>
+                        {data?.discount !== 0 && <h3 className="text-2xl flex justify-center items-center gap-x-1"><span className="text-sm">$</span> {hanlderDiscount(data?.price, data?.discount)}</h3>}
+                        {data?.discount !== 0 && <span className="text-sm text-neutral-600 line-through flex justify-center items-center relative">
+                            <span className="text-xs">$</span>
+                            {data?.price}
+                            {data?.discount !== 0 && <span className={`absolute -top-2 left-6 text-xs px-1 rounded-sm bg-neutral-700 text-white font-light`}>{data?.discount}%</span>}
+                        </span>}
+                        {data?.discount === 0 && <h3 className="text-2xl flex justify-center items-center gap-x-1"><span className="text-sm">$</span> {data?.price}</h3>}
                     </div>
                     {/* <p className="text-2xl pt-3 text-neutral-800"><span className="text-sm">$</span> {data?.price}</p> */}
                     {/* <p>{data?.discount}</p> */}
@@ -197,3 +194,15 @@ return (
 
 export default DetailProduct
 
+
+
+// <span className={`${data?.discount && "order-2"} relative text-neutral-800 text-lg`}>
+//                                 {data?.discount && <span className={`text-sm bg-redd-500`}>$</span>}
+//                                 <span className={`${data?.discount && "text-sm text-neutral-400 line-through"}`}>
+//                                     {/* <span className={`${data?.discount && "text-xs"}`}>$ </span> */}
+//                                     {data?.discount && <span className={`text-sm bg-redd-500`}>$</span>}
+//                                 {data?.price}
+//                                 </span>
+//                                 {data?.discount !== 0 && <span className={`absolute -top-1 left-7 text-xs px-1 rounded-sm bg-neutral-700 text-white font-light`}>{data?.discount}%</span>}
+//                             </span>
+//                             <p className={`${data?.discount ? "order-1" : "hidden"} text-neutral-800 text-2xl`}><span className="text-sm">$ </span> {hanlderDiscount(data?.price, data?.discount)}</p>
