@@ -14,6 +14,7 @@ import Acordeon from "../../components/Acordeon/Acordeon"
 import ImageZoom from "../../components/ImageZoom/ImageZoom"
 import RelatedProducts from "../../components/RelatedProducts/RelatedProducts"
 import Footer from "../../components/Footer/Footer"
+import hanlderDiscount from "../../utils/handlerDiscount"
 const {VITE_URL_BASE} = import.meta.env
 
 
@@ -76,7 +77,7 @@ function DetailProduct() {
         cantidad:quantity, 
         size:size?.size || "", 
         unit:size?.unit || 0,
-        price:data?.price, 
+        price:data?.discount ? hanlderDiscount(data?.price, data?.discount) : data?.price, 
         color:color
     }
 
@@ -84,6 +85,8 @@ function DetailProduct() {
 
     const quantityAvaliable = size && productInCart[0]?.cantidad >= size.unit ;
     console.log(infoProduct);
+    console.log(data?.discount);
+    
     
 return (
     <main className="w-full min-h-screen bg-redd-500 flex justify-center items-start flex-col gap-12">
@@ -109,7 +112,21 @@ return (
                         <p>|</p>
                         <p>{data?.Category.category}</p>
                     </div>
-                    <p className="text-2xl pt-3 text-neutral-800"><span className="text-sm">$</span> {data?.price}</p>
+                    <div className="flex justify-start items-center gap-x-1">
+                            <span className={`${data?.discount && "order-2"} relative text-neutral-800 text-lg`}>
+                                <span className={`${data?.discount ? "hidden" : "text-sm"}`}>$ </span>
+                                <span className={`${data?.discount && "text-sm text-neutral-400 line-through"}`}>
+                                    <span className={`${data?.discount && "text-xs"}`}>$ </span>
+                                    {data?.price}
+                                </span>
+                                {data?.discount !== 0 && <span className={`absolute -top-1 left-7 text-xs px-1 rounded-sm bg-neutral-700 text-white font-light`}>{data?.discount}%</span>}
+                            </span>
+                            <p className={`${data?.discount ? "order-1" : "hidden"} text-neutral-800 text-2xl`}><span className="text-sm">$ </span> {hanlderDiscount(data?.price, data?.discount)}</p>
+                            <div></div>
+                    </div>
+                    {/* <p className="text-2xl pt-3 text-neutral-800"><span className="text-sm">$</span> {data?.price}</p> */}
+                    {/* <p>{data?.discount}</p> */}
+                    {/* {data?.discount && <span>{data?.discount}</span>} */}
 
                     <div className="flex justify-center items-start flex-col gap-x-3 py-3">
                         <h3 className="text-sm text-neutral-700 tracking-widest">Talles:</h3>

@@ -13,7 +13,7 @@ import { ResponseData } from "../../interfaces/interfaces"
 import { useEncode } from "../../hooks/useEncode"
 import { Link } from "react-router-dom"
 import shop from "../../assets/checkout/shop.svg"
-import { deletePreferenceProfile } from "../../redux/slice/preferenceProfileSlice"
+// import { deletePreferenceProfile } from "../../redux/slice/preferenceProfileSlice"
 import ArrowBefore from "../../components/ArrowBefore/ArrowBefore"
 import CheckoutPayment from "../../components/CheckoutPayment/CheckoutPayment"
 import CheckoutDelivery from "../../components/CheckoutDelivery/CheckoutDelivery"
@@ -80,7 +80,7 @@ function Checkout() {
     // dispatch(deletePreferenceProfile())
     if (data.error) return error(data.message);
     if (!data.error) {
-      dispatch(deletePreferenceProfile())
+      // dispatch(deletePreferenceProfile())
       dispatch(deleteAllCart())
       return success(data.message)
     }

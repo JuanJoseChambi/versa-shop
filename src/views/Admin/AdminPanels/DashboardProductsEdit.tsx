@@ -13,6 +13,7 @@ import { fetchPATCH } from "../../../utils/fetchPATCH"
 import { fetchPOST } from "../../../utils/fetchPOST"
 import { DashboardProductPulse } from "../../../components/ComponentsAnimatePulse/ComponentsAnimatePulse"
 import { Filters as FiltersInterface } from "../../../interfaces/components"
+import hanlderDiscount from "../../../utils/handlerDiscount"
 const {VITE_URL_BASE} = import.meta.env
 
 
@@ -77,12 +78,6 @@ function DashboardProductsEdit() {
         setDataProduct(data)   
         // console.log(data);
     },[data])
-
-    function hanlderDiscount (price:number, discount:number) {
-        const montoDescuento = price * (discount / price);
-        const precioConDescuento = price - montoDescuento
-        return precioConDescuento
-    }
     
     return (
     <section className="w-[95%] flex justify-center items-center flex-col bg-blued-500">

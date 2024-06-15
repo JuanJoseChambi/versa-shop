@@ -5,6 +5,7 @@ import { StockGroupColors } from "../../views/DetailProduct/DetailProduct";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store";
 import { addToCart } from "../../redux/slice/cartSlice";
+import hanlderDiscount from "../../utils/handlerDiscount";
 
 interface CardProductProp {
     product: DataProduct
@@ -50,7 +51,7 @@ function CardProduct({product}:CardProductProp) {
         cantidad:1, 
         size:size?.size || "", 
         unit:size?.unit || 0,
-        price:product.price, 
+        price:product.discount ? hanlderDiscount(product.price, product.discount) : product.price,
         color:color
     }
     // console.log(size);
@@ -68,7 +69,7 @@ function CardProduct({product}:CardProductProp) {
                             <div className="bg-redd-500 text-white flex justify-center items-center gap-x-3">
                                 
                                 {avalibleSizeColors.map(stock => (
-                                    <p className={`${stock.size === size?.size && "bg-black text-white"} text-neutral-800 font-bold px-2 cursor-pointer border border-neutral-400 rounded-md`} onClick={() => {size && size.size === stock.size ? setSize(null) : (setColor(""), setSize(stock))}}>{stock.size}</p>
+                                    <p className={`${stock.size === size?.size && "bg-black text-white"} text-neutral-800 px-2 cursor-pointer border border-neutral-400 rounded-md`} onClick={() => {size && size.size === stock.size ? setSize(null) : (setColor(""), setSize(stock))}}>{stock.size}</p>
                                 ))}
                                 
                             </div>
@@ -81,7 +82,7 @@ function CardProduct({product}:CardProductProp) {
                                 ))}
                             </div>
                             <button 
-                                className={`${!size || !color || quantityAvaliable ? "bg-neutral-300 text-neutral-600 pointer-events-none select-none" : "bg-neutral-800 text-white"}  font-bold px-2 py-2 rounded-md flex justify-center items-center`} 
+                                className={`${!size || !color || quantityAvaliable ? "bg-neutral-300 text-neutral-600 pointer-events-none select-none" : "bg-neutral-800 text-white"}  font-semibold px-5 py-2 rounded-md flex justify-center items-center gap-x-1`} 
                                 onClick={() => {dispatch(addToCart(infoProduct))}}><i className="bx bx-cart-add scale-110"/></button>
                         </div>
                     </picture>
@@ -89,7 +90,18 @@ function CardProduct({product}:CardProductProp) {
                 <Link to={`/detail/${product.product_id}`} className="w-full min-h-[80px] max-h-[80px] flex flex-col justify-between items-start bg-greend-500 ">
                     <h5 className="font-semibold text-lg text-neutral-800 tracking-widest leading-5 text-clipping">{product.name}</h5>
                     <div className="w-full flex justify-between items-center mt-auto ">
-                        <p className="text-neutral-800 text-lg">$ {product.price}</p>
+                    <div className="flex justify-start items-center gap-x-1">
+                            <span className={`${product.discount && "order-2"} relative text-neutral-800 text-lg`}>
+                                <span className={`${product.discount ? "hidden" : "text-sm"}`}>$ </span>
+                                <span className={`${product.discount && "text-sm text-neutral-400 line-through"}`}>
+                                    <span className={`${product.discount && "text-xs"}`}>$</span>
+                                    {product.price}
+                                </span>
+                                {product.discount !== 0 && <span className={`absolute -top-1 left-6 text-xs px-1 rounded-sm bg-neutral-700 text-white font-light`}>{product.discount}%</span>}
+                            </span>
+                            <p className={`${product.discount ? "order-1" : "hidden"} text-neutral-800 text-xl`}><span className="text-sm">$ </span> {hanlderDiscount(product.price, product.discount)}</p>
+                            <div></div>
+                    </div>
                         <div className="flex justify-center items-center flex-col gap-y-1 ">
                             <p className="text-sm text-neutral-500">{uniqueColorsQuantity.length} Colores</p>
                             <div className="flex justify-center items-center gap-x-1 ">
