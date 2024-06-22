@@ -128,20 +128,18 @@ function MainShop() {
         productsToDisplay = data;
     }
 
-    console.log(bestSeller);
-
   return (
     <main className=" mx-auto flex justify-between items-start flex-col bg-redd-500">
         <section className="w-full h-auto my-2 flex justify-center items-center flex-col py-10">
             <h2 className="tracking-widest font-noto text-2xl">PRODUCTOS DESTACADOS</h2>
-            <section className="flex area justify-evenly items-center py-10">
+            <section className="flex area justify-evenly items-center py-10 scroll overflow-x-auto sm:overflow-x-hidden bg-greend-500 ">
             
                 {bestSeller?.map(sale => {
                     const product = sale.Products[0];
                     return (
-                        <div key={product.product_id} className="max-w-[350px] max-h-[330px] flex justify-start items-center flex-col bg-redd-500 ">
+                        <div key={`${product.product_id} ${product.name} ${product.product_id}`} className="min-w-[300px] min-h-[350px] sm:min-w-[100px] sm:min-h-[100px] sm:max-w-[350px] sm:max-h-[330px] ml-6 sm:mx-0 flex justify-start items-center flex-col bg-redd-500 ">
                             <Link to={`/detail/${product.product_id}`}>
-                                <picture key={product.product_id} className="flex flex-col justify-center items-center max-w-[350px] max-h-[300px] overflow-hidden bg-blued-500">
+                                <picture className="flex flex-col justify-center items-center max-w-[350px] max-h-[300px] overflow-hidden bg-blued-500">
                                     <img src={product.image} alt={product.image} className="w-full object-cover" />
                                 </picture>
                             </Link>
@@ -211,7 +209,7 @@ function MainShop() {
         <section className="w-[95%] max-w-[1850px] mx-auto md:gap-10 flex flex-wrap justify-center items-center pt-5 pb-16 bg-blued-500">
 
             {productsToDisplay?.map(product => (
-                <React.Fragment key={product.product_id}>
+                <React.Fragment key={`${product.name} ${product.product_id}`}>
                     {product.unit > 0 && product.available && <CardProduct product={product}/>}
                 </React.Fragment>
             ))}
