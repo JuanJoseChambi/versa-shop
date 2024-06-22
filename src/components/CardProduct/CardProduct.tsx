@@ -68,17 +68,19 @@ function CardProduct({product}:CardProductProp) {
                             <h3 className="absolute top-1 text-sm text-neutral-800 font-semibold tracking-wider">Añadir a carrito</h3>
                             <div className="bg-redd-500 text-white flex justify-center items-center gap-x-3">
                                 
-                                {avalibleSizeColors.map(stock => (
-                                    <p className={`${stock.size === size?.size && "bg-black text-white"} text-neutral-800 px-2 cursor-pointer border border-neutral-400 rounded-md`} onClick={() => {size && size.size === stock.size ? setSize(null) : (setColor(""), setSize(stock))}}>{stock.size}</p>
+                                {avalibleSizeColors.map((stock) => (
+                                    <p key={stock.size} className={`${stock.size === size?.size && "bg-black text-white"} text-neutral-800 px-2 cursor-pointer border border-neutral-400 rounded-md`} onClick={() => {size && size.size === stock.size ? setSize(null) : (setColor(""), setSize(stock))}}>{stock.size}</p>
                                 ))}
                                 
                             </div>
                             <div className="w-full flex justify-center items-center gap-3 my-auto">
-                                {size && size?.colors.map(col => (
-                                    <div className={`${color === col.color ? "outline outline-neutral-600" : "outline outline-neutral-300"} w-[25px] h-[25px] rounded-full cursor-pointer`} onClick={() => setColor(col.color)} style={{backgroundColor: col.hxacolor}}></div>
+                                {size && size?.colors.map((col, index) => (
+                                    <div key={index} className={`${color === col.color ? "p-0.5 border border-neutral-600" : "outline outline-neutral-300"} min-w-[25px] min-h-[25px] rounded-full cursor-pointer flex justify-center items-center bg-transparent`} onClick={() => setColor(col.color)} >
+                                        <div className="w-[25px] h-[25px] rounded-full" style={{backgroundColor: col.hxacolor}}></div>
+                                    </div>
                                 ))}
-                                {!size && uniqueHxacolorQuantity?.map(hxacolor => (
-                                    <div className="w-[25px] h-[25px] rounded-full cursor-pointer outline outline-neutral-300" style={{backgroundColor:hxacolor}}></div>
+                                {!size && uniqueHxacolorQuantity?.map((hxacolor, index) => (
+                                    <div key={index} className="w-[25px] h-[25px] rounded-full cursor-pointer outline outline-neutral-300" style={{backgroundColor:hxacolor}}></div>
                                 ))}
                             </div>
                             <button 

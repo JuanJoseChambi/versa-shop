@@ -49,9 +49,9 @@ function Nav({style}:styleProp) {
             </Link>
 
             <section className="hidden sm:flex space-x-5 justify-center items-center">
-                {!searchActive && <Button style="text-xs font-semibold tracking-widest" text="TIENDA" dir="/shop"/>}
+                {/* {!searchActive && <Button style="text-xs font-semibold tracking-widest" text="TIENDA" dir="/shop"/>} */}
                 {/* {!searchActive && <Button style="text-xs font-semibold tracking-widest" text="NOSOTROS"/>} */}
-                {!searchActive && <Button style="text-xs font-semibold tracking-widest" text="CATEGORIAS"/>}
+                {/* {!searchActive && <Button style="text-xs font-semibold tracking-widest" text="CATEGORIAS"/>} */}
                 {searchActive && 
                 <div className="w-[300px] text-sm flex justify-center items-center gap-x-1 text-black font-semibold px-2 py-0.5 rounded-full outline-none bg-[#ffffff] border border-neutral-300 shadow-md shadow-neutral-700">
                     <i className={`bx bx-search scale-100`} onClick={() => dispatch(search(sought))}></i>

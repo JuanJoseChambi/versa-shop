@@ -84,9 +84,6 @@ function DetailProduct() {
     const productInCart = cart.filter(product => product.id === data?.product_id)
 
     const quantityAvaliable = size && productInCart[0]?.cantidad >= size.unit ;
-    console.log(infoProduct);
-    console.log(data?.discount);
-    
     
 return (
     <main className="w-full min-h-screen bg-redd-500 flex justify-center items-start flex-col gap-12">
@@ -121,9 +118,6 @@ return (
                         </span>}
                         {data?.discount === 0 && <h3 className="text-2xl flex justify-center items-center gap-x-1"><span className="text-sm">$</span> {data?.price}</h3>}
                     </div>
-                    {/* <p className="text-2xl pt-3 text-neutral-800"><span className="text-sm">$</span> {data?.price}</p> */}
-                    {/* <p>{data?.discount}</p> */}
-                    {/* {data?.discount && <span>{data?.discount}</span>} */}
 
                     <div className="flex justify-center items-start flex-col gap-x-3 py-3">
                         <h3 className="text-sm text-neutral-700 tracking-widest">Talles:</h3>
@@ -157,7 +151,7 @@ return (
                         )) }
 
                     </div>
-                    <div className={`my-3 flex justify-center items-center ${size?.unit === 0 ? "text-rose-500" :"text-green-500"} text-sm`}>{size && colorUnit ?<p> Unidades disponibles: {colorUnit}</p> : <p>ㅤ</p>}</div>
+                    <div className={`my-3 flex justify-center items-center ${size?.unit === 0 ? "text-rose-500" :"text-green-500"} text-sm`}>{size && color ?<p> Unidades disponibles: {colorUnit}</p> : <p>ㅤ</p>}</div>
                     
                     <section className="w-full flex justify-start items-center gap-5 bg-redd-500">
                         <div className="w-[100px] h-[40px] text-lg text-neutral-700 divide-x divide-neutral-400 flex justify-between items-center bg-neutral-100 border border-neutral-400">

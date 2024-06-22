@@ -134,6 +134,24 @@ export interface Type {
 
 // REQUEST GET -----------------------------------------------
 
+// BestSeller ------------------------
+export interface DataBestSeller {
+    id:       number;
+    total:    number;
+    Products: SalesProducts[];
+}
+
+export interface SalesProducts {
+    product_id: string;
+    name:       string;
+    image:      string;
+    price:      number;
+    unit:       number;
+    available:  boolean;
+    discount:   number;
+}
+
+
 // Profile User ----------------------
 export interface ProfileUser {
     user_id:   string;
@@ -206,5 +224,5 @@ export interface UpdateProduct {
     price:number, 
     category:string, 
     type:string;
-    discount: number;
+    discount: number | null;
 }

@@ -1,5 +1,5 @@
 import useApi from "../../../hooks/useApi"
-import { DataProduct } from "../../../interfaces/interfaces"
+import { DataBestSeller, DataProduct } from "../../../interfaces/interfaces"
 import CardProduct from "../../../components/CardProduct/CardProduct"
 import Filters from "../../../components/Filters/Filters"
 import { useEffect, useState } from "react"
@@ -9,6 +9,7 @@ import WithoutResult from "../../../components/WithoutResult/WithoutResult"
 import Input from "../../../components/Input/Input"
 import { useSelector } from "react-redux"
 import { RootState } from "../../../redux/store"
+import { Link } from "react-router-dom"
 const {VITE_URL_BASE} = import.meta.env
 
 
@@ -29,6 +30,7 @@ function MainShop() {
     const [searchProduct, setSearchProduct] = useState<DataProduct[] | null>(null)
 
     const { data } = useApi(`${VITE_URL_BASE}/product/all`) as { data: DataProduct[] | [] }
+    const { data:bestSeller } = useApi(`${VITE_URL_BASE}/sale/product/all?maxSales=1&quantity=3`) as {data: DataBestSeller[]}
 
     let categories =  new Set(data?.map(product => product.Category.category))
     let types = new Set(data?.map(product => product.Type.type));
@@ -52,11 +54,6 @@ function MainShop() {
     const categoriesArray = [...categories] as string[];
     const typesArray = [...types] as string[];
     const sizesArray = [...sizes] as string[];
-
-    const productoDestacado1: string = data && data.length > 0 ? data[0].image : "";
-    const productoDestacado2: string = data && data.length > 1 ? data[1].image : "";
-    const productoDestacado3: string = data && data.length > 2 ? data[2].image : "";
-    const imagesProducts = [productoDestacado1, productoDestacado2, productoDestacado3]
 
     const [optionsFilter, setOptionsFilter] = useState<OptionsFilter>({
         category:[],
@@ -131,17 +128,37 @@ function MainShop() {
         productsToDisplay = data;
     }
 
+    console.log(bestSeller);
+
   return (
     <main className=" mx-auto flex justify-between items-start flex-col bg-redd-500">
         <section className="w-full h-auto my-2 flex justify-center items-center flex-col py-10">
             <h2 className="tracking-widest font-noto text-2xl">PRODUCTOS DESTACADOS</h2>
             <section className="flex area justify-evenly items-center py-10">
-                {imagesProducts.join("") && imagesProducts.map((images) => (
-                    <picture key={images} className="flex flex-col justify-center items-center w-[350px] max-h-[300px] overflow-hidden bg-redd-500">
-                        <img src={images} alt="" className="w-full object-cover" />
-                    </picture>
-                ))}
-                {!imagesProducts.join("") && <WithoutResult visible={!imagesProducts.join("")}/>}
+            
+                {bestSeller?.map(sale => {
+                    const product = sale.Products[0];
+                    return (
+                        <div key={product.product_id} className="max-w-[350px] max-h-[330px] flex justify-start items-center flex-col bg-redd-500 ">
+                            <Link to={`/detail/${product.product_id}`}>
+                                <picture key={product.product_id} className="flex flex-col justify-center items-center max-w-[350px] max-h-[300px] overflow-hidden bg-blued-500">
+                                    <img src={product.image} alt={product.image} className="w-full object-cover" />
+                                </picture>
+                            </Link>
+                            <p className="text-xs text-clipping-1 leading-4 bg-greend-500">{product.name}</p>
+                            <span className="w-1/2 h-[1px] mt-4 bg-neutral-500 flex justify-center items-center">
+                                {/* <p>{product.}</p> */}
+                                <span className="bg-white relative px-2 text-lg flex justify-center items-center gap-x-1">
+                                    <span className="text-xs">$</span> {product.price}
+                                    {product.discount && <span className="absolute -top-1 -right-4 px-1 text-xs rounded-sm text-white bg-neutral-700">{product.discount}%</span>}
+                                </span>
+                            </span>
+                        </div>
+                    )
+                })}
+
+                {!bestSeller?.join("") && <WithoutResult visible={!bestSeller?.join("")}/>}
+
             </section>
         </section>
 

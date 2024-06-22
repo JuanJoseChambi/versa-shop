@@ -40,7 +40,7 @@ function DashboardProductsEdit() {
         category:"", 
         // available:,
         type:"",
-        discount:0
+        discount:null
     })
     const [addStock, setAddStock] = useState<string | null>(null);
     const [createStock, setCreateStock] = useState<string | null>(null);
@@ -61,7 +61,7 @@ function DashboardProductsEdit() {
  
     async function handlerUpdate (id:string) {
         await fetchPATCH(`${VITE_URL_BASE}/product/update/${id}`, updateProduct)
-        {updateProduct.discount >= 0 && await fetchPATCH(`${VITE_URL_BASE}/product/${id}/discount`, {discount: updateProduct.discount})}
+        {(updateProduct.discount || updateProduct?.discount === 0) && updateProduct?.discount >= 0 && await fetchPATCH(`${VITE_URL_BASE}/product/${id}/discount`, {discount: updateProduct?.discount})}
         setUpdateProduct({...updateProduct, id: id})
     }
     async function hanlderUpdateState (id:string, available:boolean) {
