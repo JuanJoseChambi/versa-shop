@@ -3,6 +3,7 @@ interface TextareaProp {
     placeholder?:string;
     name?:string;
     defaultValue?:string;
+    value?: string
     style?:string;
     styleDimensions?:string;
     styleColor?:string;
@@ -16,14 +17,15 @@ function Textarea(
   {placeholder, 
     name, 
     defaultValue,
+    value,
     style = styleDefault,
     styleDimensions = "w-full min-h-[85px]",
     onChange
   }: TextareaProp) {
   return (
-    <div className={`relative py-1 px-2 border border-neutral-400 outline-none  ${style} ${styleDimensions}`}>
+    <div className={`relative pt-1 px-2 border border-neutral-400 outline-none overflow-hidden ${style} ${styleDimensions}`}>
       <label className="absolute -top-5 left-0 text-xs tracking-widest text-neutral-600">{name}</label>
-      <textarea defaultValue={defaultValue} className={`scroll w-full h-full resize-none outline-none `} placeholder={placeholder} onChange={onChange}></textarea>
+      <textarea value={value} defaultValue={defaultValue} className={`scroll w-full resize-none outline-none ${styleDimensions} bg-redd-500`} placeholder={placeholder} onChange={onChange}></textarea>
     </div>
   )
 }

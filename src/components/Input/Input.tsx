@@ -6,6 +6,7 @@ interface InputProp {
     name?:string;
     type?:string;
     defaultValue?:string;
+    value?: string;
     icon?:string;
     style?:string;
     styleDimensions?:string;
@@ -23,6 +24,7 @@ function Input({
     placeholder, 
     name, 
     defaultValue = "",
+    value,
     type = "text",  
     icon,  
     iconLeft = true, 
@@ -42,7 +44,7 @@ function Input({
           ? <i className={`${styleIcon} ${type === "password" ? (show ? "bx bx-show" : "bx bx-hide") : icon}`} onClick={() => setShow(!show)}></i> 
           : null}
         <label className="absolute -top-5 left-0 text-xs tracking-widest text-neutral-600">{name}</label>
-        <input defaultValue={defaultValue} type={type === "password" ? (show ? "text" : "password") : type } className=" bg-transparent outline-none w-full no-eye-icon" placeholder={placeholder} onChange={onChange}  />
+        <input  value={value} defaultValue={defaultValue} type={type === "password" ? (show ? "text" : "password") : type } className=" bg-transparent outline-none w-full no-eye-icon" placeholder={placeholder} onChange={onChange}  />
 
         {iconRight && !iconLeft
           ? <i className={`${styleIcon} ${type === "password" ? (show ? "bx bx-show" : "bx bx-hide") : icon}`} onClick={() => setShow(!show)}></i> 

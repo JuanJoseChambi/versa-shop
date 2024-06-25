@@ -58,7 +58,7 @@ function CreateProduct() {
     const types = data?.types?.map(type => type?.type)
     const sizes = data?.sizes?.map(size => size?.size)
 
-    const [previewImage, setPreviewImage] = useState("")
+    const [previewImage, setPreviewImage] = useState<string | null>(null)
     const [fileImage, setFileImage] = useState<File | null>(null)
 
 
@@ -90,6 +90,7 @@ function CreateProduct() {
                 hxaColor:""
             })
             setFileImage(null)
+            setPreviewImage(null)
         }
     }
 
@@ -107,10 +108,10 @@ function CreateProduct() {
         reader.readAsDataURL(file)
     }
 
-    const imagesTest = [
-            {image:"https://res.cloudinary.com/dth62bdky/image/upload/v1704144326/ProductApi/do3asovhei15ieqitptj.jpg"},
-            {image:"https://res.cloudinary.com/dth62bdky/image/upload/v1704144326/ProductApi/do3asovhei15ieqitptj.jpg"}
-        ]
+    // const imagesTest = [
+    //         {image:"https://res.cloudinary.com/dth62bdky/image/upload/v1704144326/ProductApi/do3asovhei15ieqitptj.jpg"},
+    //         {image:"https://res.cloudinary.com/dth62bdky/image/upload/v1704144326/ProductApi/do3asovhei15ieqitptj.jpg"}
+    //     ]
 
   return (
     <section className="w-[95%] h-[90vh] bg-redd-500">
@@ -121,16 +122,16 @@ function CreateProduct() {
         <section className="w-full min-h-full flex justify-evenly items-start flex-col md:flex-row gap-y-8 md:gap-y-0 bg-blued-500 pt-5 max-md:pb-10">
             <section className="w-full md:w-[350px] h-full flex justify-center items-center flex-row md:flex-col bg-greend-500 gap-5">
                 <picture className="relative w-[90%] md:w-[350px] min-h-[200px] md:h-[350px] md:min-h-[350px] md:max-h-[350px] overflow-hidden flex justify-center items-center bg-blued-500">
-                    <div className={`${!previewImage ? "h-[200px] md:h-full w-full border border-neutral-500 bg-redd-500 bg-transparent" : "hidden"}`}>
+                    <div className={`${!previewImage ? "h-[200px] md:h-full w-full border border-neutral-300 bg-redd-500 bg-transparent" : "hidden"}`}>
                         <label htmlFor="imageUpload">
-                            <i className="bx bx-image-add text-white w-full h-full flex justify-center items-center bg-[#00000096] text-4xl duration-500 z-10 cursor-pointer"></i>
+                            <i className="bx bx-image-add text-neutral-600 w-full h-full flex justify-center items-center bg-[#0000001f] text-4xl duration-500 z-10 cursor-pointer"></i>
                         </label>
                         <input type="file" id="imageUpload" className="hidden" accept="image/*" onChange={handlerPreviewImage}/>
                         
                     </div>
                     {previewImage && <img src={previewImage} alt="" className={`w-[100%] h-auto object-cover`}/>}
                 </picture>
-                <section className="h-full md:h-auto flex justify-start md:justify-center items-center flex-col md:flex-row gap-5 bg-greend-500">
+                {/* <section className="h-full md:h-auto flex justify-start md:justify-center items-center flex-col md:flex-row gap-5 bg-greend-500">
                     {imagesTest.map((image, index) => (
                         <picture key={index} className="w-[60px] h-[60px] overflow-hidden border-2 border-neutral-600 rounded-sm bg-redd-500">
                             <img src={image.image} alt="Image" className=""/>
@@ -139,11 +140,11 @@ function CreateProduct() {
                     <div className="w-[60px] h-[60px] flex justify-center items-center overflow-hidden border-2 text-2xl bg-[#00000096] border-neutral-600 rounded-sm text-white cursor-pointer">
                         +
                     </div>
-                </section>
+                </section> */}
             </section>
             <section className="w-full md:w-[60%] h-full bg-greend-500 flex justify-evenly items-start flex-col gap-5 bg-redd-500">
-                <Input name="Name" placeholder="Nombre" styleDimensions="w-full md:w-[50%]" styleText="ml-0 text-sm" onChange={(e) => setNewProduct({...newProduct, name: e.target.value})}/>
-                <Textarea placeholder="Descripción" name="Description" style="text-sm" onChange={(e) => setNewProduct({...newProduct, description: e.target.value})}/>
+                <Input name="Name" value={newProduct.name} placeholder="Nombre" styleDimensions="w-full md:w-[50%]" styleText="ml-0 text-sm" onChange={(e) => setNewProduct({...newProduct, name: e.target.value})}/>
+                <Textarea value={newProduct.description} placeholder="Descripción" name="Description" style="text-sm" onChange={(e) => setNewProduct({...newProduct, description: e.target.value})}/>
 
                 <section className="w-full flex justify-center items-center flex-col gap-y-5">
                     <div className="w-full h-auto flex justify-around items-center divide-x divide-neutral-300 bg-redd-500">
@@ -164,11 +165,11 @@ function CreateProduct() {
                             <div className="w-full flex justify-center items-center flex-col gap-y-5 bg-redd-500">
                                 <div className="w-full flex justify-center items-center gap-x-3">
                                     <Input name="Unidades" type="number" placeholder="10" styleDimensions="w-[45%]" onChange={(e) => setStock({...stock, unit:Number(e.target.value)})}/>
-                                    <Input name="Talle" placeholder="S" styleDimensions="w-[45%]" onChange={(e) => setStock({...stock, size:e.target.value})}/>
+                                    <Input value={stock.size} name="Talle" placeholder="S" styleDimensions="w-[45%]" onChange={(e) => setStock({...stock, size:e.target.value})}/>
                                 </div>
                                 <div className="w-full flex justify-center items-center gap-x-3">
-                                    <Input name="Color" placeholder="Negro" styleDimensions="w-[45%]" onChange={(e) => setStock({...stock, color:e.target.value})}/>
-                                    <Input name="HxaColor" placeholder="#000000" styleDimensions="w-[45%]" onChange={(e) => setStock({...stock, hxaColor:e.target.value})}/>
+                                    <Input value={stock.color} name="Color" placeholder="Negro" styleDimensions="w-[45%]" onChange={(e) => setStock({...stock, color:e.target.value})}/>
+                                    <Input value={stock.hxaColor} name="HxaColor" placeholder="#000000" styleDimensions="w-[45%]" onChange={(e) => setStock({...stock, hxaColor:e.target.value})}/>
                                 </div>
                                 <Button text="Añadir Stock" style="py-1 px-7 rounded-full bg-neutral-800 text-white" onClick={() => setNewProduct({...newProduct, stocks:[...newProduct.stocks, stock]})}/>
                             </div>

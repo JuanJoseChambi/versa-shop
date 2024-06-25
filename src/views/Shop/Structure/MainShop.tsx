@@ -10,6 +10,7 @@ import Input from "../../../components/Input/Input"
 import { useSelector } from "react-redux"
 import { RootState } from "../../../redux/store"
 import { Link } from "react-router-dom"
+import hanlderDiscount from "../../../utils/handlerDiscount"
 const {VITE_URL_BASE} = import.meta.env
 
 
@@ -146,9 +147,24 @@ function MainShop() {
                             <p className="text-xs text-clipping-1 leading-4 bg-greend-500">{product.name}</p>
                             <span className="w-1/2 h-[1px] mt-4 bg-neutral-500 flex justify-center items-center">
                                 {/* <p>{product.}</p> */}
-                                <span className="bg-white relative px-2 text-lg flex justify-center items-center gap-x-1">
-                                    <span className="text-xs">$</span> {product.price}
+                                {/* <span className="bg-white relative px-2 text-lg flex justify-center items-center gap-x-1 font-lighta">
+                                    <span className="text-xs font-normal">$</span> {product.price}
                                     {product.discount && <span className="absolute -top-1 -right-4 px-1 text-xs rounded-sm text-white bg-neutral-700">{product.discount}%</span>}
+                                </span> */}
+                                <span className="flex justify-center items-center gap-x-1 text-xl bg-white px-2 ">
+                                    <span className="text-xs">$</span>
+                                    {product.discount === 0 && <h3 className="leading-3">{product.price}</h3>}
+                                    {product.discount !== 0 && <span className="leading-3 relative">
+                                        {hanlderDiscount(product.price, product.discount)}
+                                        <div className="absolute -top-2 left-6 text-xs px-1 rounded-sm bg-neutral-700 text-white font-light">
+                                            {product.discount}%
+                                        </div>    
+                                    </span>}
+                                    {/* {product.discount !== 0 && <h3 className="text-xl flex justify-center items-center gap-x-1"><span className="text-sm">$</span> {hanlderDiscount(product.price, product.discount)}</h3>}
+                                    {product.discount !== 0 && <span className="text-sm text-neutral-600 line-through flex justify-center items-center relative">
+                                        {product.discount !== 0 && <span className={`absolute -top-2 left-6 text-xs px-1 rounded-sm bg-neutral-700 text-white font-light`}>{product.discount}%</span>}
+                                    </span>}
+                                    {product.discount === 0 && <h3 className="text-xl flex justify-center items-center gap-x-1"><span className="text-sm">$</span> {product.price}</h3>} */}
                                 </span>
                             </span>
                         </div>
