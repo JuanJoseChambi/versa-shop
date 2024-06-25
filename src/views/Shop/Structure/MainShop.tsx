@@ -223,7 +223,7 @@ function MainShop() {
             </div>
         </aside>
 
-        <section className="w-[95%] max-w-[1850px] mx-auto md:gap-10 flex flex-wrap justify-center items-center pt-5 pb-16 bg-blued-500">
+        <section className="w-full max-w-[1850px] mx-auto gap-y-5 sm:gap-y-0 md:gap-0 flex justify-evenly sm:justify-evenly items-center flex-wrap pt-5 pb-16 bg-blued-500">
 
             {productsToDisplay?.map(product => (
                 <React.Fragment key={`${product.name} ${product.product_id}`}>

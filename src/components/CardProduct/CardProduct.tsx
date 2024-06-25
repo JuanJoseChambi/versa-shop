@@ -57,9 +57,14 @@ function CardProduct({product}:CardProductProp) {
     // console.log(size);
     
   return (
-    <article key={product.product_id} className="max-w-[276px] min-h-[320px] relative flex justify-start items-start flex-col bg-redd-500 p-3 outline-none hover:outline-1 hover:outline hover:outline-neutral-300 transition-[outline] duration-500 ">
+    <article key={product.product_id} 
+        className="
+        max-w-[180px] min-h-[250px]
+        sm:max-w-[276px] sm:min-h-[320px] 
+        relative flex justify-center items-center flex-col 
+        bg-redd-500  outline-none hover:outline-1 hover:outline hover:outline-neutral-300 transition-[outline] duration-500 ">
                 {/* <Link to={`/detail/${product.product_id}`}> */}
-                    <picture className="w-[250px] min-h-[220px] max-h-[220px] relative flex justify-center items-center overflow-hidden bg-blued-500">
+                    <picture className="max-w-[250px] min-h-[190px] max-h-[220px] relative flex justify-center items-center overflow-hidden bg-blued-500">
                         <img src={product.image} alt={product.name} className="w-[90%] h-full object-cover"/>
                         {!addCart && <button className="absolute top-1 right-2 scale-125 cursor-pointer" onClick={() => setAddCart(true)}><i className="bx bx-cart-add"></i></button>}
                         
@@ -84,13 +89,13 @@ function CardProduct({product}:CardProductProp) {
                                 ))}
                             </div>
                             <button 
-                                className={`${!size || !color || quantityAvaliable ? "bg-neutral-300 text-neutral-600 pointer-events-none select-none" : "bg-neutral-800 text-white"}  font-semibold px-5 py-2 rounded-md flex justify-center items-center gap-x-1`} 
+                                className={`${!size || !color || quantityAvaliable ? "bg-neutral-300 text-neutral-600 pointer-events-none select-none" : "bg-neutral-800 text-white"}  font-semibold px-5 py-2 rounded-sm flex justify-center items-center gap-x-1`} 
                                 onClick={() => {dispatch(addToCart(infoProduct))}}><i className="bx bx-cart-add scale-110"/></button>
                         </div>
                     </picture>
                 {/* </Link> */}
-                <Link to={`/detail/${product.product_id}`} className="w-full min-h-[80px] max-h-[80px] flex flex-col justify-between items-start bg-greend-500 ">
-                    <h5 className="font-semibold text-lg text-neutral-800 tracking-widest leading-5 text-clipping">{product.name}</h5>
+                <Link to={`/detail/${product.product_id}`} className="w-[90%] mx-auto min-h-[80px] max-h-[80px] flex flex-col justify-between items-start bg-greend-500 ">
+                    <h5 className="font-semibold text-xs sm:text-lg text-neutral-800 tracking-widest sm:leading-5 text-clipping">{product.name}</h5>
                     <div className="w-full flex justify-between items-center mt-auto ">
 
                     <div className="flex justify-start items-center gap-x-1">
