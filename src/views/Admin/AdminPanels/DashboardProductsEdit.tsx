@@ -120,7 +120,7 @@ function DashboardProductsEdit() {
                                             <div className="w-[20px] min-h-[20px] max-h-[20px] flex justify-center items-center rounded-full mr-1" style={{backgroundColor:stock.Color.hxacolor}}></div>
                                             <div className="flex justify-start items-start flex-col">
                                                 <div className="bg-redd-500 relative flex justify-center items-center">
-                                                    <p className="text-sm text-nowrap leading-3 font-semibold text-neutral-700">{stock.Color.color}</p>
+                                                    <p className="line-clamp-1 text-sm text-nowrap leading-3 font-semibold text-neutral-700">{stock.Color.color}</p>
                                                     <p className="text-[11px] leading-3 font-semibold text-neutral-700 ml-2">{stock.Size.size}</p>
                                                 </div>
                                                 <p className="text-[11px] text-neutral-600">{stock.Color.hxacolor}</p>
@@ -153,7 +153,7 @@ function DashboardProductsEdit() {
                             </div>
                         </section>
 
-                        <section className="min-w-[110px] h-full bg-redd-500 overflow-y-auto flex md:hidden justify-start items-start flex-col">
+                        {/* <section className="min-w-[110px] h-full bg-redd-500 overflow-y-auto flex md:hidden justify-start items-start flex-col">
                             {product.Stocks.map((stock, index) => (
                                 <div key={index} onClick={() => setStockEdit(stock)} className="w-full mx-auto min-h-[20px] max-h-[20px] relative flex justify-start items-center text-sm py-4 px-1">
                                             
@@ -168,7 +168,7 @@ function DashboardProductsEdit() {
                                             <p className="text-center ml-auto bg-blued-500 text-sm">{stock.unit}</p>
                                         </div>
                             ))}
-                        </section>
+                        </section> */}
                         
                         {/* ------------------------------------------------------------------------------------------ */}
 
