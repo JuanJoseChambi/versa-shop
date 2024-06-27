@@ -67,8 +67,9 @@ function MainShop() {
                 );
                 
                 setPage(page + 1);
-                result.data.length < result.itemsForPage ? setHasMoreProducts(false): (result.data.length === result.itemsForPage && setHasMoreProducts(true));
-                // console.log(`${itemsForPage} === ${result.itemsForPage}`);
+
+                result.data.length === result.itemsForPage && setHasMoreProducts(true);
+                result.data.length < result.itemsForPage && setHasMoreProducts(false);
 
             }else {
                 setHasMoreProducts(false);
@@ -78,7 +79,7 @@ function MainShop() {
         } finally {
             setLoadingProducts(false);
         }
-    }, [page, hasMoreProducts, loadingProducts, productsNoRepeat])
+    }, [page])
 
     const updateFilter = (filterType:string, value:string | {color:string, hxacolor:string}) => {
         if (filterType === "maxPrice" || filterType === "minPrice") {
@@ -243,7 +244,7 @@ function MainShop() {
                     {product.unit > 0 && product.available && <CardProduct product={product}/>}
                 </React.Fragment>
             ))}
-
+            {loadingProducts && <div className="w-full mt-14 bg-redd-500 flex justify-center items-center"><div className="inline w-[30px] h-[30px] animate-spin rounded-full border-r-2 border-t-2 border-neutral-400 bg-redd-500"></div></div>}
             <Loader active={!data}/>
             <WithoutResult visible={productsToDisplay?.length === 0 || searchProduct?.length === 0 || productsFiltred?.length === 0}/>
         </section>
