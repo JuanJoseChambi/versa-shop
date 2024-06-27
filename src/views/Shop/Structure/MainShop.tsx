@@ -56,7 +56,7 @@ function MainShop() {
         if (!hasMoreProducts || loadingProducts) return;
         setLoadingProducts(true)
         try {
-            const response = await fetch(`http://localhost:3001/product/paged?page=${page}`);
+            const response = await fetch(`${VITE_URL_BASE}/product/paged?page=${page}`);
             const result: {data:DataProduct[], itemsForPage:number} = await response.json()
             const newProduct = result?.data.filter(product => !productsNoRepeat.has(product.product_id) && productsNoRepeat.add(product.product_id))
             // if (result.length > 0) {
