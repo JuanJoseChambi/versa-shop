@@ -120,7 +120,7 @@ function MainShop() {
     const sought = useSelector((state:RootState) => state.navBar.sought)
 
     async function handlerSearchProduct () {
-        const response = await fetch(`${VITE_URL_BASE}/product?search=${sought}`)
+        const response = await fetch(`${VITE_URL_BASE}/product/filter?search=${sought}`)
         const result = await response.json()
         setSearchProduct(result)
     }
@@ -166,7 +166,7 @@ function MainShop() {
             const productsDisplay: DataProduct[] = [...productsSet ]
             setProductsToDisplay(productsDisplay as DataProduct[]);
         }
-        // console.log(productsFiltred);
+        console.log(searchProduct);
         
     },[products, productsFiltred, searchProduct])
 
