@@ -186,7 +186,7 @@ function DashboardProductsEdit() {
 
                     {edit === product.product_id && 
                         <div className={`w-full h-screen fixed top-0 left-0 flex justify-center items-center z-20 bg-[#000000ae]`}>
-                            <div className="w-[90%] md:w-[1210px] h-[90vh] md:h-[570px] rounded-xl overflow-y-auto relative mx-auto flex justify-around items-center flex-col md:flex-row border-b border-neutral-300 bg-white">
+                            <div className="w-[90%] md:w-[1210px] h-[90vh] md:h-[570px] rounded-xl overflow-y-auto relative mx-auto flex justify-start items-center flex-col md:flex-row border-b border-neutral-300 bg-white">
                             {/* <div className="w-full min-h-[160px] flex justify-around items-center flex-col md:flex-row gap-x-2 border-b border-neutral-300 bg-red-500"> */}
 
 
