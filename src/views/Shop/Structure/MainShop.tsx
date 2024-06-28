@@ -133,7 +133,7 @@ function MainShop() {
     },[])
 
     const handleScroll = () => {
-        if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 500 && !loadingProducts) {
+        if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 600 && !loadingProducts) {
             handlerLoadProducts();
         }
     };
@@ -166,7 +166,7 @@ function MainShop() {
             const productsDisplay: DataProduct[] = [...productsSet ]
             setProductsToDisplay(productsDisplay as DataProduct[]);
         }
-        console.log(searchProduct);
+        // console.log(searchProduct);
         
     },[products, productsFiltred, searchProduct])
 
