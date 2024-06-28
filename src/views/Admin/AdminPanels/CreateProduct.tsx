@@ -107,12 +107,6 @@ function CreateProduct() {
         }
         reader.readAsDataURL(file)
     }
-
-    // const imagesTest = [
-    //         {image:"https://res.cloudinary.com/dth62bdky/image/upload/v1704144326/ProductApi/do3asovhei15ieqitptj.jpg"},
-    //         {image:"https://res.cloudinary.com/dth62bdky/image/upload/v1704144326/ProductApi/do3asovhei15ieqitptj.jpg"}
-    //     ]
-
   return (
     <section className="w-[95%] h-[90vh] bg-redd-500">
         
@@ -131,16 +125,6 @@ function CreateProduct() {
                     </div>
                     {previewImage && <img src={previewImage} alt="" className={`w-[100%] h-auto object-cover`}/>}
                 </picture>
-                {/* <section className="h-full md:h-auto flex justify-start md:justify-center items-center flex-col md:flex-row gap-5 bg-greend-500">
-                    {imagesTest.map((image, index) => (
-                        <picture key={index} className="w-[60px] h-[60px] overflow-hidden border-2 border-neutral-600 rounded-sm bg-redd-500">
-                            <img src={image.image} alt="Image" className=""/>
-                        </picture>
-                    ))}
-                    <div className="w-[60px] h-[60px] flex justify-center items-center overflow-hidden border-2 text-2xl bg-[#00000096] border-neutral-600 rounded-sm text-white cursor-pointer">
-                        +
-                    </div>
-                </section> */}
             </section>
             <section className="w-full md:w-[60%] h-full bg-greend-500 flex justify-evenly items-start flex-col gap-5 bg-redd-500">
                 <Input name="Name" value={newProduct.name} placeholder="Nombre" styleDimensions="w-full md:w-[50%]" styleText="ml-0 text-sm" onChange={(e) => setNewProduct({...newProduct, name: e.target.value})}/>
