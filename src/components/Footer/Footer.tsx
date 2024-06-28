@@ -3,17 +3,17 @@ import logo from "../../assets/Icon/V3.1.1.png"
 
 function Footer() {
 
-    function liOptions (title:string) {
-        return (
-            <ul className="min-w-[125px] text-center sm:text-start text-sm space-y-5 bg-redd-500">
-                <li className="text-sm tracking-widest font-bold text-white">{title}</li>
-                <li className="tracking-wider cursor-pointer text-neutral hover:text-white font-extralight text-neutral-400">Camperas</li>
-                <li className="tracking-wider cursor-pointer text-neutral hover:text-white font-extralight text-neutral-400">Pantalones</li>
-                <li className="tracking-wider cursor-pointer text-neutral hover:text-white font-extralight text-neutral-400">Remeras</li>
-                <li className="tracking-wider cursor-pointer text-neutral hover:text-white font-extralight text-neutral-400">Zapatillas</li>
-            </ul>
-        )
-    }
+    // function liOptions (title:string) {
+    //     return (
+    //         <ul className="min-w-[125px] text-center sm:text-start text-sm space-y-5 bg-redd-500">
+    //             <li className="text-sm tracking-widest font-bold text-white">{title}</li>
+    //             <li className="tracking-wider cursor-pointer text-neutral hover:text-white font-extralight text-neutral-400">Camperas</li>
+    //             <li className="tracking-wider cursor-pointer text-neutral hover:text-white font-extralight text-neutral-400">Pantalones</li>
+    //             <li className="tracking-wider cursor-pointer text-neutral hover:text-white font-extralight text-neutral-400">Remeras</li>
+    //             <li className="tracking-wider cursor-pointer text-neutral hover:text-white font-extralight text-neutral-400">Zapatillas</li>
+    //         </ul>
+    //     )
+    // }
 
   return (
     <footer className="w-full h-auto bg-neutral-800 ">
