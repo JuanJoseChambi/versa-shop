@@ -4,7 +4,6 @@ import { useDecode } from "../../../hooks/useDecode";
 import { SalesData } from "../../../interfaces/interfaces";
 import LabelText from "../../../components/LabelText/LabelText";
 import { SalesPulse } from "../../../components/ComponentsAnimatePulse/ComponentsAnimatePulse";
-import hanlderDiscount from "../../../utils/handlerDiscount";
 // import { useSelector } from "react-redux";
 // import { RootState } from "../../../redux/store";
 
@@ -54,7 +53,7 @@ function Sales() {
                         <LabelText text={purchases.PurchaseState.state} label="Estado"/>
                         <LabelText text={date} label="Fecha de Compra"/>
                         <LabelText text={purchases.Products.length.toString()} label="Productos"/>
-                        <LabelText text={purchases.discount ? hanlderDiscount(purchases.priceTotal, purchases.discount).toString() : purchases.priceTotal.toString()} label="Precio"/>
+                        <LabelText text={purchases.priceTotal.toString()} label="Precio"/>
                         {/* <LabelText text={purchases.city} label="Precio"/> */}
                         {/* <button onClick={() => {console.log(profilePurchase)}}>Profile</button> */}
                     </div>

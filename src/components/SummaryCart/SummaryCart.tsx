@@ -25,9 +25,9 @@ function SummaryCart({subtotal, setCheckout, btnStartPayment = true}:SummaryCart
             <h3>$ {subtotal}</h3>
         </div>
         {profilePurchase.discountCode && 
-        <div className="w-full flex justify-between items-center">
+        <div className="w-full font-semibold flex justify-between items-center">
             <h3>Descuento</h3>
-            <h3>{profilePurchase.discount}%</h3>
+            <h3>{profilePurchase.discount} %</h3>
         </div>
         }
         <div className="w-full flex justify-between items-center">
