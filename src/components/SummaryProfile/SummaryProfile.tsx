@@ -50,7 +50,7 @@ function SummaryProfile() {
         </section>
         <div className="w-full h-[1px] bg-neutral-400"></div>
         <section className={`relative flex justify-self-center items-center gap-x-2 bg-redd-500 ${offer ? "py-5" : "py-4"}`} >
-            {(offer || profilePurchase.discountCode ) && <i className="bx bx-x cursor-pointer scale-110 absolute top-1 right-1" onClick={() => setOffer(null)}/>}
+            {(offer || profilePurchase.discountCode ) && <i className="bx bx-x cursor-pointer scale-110 absolute top-1 right-1" onClick={() => {profilePurchase.discountCode ? handlerDeleteDiscount() : setOffer(null)}}/>}
             {(!offer && !profilePurchase.discountCode) && <i className="bx bxs-offer scale-150"></i>}
             {(!offer && !profilePurchase.discountCode) && <h3 className="text-sm cursor-pointer" onClick={() => setOffer({active:true})}>Ingrese un codigo de descuento <b>Aqui</b></h3>}
             {(offer && !profilePurchase.discountCode) && 
@@ -63,11 +63,13 @@ function SummaryProfile() {
                 </div>
             </div>}
             {profilePurchase.discountCode && <div className="w-full text-sm flex justify-center items-center flex-col gap-y-2">
-                {profilePurchase.discountCode && <i className="bx bx-x cursor-pointer scale-150" onClick={handlerDeleteDiscount}></i>}
-
                 <h3 className="text-neutral-800 font-semibold flex justify-center items-center gap-x-2"><i className="bx bxs-offer scale-125"/> Descuento Aplicado</h3>
-                <b className="text-neutral-800 ">  {profilePurchase.discountCode}</b>
-                <b>{profilePurchase.discount}</b>
+                <div className="flex justify-center items-center gap-x-2">
+                    <b className="text-neutral-800 ">  {profilePurchase.discountCode}</b>
+                    {/* <i className="bx bx-right-arrow-alt"/> */}
+                    <i className="bx bx-chevron-right"/>
+                    <b>{profilePurchase.discount}%</b>
+                </div>
             </div>}
 
             {/* {offer && <Input name="Descuento" placeholder="" icon="bx bxs-offer"/>} */}

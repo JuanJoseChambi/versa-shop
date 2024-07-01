@@ -73,6 +73,7 @@ function Checkout() {
       postalCode: profilePurchase.postalCode,
       street:profilePurchase.street, 
       
+      discountCode:profilePurchase.discountCode,
       userEmail: profilePurchase.email, 
       payment_id: payment_id, 
       products:cartProducts 

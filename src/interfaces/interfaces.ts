@@ -186,6 +186,7 @@ export interface SalesData {
     street: string;
 
     purchase_id:   string;
+    discount:number;
     // direction:     string;
     payment_id:    string;
     priceTotal:    number;
