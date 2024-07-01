@@ -4,6 +4,7 @@ import Categories from "./AdminPanels/ProductData";
 import CreateProduct from "./AdminPanels/CreateProduct";
 import ArrowBefore from "../../components/ArrowBefore/ArrowBefore";
 import Sales from "./AdminPanels/Sales";
+import CreateDiscountCode from "./AdminPanels/CreateDiscountCode";
 
 function Admin() {
 
@@ -20,14 +21,25 @@ function Admin() {
             <button className={`absolute top-6 right-5 text-3xl md:hidden`}><i className="bx bx-x block lg:hidden" onClick={() => setOpenOptions(false)}></i></button>
 
             <ul className="text-sm font-extralight tracking-widest flex justify-center items-start flex-col gap-y-3">
-                <li className={`cursor-pointer px-3 ${adminPanel === "stocks" && "text-black bg-white rounded-sm"}`} onClick={() => {setOpenOptions(false), setAdminPanel("stocks")}}>Stocks</li>
+                {[
+                    {name:"Stock", ref:"stocks"}, 
+                    {name:"Categorias", ref:"productData"}, 
+                    {name:"Crear Productos", ref:"createProduct"}, 
+                    {name:"Ventas", ref:"sales"},
+                    {name:"Crear Codigo de Descuento", ref:"createDiscountCode"},
+                    {name:"Crear Productos JSON", ref:"createProductJSON"},
+                    {name:"Crear Admins", ref:"createAdmin"},
+                ].map((item, index) => (
+                    <li key={`${index}_${item.ref}`} className={`cursor-pointer px-3 ${adminPanel === item.ref && "text-black bg-white w-full py-2"}`} onClick={() => {setOpenOptions(false), setAdminPanel(item.ref)}}>{item.name}</li>
+                ))}
+                {/* <li className={`cursor-pointer px-3 ${adminPanel === "stocks" && "text-black bg-white rounded-sm"}`} onClick={() => {setOpenOptions(false), setAdminPanel("stocks")}}>Stocks</li>
                 <li className={`cursor-pointer px-3 ${adminPanel === "productData" && "text-black bg-white rounded-sm"}`} onClick={() => {setOpenOptions(false), setAdminPanel("productData")}}>Categorias</li>
                 <li className={`cursor-pointer px-3 ${adminPanel === "createProduct" && "text-black bg-white rounded-sm"}`} onClick={() => {setOpenOptions(false), setAdminPanel("createProduct")}}>Crear Productos</li>
                 <li className={`cursor-pointer px-3 ${adminPanel === "sales" && "text-black bg-white rounded-sm"}`} onClick={() => {setOpenOptions(false), setAdminPanel("sales")}}>Ventas</li>
+                <li className={`cursor-pointer px-3`} onClick={() => setAdminPanel("createDiscountCode")}>Crear Codigo de Descuentos</li>
                 <li className={`cursor-pointer px-3`} onClick={() => setAdminPanel("createAdmin")}>Crear Admins</li>
                 <li className={`cursor-pointer px-3`} onClick={() => setAdminPanel("createOffer")}>Crear Ofertas</li>
-                <li className={`cursor-pointer px-3`} onClick={() => setAdminPanel("createDiscount")}>Crear Descuentos</li>
-                <li className={`cursor-pointer px-3`} onClick={() => setAdminPanel("labels")}>Etiquetas</li>
+                <li className={`cursor-pointer px-3`} onClick={() => setAdminPanel("labels")}>Etiquetas</li> */}
             </ul>
 
         </aside>
@@ -38,6 +50,7 @@ function Admin() {
             {adminPanel === "productData" && <Categories/>}
             {adminPanel === "createProduct" && <CreateProduct/>}
             {adminPanel === "sales" && <Sales/>}
+            {adminPanel == "createDiscountCode" && <CreateDiscountCode/>}
         </section>
 
     </main>
