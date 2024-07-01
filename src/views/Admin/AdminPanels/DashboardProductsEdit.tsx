@@ -69,7 +69,7 @@ function DashboardProductsEdit() {
                         <h4 className="w-1/3 max-md:hidden text-center text-neutral-700 font-semibold">{product.discount}%</h4>
                         <h4 className="w-1/3 max-md:hidden text-center text-neutral-700 font-semibold">{product.Category.category}</h4>
                         <h4 className="w-1/3 max-md:hidden text-center text-neutral-700 font-semibold">{product.Type.type}</h4>
-                        <div className="w-1/2 h-full text-sm hidden md:flex justify-start items-center flex-col overflow-auto scroll gap-x-3">
+                        <div className="w-1/2 h-[80%] text-sm hidden md:flex justify-start items-center flex-col overflow-auto scroll gap-x-3">
                             {product.Stocks.map((stock, index) => (
                                 <div key={index} className="w-full bg-redd-500 mx-auto min-h-[20px] max-h-[20px] relative flex justify-start items-center text-sm py-4 px-1">
                                             
@@ -115,8 +115,8 @@ function DashboardProductsEdit() {
                         <div className="w-1/3 flex justify-center items-center gap-x-2">
                             {edit === product.product_id && <i className="bx bx-x cursor-pointer" onClick={() => {setEdit(null)}}></i>}
                             {edit !== product.product_id && <i className="cursor-pointer bx bx-edit" onClick={() => {setEdit(product.product_id)}}></i>}
-                            {product.available && <i className="cursor-pointer bx bx-lock-open-alt scale-110" onClick={() => hanlderUpdateState(product.product_id, product.available)}></i>}
-                            {!product.available && <i className="cursor-pointer bx bxs-lock-alt scale-110" onClick={() => hanlderUpdateState(product.product_id, product.available)}></i>}
+                            <i className={`cursor-pointer bx ${product.available ? "bx-lock-open-alt" : "bx bxs-lock-alt"} scale-110`} onClick={() => hanlderUpdateState(product.product_id, product.available)}></i>
+                            
                             <i className="cursor-pointer bx bx-trash" onClick={() => hanlderDelete(product.product_id)}></i>
                         </div>
                     </div>

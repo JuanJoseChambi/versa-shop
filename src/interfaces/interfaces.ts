@@ -78,6 +78,7 @@ export interface ResponseData {
     message:string;
     error:boolean | unknown;
     token?:string;
+    data?:string | number
 }
 
 export interface UserProp {

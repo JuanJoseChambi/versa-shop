@@ -26,7 +26,9 @@ const structureDefault = {
     neighborhood: "",
     
     city: "",
-    country:""
+    country:"",
+    discountCode:"",
+    discount:""
     // receives: "",
 }
 
@@ -47,10 +49,15 @@ const preferenceProfileSlice = createSlice ({
         deletePreferenceProfile: (state) => {
             state.profilePurchase = structureDefault
             encode(VITE_N_PREFERENCE_PROFILE, state.profilePurchase)
+        }, 
+        deleteOnePreferenceProfile: (state, action: PayloadAction<{ property: keyof ProfilePurchase; value: string }>) => {
+            const { property, value } = action.payload;
+            state.profilePurchase[property] = value;
+            encode(VITE_N_PREFERENCE_PROFILE, state.profilePurchase)
         }
     }
 })
 
-export const {updateProfileProperty, deletePreferenceProfile} = preferenceProfileSlice.actions;
+export const {updateProfileProperty, deletePreferenceProfile, deleteOnePreferenceProfile} = preferenceProfileSlice.actions;
 
 export default preferenceProfileSlice.reducer;

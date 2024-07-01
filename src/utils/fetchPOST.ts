@@ -4,7 +4,7 @@ import { error, success } from "./alert";
 
 type RequestBody<T> = T;
 
-export async function fetchPOST<T>(url: string, body: RequestBody<T>): Promise<ApiResponse<T>> {
+export async function fetchPOST<T>(url: string, body: RequestBody<T>, alert:boolean = true): Promise<ApiResponse<T>> {
   try {
     const response = await fetch(url, {
       method: "POST",
@@ -14,12 +14,12 @@ export async function fetchPOST<T>(url: string, body: RequestBody<T>): Promise<A
 
     const result: ResponseData = await response.json();
     if (result.error) {
-      error(result.message || "Error al realizar la Accion");
+      {alert && error(result.message || "Error al realizar la Accion");}
       return { error: true };
     }
 
-    success(result.message || "Accion Exitosa")
-    return { data: result, error: false };
+    {alert && success(result.message || "Accion Exitosa")}
+    return { data: result, error: false, message: result.message};
     
   } catch (error) {
     return { data: null, error: `Error: ${error}` };

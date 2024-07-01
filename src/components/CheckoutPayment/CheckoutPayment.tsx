@@ -37,7 +37,7 @@ function CheckoutPayment() {
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(products),
+            body: JSON.stringify({products, code:profilePurchase.discountCode}),
         });
     
         const preference = await response.json();

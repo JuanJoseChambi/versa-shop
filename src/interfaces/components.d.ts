@@ -50,6 +50,8 @@ interface ProfilePurchase {
         neighborhood: string;
         city: string;
         country:string;
+        discountCode: string;
+        discount:string;
         // receives: string;
 }
 // CreateProduct ------------------------------

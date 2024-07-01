@@ -1,14 +1,29 @@
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { RootState } from "../../redux/store"
 import SummaryCart from "../SummaryCart/SummaryCart"
-import Input from "../Input/Input"
 import { useState } from "react"
+import { fetchPOST } from "../../utils/fetchPOST"
+import { deleteOnePreferenceProfile, updateProfileProperty } from "../../redux/slice/preferenceProfileSlice"
+const {VITE_URL_BASE} = import.meta.env
 
 function SummaryProfile() {
+    const { profilePurchase } = useSelector((state:RootState) => state.preferenceProfile)
     const { cart } = useSelector((state:RootState) => state.cart)
     const subtotal = cart.map(product => product.price * product.cantidad).reduce((accumulator, current) => accumulator + current, 0);
 
-    const [offer, setOffer] = useState<boolean>(false)
+    const [offer, setOffer] = useState<{active?:boolean, code?:string, applied?:boolean} | null>(null)
+    const dispatch = useDispatch()
+    async function consultDiscountCode () {
+        const {error, data} = await fetchPOST(`${VITE_URL_BASE}/discount-code/consult`, {code: offer?.code}) as {error:boolean, data:{data:number}}
+        !error && setOffer({applied:true})
+        !error && dispatch(updateProfileProperty({property:"discountCode", value:offer?.code as string}))
+        !error && dispatch(updateProfileProperty({property:"discount", value:data?.data.toString() as string}))
+    }   
+
+    function handlerDeleteDiscount () {
+        dispatch(deleteOnePreferenceProfile({property:"discount", value:""}))
+        dispatch(deleteOnePreferenceProfile({property:"discountCode", value:""}))
+    }
 
   return (
     <section className="bg-redd-500 w-full">
@@ -34,10 +49,28 @@ function SummaryProfile() {
             ))}
         </section>
         <div className="w-full h-[1px] bg-neutral-400"></div>
-        <section className={`flex justify-self-center items-center gap-x-2 ${offer ? "pt-8 pb-4" : "py-4"}`} >
-            {!offer && <i className="bx bxs-offer scale-150"></i>}
-            {!offer && <h3 className="text-sm cursor-pointer" onClick={() => setOffer(true)}>Ingrese un codigo de descuento <b>Aqui</b></h3>}
-            {offer && <Input name="Descuento" placeholder="" icon="bx bxs-offer"/>}
+        <section className={`relative flex justify-self-center items-center gap-x-2 bg-redd-500 ${offer ? "py-5" : "py-4"}`} >
+            {(offer || profilePurchase.discountCode ) && <i className="bx bx-x cursor-pointer scale-110 absolute top-1 right-1" onClick={() => setOffer(null)}/>}
+            {(!offer && !profilePurchase.discountCode) && <i className="bx bxs-offer scale-150"></i>}
+            {(!offer && !profilePurchase.discountCode) && <h3 className="text-sm cursor-pointer" onClick={() => setOffer({active:true})}>Ingrese un codigo de descuento <b>Aqui</b></h3>}
+            {(offer && !profilePurchase.discountCode) && 
+            <div className="w-full flex justify-center items-center bg-redd-500">
+                <div className={`${offer?.applied && "select-none pointer-events-none"} relative max-w-[300px] text-sm rounded-md flex justify-center items-center gap-x-1 py-1 px-2 border border-neutral-400 bg-blued-500`}>
+                    <h3 className="font-semibold text-xs text-neutral-400 absolute -top-4 left-0">Codigo de Descuento</h3>
+                    <i className="bx bxs-offer scale-150 px-1"/>
+                    <input type="text" className="bg-transparent outline-none bg-redd-500" placeholder="Código de descuento" onChange={(e) => setOffer({...offer, code:e.target.value})}/>
+                    <i className={`${offer?.code ? "opacity-100" : "opacity-0"} bx bx-check cursor-pointer scale-150`} onClick={consultDiscountCode}/>
+                </div>
+            </div>}
+            {profilePurchase.discountCode && <div className="w-full text-sm flex justify-center items-center flex-col gap-y-2">
+                {profilePurchase.discountCode && <i className="bx bx-x cursor-pointer scale-150" onClick={handlerDeleteDiscount}></i>}
+
+                <h3 className="text-neutral-800 font-semibold flex justify-center items-center gap-x-2"><i className="bx bxs-offer scale-125"/> Descuento Aplicado</h3>
+                <b className="text-neutral-800 ">  {profilePurchase.discountCode}</b>
+                <b>{profilePurchase.discount}</b>
+            </div>}
+
+            {/* {offer && <Input name="Descuento" placeholder="" icon="bx bxs-offer"/>} */}
         </section>
         <div className="w-full h-[1px] bg-neutral-400"></div>
         <SummaryCart subtotal={subtotal} btnStartPayment={false}/>
