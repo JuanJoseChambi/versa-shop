@@ -75,7 +75,7 @@ function CreateDiscountCode() {
                     </div>
                 ))}
                 {!data && 
-                <div className="w-full flex justify-center items-center flex-col gap-y-2">
+                <div className="w-full py-8 flex justify-center items-center flex-col gap-y-2">
                     <div className="w-[20px] h-[20px] animate-spin rounded-full border-2 border-b border-l border-neutral-600"></div>
                     <h3 className="text-sm font-semibold tracking-wider">Cargando...</h3>
                 </div>}
