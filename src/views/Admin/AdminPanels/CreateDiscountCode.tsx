@@ -51,9 +51,9 @@ function CreateDiscountCode() {
             <section className="w-full flex justify-center items-start flex-col gap-x-4">
                 <button className="flex justify-center items-center gap-x-2 border-l-2 border-neutral-500 text-sm font-semibold tracking-wide px-2 py-1" onClick={() => setDiscountCode({active:!discountCode?.active})}><i className="bx bx-plus"/> Crear Codigo </button>
                 {discountCode?.active && <section className="w-full py-5 flex justify-center items-center flex-col gap-y-4 bg-redd-500">
-                    <div className="w-[50%] flex justify-center items-center gap-x-5 sca">
-                        <Input value={discountCode?.code} name="Codigo" onChange={(e) => setDiscountCode({...discountCode, code:e.target.value})}/>
-                        <Input value={discountCode?.discount?.toString()} type="number" name="Descuento" onChange={(e) => setDiscountCode({...discountCode, discount:Number(e.target.value)})}/>
+                    <div className="w-[90%] sm:w-[50%] flex justify-center items-center gap-x-5 bg-redd-500">
+                        <Input styleDimensions="w-[250px]" value={discountCode?.code} name="Codigo" onChange={(e) => setDiscountCode({...discountCode, code:e.target.value})}/>
+                        <Input styleDimensions="w-[250px]" value={discountCode?.discount?.toString()} type="number" name="Descuento" onChange={(e) => setDiscountCode({...discountCode, discount:Number(e.target.value)})}/>
                     </div>
                     <Button text="Craer Descuento" onClick={createData} style="text-sm bg-neutral-800 text-white px-3 py-1 rounded-sm" iconLeft="bx bx-plus scale-90"/>
                 </section>}
@@ -74,6 +74,21 @@ function CreateDiscountCode() {
                         </div>
                     </div>
                 ))}
+                {!data && 
+                <div className="w-full flex justify-center items-center flex-col gap-y-2">
+                    <div className="w-[20px] h-[20px] animate-spin rounded-full border-2 border-b border-l border-neutral-600"></div>
+                    <h3 className="text-sm font-semibold tracking-wider">Cargando...</h3>
+                </div>}
+                {data?.length === 0 && (
+                <div className="w-area h-[65vh] sm:h-[65vh] relative py-10 flex justify-center items-center flex-col bg-redd-500">
+                    <h3 className="text-center font-bold text-2xl tracking-widest text-neutral-800">NO HAY CODIGOS DE DESCUENTOS</h3>
+                    <p className="text-sm text-neutral-600 font-semibold">No se creo Ningun Codigo de descuento</p>
+                    <div className="w-[30%] h-[1px] absolute bottom-3 flex justify-center items-center bg-neutral-500">
+                        <h3 className="text-xl px-1 font-semibold font-noto bg-white">Versa</h3>
+                    </div>
+                </div>
+            )}
+
             </section>
         </section>
     </section>

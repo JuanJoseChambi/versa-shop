@@ -30,7 +30,7 @@ function Admin() {
                     {name:"Crear Productos JSON", ref:"createProductJSON"},
                     {name:"Crear Admins", ref:"createAdmin"},
                 ].map((item, index) => (
-                    <li key={`${index}_${item.ref}`} className={`cursor-pointer px-3 ${adminPanel === item.ref && "text-black bg-white w-full py-2"}`} onClick={() => {setOpenOptions(false), setAdminPanel(item.ref)}}>{item.name}</li>
+                    <li key={`${index}_${item.ref}`} className={`cursor-pointer w-full py-1 px-3 ${adminPanel === item.ref && "text-black bg-white w-full"}`} onClick={() => {setOpenOptions(false), setAdminPanel(item.ref)}}>{item.name}</li>
                 ))}
                 {/* <li className={`cursor-pointer px-3 ${adminPanel === "stocks" && "text-black bg-white rounded-sm"}`} onClick={() => {setOpenOptions(false), setAdminPanel("stocks")}}>Stocks</li>
                 <li className={`cursor-pointer px-3 ${adminPanel === "productData" && "text-black bg-white rounded-sm"}`} onClick={() => {setOpenOptions(false), setAdminPanel("productData")}}>Categorias</li>
