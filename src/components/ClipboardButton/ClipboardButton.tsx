@@ -1,4 +1,4 @@
-import { success, error } from "../../utils/alert";
+import { success } from "../../utils/alert";
 
 function ClipboardButton({text, style}: {text: string | null, style: string}) {
 
