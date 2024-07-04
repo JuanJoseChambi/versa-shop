@@ -5,6 +5,7 @@ import CreateProduct from "./AdminPanels/CreateProduct";
 import ArrowBefore from "../../components/ArrowBefore/ArrowBefore";
 import Sales from "./AdminPanels/Sales";
 import CreateDiscountCode from "./AdminPanels/CreateDiscountCode";
+import CreateJsonProducts from "./AdminPanels/CreateJsonProducts";
 
 function Admin() {
 
@@ -25,9 +26,9 @@ function Admin() {
                     {name:"Stock", ref:"stocks"}, 
                     {name:"Categorias", ref:"productData"}, 
                     {name:"Crear Productos", ref:"createProduct"}, 
+                    {name:"Crear Productos JSON", ref:"createJsonProducts"},
                     {name:"Ventas", ref:"sales"},
                     {name:"Crear Codigo de Descuento", ref:"createDiscountCode"},
-                    {name:"Crear Productos JSON", ref:"createProductJSON"},
                     {name:"Crear Admins", ref:"createAdmin"},
                 ].map((item, index) => (
                     <li key={`${index}_${item.ref}`} className={`cursor-pointer w-full py-1 px-3 ${adminPanel === item.ref && "text-black bg-white w-full"}`} onClick={() => {setOpenOptions(false), setAdminPanel(item.ref)}}>{item.name}</li>
@@ -51,6 +52,7 @@ function Admin() {
             {adminPanel === "createProduct" && <CreateProduct/>}
             {adminPanel === "sales" && <Sales/>}
             {adminPanel == "createDiscountCode" && <CreateDiscountCode/>}
+            {adminPanel == "createJsonProducts" && <CreateJsonProducts/>}
         </section>
 
     </main>

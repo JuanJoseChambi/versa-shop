@@ -71,7 +71,7 @@ function CreateProduct() {
         const { data } = await fetchPOST(`${VITE_URL_BASE}/product/create`, {...newProduct, image:imageURL, name:newProduct.name.toUpperCase()}) as {data: ResponseData};
         
         if (data.error) {
-            return 
+            return null
         }else {
             setNewProduct({
                 name:"",
@@ -107,6 +107,8 @@ function CreateProduct() {
         }
         reader.readAsDataURL(file)
     }
+
+    
   return (
     <section className="w-[95%] h-[90vh] bg-redd-500">
         
@@ -178,6 +180,7 @@ function CreateProduct() {
                 </div>
 
                 <Button text="Crear Producto" style="mx-auto md:mx-0 py-1 px-7 rounded-full bg-neutral-800 text-white my-0" onClick={handlerCreateProduct}/>
+                <Button text="Ver JSON" style="mx-auto md:mx-0 py-1 px-7 rounded-full bg-neutral-800 text-white my-0" onClick={() => console.log(newProduct)}/>
             </section>
         </section>
 
