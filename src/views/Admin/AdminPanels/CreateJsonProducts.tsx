@@ -1,21 +1,30 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { uploadImageToCloudinary } from "../../../utils/uploadImageToCloudinary";
 import ClipboardButton from "../../../components/ClipboardButton/ClipboardButton";
 import { fetchPOST } from "../../../utils/fetchPOST";
+// import { error as ErrorAlert } from "../../../utils/alert";
 const {VITE_URL_BASE} = import.meta.env
 
 
 function CreateJsonProducts() {
     const [previewImage, setPreviewImage] = useState<string | null>(null)
     const [urlImage, setUrlImage] = useState<string | null>(null)
-    const [textJson, setTextJson] = useState<string>()
+    const [textJson, setTextJson] = useState<string | null>(null)
+    const [tested, setTested] = useState<boolean>(false)
+    const [sentJsonText, setSentJsonText] = useState<string | null>(null)
     // const [errors, setError] = useState<string | null>()
 
-    async function handlerJson () {
-        const valueJson = textJson && JSON.parse(textJson)
-        console.log(valueJson);
-        
-    }
+    // async function handlerTestJson () {
+    //     if(!textJson) return;
+    //     const textJsonOne = textJson;
+    //     try {
+    //         const parseJson =  JSON.parse(textJson)
+    //     } catch (error) {
+    //         ErrorAlert(error as string)
+    //     }
+    //     const {error} = await fetchPOST(`${VITE_URL_BASE}/product/test-json`, JSON.parse(textJson))
+    //     if(!error) textJsonOne === textJson && setTested(true) 
+    // }
 
     async function handlerPreviewImage (e:React.ChangeEvent<HTMLInputElement>) {
         
@@ -34,9 +43,25 @@ function CreateJsonProducts() {
 
     async function handlerCreate () {
         if(!textJson) return;
-        
         await fetchPOST(`${VITE_URL_BASE}/product/bulk-create`, JSON.parse(textJson))
+        setSentJsonText(textJson)
     }
+
+    async function handlerTestJson () {
+        if(!textJson) return;
+        const jsonParsed = JSON.parse(textJson)
+        if(jsonParsed.length === 0) return
+        if(textJson !== sentJsonText) setTested(false)
+        // const textJsonOne = textJson;
+        const {error} = await fetchPOST(`${VITE_URL_BASE}/product/test-json`, JSON.parse(textJson))
+        // if(!error) textJsonOne === textJson && setTested(true) 
+        !error && setTested(true)
+    }
+
+    useEffect(() => {
+        handlerTestJson()
+        // if(textJson !== null && sentJsonText !== null && textJson === sentJsonText) setTested(true)
+    },[textJson])
 
 
     return (
@@ -62,11 +87,11 @@ function CreateJsonProducts() {
             </section>
         </section>
         <section className="w-full bg-redd-500">
-            <textarea value={textJson} className="w-full md:w-[90%] h-[50vh] outline-none resize-none border border-neutral-500 p-2 text-sm" onChange={(e) => setTextJson(e.target.value)} placeholder="Ingresa el JSON" ></textarea>
+            <textarea className="w-full md:w-[90%] h-[50vh] outline-none resize-none border border-neutral-500 p-2 text-sm" onChange={(e) => setTextJson(e.target.value)} placeholder="Ingresa el JSON" ></textarea>
         </section>
         <section className="flex justify-start items-center gap-x-4">
-            <button className="px-2 py-1 text-sm font-semibold bg-neutral-800 text-white rounded-sm" onClick={handlerCreate}>Crear Productos</button>
-            <button className="px-2 py-1 text-sm font-semibold bg-neutral-800 text-white rounded-sm" onClick={handlerJson}>Testear Json</button>
+            <button className={`${tested ? "bg-neutral-800 text-white" : "bg-neutral-300 text-neutral-600 select-none pointer-events-none" } px-2 py-1 text-sm font-semibold rounded-sm`} onClick={handlerCreate}>Crear Productos</button>
+            <button className="px-2 py-1 text-sm font-semibold bg-neutral-800 text-white rounded-sm" onClick={handlerTestJson}>Testear Json</button>
             <button className="px-2 py-1 text-sm font-semibold bg-neutral-800 text-white rounded-sm">Eliminar Valor TextArea</button>
         </section>
     </section>
