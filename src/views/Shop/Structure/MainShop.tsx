@@ -58,18 +58,20 @@ function MainShop() {
         try {
             const response = await fetch(`${VITE_URL_BASE}/product/paged?page=${page}`);
             const result: {data:DataProduct[], itemsForPage:number} = await response.json()
-            const newProduct = result?.data.filter(product => !productsNoRepeat.has(product.product_id) && productsNoRepeat.add(product.product_id))
+            const { data } = result
+            const newProduct = data.filter(product => !productsNoRepeat.has(product.product_id) && productsNoRepeat.add(product.product_id))
             // if (result.length > 0) {
                 
-            if (newProduct.length > 0) {
+            if (newProduct.length >= 0) {
                 setProducts(prevProducts => 
                     prevProducts ? [...prevProducts, ...result.data] : result.data
                 );
                 
                 setPage(page + 1);
 
-                result.data.length === result.itemsForPage && setHasMoreProducts(true);
-                result.data.length < result.itemsForPage && setHasMoreProducts(false);
+                data.length === result.itemsForPage && setHasMoreProducts(true);
+                data.length < result.itemsForPage && setHasMoreProducts(false);
+                data.length === 0 && setHasMoreProducts(false);
 
             }else {
                 setHasMoreProducts(false);
@@ -126,8 +128,6 @@ function MainShop() {
     }
 
 
-
-
     useEffect(() => {
         handlerLoadProducts()
     },[])
@@ -172,7 +172,6 @@ function MainShop() {
 
     const buttonDisable = `${!optionsFilter.maxPrice && !optionsFilter.minPrice && !optionsFilter.category.length && !optionsFilter.type.length && !optionsFilter.size.length && !optionsFilter.color.length ? "pointer-events-none select-none bg-neutral-400 text-neutral-200" : " bg-neutral-800 text-white"} text-sm px-4 py-1`
 
-
   return (
     <main className=" mx-auto flex justify-between items-start flex-col bg-redd-500">
         <section className="w-full h-auto my-2 flex justify-center items-center flex-col py-10">
@@ -182,11 +181,11 @@ function MainShop() {
                 {bestSeller?.map(sale => {
                     const product = sale.Products[0];
                     return (
-                        <CardBestSeller key={product.product_id} product={product}/>
+                        <CardBestSeller key={product?.product_id} product={product}/>
                     )
                 })}
 
-                {!bestSeller?.join("") && <WithoutResult visible={!bestSeller?.join("")}/>}
+                {!bestSeller?.length && <WithoutResult visible={!bestSeller?.length}/>}
 
             </section>
         </section>
