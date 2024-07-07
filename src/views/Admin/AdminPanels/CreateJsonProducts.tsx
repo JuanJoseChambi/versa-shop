@@ -12,19 +12,6 @@ function CreateJsonProducts() {
     const [textJson, setTextJson] = useState<string | null>(null)
     const [tested, setTested] = useState<boolean>(false)
     const [sentJsonText, setSentJsonText] = useState<string | null>(null)
-    // const [errors, setError] = useState<string | null>()
-
-    // async function handlerTestJson () {
-    //     if(!textJson) return;
-    //     const textJsonOne = textJson;
-    //     try {
-    //         const parseJson =  JSON.parse(textJson)
-    //     } catch (error) {
-    //         ErrorAlert(error as string)
-    //     }
-    //     const {error} = await fetchPOST(`${VITE_URL_BASE}/product/test-json`, JSON.parse(textJson))
-    //     if(!error) textJsonOne === textJson && setTested(true) 
-    // }
 
     async function handlerPreviewImage (e:React.ChangeEvent<HTMLInputElement>) {
         

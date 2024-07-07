@@ -33,14 +33,6 @@ function Admin() {
                 ].map((item, index) => (
                     <li key={`${index}_${item.ref}`} className={`cursor-pointer w-full py-1 px-3 ${adminPanel === item.ref && "text-black bg-white w-full"}`} onClick={() => {setOpenOptions(false), setAdminPanel(item.ref)}}>{item.name}</li>
                 ))}
-                {/* <li className={`cursor-pointer px-3 ${adminPanel === "stocks" && "text-black bg-white rounded-sm"}`} onClick={() => {setOpenOptions(false), setAdminPanel("stocks")}}>Stocks</li>
-                <li className={`cursor-pointer px-3 ${adminPanel === "productData" && "text-black bg-white rounded-sm"}`} onClick={() => {setOpenOptions(false), setAdminPanel("productData")}}>Categorias</li>
-                <li className={`cursor-pointer px-3 ${adminPanel === "createProduct" && "text-black bg-white rounded-sm"}`} onClick={() => {setOpenOptions(false), setAdminPanel("createProduct")}}>Crear Productos</li>
-                <li className={`cursor-pointer px-3 ${adminPanel === "sales" && "text-black bg-white rounded-sm"}`} onClick={() => {setOpenOptions(false), setAdminPanel("sales")}}>Ventas</li>
-                <li className={`cursor-pointer px-3`} onClick={() => setAdminPanel("createDiscountCode")}>Crear Codigo de Descuentos</li>
-                <li className={`cursor-pointer px-3`} onClick={() => setAdminPanel("createAdmin")}>Crear Admins</li>
-                <li className={`cursor-pointer px-3`} onClick={() => setAdminPanel("createOffer")}>Crear Ofertas</li>
-                <li className={`cursor-pointer px-3`} onClick={() => setAdminPanel("labels")}>Etiquetas</li> */}
             </ul>
 
         </aside>
