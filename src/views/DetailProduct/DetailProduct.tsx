@@ -179,7 +179,10 @@ return (
 
             </section>
         </section>
+
         <RelatedProducts/>
+
+        
         <Footer/>
     </main>
 
