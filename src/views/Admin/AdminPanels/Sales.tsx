@@ -61,7 +61,7 @@ function Sales() {
                     <h4 className="w-[25%] text-center">{Products.length}</h4>
                     <div className="w-[25%] text-center flex justify-center items-center gap-x-3 ">
                         <i className={`scale-125 cursor-pointer flex justify-center items-center rounded-full p-0.5  bx ${PurchaseState.state === "Pendiente" ? "bx-check bg-green-500 text-white" : "bx-x bg-neutral-300"}`}/>
-                        <i className="scale-150 cursor-pointer flex justify-center items-center bg-neutral-300 p-0.5 rounded-full  bx bx-info-circle" onClick={() => setSale(purchases.purchase_id)}/>
+                        <i className="scale-150 cursor-pointer flex justify-center items-center text-neutral-600  bx bx-info-circle" onClick={() => setSale(purchases.purchase_id)}/>
                     </div>
 
                     {sale === purchases.purchase_id && <ModalSales active={sale === purchases.purchase_id} purchases={purchases} onClose={() => setSale(null)}/>}

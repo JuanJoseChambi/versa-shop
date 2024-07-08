@@ -39,6 +39,8 @@ function ModalSales({active ,purchases, onClose}: ModalSalesProp) {
                     <LabelText text={date} label="Fecha"/>
                     <LabelText text={purchases.country} label="Pais"/>
                     <LabelText text={purchases.city} label="Ciudad"/>
+                    <LabelText text={`${purchases.discount.toString()} % > ${purchases.priceTotal}`} label="Descuento"/>
+                    <LabelText text={`${purchases.Products.map(prod => prod.price).reduce((acumulator, current) => acumulator + current)}`} label="Descuento"/>
                 </section>
             </section>
             <section className="w-full max-h-[50%] bg-redd-500 flex justify-start items-center flex-col gap-y-1">
