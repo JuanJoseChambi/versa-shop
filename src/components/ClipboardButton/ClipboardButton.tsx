@@ -1,6 +1,12 @@
 import { success } from "../../utils/alert";
 
-function ClipboardButton({text, style}: {text: string | null, style: string}) {
+interface PropClipboardButton {
+  text: string | null;
+  style?: string;
+  textButton?: string
+}
+
+function ClipboardButton({text, style, textButton = "Copiar"}: PropClipboardButton) {
 
     const copyToClipboard = () => {
         if(!text) return;
@@ -15,7 +21,7 @@ function ClipboardButton({text, style}: {text: string | null, style: string}) {
       };
 
   return (
-    <button className={style} onClick={copyToClipboard}>Copiar</button>
+    <button className={`text-nowrap flex justify-center items-center gap-x-1 ${style}`} onClick={copyToClipboard}><i className="bx bx-copy"/> {textButton}</button>
   )
 }
 

@@ -1,7 +1,6 @@
 
 function RelatedProducts() {
 
-
     const imagesTest = ["https://res.cloudinary.com/dth62bdky/image/upload/v1720144366/Versa/crkvnb1idasyrhq0ypoc.webp",
         "https://res.cloudinary.com/dth62bdky/image/upload/v1720144366/Versa/crkvnb1idasyrhq0ypoc.webp",
         "https://res.cloudinary.com/dth62bdky/image/upload/v1720144366/Versa/crkvnb1idasyrhq0ypoc.webp",

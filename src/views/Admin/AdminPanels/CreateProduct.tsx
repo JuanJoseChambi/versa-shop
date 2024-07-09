@@ -9,6 +9,7 @@ import { error } from "../../../utils/alert";
 import { ResponseData } from "../../../interfaces/interfaces";
 import { uploadImageToCloudinary } from "../../../utils/uploadImageToCloudinary";
 import {Filters as FiltersInterface} from "../../../interfaces/components"
+import ClipboardButton from "../../../components/ClipboardButton/ClipboardButton";
 // import { uploadImageToCloudinary } from "../../../utils/uploadImageToCloudinary";
 // const {VITE_PRESET_KEY} = import.meta.env
 const {VITE_URL_BASE} = import.meta.env
@@ -179,8 +180,11 @@ function CreateProduct() {
                     <h3>$</h3><Input type="number" name="Price" placeholder="Precio" defaultValue="" styleDimensions="w-full mx-auto md:mx-0 md:w-[30%]" onChange={(e) => setNewProduct({...newProduct, price: Number(e.target.value)})}/>
                 </div>
 
-                <Button text="Crear Producto" style="mx-auto md:mx-0 py-1 px-7 rounded-full bg-neutral-800 text-white my-0" onClick={handlerCreateProduct}/>
-                <Button text="Ver JSON" style="mx-auto md:mx-0 py-1 px-7 rounded-full bg-neutral-800 text-white my-0" onClick={() => console.log(newProduct)}/>
+                <div className="w-full flex justify-start items-center gap-x-3">
+                    <Button text="Crear Producto" style="mx-auto md:mx-0 py-1 px-7 rounded-full bg-neutral-800 text-white my-0" onClick={handlerCreateProduct}/>
+                    <ClipboardButton style="font-semibold text-neutral-800 text-sm px-2 py-1 rounded-md border border-neutral-600" text={JSON.stringify(newProduct)} textButton="Copiar JSON"/>
+                    {/* <Button text="Ver JSON" style="mx-auto md:mx-0 py-1 px-7 rounded-md text-neutral-800 border border-neutral-600 my-0" onClick={() => <ClipboardButton text={JSON.stringify(newProduct)}/>}/> */}
+                </div>
             </section>
         </section>
 
