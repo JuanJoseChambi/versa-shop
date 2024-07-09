@@ -50,7 +50,7 @@ function MainShop() {
         minPrice:0
     })
 
-    let productsNoRepeat = new Set();
+    let productsNoRepeat = useMemo(() => new Set(), []);;
 
     const handlerLoadProducts = useCallback(async () => {
         if (!hasMoreProducts || loadingProducts) return;
@@ -59,20 +59,18 @@ function MainShop() {
             const response = await fetch(`${VITE_URL_BASE}/product/paged?page=${page}`);
             const result: {data:DataProduct[], itemsForPage:number} = await response.json()
             const { data } = result
+            
+            if(data.length === 0) return setHasMoreProducts(false);
+
             const newProduct = data.filter(product => !productsNoRepeat.has(product.product_id) && productsNoRepeat.add(product.product_id))
-            // if (result.length > 0) {
-                
-            if (newProduct.length >= 0) {
+
+            if (newProduct.length > 0) {
                 setProducts(prevProducts => 
                     prevProducts ? [...prevProducts, ...result.data] : result.data
                 );
                 
-                setPage(page + 1);
-
-                data.length === result.itemsForPage && setHasMoreProducts(true);
-                data.length < result.itemsForPage && setHasMoreProducts(false);
-                data.length === 0 && setHasMoreProducts(false);
-
+                setPage(prevPage => prevPage + 1);
+                setHasMoreProducts(newProduct.length === result.itemsForPage);
             }else {
                 setHasMoreProducts(false);
             }
@@ -81,18 +79,21 @@ function MainShop() {
         } finally {
             setLoadingProducts(false);
         }
-    }, [page])
+    }, [hasMoreProducts, page])
 
     const updateFilter = (filterType:string, value:string | {color:string, hxacolor:string}) => {
         if (filterType === "maxPrice" || filterType === "minPrice") {
         console.error(`Error: No se puede actualizar ${filterType} con esta función`);
         return;
         }
-        if(typeof value === "string"){
-            setOptionsFilter({...optionsFilter, [filterType]: [...new Set([...optionsFilter[filterType as keyof OptionsFilter] as string[], value])]});
-        }else {
-            setOptionsFilter({...optionsFilter, [filterType]: [...new Set([...optionsFilter[filterType as keyof OptionsFilter] as string[], value.color])]});
-        }
+
+        setOptionsFilter(prevOptionsFilter => {
+            if (typeof value === "string") {
+                return { ...prevOptionsFilter, [filterType]: [...new Set([...prevOptionsFilter[filterType as keyof OptionsFilter] as string[], value])] };
+            } else {
+                return { ...prevOptionsFilter, [filterType]: [...new Set([...prevOptionsFilter[filterType as keyof OptionsFilter] as string[], value.color])] };
+            }
+        });
     };
 
     async function handlerFilterProducts() {
