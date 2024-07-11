@@ -39,14 +39,14 @@ function ModalSales({active ,purchases, onClose}: ModalSalesProp) {
                     <LabelText text={date} label="Fecha"/>
                     <LabelText text={purchases.country} label="Pais"/>
                     <LabelText text={purchases.city} label="Ciudad"/>
-                    <LabelText text={`${purchases.discount.toString()} % > ${purchases.priceTotal}`} label="Descuento"/>
-                    <LabelText text={`${purchases.Products.map(prod => prod.price).reduce((acumulator, current) => acumulator + current)}`} label="Descuento"/>
+                    <LabelText text={`${purchases.discount ? `${purchases.discount} % > ${purchases.priceTotal}` : "S/N" }`} label="Descuento"/>
+                    <LabelText text={`${purchases?.subTotal}`} label="SubTotal"/>
                 </section>
             </section>
             <section className="w-full max-h-[50%] bg-redd-500 flex justify-start items-center flex-col gap-y-1">
                 <h3 className="w-full text-start text-xl font-semibold text-neutral-700">PRODUCTOS</h3>
                 <div className="w-full py-2 max-h-full overflow-y-auto scroll flex justify-start items-center flex-col gap-y-1">
-                    {purchases?.Products.map(product => (
+                    {purchases?.Products.length ? purchases?.Products.map(product => (
                         <div key={product.product_id} className="w-full bg-redd-500 flex justify-start items-center gap-2 border border-neutral-500">
                             <picture className="max-w-[40px] max-h-[40px] md:w-[50px] md:h-[50px] overflow-hidden flex justify-center items-center">
                                 <img src={product.image} alt="" className="w-full h-full object-cover"/>
@@ -61,7 +61,7 @@ function ModalSales({active ,purchases, onClose}: ModalSalesProp) {
                                 </div>
                             </div>
                         </div>
-                    ))}
+                    )) : <h4 className="py-3">Error con los productos: No se encontro informacion de los Productos</h4>}
                 </div>
             </section>
         </div>

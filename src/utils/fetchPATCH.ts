@@ -2,7 +2,7 @@ import { ApiResponse, ResponseData } from "../interfaces/interfaces";
 import { error, success } from "./alert";
 
 type RequestBody<T> = T;
-export async function fetchPATCH<T>(url:string, body: RequestBody<T>): Promise<ApiResponse<T>> {
+export async function fetchPATCH<T>(url:string, body?: RequestBody<T>): Promise<ApiResponse<T>> {
 
     try {
         const response = await fetch(url, {

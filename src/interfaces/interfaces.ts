@@ -190,6 +190,7 @@ export interface SalesData {
     // direction:     string;
     payment_id:    string;
     priceTotal:    number;
+    subTotal:      number;
     createdAt:     Date;
     updatedAt:     Date;
     userPurchase:  string;

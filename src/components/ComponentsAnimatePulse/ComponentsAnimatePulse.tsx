@@ -73,25 +73,20 @@ export function SalesPulse ({active}:Pulse) {
 
     return (
         <>
-            <div className="hidden sm:flex sm:w-full h-[54px] border border-neutral-400 justify-between items-center px-3 gap-x-3 cursor-pointer -z-10" >
-                <div className="w-[100px] h-5 rounded-md bg-neutral-400 animate-pulse"></div>
-                <div className="w-[100px] h-5 rounded-md bg-neutral-400 animate-pulse"></div>
-                <div className="w-[115px] h-5 rounded-md bg-neutral-400 animate-pulse"></div>
-                <div className="w-[20px] h-5 rounded-md bg-neutral-400 animate-pulse"></div>
-                <div className="w-[35px] h-5 rounded-md bg-neutral-400 animate-pulse"></div>
+            <div className="hidden sm:flex sm:w-full h-[40px] border border-neutral-400 justify-around items-center bg-blued-500 px-3 gap-x-3 cursor-pointer -z-10" >
+                <div className="w-[20%] h-5 rounded-md bg-neutral-400 animate-pulse"></div>
+                <div className="w-[20%] h-5 rounded-md bg-neutral-400 animate-pulse"></div>
+                <div className="w-[20%] h-5 rounded-md bg-neutral-400 animate-pulse"></div>
+                <div className="w-[20%] h-5 rounded-md bg-neutral-400 animate-pulse"></div>
             </div>
 
-            <div className="flex sm:hidden w-full h-[90px] border border-neutral-400 justify-between items-center bg-blued-500 px-3 gap-x-3 cursor-pointer -z-10" >
-                <div className="bg-greend-500 flex flex-col gap-3">
-                    <div className="w-[110px] h-5 rounded-md bg-neutral-400 animate-pulse"></div>
-                    <div className="w-[110px] h-5 rounded-md bg-neutral-400 animate-pulse"></div>
-                </div>
-                <div className="bg-greend-300 flex flex-col gap-3">
-                    <div className="w-[50px] h-5 rounded-md bg-neutral-400 animate-pulse"></div>
-                    <div className="w-[50px] h-5 rounded-md bg-neutral-400 animate-pulse"></div>
-                </div>
-                <div className="bg-greend-800 relative flex justify-center items-center flex-col">
-                    <div className="w-[90px] h-5 rounded-md bg-neutral-400 animate-pulse"></div>
+            <div className="flex sm:hidden w-full h-[50px] border border-neutral-400 justify-between items-center bg-blued-500 gap-x-3 cursor-pointer -z-10" >
+                <div className="w-[20%] h-5 rounded-md bg-neutral-400 animate-pulse"></div>
+                <div className="w-[20%] h-5 rounded-md bg-neutral-400 animate-pulse"></div>
+                <div className="w-[10%] h-5 rounded-md bg-neutral-400 animate-pulse"></div>
+                <div className="w-[25%] flex justify-center items-center gap-x-2 bg-redd-500">
+                    <div className="w-[30%] h-5 rounded-md bg-neutral-400 animate-pulse"></div>
+                    <div className="w-[30%] h-5 rounded-md bg-neutral-400 animate-pulse"></div>
                 </div>
             </div>
         </>

@@ -5,6 +5,7 @@ import { SalesData } from "../../../interfaces/interfaces";
 // import LabelText from "../../../components/LabelText/LabelText";
 import { SalesPulse } from "../../../components/ComponentsAnimatePulse/ComponentsAnimatePulse";
 import ModalSales from "../../../components/ModalSales/ModalSales";
+import { fetchPATCH } from "../../../utils/fetchPATCH";
 // import { useSelector } from "react-redux";
 // import { RootState } from "../../../redux/store";
 
@@ -32,6 +33,10 @@ function Sales() {
         // setData(data)
     }
 
+    async function handlerApprovedPurchase(id:string) {
+        await fetchPATCH(`${VITE_URL_BASE}/states/approved/${id}`)
+    }
+
     useEffect(() => {
 
         token && handlerData()
@@ -57,10 +62,16 @@ function Sales() {
                 return (
                 <div key={purchases.purchase_id} className="w-full py-2 text-sm font-semibold text-neutral-800 flex justify-between items-center bg-redd-500 ">
                     <h4 className="w-[25%] text-center">{payment_id}</h4>
-                    <h4 className={`w-[25%] text-center ${PurchaseState.state === "Pendiente" ? "text-yellow-500" : "text-green-500"}`}>{PurchaseState.state}</h4>
+                    <h4 className={`w-[25%] text-center 
+                        ${PurchaseState.state === "Pendiente" ? "text-yellow-500" 
+                            : (PurchaseState.state === "En Camino" ? "text-blue-500" : 
+                                (PurchaseState.state === "Entregado" ? "text-green-500" : "text-red-500"))}`}>{PurchaseState.state}</h4>
                     <h4 className="w-[25%] text-center">{Products.length}</h4>
                     <div className="w-[25%] text-center flex justify-center items-center gap-x-3 ">
-                        <i className={`scale-125 cursor-pointer flex justify-center items-center rounded-full p-0.5  bx ${PurchaseState.state === "Pendiente" ? "bx-check bg-green-500 text-white" : "bx-x bg-neutral-300"}`}/>
+                        <i className={`scale-125 cursor-pointer flex justify-center items-center rounded-full p-0.5  bx 
+                            ${PurchaseState.state === "Pendiente" ? "bx-package bg-yellow-500" 
+                                : (PurchaseState.state === "En Camino" ? "bx-check bg-green-500" : 
+                                    (PurchaseState.state === "Entregado" ? "bx-user-check text-black" : "text-red-500"))}`} onClick={() => handlerApprovedPurchase(purchases.purchase_id)}/>
                         <i className="scale-150 cursor-pointer flex justify-center items-center text-neutral-600  bx bx-info-circle" onClick={() => setSale(purchases.purchase_id)}/>
                     </div>
 
