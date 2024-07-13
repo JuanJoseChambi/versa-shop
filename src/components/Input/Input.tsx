@@ -15,6 +15,7 @@ interface InputProp {
     iconLeft?:boolean;
     iconRight?:boolean;
     onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
+    onClickIcon?: () => void;
 }
 
 
@@ -27,27 +28,28 @@ function Input({
     value,
     type = "text",  
     icon,  
-    iconLeft = true, 
+    iconLeft, 
     iconRight, 
     style = styleDefault, 
     styleIcon = "text-lg", 
     styleText = "text-sm",
     styleDimensions = "w-full", 
-    onChange}: InputProp) {
+    onChange,
+    onClickIcon}: InputProp) {
 
  
   const [show, setShow] = useState<boolean>(false)
 
   return (
     <div className={`relative outline-none ${icon && "px-2"} gap-x-2 flex justify-between items-center bg-white border border-neutral-400 focus:border-black ${style} ${styleDimensions} ${styleText}`}>
-        {iconLeft
-          ? <i className={`${styleIcon} ${type === "password" ? (show ? "bx bx-show" : "bx bx-hide") : icon}`} onClick={() => setShow(!show)}></i> 
+        {iconLeft === true
+          ? <i className={`${styleIcon} ${type === "password" ? (show ? "bx bx-show" : "bx bx-hide") : icon}`} onClick={() => {setShow(!show), onClickIcon}}></i> 
           : null}
         <label className="absolute -top-5 left-0 text-xs tracking-widest text-neutral-600">{name}</label>
         <input  value={value} defaultValue={defaultValue} type={type === "password" ? (show ? "text" : "password") : type } className=" bg-transparent outline-none w-full no-eye-icon" placeholder={placeholder} onChange={onChange}  />
 
-        {iconRight && !iconLeft
-          ? <i className={`${styleIcon} ${type === "password" ? (show ? "bx bx-show" : "bx bx-hide") : icon}`} onClick={() => setShow(!show)}></i> 
+        {iconRight === true
+          ? <i className={`${styleIcon} ${type === "password" ? (show ? "bx bx-show" : "bx bx-hide") : icon}`} onClick={() => {setShow(!show), onClickIcon}}></i> 
           : null}
     </div>
   )

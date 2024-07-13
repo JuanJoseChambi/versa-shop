@@ -7,6 +7,7 @@ import { SalesPulse } from "../../../components/ComponentsAnimatePulse/Component
 import ModalSales from "../../../components/ModalSales/ModalSales";
 import { fetchPATCH } from "../../../utils/fetchPATCH";
 import SelectOptions from "../../../components/SelectOptions/SelectOptions";
+import Input from "../../../components/Input/Input";
 // import { useSelector } from "react-redux";
 // import { RootState } from "../../../redux/store";
 
@@ -21,6 +22,7 @@ function Sales() {
     const [sale, setSale] = useState<string | null>(null)
     const [filters, setFilters] = useState(false)
     const [state, setState] = useState("Pendiente")
+    const [findByPaymentId, setFindByPaymentId] = useState<string | null>(null)
     // const { profilePurchase } = useSelector((state:RootState) => state.preferenceProfile)
 
     async function handlerData () {
@@ -36,6 +38,20 @@ function Sales() {
         // setData(data)
     }
 
+    async function hanlderFindPurchase () {
+        const response = await fetch(`${VITE_URL_BASE}/purchase/find?payment_id=${findByPaymentId}`, {
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}` || ""
+            },
+        });
+        const data = await response.json();
+        console.log(data);
+        
+        setData(data?.data)
+    }
+
     async function handlerApprovedPurchase(id:string) {
         await fetchPATCH(`${VITE_URL_BASE}/states/approved/${id}`)
     }
@@ -43,8 +59,11 @@ function Sales() {
     useEffect(() => {
 
         token && handlerData()
+        if(findByPaymentId) {
+            hanlderFindPurchase()
+        }
 
-    },[token, state])
+    },[token, state, findByPaymentId])
 
   return (
     <section className="w-area bg-redd-500"> 
@@ -56,11 +75,11 @@ function Sales() {
             <li className="cursor-pointer"><i className="bx bx-stats"/> ESTADISTICAS</li>
         </ul>
 
-        <aside className={`w-area ${filters ? "max-h-[500px] py-7" : "max-h-0 opacity-0 py-0 overflow-hidden"}  transition-[max-height_opacity_padding-top_padding-bottom] duration-700 flex justify-start items-start gap-x-5 flex-wrap bg-redd-500`}>
+        <aside className={`w-full ${filters ? "max-h-[500px] py-7" : "max-h-0 opacity-0 py-0 overflow-hidden"}  transition-[max-height_opacity_padding-top_padding-bottom] duration-700 flex justify-start items-start gap-x-5 flex-wrap bg-redd-500`}>
         
+            <Input styleIcon="cursor-pointer scale-125" onChange={(e) => setFindByPaymentId(e.target.value)} iconRight={true} styleDimensions="w-[400px] h-[35px] mr-auto" icon="bx bx-search" placeholder="Buscra compra"/>
             <SelectOptions label="Estado" onChange={(e) => setState(e.target.value)} options={["Pendiente", "En Camino", "Entregado"]}/>
             <SelectOptions label="Problemas" options={["Con Productos", "Explicaciones"]}/>
-                
 
         </aside>
 
