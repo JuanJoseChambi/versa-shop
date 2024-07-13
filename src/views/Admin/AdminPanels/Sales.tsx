@@ -6,6 +6,7 @@ import { SalesData } from "../../../interfaces/interfaces";
 import { SalesPulse } from "../../../components/ComponentsAnimatePulse/ComponentsAnimatePulse";
 import ModalSales from "../../../components/ModalSales/ModalSales";
 import { fetchPATCH } from "../../../utils/fetchPATCH";
+import SelectOptions from "../../../components/SelectOptions/SelectOptions";
 // import { useSelector } from "react-redux";
 // import { RootState } from "../../../redux/store";
 
@@ -18,10 +19,12 @@ function Sales() {
     
     const [data, setData] = useState<SalesData[] | null>(null)
     const [sale, setSale] = useState<string | null>(null)
+    const [filters, setFilters] = useState(false)
+    const [state, setState] = useState("Pendiente")
     // const { profilePurchase } = useSelector((state:RootState) => state.preferenceProfile)
 
     async function handlerData () {
-        const response = await fetch(`${VITE_URL_BASE}/purchase/all`, {
+        const response = await fetch(`${VITE_URL_BASE}/purchase/all${state ? `?state=${state}` : null}`, {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json',
@@ -41,12 +44,26 @@ function Sales() {
 
         token && handlerData()
 
-    },[token])
+    },[token, state])
 
   return (
     <section className="w-area bg-redd-500"> 
         <section className="w-full">
         <h3 className="w-full text-start text-2xl font-semibold text-neutral-800 tracking-widest">VENTAS</h3>
+
+        <ul className="flex justify-start items-center gap-x-7 text-neutral-800 text-sm font-semibold tracking-widest bg-redd-500 pt-4">
+            <li className="cursor-pointer" onClick={() => setFilters(!filters)}> <i className={`scale-125  bx ${filters ? "bx-x" : "bx-filter"}`}/> FILTROS</li>
+            <li className="cursor-pointer"><i className="bx bx-stats"/> ESTADISTICAS</li>
+        </ul>
+
+        <aside className={`w-area ${filters ? "max-h-[500px] py-7" : "max-h-0 opacity-0 py-0 overflow-hidden"}  transition-[max-height_opacity_padding-top_padding-bottom] duration-700 flex justify-start items-start gap-x-5 flex-wrap bg-redd-500`}>
+        
+            <SelectOptions label="Estado" onChange={(e) => setState(e.target.value)} options={["Pendiente", "En Camino", "Entregado"]}/>
+            <SelectOptions label="Problemas" options={["Con Productos", "Explicaciones"]}/>
+                
+
+        </aside>
+
         <section className="w-full flex justify-center items-center flex-col pt-5 pb-10 divide-y divide-neutral-300">
             <ul className="w-full py-1 text-sm text-neutral-600 flex justify-between items-center">
                 <li className="w-[25%] bg-redd-500 line-clamp-1 text-center">Payment ID</li> 
@@ -66,10 +83,10 @@ function Sales() {
                         ${PurchaseState.state === "Pendiente" ? "text-yellow-500" 
                             : (PurchaseState.state === "En Camino" ? "text-blue-500" : 
                                 (PurchaseState.state === "Entregado" ? "text-green-500" : "text-red-500"))}`}>{PurchaseState.state}</h4>
-                    <h4 className="w-[25%] text-center">{Products.length}</h4>
-                    <div className="w-[25%] text-center flex justify-center items-center gap-x-3 ">
+                    <h4 className="w-[25%] text-center">{Products.length ? Products.length : (<i className="scale-125 text-rose-500  bx bx-error-alt"/>)}</h4>
+                    <div className="w-[25%] text-center flex justify-center items-center gap-x-3 bg-redd-500">
                         <i className={`scale-125 cursor-pointer flex justify-center items-center rounded-full p-0.5  bx 
-                            ${PurchaseState.state === "Pendiente" ? "bx-package bg-yellow-500" 
+                            ${PurchaseState.state === "Pendiente" ? "bx-package bg-blue-500" 
                                 : (PurchaseState.state === "En Camino" ? "bx-check bg-green-500" : 
                                     (PurchaseState.state === "Entregado" ? "bx-user-check text-black" : "text-red-500"))}`} onClick={() => handlerApprovedPurchase(purchases.purchase_id)}/>
                         <i className="scale-150 cursor-pointer flex justify-center items-center text-neutral-600  bx bx-info-circle" onClick={() => setSale(purchases.purchase_id)}/>

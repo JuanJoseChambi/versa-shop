@@ -24,11 +24,11 @@ function Admin() {
             <ul className="text-sm font-extralight tracking-widest flex justify-center items-start flex-col gap-y-3">
                 {[
                     {name:"Stock", ref:"stocks"}, 
+                    {name:"Ventas", ref:"sales"},
                     {name:"Categorias", ref:"productData"}, 
                     {name:"Crear Productos", ref:"createProduct"}, 
                     {name:"Crear Productos JSON", ref:"createJsonProducts"},
                     {name:"Crear Codigo de Descuento", ref:"createDiscountCode"},
-                    {name:"Ventas", ref:"sales"},
                     {name:"Crear Admins", ref:"createAdmin"},
                 ].map((item, index) => (
                     <li key={`${index}_${item.ref}`} className={`cursor-pointer w-full py-1 px-3 ${adminPanel === item.ref && "text-black bg-white w-full"}`} onClick={() => {setOpenOptions(false), setAdminPanel(item.ref)}}>{item.name}</li>
