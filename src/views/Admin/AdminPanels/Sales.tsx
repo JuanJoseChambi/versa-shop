@@ -75,15 +75,17 @@ function Sales() {
             <li className="cursor-pointer"><i className="bx bx-stats"/> ESTADISTICAS</li>
         </ul>
 
-        <aside className={`w-full ${filters ? "max-h-[500px] py-7" : "max-h-0 opacity-0 py-0 overflow-hidden"}  transition-[max-height_opacity_padding-top_padding-bottom] duration-700 flex justify-start items-start gap-x-5 flex-wrap bg-redd-500`}>
+        <aside className={`w-full ${filters ? "max-h-[500px] py-2 md:py-7" : "max-h-0 opacity-0 py-0 overflow-hidden"}  transition-[max-height_opacity_padding-top_padding-bottom] duration-700 flex justify-between items-start gap-y-5 md:gap-x-5 flex-col md:flex-row bg-redd-500`}>
         
-            <Input styleIcon="cursor-pointer scale-125" onChange={(e) => setFindByPaymentId(e.target.value)} iconRight={true} styleDimensions="w-[400px] h-[35px] mr-auto" icon="bx bx-search" placeholder="Buscra compra"/>
-            <SelectOptions label="Estado" onChange={(e) => setState(e.target.value)} options={["Pendiente", "En Camino", "Entregado"]}/>
-            <SelectOptions label="Problemas" options={["Con Productos", "Explicaciones"]}/>
+            <Input styleIcon="cursor-pointer scale-125" styleDimensions="w-full h-[35px] mr-auto" onChange={(e) => setFindByPaymentId(e.target.value)} iconRight={true}  icon="bx bx-search" placeholder="Buscra compra"/>
+            <div className="w-full flex justify-center items-center gap-x-5 bg-d-500">
+                <SelectOptions label="Estado" onChange={(e) => setState(e.target.value)} options={["Pendiente", "En Camino", "Entregado"]}/>
+                <SelectOptions label="Problemas" options={["Con Productos", "Explicaciones"]}/>
+            </div>
 
         </aside>
 
-        <section className="w-full flex justify-center items-center flex-col pt-5 pb-10 divide-y divide-neutral-300">
+        <section className="w-full flex justify-center items-center flex-col pt-2 md:pt-3 pb-10 divide-y divide-neutral-300 bg-redd-500">
             <ul className="w-full py-1 text-sm text-neutral-600 flex justify-between items-center">
                 <li className="w-[25%] bg-redd-500 line-clamp-1 text-center">Payment ID</li> 
                 <li className="w-[25%] bg-redd-500 line-clamp-1 text-center">Estado</li> 
@@ -117,7 +119,7 @@ function Sales() {
 
             <SalesPulse active={!data}/>
             {data?.length === 0 && (
-                <div className="w-area h-[90vh] md:h-[80vh] relative py-10 flex justify-center items-center flex-col bg-redd-500">
+                <div className="w-area h-[90vh] md:h-[70vh] relative py-10 flex justify-center items-center flex-col bg-redd-500">
                     <h3 className=" font-bold text-2xl tracking-widest text-neutral-800">NO HAY VENTAS</h3>
                     <p className="text-sm text-neutral-600 font-semibold">No se realizo ninguna Venta</p>
                     <div className="w-[30%] h-[1px] absolute bottom-3 flex justify-center items-center bg-neutral-500">
