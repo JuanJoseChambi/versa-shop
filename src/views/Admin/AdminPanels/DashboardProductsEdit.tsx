@@ -13,8 +13,10 @@ const {VITE_URL_BASE} = import.meta.env
 
 function DashboardProductsEdit() {
     const [dataProduct, setDataProduct] = useState<DataProduct[]>([])
+    const [page, setPage] = useState(1)
     
-    const { data } = useApi(`${VITE_URL_BASE}/product/all`) as { data: DataProduct[] }
+    const { data } = useApi(`${VITE_URL_BASE}/product/paged?page=${page}`) as { data: {data: DataProduct[], existPage:boolean} }
+    // const { data } = useApi(`${VITE_URL_BASE}/product/all`) as { data: DataProduct[] }
     const [edit, setEdit] = useState<string | null>(null)
 
     async function hanlderDelete (id:string) {
@@ -30,12 +32,14 @@ function DashboardProductsEdit() {
     // const {categories, types} = allFilters()
 
     useEffect(() => {
-        setDataProduct(data)   
+        console.log(data);
+        
+        setDataProduct(data?.data)   
         // console.log(data);
     },[data])
     
     return (
-    <section className="w-[95%] flex justify-center items-center flex-col bg-blued-500">
+    <section className="w-[95%] flex justify-center items-center flex-col bg-redd-500">
             <h3 className="w-full text-start text-2xl font-semibold text-neutral-800 tracking-widest">STOCK</h3>
             <div className="w-full flex justify-center items-center">
                 <TitleDashboard titles={[
@@ -53,7 +57,7 @@ function DashboardProductsEdit() {
             </div>
             {dataProduct?.map((product, index) => (
                 <React.Fragment key={index}>
-                    <div className={`w-full h-[70px] bg-redd-500  ${edit === product.product_id && "text-neutral-500 border-none"} flex justify-center items-center bg-redd-500 border-b border-neutral-300 `}>
+                    <div className={`w-full h-[70px] bg-redd-500  ${edit === product.product_id && "text-neutral-500 border-none"} flex justify-center items-center bg-redd-500 border-b border-neutral-300`}>
 
                         <picture className={`hidden md:flex w-[175px] h-[50px] overflow-hidden justify-center items-center mr-3 ${!product.image && "animate-pulse"} bg-redd-500`}>
                             <img src={product.image} alt="" className="w-full h-full object-cover"/>
@@ -125,6 +129,11 @@ function DashboardProductsEdit() {
                     
                 </React.Fragment>
             ))}
+            {dataProduct && <ul className="w-full py-5 flex justify-center items-center gap-x-4 mt-auto text-neutral-800 bg-redd-500">
+                <li className={`flex justify-center items-center bg-redd-500 ${page === 1 ? "pointer-events-none select-none text-neutral-500" : "cursor-pointer"}`} onClick={() => setPage(prevPage => prevPage - 1)}><i className='scale-150  bx bxs-chevron-left-circle'></i></li>
+                <li className="w-5 flex justify-center items-center bg-redd-500 select-none">{page}</li>
+                <li className={`flex justify-center items-center bg-redd-500 ${data?.existPage ? "cursor-pointer" : "pointer-events-none select-none text-neutral-500"}`} onClick={() => setPage(prevPage => prevPage + 1)}><i className='scale-150  bx bxs-chevron-right-circle'></i></li>
+            </ul>}
             
             <DashboardProductPulse active={!dataProduct}/>
             <DashboardProductPulse active={!dataProduct}/>
@@ -137,6 +146,7 @@ function DashboardProductsEdit() {
                     </div>
                 </div>
             )}
+            
         </section>
   )
 }
