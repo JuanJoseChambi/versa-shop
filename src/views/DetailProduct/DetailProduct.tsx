@@ -101,7 +101,7 @@ return (
                 <ImageZoom imageUrl={data?.image} stylePosition="lg:sticky lg:top-14"/>
 
                 <article className="w-[100%] lg:w-[50%] h-[75%] py-5 lg:pt-0 px-5 lg:px-10 flex justify-between items-start flex-col bg-blued-500">
-                    <p className="text-xs text-neutral-700 tracking-widest">Tienda | Productos | Camperas</p>
+                    <p className="text-xs text-neutral-700 tracking-widest">Tienda | Productos | {data?.Type.type}</p>
                     <h2 className="text-4xl tracking-widest font-semibold">{data?.name}</h2>
 
                     <div className="flex justify-center items-center gap-x-2 text-sm font-light tracking-widest">
@@ -180,7 +180,7 @@ return (
             </section>
         </section>
 
-        <RelatedProducts/>
+        <RelatedProducts name={data?.name} color={data?.Stocks[0]?.Color.color} type={data?.Type.type}/>
 
         
         <Footer/>

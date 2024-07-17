@@ -1,29 +1,29 @@
-import { useState } from "react";
+// import { useState } from "react";
 interface PropImageMagnifier {
     imageUrl: string;
     carusel?: boolean;
     stylePosition?:string; 
 }
 function ImageZoom({imageUrl, stylePosition, carusel= false}:PropImageMagnifier) {
-    const [zoomPosition, setZoomPosition] = useState({ x: 0, y: 0 });
-    const [isZoomVisible, setIsZoomVisible] = useState(false);
-    const [client, setClient] = useState({ x: 0, y: 0 });
+    // const [zoomPosition, setZoomPosition] = useState({ x: 0, y: 0 });
+    // const [isZoomVisible, setIsZoomVisible] = useState(false);
+    // const [client, setClient] = useState({ x: 0, y: 0 });
   
-    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-        const target = e.target as HTMLDivElement;
-        const {clientX, clientY} = e
-        setClient({ x: clientX, y: clientY });
-        const { left, top, width, height } = target.getBoundingClientRect();
-        const x = (e.clientX - left) / width;
-        const y = (e.clientY - top) / height;
-        setZoomPosition({ x, y });
+    // const handleMouseMove = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    //     const target = e.target as HTMLDivElement;
+    //     const {clientX, clientY} = e
+    //     setClient({ x: clientX, y: clientY });
+    //     const { left, top, width, height } = target.getBoundingClientRect();
+    //     const x = (e.clientX - left) / width;
+    //     const y = (e.clientY - top) / height;
+    //     setZoomPosition({ x, y });
     
-      setIsZoomVisible(true);
-    };
+    //   setIsZoomVisible(true);
+    // };
   
-    const handleMouseLeave = () => {
-      setIsZoomVisible(false);
-    };
+    // const handleMouseLeave = () => {
+    //   setIsZoomVisible(false);
+    // };
     const images = [imageUrl, imageUrl, imageUrl, imageUrl, imageUrl, imageUrl, imageUrl, imageUrl, imageUrl]
     return ( 
     <div className={`w-full h-full max-h-full lg:w-[45%] ${stylePosition} top-10 flex justify-center items-center flex-col lg:flex-row bg-blued-500`}>
@@ -49,13 +49,13 @@ function ImageZoom({imageUrl, stylePosition, carusel= false}:PropImageMagnifier)
         <picture
             className={`max-w-[90%] h-[100%] flex justify-center items-center order-1 lg:order-2
             ${carusel ? "lg:min-w-[80%]" : "lg:min-w-full"} lg:h-full bg-cover bg-center bg-red-500 border border-neutral-200`}
-            onMouseMove={handleMouseMove}
-            onMouseLeave={handleMouseLeave}
+            // onMouseMove={handleMouseMove}
+            // onMouseLeave={handleMouseLeave}
             // style={{ backgroundImage: `url(${imageUrl})` }}
         >
           <img src={imageUrl} alt="" className="w-full h-full object-cover flex justify-center items-center"/>
         </picture>
-        {isZoomVisible && (
+        {/* {isZoomVisible && (
         <div
             className="hidden lg:flex w-[100px] h-[100px] justify-center items-center overflow-hidden absolute z-10 border-2 border-white pointer-events-none -translate-y-12 -translate-x-12"
             style={{
@@ -66,7 +66,7 @@ function ImageZoom({imageUrl, stylePosition, carusel= false}:PropImageMagnifier)
                     backgroundImage: `url(${imageUrl})`,
                     backgroundPosition: `${zoomPosition.x * 100}% ${zoomPosition.y * 100}%`,}}></div>
             </div>
-        )}
+        )} */}
         
         
       </div>

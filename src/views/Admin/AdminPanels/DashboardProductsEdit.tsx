@@ -32,7 +32,7 @@ function DashboardProductsEdit() {
     // const {categories, types} = allFilters()
 
     useEffect(() => {
-        console.log(data);
+        // console.log(data);
         
         setDataProduct(data?.data)   
         // console.log(data);
