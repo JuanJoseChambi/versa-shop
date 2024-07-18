@@ -92,3 +92,14 @@ export function SalesPulse ({active}:Pulse) {
         </>
     )
 }
+
+export function RelatedPulse ({active}:Pulse) {
+    if(!active) return;
+    
+    return (
+        <div className={`max-sm:min-w-[250px] max-sm:h-[250px] min-w-[200px] h-[200px] overflow-hidden flex justify-between items-center flex-col gap-y-2 bg-redd-500`}>
+            <div className="w-full h-[85%] animate-pulse bg-neutral-400 rounded-lg"></div>
+            <div className="w-full h-[10%] animate-pulse bg-neutral-400 rounded-lg"></div>
+        </div>
+    )
+}
