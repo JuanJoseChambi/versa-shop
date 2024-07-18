@@ -180,7 +180,7 @@ return (
             </section>
         </section>
 
-        <RelatedProducts name={data?.name} color={data?.Stocks[0]?.Color.color} type={data?.Type.type}/>
+        <RelatedProducts name={data?.name} color={data?.Stocks[0]?.Color.color} type={data?.Type.type} id={data?.product_id}/>
 
         
         <Footer/>
