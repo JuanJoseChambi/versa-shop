@@ -8,6 +8,7 @@ import ModalSales from "../../../components/ModalSales/ModalSales";
 import { fetchPATCH } from "../../../utils/fetchPATCH";
 import SelectOptions from "../../../components/SelectOptions/SelectOptions";
 import Input from "../../../components/Input/Input";
+// import { fetchPOST } from "../../../utils/fetchPOST";
 // import { useSelector } from "react-redux";
 // import { RootState } from "../../../redux/store";
 
@@ -65,6 +66,13 @@ function Sales() {
 
     },[token, state, findByPaymentId])
 
+
+    // async function handlerEmail () {
+    //     await fetchPOST(`${VITE_URL_BASE}/resend/send`)
+    //     // console.log(response);
+    // }
+
+
   return (
     <section className="w-area bg-redd-500"> 
         <section className="w-full">
@@ -73,6 +81,7 @@ function Sales() {
         <ul className="flex justify-start items-center gap-x-7 text-neutral-800 text-sm font-semibold tracking-widest bg-redd-500 pt-4">
             <li className="cursor-pointer" onClick={() => setFilters(!filters)}> <i className={`scale-125  bx ${filters ? "bx-x" : "bx-filter"}`}/> FILTROS</li>
             <li className="cursor-pointer"><i className="bx bx-stats"/> ESTADISTICAS</li>
+            {/* <li className="cursor-pointer"><i className="bx bx-send" onClick={handlerEmail}/> ENVIAR EMAIL</li> */}
         </ul>
 
         <aside className={`w-full ${filters ? "max-h-[500px] py-2 md:py-7" : "max-h-0 opacity-0 py-0 overflow-hidden"}  transition-[max-height_opacity_padding-top_padding-bottom] duration-700 flex justify-between items-start gap-y-5 md:gap-x-5 flex-col md:flex-row bg-redd-500`}>
