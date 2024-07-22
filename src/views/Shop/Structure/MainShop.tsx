@@ -9,8 +9,9 @@ import WithoutResult from "../../../components/WithoutResult/WithoutResult"
 import Input from "../../../components/Input/Input"
 import { useSelector } from "react-redux"
 import { RootState } from "../../../redux/store"
-import { dataForFilter } from "../../../utils/dataForFilter"
+// import { dataForFilter } from "../../../utils/dataForFilter"
 import CardBestSeller from "../../../components/CardBestSeller/CardBestSeller"
+import {Filters as FiltersInterface} from "../../../interfaces/components"
 const {VITE_URL_BASE} = import.meta.env
 
 
@@ -36,11 +37,14 @@ function MainShop() {
     const [page, setPage] = useState(1)
     const [hasMoreProducts, setHasMoreProducts] = useState<boolean>(true)
 
-    const { data } = useApi(`${VITE_URL_BASE}/product/all`) as { data: DataProduct[] | [] }
+    const { data } = useApi(`${VITE_URL_BASE}/product/filters`) as {data:FiltersInterface}
+    const categoriesArray = data?.categories?.map(category => category?.category)
+    const typesArray = data?.types?.map(type => type?.type)
+    const sizesArray = data?.sizes?.map(size => size?.size)
+    const colorsArray = data?.colors?.map(color => color)
+
     const { data:bestSeller } = useApi(`${VITE_URL_BASE}/sale/product/all?maxSales=1&quantity=3`) as {data: DataBestSeller[]}
-
-    const { categoriesArray, typesArray, sizesArray, colorsArray } = useMemo(() => dataForFilter(data), [data])
-
+    
     const [optionsFilter, setOptionsFilter] = useState<OptionsFilter>({
         category:[],
         type:[],
@@ -204,10 +208,10 @@ function MainShop() {
         <aside className={`w-area ${filters ? "min-h-[0px] max-h-[300px] pt-10" : "max-h-0 min-h-0 opacity-0 py-0 overflow-hidden"} transition-[min-height_max-height] duration-700 flex justify-center items-start flex-wrap gap-5`}>
 
                 <div className="w-full hidden md:flex justify-center items-start flex-wrap gap-8 divide-x-0 md:divide-x divide-neutral-500">
-                    <Filters maxWidth="min-w-[100px]" filter={categoriesArray} select={optionsFilter.category} title="CATEGORIAS" onClick={(value) => updateFilter("category", value as string)}/>
-                    <Filters maxWidth="min-w-[100px]" filter={typesArray} select={optionsFilter.type} title="TIPOS" onClick={(value) => updateFilter("type", value as string)}/>
-                    <Filters maxWidth="min-w-[100px]" filter={sizesArray} select={optionsFilter.size} title="TAMAÑOS" onClick={(value) => updateFilter("size", value as string)}/>
-                    <Filters maxWidth="min-w-[100px]" filter={colorsArray} select={optionsFilter.color} title="COLORES" onClick={(value) => updateFilter("color", value as {color:string, hxacolor:string})}/>
+                    <Filters maxWidth="min-w-[100px]" filter={categoriesArray || []} select={optionsFilter.category} title="CATEGORIAS" onClick={(value) => updateFilter("category", value as string)}/>
+                    <Filters maxWidth="min-w-[100px]" filter={typesArray || []} select={optionsFilter.type} title="TIPOS" onClick={(value) => updateFilter("type", value as string)}/>
+                    <Filters maxWidth="min-w-[100px]" filter={sizesArray || []} select={optionsFilter.size} title="TAMAÑOS" onClick={(value) => updateFilter("size", value as string)}/>
+                    <Filters maxWidth="min-w-[100px]" filter={colorsArray || []} select={optionsFilter.color} title="COLORES" onClick={(value) => updateFilter("color", value as {color:string, hxacolor:string})}/>
                 </div>
                 <div className={`hidden md:flex justify-center items-center gap-8`}>
                     <button className={buttonDisable} onClick={() => {setOptionsFilter({category:[], type:[], size:[], color:[], maxPrice:0, minPrice:0}), setProductsFiltred(null)}}>Limpiar filtro</button>
@@ -222,10 +226,22 @@ function MainShop() {
                 <button className="bg-blued-500 flex justify-center items-center text-2xl scale-150" onClick={() => setFilters(false)}><i className="bx bx-x"></i></button>
             </section>
             <section className="w-full flex justify-center items-center flex-col gap-y-7">
-                <Filters styleTitle="text-sm -top-5 text-neutral-700 font-semibold tracking-widest" filter={categoriesArray} select={optionsFilter.category} title="CATEGORIAS" onClick={(value) => updateFilter("category", value as string)}/>
-                <Filters styleTitle="text-sm -top-5 text-neutral-700 font-semibold tracking-widest" filter={typesArray} select={optionsFilter.type} title="TIPOS" onClick={(value) => updateFilter("type", value as string)}/>
-                <Filters styleTitle="text-sm -top-5 text-neutral-700 font-semibold tracking-widest" filter={sizesArray} select={optionsFilter.size} title="TAMAÑOS" onClick={(value) => updateFilter("size", value as string)}/>
-                <Filters styleTitle="text-sm -top-5 text-neutral-700 font-semibold tracking-widest" filter={colorsArray} select={optionsFilter.color} title="COLORES" onClick={(value) => updateFilter("color", value as {color:string, hxacolor:string})}/>
+                <div className="w-full bg-redd-500 px-4 ">
+                    <h3 className="leading-3 font-semibold text-neutral-800">CATEGORIAS</h3>
+                    <Filters filter={categoriesArray || []} select={optionsFilter.category} onClick={(value) => updateFilter("category", value as string)}/>
+                </div>
+                <div className="w-full bg-redd-500 px-4 ">
+                    <h3 className="leading-3 font-semibold text-neutral-800">TIPOS</h3>
+                    <Filters filter={typesArray || []} select={optionsFilter.type} onClick={(value) => updateFilter("type", value as string)}/>
+                </div>
+                <div className="w-full bg-redd-500 px-4 ">
+                    <h3 className="leading-3 font-semibold text-neutral-800">TALLES</h3>
+                    <Filters filter={sizesArray || []} select={optionsFilter.size} onClick={(value) => updateFilter("size", value as string)}/>
+                </div>
+                <div className="w-full bg-redd-500 px-4 ">
+                    <h3 className="leading-3 font-semibold text-neutral-800">COLORES</h3>
+                    <Filters filter={colorsArray || []} select={optionsFilter.color} onClick={(value) => updateFilter("color", value as {color:string, hxacolor:string})}/>
+                </div>
                 <div className="w-area gap-x-5 flex justify-center items-center">
                     <Input name="Max Price" type="number" onChange={(e) => setOptionsFilter({...optionsFilter, maxPrice:Number(e.target.value)})}/>
                     <Input name="Min Price" type="number" onChange={(e) => setOptionsFilter({...optionsFilter, minPrice:Number(e.target.value)})}/>

@@ -5,7 +5,7 @@ export interface Colors {
 }
 interface FiltersProp {
     filter: (string | Colors)[];
-    title:string;
+    title?:string;
     styleTitle?:string;
     onClick?: (value: string | Colors) => void;
     select?: string | string[];
