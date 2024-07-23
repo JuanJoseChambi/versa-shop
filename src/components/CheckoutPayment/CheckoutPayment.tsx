@@ -9,6 +9,9 @@ import { RootState } from "../../redux/store"
 import { HomeDelivery, ValueMethods, Withdrawal } from "../../interfaces/components"
 import methodDelivery from "../../utils/methodDelivery"
 import postalCodes from "../../utils/postalCodes.json"
+import ArrowBefore from "../ArrowBefore/ArrowBefore"
+import PaymentDebitCredit from "../PaymentDebitCredit/PaymentDebitCredit"
+import PaymentAtm from "../PaymentAtm/PaymentAtm"
 const {VITE_MP_P_KEY, VITE_URL_BASE} = import.meta.env
 
 
@@ -16,19 +19,26 @@ const {VITE_MP_P_KEY, VITE_URL_BASE} = import.meta.env
 function CheckoutPayment() {
     const { profilePurchase } = useSelector((state:RootState) => state.preferenceProfile)
     const products = useSelector((state:RootState) => state.cart.cart)
-    const CREDIT = "CREDITO"
-    const DEBIT = "DEBITO"
+    const CASH = "EFECTIVO"
+    const DEBIT_CREDIT = "DEBITO Y CREDITO"
     const MP = "MP"
 
-    const [selectMethod, setSelectMethod] = useState<string>(CREDIT)
+    const [selectMethod, setSelectMethod] = useState<string | null>(null)
 
     useEffect(() => {
+        
+
         initMercadoPago(VITE_MP_P_KEY, { locale: 'es-AR' })
     },[])
 
 
     const [preferenceId, setPreferenceId] = useState<string>("")
-    const [oneClick, setOneClick] = useState<boolean>(false)
+    // const [oneClick, setOneClick] = useState<boolean>(false)
+
+    // async function hanlderForm () {
+    //     await loadMercadoPago();
+    //     const mp = new window.MercadoPago("YOUR_PUBLIC_KEY");
+    // }
 
     async function payment () {
 
@@ -103,41 +113,52 @@ function CheckoutPayment() {
                 <i className="bx bx-credit-card scale-150"></i>
             </section>
 
-            <section className="w-full flex justify-center items-start bg-redd-500 divide-x divide-neutral-400">
+            {!selectMethod && <section className="w-full flex justify-center items-start flex-col sm:flex-row bg-redd-500 sm:divide-x divide-neutral-400">
 
-                <div className={`min-h-[80px] transition-colors duration-700 flex justify-center items-center flex-col flex-1 ${selectMethod === CREDIT && "bg-white "} bg-blued-500`} 
-                onClick={() => setSelectMethod(CREDIT)}>
+                <div className={`w-full min-h-[80px] hover:bg-neutral-200 cursor-pointer transition-colors duration-700 flex justify-center items-center flex-col flex-1 ${selectMethod === CASH && "bg-white "} bg-blued-500`} 
+                onClick={() => {setSelectMethod(CASH); payment()}}>
                     <picture className="flex w-[50px]">
                         <img src={credit} alt="" className="object-cover"/>
                     </picture>
-                    <h3 className="text-xs tracking-widest font-semibold text-neutral-800">CRÉDITO</h3>
+                    <h3 className="text-xs tracking-widest font-semibold text-neutral-800">EFECTIVO</h3>
                 </div>
-                <div className={`min-h-[80px] transition-colors duration-700 flex justify-center items-center flex-col flex-1 ${selectMethod === DEBIT && "bg-white "} bg-blued-500`} 
-                onClick={() => setSelectMethod(DEBIT)}>
+                <div className={`w-full min-h-[80px] hover:bg-neutral-200 cursor-pointer transition-colors duration-700 flex justify-center items-center flex-col flex-1 ${selectMethod === DEBIT_CREDIT && "bg-white "} bg-blued-500`} 
+                onClick={() => {setSelectMethod(DEBIT_CREDIT); payment()}}>
                     <picture className="flex w-[50px]">
                         <img src={debit} alt="" className="object-cover"/>
                     </picture>
-                    <h3 className="text-xs tracking-widest font-semibold text-neutral-800">DÉBITO</h3>
+                    <h3 className="text-xs tracking-widest font-semibold text-neutral-800">DÉBITO | CRÉDITO</h3>
                 </div>
-                <div className={`min-h-[80px] transition-colors duration-700 flex justify-center items-center flex-col flex-1 ${selectMethod === MP && "bg-white "} bg-blued-500`} 
-                onClick={() => {setSelectMethod(MP), payment(), setOneClick(true)}}>
+                <div className={`w-full min-h-[80px] hover:bg-neutral-200 cursor-pointer transition-colors duration-700 flex justify-center items-center flex-col flex-1 ${selectMethod === MP && "bg-white "} bg-blued-500`} 
+                onClick={() => {setSelectMethod(MP), payment()}}>
                     <picture className="flex w-[50px] overflow-hidden">
                         <img src={mp} alt="" className=""/>
                     </picture>
-                    <h3 className="text-xs tracking-widest font-semibold text-neutral-800">DÉBITO / CRÉDITO</h3>
+                    <h3 className="text-xs tracking-widest font-semibold text-neutral-800">MERCADO PAGO</h3>
                 </div>
 
-            </section>
-                {preferenceId && oneClick && 
-                    <Wallet 
-                        initialization={{preferenceId: preferenceId, redirectMode:"modal"}}
-                        customization={
-                            {
-                                texts:{ valueProp: 'smart_option'}, 
-                                visual:{ buttonBackground: 'black'}
-                            }
-                        }
-                    />}
+            </section>}
+
+            {selectMethod && preferenceId && 
+            <section className="w-full bg-redd-500 relative">
+                <div className="w-full relative flex justify-between items-center bg-blued-500">
+                    <ArrowBefore onClick={() => (setSelectMethod(null), setPreferenceId("") )} text="Metodos de Pago" stylePosition="" /> 
+                    <h4>{selectMethod}</h4>
+                </div>
+                <section className="w-full flex justify-center items-center py-5">
+                    {selectMethod === CASH && <PaymentAtm preferenceId={preferenceId}/>}
+                    {selectMethod === DEBIT_CREDIT && <PaymentDebitCredit preferenceId={preferenceId}/>}
+                    {selectMethod === MP && <Wallet 
+                            initialization={{preferenceId: preferenceId, redirectMode:"modal"}}
+                            customization={
+                                {
+                                    texts:{ valueProp: 'smart_option'}, 
+                                    visual:{ buttonBackground: 'black'}
+                                }
+                            } />}
+                </section>
+            </section>}
+
         </section>
   )
 }
