@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react"
-import credit from "../../assets/paymentMethod/Credito.png"
-import debit from "../../assets/paymentMethod/Debito.png"
-import mp from "../../assets/paymentMethod/mercadopago.png"
+// import credit from "../../assets/paymentMethod/Credito.png"
+// import debit from "../../assets/paymentMethod/Debito.png"
+// import mp from "../../assets/paymentMethod/mercadopago.png"
+import { card, card2, money, mp } from "../../assets/paymentMethod/Methods"
 import { Wallet, initMercadoPago } from "@mercadopago/sdk-react"
 import { deliverySvg, letterSVG, ubicationSvg } from "../../assets/IconSvgs/IconSvgs"
 import { useSelector } from "react-redux"
@@ -14,6 +15,25 @@ import PaymentDebitCredit from "../PaymentDebitCredit/PaymentDebitCredit"
 import PaymentAtm from "../PaymentAtm/PaymentAtm"
 const {VITE_MP_P_KEY, VITE_URL_BASE} = import.meta.env
 
+interface MethodsPaymentProp {
+    onClick?: () => void;
+    image?:string | React.ReactNode;
+    method?:string;
+    typeImage?:string
+}
+
+function MethodsPayment ({onClick, image, method, typeImage}:MethodsPaymentProp) {
+    return (
+        <div className={`w-full min-h-[80px] relative hover:bg-neutral-200 cursor-pointer transition-colors duration-700 flex justify-center items-center flex-col flex-1 bg-blued-500`} 
+                onClick={onClick}>
+                <picture className="flex gap-x-2">
+                    {typeImage === "img" && typeof image === "string" ? <img src={image}/> : image}
+                </picture>
+                <h3 className="text-xs tracking-widest font-semibold text-neutral-800">{method}</h3>
+                <i className="absolute right-8 scale-150 text-[#393939]  bx bx-chevron-right"/>
+        </div>
+    )
+}
 
 
 function CheckoutPayment() {
@@ -112,29 +132,11 @@ function CheckoutPayment() {
                 <i className="bx bx-credit-card scale-150"></i>
             </section>
 
-            {!selectMethod && <section className="w-full flex justify-center items-start flex-col sm:flex-row bg-redd-500 sm:divide-x divide-neutral-400">
+            {!selectMethod && <section className="w-full flex justify-start items-start flex-col bg-redd-500">
 
-                <div className={`w-full min-h-[80px] hover:bg-neutral-200 cursor-pointer transition-colors duration-700 flex justify-center items-center flex-col flex-1 ${selectMethod === CASH && "bg-white "} bg-blued-500`} 
-                onClick={() => { setSelectMethod(CASH); createPreference() }}>
-                    <picture className="flex w-[50px]">
-                        <img src={credit} alt="" className="object-cover"/>
-                    </picture>
-                    <h3 className="text-xs tracking-widest font-semibold text-neutral-800">EFECTIVO</h3>
-                </div>
-                <div className={`w-full min-h-[80px] hover:bg-neutral-200 cursor-pointer transition-colors duration-700 flex justify-center items-center flex-col flex-1 ${selectMethod === DEBIT_CREDIT && "bg-white "} bg-blued-500`} 
-                onClick={() => { setSelectMethod(DEBIT_CREDIT); createPreference() }}>
-                    <picture className="flex w-[50px]">
-                        <img src={debit} alt="" className="object-cover"/>
-                    </picture>
-                    <h3 className="text-xs tracking-widest font-semibold text-neutral-800">DÉBITO | CRÉDITO</h3>
-                </div>
-                <div className={`w-full min-h-[80px] hover:bg-neutral-200 cursor-pointer transition-colors duration-700 flex justify-center items-center flex-col flex-1 ${selectMethod === MP && "bg-white "} bg-blued-500`} 
-                onClick={() => { setSelectMethod(MP), createPreference() }}>
-                    <picture className="flex w-[50px] overflow-hidden">
-                        <img src={mp} alt="" className=""/>
-                    </picture>
-                    <h3 className="text-xs tracking-widest font-semibold text-neutral-800">MERCADO PAGO</h3>
-                </div>
+                <MethodsPayment method="MERCADO PAGO" image={mp} onClick={() => {setSelectMethod(MP); createPreference()}}/>
+                <MethodsPayment method="DÉBITO | CRÉDITO" image={<>{card}{card2}</>} onClick={() => {setSelectMethod(DEBIT_CREDIT); createPreference()}}/>
+                <MethodsPayment method="EFECTIVO" image={money} onClick={() => {setSelectMethod(CASH); createPreference()}}/>
 
             </section>}
 
@@ -144,7 +146,7 @@ function CheckoutPayment() {
                     <ArrowBefore onClick={() => (setSelectMethod(null), setPreferenceId("") )} text="Metodos de Pago" stylePosition="" /> 
                     <h4>{selectMethod}</h4>
                 </div>
-                <section className="w-full flex justify-center items-center py-5">
+                <section className="w-full relative flex justify-center items-center py-5">
                     {selectMethod === CASH && <PaymentAtm preferenceId={preferenceId}/>}
                     {selectMethod === DEBIT_CREDIT && <PaymentDebitCredit preferenceId={preferenceId}/>}
                     {selectMethod === MP && <Wallet 
@@ -155,6 +157,9 @@ function CheckoutPayment() {
                                     visual:{ buttonBackground: 'black'}
                                 }
                             } />}
+                    {!preferenceId && <div className="w-full h-full flex justify-center items-center absolute top-0 left-0 z-10 py-10 bg-[#ffffff96]"> 
+                        <div className="w-[40px] h-[40px] rounded-full animate-spin border-t border-l border-black"></div> 
+                    </div>}
                 </section>
             </section>}
 
