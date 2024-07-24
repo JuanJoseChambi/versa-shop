@@ -63,6 +63,7 @@ function PaymentAtm  ({preferenceId}: PaymentBrickProp) {
                 console.log('Payment brick is ready');
             },
             onSubmit: ({ selectedPaymentMethod, formData }: { selectedPaymentMethod: any, formData: any }) => {
+                console.log(selectedPaymentMethod);
                 return new Promise((resolve, reject) => {
                 fetch('/process_payment', {
                     method: 'POST',

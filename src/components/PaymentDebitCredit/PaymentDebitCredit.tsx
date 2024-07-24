@@ -64,14 +64,16 @@ function PaymentDebitCredit  ({preferenceId}: PaymentBrickProp) {
                 console.log('Payment brick is ready');
             },
             onSubmit: ({ selectedPaymentMethod, formData }: { selectedPaymentMethod: any, formData: any }) => {
+                console.log(selectedPaymentMethod);
+                
                 return new Promise((resolve, reject) => {
-                fetch('/process_payment', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(formData),
-                })
+                  fetch('/process_payment', {
+                      method: 'POST',
+                      headers: {
+                          'Content-Type': 'application/json',
+                      },
+                      body: JSON.stringify(formData),
+                  })
                     .then((response) => response.json())
                     .then((response) => {
                         resolve(response);
