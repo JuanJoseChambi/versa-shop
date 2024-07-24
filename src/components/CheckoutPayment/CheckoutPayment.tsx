@@ -44,14 +44,14 @@ function CheckoutPayment() {
     const MP = "MP"
 
     const [selectMethod, setSelectMethod] = useState<string | null>(null)
+    const [preferenceId, setPreferenceId] = useState<string>("")
 
     useEffect(() => {
 
         initMercadoPago(VITE_MP_P_KEY, { locale: 'es-AR' })
-    },[])
+    },[preferenceId])
 
 
-    const [preferenceId, setPreferenceId] = useState<string>("")
     // const [oneClick, setOneClick] = useState<boolean>(false)
 
     // async function hanlderForm () {
