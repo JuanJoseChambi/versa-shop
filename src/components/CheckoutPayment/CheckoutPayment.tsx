@@ -26,7 +26,6 @@ function CheckoutPayment() {
     const [selectMethod, setSelectMethod] = useState<string | null>(null)
 
     useEffect(() => {
-        
 
         initMercadoPago(VITE_MP_P_KEY, { locale: 'es-AR' })
     },[])
@@ -40,7 +39,7 @@ function CheckoutPayment() {
     //     const mp = new window.MercadoPago("YOUR_PUBLIC_KEY");
     // }
 
-    async function payment () {
+    async function createPreference () {
 
         const response = await fetch(`${VITE_URL_BASE}/create_preference`, {
             method: "POST",
@@ -52,7 +51,7 @@ function CheckoutPayment() {
     
         const preference = await response.json();
         
-        setPreferenceId(preference.id)    
+        setPreferenceId(preference.id);
     }
 
     const [nameMethod, delivery] = profilePurchase?.methodOfDelivery.split("_") || "";
@@ -116,21 +115,21 @@ function CheckoutPayment() {
             {!selectMethod && <section className="w-full flex justify-center items-start flex-col sm:flex-row bg-redd-500 sm:divide-x divide-neutral-400">
 
                 <div className={`w-full min-h-[80px] hover:bg-neutral-200 cursor-pointer transition-colors duration-700 flex justify-center items-center flex-col flex-1 ${selectMethod === CASH && "bg-white "} bg-blued-500`} 
-                onClick={() => {setSelectMethod(CASH); payment()}}>
+                onClick={() => { setSelectMethod(CASH); createPreference() }}>
                     <picture className="flex w-[50px]">
                         <img src={credit} alt="" className="object-cover"/>
                     </picture>
                     <h3 className="text-xs tracking-widest font-semibold text-neutral-800">EFECTIVO</h3>
                 </div>
                 <div className={`w-full min-h-[80px] hover:bg-neutral-200 cursor-pointer transition-colors duration-700 flex justify-center items-center flex-col flex-1 ${selectMethod === DEBIT_CREDIT && "bg-white "} bg-blued-500`} 
-                onClick={() => {setSelectMethod(DEBIT_CREDIT); payment()}}>
+                onClick={() => { setSelectMethod(DEBIT_CREDIT); createPreference() }}>
                     <picture className="flex w-[50px]">
                         <img src={debit} alt="" className="object-cover"/>
                     </picture>
                     <h3 className="text-xs tracking-widest font-semibold text-neutral-800">DÉBITO | CRÉDITO</h3>
                 </div>
                 <div className={`w-full min-h-[80px] hover:bg-neutral-200 cursor-pointer transition-colors duration-700 flex justify-center items-center flex-col flex-1 ${selectMethod === MP && "bg-white "} bg-blued-500`} 
-                onClick={() => {setSelectMethod(MP), payment()}}>
+                onClick={() => { setSelectMethod(MP), createPreference() }}>
                     <picture className="flex w-[50px] overflow-hidden">
                         <img src={mp} alt="" className=""/>
                     </picture>
@@ -139,7 +138,7 @@ function CheckoutPayment() {
 
             </section>}
 
-            {selectMethod && preferenceId && 
+            {selectMethod && 
             <section className="w-full bg-redd-500 relative">
                 <div className="w-full relative flex justify-between items-center bg-blued-500">
                     <ArrowBefore onClick={() => (setSelectMethod(null), setPreferenceId("") )} text="Metodos de Pago" stylePosition="" /> 
