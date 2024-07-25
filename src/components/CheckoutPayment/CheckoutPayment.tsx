@@ -45,21 +45,17 @@ function CheckoutPayment() {
 
     const [selectMethod, setSelectMethod] = useState<string | null>(null)
     const [preferenceId, setPreferenceId] = useState<string>("")
+    const [show, setShow] = useState(true)
 
     useEffect(() => {
-
+        setShow(true) 
         initMercadoPago(VITE_MP_P_KEY, { locale: 'es-AR' })
-    },[preferenceId])
-
-
-    // const [oneClick, setOneClick] = useState<boolean>(false)
-
-    // async function hanlderForm () {
-    //     await loadMercadoPago();
-    //     const mp = new window.MercadoPago("YOUR_PUBLIC_KEY");
-    // }
-
+    },[])
+    
     async function createPreference () {
+        setTimeout(() => {
+            setShow(false) 
+        }, 2000);
 
         const response = await fetch(`${VITE_URL_BASE}/create_preference`, {
             method: "POST",
@@ -72,6 +68,7 @@ function CheckoutPayment() {
         const preference = await response.json();
         
         setPreferenceId(preference.id);
+        
     }
 
     const [nameMethod, delivery] = profilePurchase?.methodOfDelivery.split("_") || "";
@@ -143,10 +140,10 @@ function CheckoutPayment() {
             {selectMethod && 
             <section className="w-full bg-redd-500 relative">
                 <div className="w-full relative flex justify-between items-center bg-blued-500">
-                    <ArrowBefore onClick={() => (setSelectMethod(null), setPreferenceId("") )} text="Metodos de Pago" stylePosition="" /> 
+                    <ArrowBefore onClick={() => (setSelectMethod(null), setPreferenceId(""), setShow(true) )} text="Metodos de Pago" stylePosition="" /> 
                     <h4>{selectMethod}</h4>
                 </div>
-                <section className="w-full relative flex justify-center items-center py-5">
+                <section className="w-full relative flex justify-center items-center pt-5">
                     {selectMethod === CASH && <PaymentAtm preferenceId={preferenceId}/>}
                     {selectMethod === DEBIT_CREDIT && <PaymentDebitCredit preferenceId={preferenceId}/>}
                     {selectMethod === MP && <Wallet 
@@ -157,7 +154,7 @@ function CheckoutPayment() {
                                     visual:{ buttonBackground: 'black'}
                                 }
                             } />}
-                    {!preferenceId && <div className="w-full h-full flex justify-center items-center absolute top-0 left-0 z-10 py-10 bg-[#ffffff96]"> 
+                    {show && <div className="w-full h-full flex justify-center items-center absolute top-0 left-0 z-10 py-10 bg-[#ffffff96]"> 
                         <div className="w-[40px] h-[40px] rounded-full animate-spin border-t border-l border-black"></div> 
                     </div>}
                 </section>
