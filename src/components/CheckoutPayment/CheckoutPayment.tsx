@@ -1,7 +1,4 @@
 import { useEffect, useState } from "react"
-// import credit from "../../assets/paymentMethod/Credito.png"
-// import debit from "../../assets/paymentMethod/Debito.png"
-// import mp from "../../assets/paymentMethod/mercadopago.png"
 import { card, card2, money, mp } from "../../assets/paymentMethod/Methods"
 import { Wallet, initMercadoPago } from "@mercadopago/sdk-react"
 import { deliverySvg, letterSVG, ubicationSvg } from "../../assets/IconSvgs/IconSvgs"
@@ -13,27 +10,10 @@ import postalCodes from "../../utils/postalCodes.json"
 import ArrowBefore from "../ArrowBefore/ArrowBefore"
 import PaymentDebitCredit from "../PaymentDebitCredit/PaymentDebitCredit"
 import PaymentAtm from "../PaymentAtm/PaymentAtm"
+import MethodsPayment from "../MethodsPayment/MethodsPayment"
 const {VITE_MP_P_KEY, VITE_URL_BASE} = import.meta.env
 
-interface MethodsPaymentProp {
-    onClick?: () => void;
-    image?:string | React.ReactNode;
-    method?:string;
-    typeImage?:string
-}
 
-function MethodsPayment ({onClick, image, method, typeImage}:MethodsPaymentProp) {
-    return (
-        <div className={`w-full min-h-[80px] relative hover:bg-neutral-200 cursor-pointer transition-colors duration-700 flex justify-center items-center flex-col flex-1 bg-blued-500`} 
-                onClick={onClick}>
-                <picture className="flex gap-x-2">
-                    {typeImage === "img" && typeof image === "string" ? <img src={image}/> : image}
-                </picture>
-                <h3 className="text-xs tracking-widest font-semibold text-neutral-800">{method}</h3>
-                <i className="absolute right-8 scale-150 text-[#393939]  bx bx-chevron-right"/>
-        </div>
-    )
-}
 
 
 function CheckoutPayment() {
@@ -48,16 +28,16 @@ function CheckoutPayment() {
     const [show, setShow] = useState(true)
 
     useEffect(() => {
-        setShow(true) 
-        initMercadoPago(VITE_MP_P_KEY, { locale: 'es-AR' })
+    // initMercadoPago(VITE_MP_P_KEY_BRICKS, { locale: 'es-AR' })
+    initMercadoPago(VITE_MP_P_KEY, { locale: 'es-AR' })
     },[])
     
-    async function createPreference () {
+    async function createPreferencePro () {
         setTimeout(() => {
             setShow(false) 
         }, 2000);
 
-        const response = await fetch(`${VITE_URL_BASE}/create_preference`, {
+        const response = await fetch(`${VITE_URL_BASE}/payment/create_preference/pro`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -69,6 +49,23 @@ function CheckoutPayment() {
         
         setPreferenceId(preference.id);
         
+    }
+    async function createPreferenceBricks () {
+        setTimeout(() => {
+            setShow(false) 
+        }, 2000);
+
+        const response = await fetch(`${VITE_URL_BASE}/payment/create_preference/brick`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({products, code:profilePurchase.discountCode}),
+        });
+    
+        const preference = await response.json();
+        
+        setPreferenceId(preference.id);
     }
 
     const [nameMethod, delivery] = profilePurchase?.methodOfDelivery.split("_") || "";
@@ -131,16 +128,16 @@ function CheckoutPayment() {
 
             {!selectMethod && <section className="w-full flex justify-start items-start flex-col bg-redd-500">
 
-                <MethodsPayment method="MERCADO PAGO" image={mp} onClick={() => {setSelectMethod(MP); createPreference()}}/>
-                <MethodsPayment method="DÉBITO | CRÉDITO" image={<>{card}{card2}</>} onClick={() => {setSelectMethod(DEBIT_CREDIT); createPreference()}}/>
-                <MethodsPayment method="EFECTIVO" image={money} onClick={() => {setSelectMethod(CASH); createPreference()}}/>
+                <MethodsPayment method="MERCADO PAGO" image={mp} onClick={() => {setSelectMethod(MP); createPreferencePro()}}/>
+                <MethodsPayment method="DÉBITO | CRÉDITO" image={<>{card}{card2}</>} onClick={() => {setSelectMethod(DEBIT_CREDIT); createPreferenceBricks()}}/>
+                <MethodsPayment method="EFECTIVO" image={money} onClick={() => {setSelectMethod(CASH); createPreferencePro()}}/>
 
             </section>}
 
             {selectMethod && 
             <section className="w-full bg-redd-500 relative">
                 <div className="w-full relative flex justify-between items-center bg-blued-500">
-                    <ArrowBefore onClick={() => (setSelectMethod(null), setPreferenceId(""), setShow(true) )} text="Metodos de Pago" stylePosition="" /> 
+                    <ArrowBefore onClick={() => (setSelectMethod(null), setShow(true) )} text="Metodos de Pago" stylePosition="" /> 
                     <h4>{selectMethod}</h4>
                 </div>
                 <section className="w-full relative flex justify-center items-center pt-5">
