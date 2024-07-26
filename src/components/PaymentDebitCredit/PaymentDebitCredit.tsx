@@ -1,7 +1,7 @@
 import { Payment } from '@mercadopago/sdk-react';
-import { initMercadoPago } from "@mercadopago/sdk-react"
-import { useEffect } from 'react';
-const {VITE_MP_P_KEY_BRICKS, VITE_URL_BASE } = import.meta.env
+// import { initMercadoPago } from "@mercadopago/sdk-react"
+// import { useEffect } from 'react';
+const { VITE_URL_BASE } = import.meta.env
 
 declare global {
     interface Window {
@@ -16,10 +16,6 @@ preferenceId: string;
 
 function PaymentDebitCredit  ({preferenceId}: PaymentBrickProp) {
 
-  useEffect(() => {
-    initMercadoPago(VITE_MP_P_KEY_BRICKS, { locale: 'es-AR' })
-},[])
-
   const initialization = {
     amount: 100,
     preferenceId: preferenceId,
@@ -29,15 +25,12 @@ function PaymentDebitCredit  ({preferenceId}: PaymentBrickProp) {
   const customization = {
     visual: {
       hideFormTitle: true,
-      style: {
-        theme: "default",
-      },
     },
     paymentMethods: {
-      creditCard: "all",
-              debitCard: "all",
-              bankTransfer: "all",
-              atm: "all",
+      creditCard: "all" as "all",
+      debitCard: "all" as "all",
+      bankTransfer: "all",
+      atm: "all",
       maxInstallments: 1
     },
   }
@@ -79,14 +72,16 @@ function PaymentDebitCredit  ({preferenceId}: PaymentBrickProp) {
     */
    };
 
-  return <Payment
-  initialization={initialization}
-  customization={customization}
-  onSubmit={onSubmit}
-  onReady={onReady}
-  onError={onError}
-
-/>;
+  return <div className='w-full'>
+    <Payment
+      initialization={initialization}
+      customization={customization}
+      onSubmit={onSubmit}
+      onReady={onReady}
+      onError={onError}
+  
+    />    
+  </div>;
 };
 
 export default PaymentDebitCredit;
