@@ -29,9 +29,9 @@ function PaymentDebitCredit  ({preferenceId}: PaymentBrickProp) {
 
   
   const customization = {
-    // visual: {
-      // hideFormTitle: true,
-    // },
+    visual: {
+      hideFormTitle: true,
+    },
     paymentMethods: {
       creditCard: "all" as "all" ,
       debitCard: "all" as "all" ,
