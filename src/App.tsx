@@ -8,6 +8,9 @@ import { useSelector } from "react-redux"
 import { RootState } from "./redux/store"
 import Checkout from "./views/Checkout/Checkout"
 import ScrollToTop from "./middleware/ScrollToTop/ScrollToTop"
+// import CheckoutCart from "./components/CheckoutCart/CheckoutCart"
+// import CheckoutPayment from "./components/CheckoutPayment/CheckoutPa}yment"
+// import CheckoutDelivery from "./components/CheckoutDelivery/CheckoutDelivery"
 const { VITE_R_SA } = import.meta.env
 
 function App() {
@@ -19,7 +22,8 @@ function App() {
     <Routes>
       <Route path="/" element={<Shop/>}/>
       <Route path="/shop" element={<Shop/>}/>
-      <Route path="/checkout" element={<Checkout/>}/>
+
+      <Route path="/checkout/*" element={<Checkout/>}/>
 
       <Route element={<RouterProtection isAllowed={role === VITE_R_SA} redirectTo="/shop"/>}>
             <Route path="/admin" element={<Admin/>}/> 

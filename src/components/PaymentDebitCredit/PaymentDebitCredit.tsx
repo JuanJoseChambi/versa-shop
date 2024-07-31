@@ -1,5 +1,5 @@
 import { Payment } from '@mercadopago/sdk-react';
-import { error as errorAlert, normal } from '../../utils/alert';
+// import { error as errorAlert, normal } from '../../utils/alert';
 const { VITE_URL_BASE } = import.meta.env
 
 declare global {
@@ -52,7 +52,7 @@ function PaymentDebitCredit  ({preferenceId}: PaymentBrickProp) {
       }
       console.log(generateUUID());
       
-      formData.description = "Debito o credito";
+      formData.description = selectedPaymentMethod;
       fetch(`${VITE_URL_BASE}/payment/process_payment`, {
         method: "POST",
         headers: {
@@ -75,14 +75,14 @@ function PaymentDebitCredit  ({preferenceId}: PaymentBrickProp) {
   const onError = async (error: any) => {
     // callback llamado para todos los casos de error de Brick
     console.log(error);
-    errorAlert(error)
+    // errorAlert(error)
   };
   const onReady = async () => {
       /*
       Callback llamado cuando el Brick está listo.
       Aquí puede ocultar cargamentos de su sitio, por ejemplo.
      */
-    normal("Brick Listo!")
+    // normal("Brick Listo!")
   };
 
   return <div className='w-full'>

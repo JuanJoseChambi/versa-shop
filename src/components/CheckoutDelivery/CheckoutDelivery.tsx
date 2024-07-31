@@ -10,12 +10,10 @@ import { ubicationSvg, deliverySvg } from "../../assets/IconSvgs/IconSvgs"
 import methodDelivery from "../../utils/methodDelivery"
 import postalCodes from "../../utils/postalCodes.json"
 import React from "react"
+import { Link } from "react-router-dom"
 
-interface PropCheckoutDelivery {
-    setCheckout: () => void
-}
 
-function CheckoutDelivery({setCheckout}:PropCheckoutDelivery) {
+function CheckoutDelivery() {
     
     
     const [personalInformation, setPersonalInformation] = useState<boolean>(true)
@@ -85,7 +83,7 @@ function CheckoutDelivery({setCheckout}:PropCheckoutDelivery) {
                     text="Validar" 
                     style={`w-[80%] py-2 bg-neutral-800 text-white rounded-sm tracking-widest font-extralight`} 
                     onClick={() => {setPersonalInformation(false), setDelivery(true)}}
-                    disable={!profilePurchase.email || !profilePurchase.phone}
+                    disable={!profilePurchase.email || !profilePurchase.phone || !profilePurchase.country || !profilePurchase.city || !profilePurchase.postalCode}
                     />
             </div>
 
@@ -211,12 +209,12 @@ function CheckoutDelivery({setCheckout}:PropCheckoutDelivery) {
                 }
 
                 <div className="w-full flex justify-center items-center">
-                <Button 
-                    text="Validar" 
-                    style="w-[80%] py-2 bg-neutral-800 text-white rounded-sm tracking-widest font-extralight" 
-                    onClick={setCheckout} // !profilePurchase.receives
-                    disable={!profilePurchase.id || !profilePurchase.name || !profilePurchase.lastname || !profilePurchase.postalCode || !profilePurchase.street || !profilePurchase.number || !profilePurchase.neighborhood || !profilePurchase.city }
-                    />
+                    
+                    <Link to={"/checkout/payment"} 
+                        className={`w-[80%] py-2 rounded-sm tracking-widest font-extralight flex justify-center items-center
+                        ${!profilePurchase.id || !profilePurchase.name || !profilePurchase.lastname || !profilePurchase.postalCode || !profilePurchase.street || !profilePurchase.number || !profilePurchase.neighborhood || !profilePurchase.city 
+                            ? "pointer-events-none select-none bg-zinc-400 text-neutral-300" 
+                            : "bg-neutral-800 text-white"} `}>Validar</Link>
                 </div>
 
         </section>

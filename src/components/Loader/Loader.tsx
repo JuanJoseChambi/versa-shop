@@ -8,7 +8,7 @@ function Loader({active}:LoaderProp) {
     if (!active) return
 
   return (
-    <main className="w-full h-screen fixed top-0 left-0 flex justify-center items-center flex-col bg-white z-[110]">
+    <main className="w-screen h-screen fixed top-0 left-0 flex justify-center items-center flex-col bg-white z-[110]">
       <section className="my-auto flex justify-center items-center flex-col gap-y-4">
         <i className="bx bx-loader-alt bx-spin text-3xl text-neutral-800"></i>
         <h3 className="text-sm text-neutral-700 font-semibold tracking-widest animate-pulse">LOADING</h3>
