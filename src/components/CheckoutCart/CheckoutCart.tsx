@@ -17,7 +17,7 @@ function CheckoutCart() {
             <TitleDashboard titles={
                 [
                     {text:"Producto", width:"w-[60%]"},
-                    {text:"Talla",width:"w-[15%]"},
+                    {text:"Unidades",width:"w-[15%]"},
                     {text:"Precio",width:"w-[15%]"},
                     {text:"Subtotal",width:"w-[15%]"}
                 ]

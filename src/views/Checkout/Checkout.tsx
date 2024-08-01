@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux"
 import Nav from "../../components/Nav/Nav"
 import { AppDispatch, RootState } from "../../redux/store"
 import Button from "../../components/Button/Button"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import CheckoutCart from "../../components/CheckoutCart/CheckoutCart"
 import SummaryCart from "../../components/SummaryCart/SummaryCart"
 import SummaryProfile from "../../components/SummaryProfile/SummaryProfile"
@@ -12,7 +12,8 @@ import { fetchPOST } from "../../utils/fetchPOST"
 import { ResponseData } from "../../interfaces/interfaces"
 import { useEncode } from "../../hooks/useEncode"
 import { Link, Route, Routes, useNavigate } from "react-router-dom"
-import shop from "../../assets/checkout/shop.svg"
+import logo from "../../assets/Icon/V3.1.1.png"
+// import shop from "../../assets/checkout/shop.svg"
 // import { deletePreferenceProfile } from "../../redux/slice/preferenceProfileSlice"
 import ArrowBefore from "../../components/ArrowBefore/ArrowBefore"
 import CheckoutPayment from "../../components/CheckoutPayment/CheckoutPayment"
@@ -36,6 +37,10 @@ function Checkout() {
   const { profilePurchase } = useSelector((state:RootState) => state.preferenceProfile)
   const subtotal = cart.map(product => product.price * product.cantidad).reduce((accumulator, current) => accumulator + current, 0)
 
+  const [saleCreated, setSaleCreated] = useState<boolean>(false)
+  const [approvedSale, setApprovedSale] = useState<{payment?:string, purchase?:string}>({payment:"", purchase:""})
+
+  // const [purchaseHandled, setPurchaseHandled] = useState(false);
   // const configStateCheckout:ConfigStateCheckout = {
   //   cart: {
   //     component: <CheckoutCart/>,
@@ -60,6 +65,7 @@ function Checkout() {
   const cartProducts = decode(VITE_C_CART)
     
   async function handlerPurchase (payment_id:string) {
+    console.log('handlerPurchase called');
     const {data} = await fetchPOST(`${VITE_URL_BASE}/purchase/create`, { 
       city: profilePurchase.city,
       country: profilePurchase.country,
@@ -85,7 +91,9 @@ function Checkout() {
     if (!data.error) {
       // dispatch(deletePreferenceProfile())
       dispatch(deleteAllCart())
-      return success(data.message)
+      setApprovedSale({payment:payment_id, purchase:"Aprobado"})
+      approvedSale.payment && approvedSale.purchase && success(data.message)
+      // return
     }
   }
 
@@ -96,11 +104,11 @@ function Checkout() {
       params[key] = value;
     }
     if (params["status"] === "approved" && cartProducts.length > 0) {
+      setSaleCreated(true)
       handlerPurchase(params["payment_id"])
     } 
-    // console.log(params);
-    // console.log(profilePurchase);
-    
+    console.log(params);
+    console.log(approvedSale);
   },[])
   
   // const { component, state } = configStateCheckout[checkout] || {component: null, state: ""};
@@ -111,7 +119,7 @@ function Checkout() {
         <Nav style="sticky"/>
         {cartProducts?.length > 0
           ? 
-            <section className="w-area mx-auto min-h-96 relative flex justify-evenly items-start flex-col gap-y-8 lg:gap-0 lg:flex-row pt-10 bg-blued-500"> 
+            <section className="w-area mx-auto min-h-96 relative flex justify-start lg:justify-evenly items-start flex-col gap-y-8 lg:gap-0 lg:flex-row pt-10 bg-blued-500"> 
               <section className="w-full lg:w-[65%] h-auto lg:min-h-[500px] px-3 bg-redd-500">
 
                 {(window.location.pathname === "/checkout/delivery" || window.location.pathname === "/checkout/paymenyt") && <CheckoutProgress currentCheckout={window.location.pathname.split("/").reverse()[0]}/>}
@@ -139,14 +147,63 @@ function Checkout() {
               
             </section>
           :
-            <section className="w-[95%] min-h-[200px] mx-auto flex justify-center items-center flex-col py-10 bg-neutral-200 rounded-md">
-              <img src={shop} alt="" className="w-[200px] bg-redd-500"/>
-              <h2 className="text-sm font-semibold text-neutral-800 tracking-widest">No hay productos en el carrito</h2>
+            <section className="w-[95%] h-[85vh] mx-auto flex justify-center items-center flex-col py-10 bg-redd-500 rounded-md">
+              {/* <img src={shop} alt="" className="w-[200px] bg-redd-500"/> */}
+              <i className="bx bx-cart text-[130px] relative flex justify-center items-center bg-redd-500">
+                <i className="bx bx-error-circle text-[40px] absolute -top-5 right-9 text-rose-600"/>
+                </i>
+              <h2 className="text-sm font-semibold text-neutral-800 tracking-widest">No existen productos en en carrito</h2>
               <Link to={"/shop"}>
                 <h3 className="text-xs pt-5">Seguir comprando</h3>
               </Link>
             </section>
         }
+
+        {saleCreated && 
+          <section className="w-full h-screen flex justify-center items-center flex-col gap-y-5 fixed top-0 left-0 bg-[#f9f9f9]">
+            { approvedSale?.payment && approvedSale?.purchase 
+            ? 
+              <section className="w-full h-screen flex justify-center items-center flex-col gap-y-5 fixed top-0 left-0 bg-[#f9f9f9]">
+                <section className="max-w-[400px] mx-5 h-auto relative px-6 py-6 flex flex-col bg-white text-gray-800 rounded-lg shadow-lg shadow-neutral-400">
+                  <div className="flex justify-between items-center w-full mb-4">
+                    <ArrowBefore onClick={() => { navigate('/') }} text="Inicio" styleText="text-xs font-extralight flex juscify-start items-center" style="text-gray-800" styleIcon="text-sm"/>
+                    <picture className="w-[40px] mx-auto">
+                      <img src={logo} alt="Versa Shop" className="drop-shadow-[0px_3px_3px_#262626] bg-neutrald-800"/>
+                    </picture>
+                  </div>
+                  <div className="w-full mb-2">
+                    <p className="text-xs text-gray-600">Pago ID: # {approvedSale?.payment}</p>
+                    <p className="text-xs text-green-600 font-bold">{approvedSale?.purchase}</p>
+                  </div>
+                  <p className="text-lg font-semibold mb-2">¡Gracias por tu compra!</p>
+                  <p className="text-sm mb-3">En breve recibirás en tu correo Gmail toda la información sobre tu pedido. ¡Esperamos que disfrutes tu producto!</p>
+                  <p className="text-sm">Saludos cordiales,</p>
+                  <p className="text-sm font-noto font-bold">Versa</p>
+                </section>
+              </section>
+
+            // <section className="max-w-[400px] mx-5 h-60 relative px-4 py-3 flex justify-evenly items-center flex-col bg-neutral-800 text-gray-200 rounded-sm">
+            //     <ArrowBefore onClick={() => { navigate('/') }} text="Inicio" styleText="text-xs font-extralight" style="text-white flex jusctify-center items-center" styleIcon="text-sm"/>
+            //     <picture className="w-[40px] flex justify-center items-center">
+            //       <img src={logo} alt="Versa Shop" />
+            //     </picture>
+            //     {/* <h3 className="w-full font-noto">Versa</h3> */}
+            //     <div className="w-full flex justify-between items-center">
+            //       <p className="w-full text-xs font-extralight">Pago ID: # {approvedSale?.payment}</p>
+            //       <p className="text-xs text-green-500 font-extralight">{approvedSale?.purchase}</p>
+            //     </div>
+            //     <p className="text-sm font-extralight">¡Gracias por tu compra! En breve recibirás en tu correo Gmail toda la información sobre tu pedido. ¡Esperamos que disfrutes tu producto!</p>
+            //     <p className="w-full text-sm font-extralight">Saludos cordiales,</p>
+            //     <p className="w-full text-sm font-noto font-semibold">Versa</p>
+            // </section>
+          
+            : 
+              <>
+                <div className="w-[40px] h-[40px] rounded-full border-t-2 border-r-2  border-black animate-spin"></div>
+                <h3 className="text-neutral-800 text-sm font-semibold">Cargando...</h3>
+              </>
+            }
+          </section>}
     </main>
   )
 }
