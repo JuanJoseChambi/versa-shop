@@ -13,6 +13,7 @@ import ScrollToTop from "./middleware/ScrollToTop/ScrollToTop"
 // import CheckoutDelivery from "./components/CheckoutDelivery/CheckoutDelivery"
 const { VITE_R_SA } = import.meta.env
 
+
 function App() {
   const { role } = useSelector((state:RootState) => state.auth.user)
 
